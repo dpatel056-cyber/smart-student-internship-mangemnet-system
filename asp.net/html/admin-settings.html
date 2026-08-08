@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Settings - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .set-nav { display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px; }
+  .set-section { background:#fff;border:1px solid var(--border-light);border-radius:12px;padding:20px;margin-bottom:20px; }
+  .set-section-title { font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:16px;display:flex;align-items:center;gap:10px; }
+  .set-section-title i { color:var(--primary); }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">System Settings<span>Manage core platform configurations</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm"></span>
+          <span class="dash-name" id="dashNameTop"></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav -->
+      <div class="set-nav">
+        <a href="admin-settings.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-gear"></i> General Settings</a>
+        <a href="admin-roles.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-users-gear"></i> Roles & Permissions</a>
+        <a href="admin-change-password.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-lock"></i> Change Password</a>
+        <a href="admin-theme.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-palette"></i> Theme & Appearance</a>
+        <a href="admin-backup.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-database"></i> Backup & Restore</a>
+        <a href="admin-activity-logs.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-clock-rotate-left"></i> Audit Logs</a>
+      </div>
+
+      <div class="co-grid-2">
+        <div class="set-section">
+          <h3 class="set-section-title"><i class="fa-solid fa-globe"></i> Website Settings</h3>
+          <div class="co-form-group">
+            <label>Platform Name</label>
+            <input type="text" class="co-input" value="Smart Student Internship Management System">
+          </div>
+          <div class="co-form-group">
+            <label>Support Email</label>
+            <input type="email" class="co-input" value="support@sims.edu">
+          </div>
+          <div class="co-form-group" style="margin-bottom:0;">
+            <label>Contact Number</label>
+            <input type="text" class="co-input" value="+91 98765 43210">
+          </div>
+        </div>
+
+        <div class="set-section">
+          <h3 class="set-section-title"><i class="fa-solid fa-envelope"></i> Email Settings (SMTP)</h3>
+          <div class="co-form-group">
+            <label>SMTP Host</label>
+            <input type="text" class="co-input" value="smtp.office365.com">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div class="co-form-group">
+              <label>SMTP Port</label>
+              <input type="text" class="co-input" value="587">
+            </div>
+            <div class="co-form-group">
+              <label>Encryption</label>
+              <select class="co-input"><option>TLS</option><option>SSL</option><option>None</option></select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="co-grid-2">
+        <div class="set-section">
+          <h3 class="set-section-title"><i class="fa-solid fa-shield-halved"></i> Security & Limits</h3>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border-light);">
+            <div style="font-size:13px;font-weight:600;">Require Email Verification for Students</div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border-light);">
+            <div style="font-size:13px;font-weight:600;">Manual Approval for Companies</div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="co-form-group" style="margin-top:16px;margin-bottom:0;">
+            <label>Max Login Attempts</label>
+            <input type="number" class="co-input" value="5">
+          </div>
+        </div>
+
+        <div class="set-section">
+          <h3 class="set-section-title"><i class="fa-solid fa-bell"></i> Notification Settings</h3>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border-light);">
+            <div style="font-size:13px;font-weight:600;">Email on New Registration</div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border-light);">
+            <div style="font-size:13px;font-weight:600;">Email on Internship Posted</div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fff;padding:20px;border-top:1px solid var(--border-light);display:flex;gap:12px;justify-content:flex-end;">
+        <button class="btn btn-ghost">Reset Settings</button>
+        <button class="btn btn-primary" onclick="simsShowToast('Settings saved successfully!','success')">Save Changes</button>
+      </div>
+
+    </main>
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+</body>
+</html>

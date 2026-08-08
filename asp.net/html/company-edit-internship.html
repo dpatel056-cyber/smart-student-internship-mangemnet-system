@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Internship - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Edit Internship<span>Update your existing internship posting</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="badge">2</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">TN</span>
+          <span class="dash-name" id="dashNameTop">TechNova Pvt Ltd<span>Company</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="company-profile.html"><i class="fa-solid fa-building"></i> Company Profile</a>
+            <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+            <hr>
+            <a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <div class="co-page-header">
+        <div class="co-page-header-left">
+          <h1>Edit Internship</h1>
+          <p>Update the details of your Frontend Developer Intern position.</p>
+        </div>
+      </div>
+
+      <form id="editInternshipForm" novalidate>
+
+        <!-- Section 1: Basic Info -->
+        <div class="co-form-section">
+          <h3><i class="fa-solid fa-circle-info"></i> Basic Information</h3>
+          <div class="co-form-grid-2">
+            <div class="co-form-group full">
+              <label for="internshipTitle">Internship Title <span style="color:#ef4444">*</span></label>
+              <input type="text" id="internshipTitle" value="Frontend Developer Intern" required>
+            </div>
+            <div class="co-form-group">
+              <label for="category">Internship Category <span style="color:#ef4444">*</span></label>
+              <select id="category" required>
+                <option value="">Select Category</option>
+                <option selected>Software Development</option>
+                <option>Data Science &amp; Analytics</option>
+                <option>UI/UX Design</option>
+                <option>Digital Marketing</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="co-form-group">
+              <label for="department">Department</label>
+              <input type="text" id="department" value="Engineering">
+            </div>
+            <div class="co-form-group">
+              <label for="internshipType">Internship Type <span style="color:#ef4444">*</span></label>
+              <select id="internshipType" required>
+                <option value="">Select Type</option>
+                <option selected>Full Time</option>
+                <option>Part Time</option>
+                <option>Remote</option>
+                <option>Hybrid</option>
+              </select>
+            </div>
+            <div class="co-form-group">
+              <label for="location">Location <span style="color:#ef4444">*</span></label>
+              <input type="text" id="location" value="Ahmedabad, Gujarat" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Stipend, Duration, Vacancies -->
+        <div class="co-form-section">
+          <h3><i class="fa-solid fa-indian-rupee-sign"></i> Compensation &amp; Duration</h3>
+          <div class="co-form-grid-2">
+            <div class="co-form-group">
+              <label for="stipend">Stipend (per month)</label>
+              <input type="text" id="stipend" value="₹15,000">
+            </div>
+            <div class="co-form-group">
+              <label for="duration">Duration <span style="color:#ef4444">*</span></label>
+              <select id="duration" required>
+                <option value="">Select Duration</option>
+                <option>1 Month</option>
+                <option>2 Months</option>
+                <option>3 Months</option>
+                <option>4 Months</option>
+                <option selected>6 Months</option>
+                <option>1 Year</option>
+              </select>
+            </div>
+            <div class="co-form-group">
+              <label for="vacancies">Number of Vacancies <span style="color:#ef4444">*</span></label>
+              <input type="number" id="vacancies" min="1" value="5" required>
+            </div>
+            <div class="co-form-group">
+              <label for="lastDate">Last Date to Apply <span style="color:#ef4444">*</span></label>
+              <input type="date" id="lastDate" value="2026-07-30" required>
+            </div>
+            <div class="co-form-group">
+              <label for="status">Status</label>
+              <select id="status">
+                <option value="active" selected>Active</option>
+                <option value="draft">Draft</option>
+                <option value="closed">Closed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Skills & Eligibility -->
+        <div class="co-form-section">
+          <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Skills &amp; Eligibility</h3>
+          <div class="co-form-grid-2">
+            <div class="co-form-group">
+              <label for="skillInput">Required Skills</label>
+              <div style="display:flex;gap:8px;margin-bottom:10px;">
+                <input type="text" id="skillInput" placeholder="Type a skill and press Add">
+                <button type="button" id="addSkillBtn" class="btn btn-ghost" style="white-space:nowrap;padding:9px 14px;font-size:13px;">+ Add</button>
+              </div>
+              <div id="skillTags" style="display:flex;flex-wrap:wrap;gap:8px;min-height:36px;"></div>
+            </div>
+            <div class="co-form-group">
+              <label for="eligibility">Eligibility Criteria</label>
+              <textarea id="eligibility" rows="4">B.Tech/B.E. in Computer Science or equivalent. Min 7.0 CGPA.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Details -->
+        <div class="co-form-section">
+          <h3><i class="fa-solid fa-file-lines"></i> Internship Description &amp; Details</h3>
+          <div class="co-form-group full" style="margin-bottom:18px;">
+            <label for="description">Internship Description <span style="color:#ef4444">*</span></label>
+            <textarea id="description" rows="5" required>We are looking for a passionate Frontend Developer Intern to join our Engineering team. You will be responsible for building intuitive user interfaces, optimizing web applications for maximum speed, and collaborating with our design and backend teams to deliver high-quality software products.</textarea>
+          </div>
+          <div class="co-form-grid-2">
+            <div class="co-form-group">
+              <label for="responsibilities">Key Responsibilities</label>
+              <textarea id="responsibilities" rows="5">• Develop and maintain web applications using React.js&#10;• Collaborate with design and backend teams&#10;• Write clean, efficient, and well-documented code&#10;• Optimize applications for maximum speed and scalability</textarea>
+            </div>
+            <div class="co-form-group">
+              <label for="benefits">Benefits &amp; Perks</label>
+              <textarea id="benefits" rows="5">• Certificate of Internship&#10;• Letter of Recommendation&#10;• Pre-Placement Offer (PPO) for top performers&#10;• Flexible working hours&#10;• Free snacks and beverages in office</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:8px;">
+          <button type="submit" class="btn btn-primary" id="updateBtn" style="display:inline-flex;align-items:center;gap:8px;">
+            <span class="btn-spinner" id="updateSpinner" style="display:none;"></span>
+            <i class="fa-solid fa-floppy-disk"></i> Update Internship
+          </button>
+          <a href="company-manage-internships.html" class="btn btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-xmark"></i> Cancel
+          </a>
+        </div>
+
+      </form>
+    </main>
+
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links"><a href="#">Privacy Policy</a><span>|</span><a href="#">Terms &amp; Conditions</a><span>|</span><a href="#">Support</a></div>
+    </footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Company Dashboard?</p>
+    <div style="display:flex;gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1;justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1;justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/company-dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const internshipId = params.get('id');
+  const current = window.GlobalStore ? window.GlobalStore.getInternships().find(i => String(i.id) === String(internshipId)) : null;
+
+  if (current) {
+    const setVal = (id, value) => { const el = document.getElementById(id); if (el) el.value = value ?? ''; };
+    setVal('internshipTitle', current.title);
+    setVal('category', current.categoryLabel);
+    setVal('department', current.department || '');
+    setVal('internshipType', current.modeLabel === 'Work From Home' ? 'Remote' : current.modeLabel || 'Full Time');
+    setVal('location', current.location);
+    setVal('stipend', current.stipendType === 'unpaid' ? 'Unpaid' : (current.stipend ? `₹${Number(current.stipend).toLocaleString()}` : ''));
+    setVal('duration', current.durationLabel);
+    setVal('vacancies', current.vacancies || 1);
+    setVal('lastDate', current.lastDate || '');
+    setVal('status', (current.status || 'Active').toLowerCase());
+    setVal('description', current.description || '');
+    setVal('responsibilities', Array.isArray(current.responsibilities) ? current.responsibilities.join('\n') : (current.responsibilities || ''));
+    setVal('benefits', Array.isArray(current.benefits) ? current.benefits.join('\n') : (current.benefits || ''));
+    document.querySelector('.co-page-header p').textContent = `Update the details of your ${current.title}.`;
+    document.querySelector('.co-page-header h1').textContent = 'Edit Internship';
+  }
+
+  // Skills
+  const skillInput  = document.getElementById('skillInput');
+  const addSkillBtn = document.getElementById('addSkillBtn');
+  const skillTags   = document.getElementById('skillTags');
+  const skills = current && Array.isArray(current.skills)
+    ? current.skills.map(s => typeof s === 'string' ? s : (s.name || s))
+    : ['HTML', 'CSS', 'JavaScript', 'React.js', 'Git'];
+
+  function renderSkill(skill, index) {
+    const tag = document.createElement('span');
+    tag.style.cssText = 'display:inline-flex;align-items:center;gap:6px;background:#eff6ff;color:#2563eb;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:20px;';
+    tag.innerHTML = `${skill} <button type="button" style="background:none;border:none;cursor:pointer;color:#2563eb;font-size:13px;padding:0;line-height:1;" data-index="${index}">&times;</button>`;
+    tag.querySelector('button').addEventListener('click', () => {
+      skills.splice(index, 1);
+      renderAllSkills();
+    });
+    return tag;
+  }
+
+  function renderAllSkills() {
+    skillTags.innerHTML = '';
+    skills.forEach((s, i) => skillTags.appendChild(renderSkill(s, i)));
+  }
+
+  function addSkill() {
+    const val = skillInput.value.trim();
+    if (!val) return;
+    if (skills.includes(val)) { skillInput.value = ''; return; }
+    skills.push(val);
+    skillInput.value = '';
+    renderAllSkills();
+  }
+
+  addSkillBtn.addEventListener('click', addSkill);
+  skillInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addSkill(); } });
+  renderAllSkills();
+
+  // Form Submit
+  const form = document.getElementById('editInternshipForm');
+  const updateBtn = document.getElementById('updateBtn');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let hasError = false;
+    const req = ['internshipTitle', 'category', 'internshipType', 'location', 'duration', 'vacancies', 'lastDate', 'description'];
+    req.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.borderColor = '';
+      if (!el || !el.value.trim()) {
+        if(el) el.style.borderColor = '#ef4444';
+        hasError = true;
+      }
+    });
+
+    if (hasError) {
+      if (window.simsShowToast) window.simsShowToast('Please fill all required fields.', 'error');
+      return;
+    }
+
+    updateBtn.disabled = true;
+    const spinner = document.getElementById('updateSpinner');
+    if (spinner) spinner.style.display = 'inline-block';
+    const icon = updateBtn.querySelector('i');
+    if (icon) icon.className = '';
+
+    setTimeout(() => {
+      const params = new URLSearchParams(window.location.search);
+      if (window.GlobalStore && internshipId) {
+        window.GlobalStore.updateInternship(internshipId, {
+          title: document.getElementById('internshipTitle').value,
+          categoryLabel: document.getElementById('category').options[document.getElementById('category').selectedIndex].text,
+          location: document.getElementById('location').value,
+          modeLabel: document.getElementById('internshipType').value,
+          stipend: document.getElementById('stipend').value || 0,
+          durationLabel: document.getElementById('duration').options[document.getElementById('duration').selectedIndex].text,
+          status: document.getElementById('status').value === 'closed' ? 'Closed' : 'Active',
+          description: document.getElementById('description').value,
+          responsibilities: document.getElementById('responsibilities').value,
+          benefits: document.getElementById('benefits').value,
+          skills: skills.map(name => ({ name }))
+        });
+      }
+      updateBtn.disabled = false;
+      if (spinner) spinner.style.display = 'none';
+      if (icon) icon.className = 'fa-solid fa-floppy-disk';
+      if (window.simsShowToast) window.simsShowToast('Internship updated successfully!', 'success');
+      setTimeout(() => { window.location.href = 'company-manage-internships.html'; }, 1400);
+    }, 1200);
+  });
+});
+</script>
+</body>
+</html>

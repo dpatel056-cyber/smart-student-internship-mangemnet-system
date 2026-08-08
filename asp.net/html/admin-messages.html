@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Messages / Chat - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<link rel="stylesheet" href="../css/communication-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Messages / Chat<span>Direct communication with students and companies</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="admin-notifications.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-bell"></i> Notifications</a>
+        <a href="admin-messages.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-message"></i> Messages</a>
+        <a href="admin-contact.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-address-book"></i> Contact Us</a>
+        <a href="admin-feedback.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-star-half-stroke"></i> Feedback</a>
+        <a href="admin-reports.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-file-invoice"></i> Reports</a>
+        <a href="admin-analytics.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+        <a href="admin-email-templates.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-envelope-open-text"></i> Email Templates</a>
+      </div>
+
+      <div class="msg-layout">
+        <!-- Contact List Sidebar -->
+        <div class="msg-sidebar">
+          <div class="msg-sidebar-header">
+            <h3>Conversations</h3>
+            <div class="msg-search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="chatSearchInput" placeholder="Search chats...">
+            </div>
+          </div>
+          <ul class="msg-contact-list" id="contactList">
+            <!-- Injected by JS -->
+          </ul>
+        </div>
+
+        <!-- Chat Window -->
+        <div class="msg-chat" id="chatWindow">
+          <div class="msg-chat-header" id="chatHeader">
+            <div class="msg-avatar" id="chatAvatar" style="background:#eff6ff;color:#2563eb;">SA</div>
+            <div>
+              <h4 class="msg-chat-name" id="chatName">Select a conversation</h4>
+              <p class="msg-chat-status" id="chatStatus">Choose a contact to start chatting</p>
+            </div>
+          </div>
+
+          <div class="msg-chat-body" id="chatBody">
+            <div style="text-align:center; color:#94a3b8; padding-top: 100px;">
+              <i class="fa-solid fa-comments" style="font-size:48px; margin-bottom:16px; display:block;"></i>
+              <p>Select a conversation to view messages</p>
+            </div>
+          </div>
+
+          <div class="msg-chat-input" style="position:relative;">
+            <div class="msg-emoji-picker" id="emojiPicker">
+              <div class="msg-emoji-grid" id="emojiGrid"></div>
+            </div>
+            <button class="msg-input-btn msg-emoji-btn" id="emojiBtn" title="Emoji"><i class="fa-regular fa-face-smile"></i></button>
+            <button class="msg-input-btn msg-attach-btn" id="attachBtn" title="Attach file"><i class="fa-solid fa-paperclip"></i></button>
+            <input type="text" class="msg-input" id="msgInput" placeholder="Type a message...">
+            <button class="msg-input-btn msg-send-btn" id="sendBtn" title="Send"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script src="../js/messages.js"></script>
+</body>
+</html>

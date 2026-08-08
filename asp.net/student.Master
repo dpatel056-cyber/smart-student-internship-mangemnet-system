@@ -1,0 +1,145 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="student.master.cs" Inherits="asp.net.student" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - SIMS | Smart Student Internship Management System</title>
+    <meta name="description" content="SIMS Student Dashboard - Explore internships, manage applications, and build your career.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<%= ResolveUrl("~/css/style.css") %>">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="dashboard-body">
+    <form id="form1" runat="server">
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+        <div class="dashboard-shell">
+            <!-- Sidebar -->
+            <aside class="dashboard-sidebar" id="dashboardSidebar">
+                <a href="student-dashboard.aspx" class="sidebar-brand">
+                    <span class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+                    <span class="brand-text">
+                        <span class="brand-name">SIMS</span>
+                        <span class="brand-sub">Student Panel</span>
+                    </span>
+                </a>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li><a href="student-dashboard.aspx" class="sidebar-link active" id="sl-dashboard">
+                            <i class="fa-solid fa-house"></i> Dashboard
+                        </a></li>
+                    </ul>
+                    <div class="sidebar-divider"></div>
+                    <p class="co-sidebar-label">Profile &amp; Career</p>
+                    <ul>
+                        <li><a href="my-profile.aspx" class="sidebar-link" id="sl-profile">
+                            <i class="fa-solid fa-user"></i> My Profile
+                        </a></li>
+                        <li><a href="resume-dashboard.aspx" class="sidebar-link" id="sl-resume">
+                            <i class="fa-solid fa-folder-open"></i> Resume Dashboard
+                        </a></li>
+                    </ul>
+                    <div class="sidebar-divider"></div>
+                    <p class="co-sidebar-label">Internships</p>
+                    <ul>
+                        <li><a href="internships.aspx" class="sidebar-link" id="sl-browse">
+                            <i class="fa-solid fa-magnifying-glass"></i> Browse Internships
+                        </a></li>
+                        <li><a href="my-applications.aspx" class="sidebar-link" id="sl-applications">
+                            <i class="fa-solid fa-clipboard-list"></i> My Applications
+                        </a></li>
+                        <li><a href="interview-schedule.aspx" class="sidebar-link" id="sl-interviews">
+                            <i class="fa-solid fa-calendar-check"></i> Interview Schedule
+                        </a></li>
+                    </ul>
+                    <div class="sidebar-divider"></div>
+                    <p class="co-sidebar-label">Documents &amp; Support</p>
+                    <ul>
+                        <li><a href="certificates-documents.aspx" class="sidebar-link" id="sl-certificates">
+                            <i class="fa-solid fa-certificate"></i> Certificates
+                        </a></li>
+                        <li><a href="notifications.aspx" class="sidebar-link" id="sl-notifications">
+                            <i class="fa-solid fa-bell"></i> Notifications
+                        </a></li>
+                    </ul>
+                    <div class="sidebar-divider"></div>
+                    <ul>
+                        <li>
+                            <asp:LinkButton ID="lbSidebarLogout" runat="server" OnClick="lbLogout_Click" CssClass="sidebar-link dropdown-danger">
+                                <i class="fa-solid fa-right-from-bracket"></i> Logout
+                            </asp:LinkButton>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Column -->
+            <div class="dashboard-main-col">
+                <!-- Topbar -->
+                <header class="dashboard-topbar">
+                    <div class="dashboard-topbar-left">
+                        <button type="button" class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle menu">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <div class="dashboard-page-title">
+                            Student Dashboard
+                            <span>Find opportunities and manage your applications</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-topbar-right">
+                        <button type="button" class="icon-btn dash-icon-btn" id="dashNotifBtn" aria-label="Notifications">
+                            <i class="fa-regular fa-bell"></i>
+                            <span class="badge">1</span>
+                        </button>
+                        <div class="dash-profile-trigger" id="dashProfileTrigger">
+                            <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">ST</span>
+                            <span class="dash-name" id="dashNameTop">
+                                <asp:Literal ID="litStudentName" runat="server" Text="Student" />
+                                <span>Student</span>
+                            </span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+                            <div class="profile-dropdown" id="profileDropdown">
+                                <a href="my-profile.aspx"><i class="fa-solid fa-user"></i> My Profile</a>
+                                <a href="settings.aspx"><i class="fa-solid fa-gear"></i> Settings</a>
+                                <hr>
+                                <asp:LinkButton ID="lbDropdownLogout" runat="server" OnClick="lbLogout_Click" CssClass="dropdown-danger">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                                </asp:LinkButton>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Dashboard Content Area -->
+                <main class="dashboard-content">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </main>
+
+                <!-- Footer -->
+                <footer class="dashboard-footer">
+                    <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+                </footer>
+            </div>
+        </div>
+    </form>
+
+    <!-- Sync Session with localStorage for client-side JS -->
+    <script>
+        try {
+            localStorage.setItem('simsSession', JSON.stringify({
+                role: 'student',
+                name: '<%= Session["UserName"] != null ? Session["UserName"].ToString().Replace("'", "\\'") : "Student" %>',
+                email: '<%= Session["UserEmail"] != null ? Session["UserEmail"].ToString().Replace("'", "\\'") : "student@sims.com" %>'
+            }));
+        } catch (e) { }
+    </script>
+    <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
+    <script src="<%= ResolveUrl("~/js/script.js") %>"></script>
+</body>
+</html>

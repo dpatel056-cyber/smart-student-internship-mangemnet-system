@@ -1,0 +1,169 @@
+<!--
+  ============================================================================
+  SIMS - Module 3 : Resume & Documents Management
+  Page: Internship Certificate
+  ----------------------------------------------------------------------------
+  ASP.NET MASTER PAGE INTEGRATION NOTE:
+    1. Rename to InternshipCertificate.aspx and add:
+         <%@ Page Title="Internship Certificate" Language="C#" MasterPageFile="~/Site.Master"
+             AutoEventWireup="true" CodeBehind="InternshipCertificate.aspx.cs"
+             Inherits="SIMS.InternshipCertificate" %>
+    2. Everything inside <div class="dashboard-shell"> goes inside:
+         <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    3. Enforce the Student session check server-side in Page_Load in addition
+       to the client-side guard in profile-shared.js.
+    4. Certificate fields are rendered client-side by internship-certificate.js
+       from RDData.getCertificate() (localStorage demo). In production, bind
+       the same DOM ids from a Web API/WebMethod call instead. The QR code
+       image below calls a public QR-generation endpoint for the demo; swap
+       it for a server-generated QR image URL in production.
+    5. "Download PDF" uses the html2canvas + jsPDF CDN libraries (loaded at
+       the bottom of this page) to export the certificate as a real PDF
+       entirely client-side; "Print Certificate" uses the browser's native
+       print dialog restricted to the certificate via the @media print rules
+       in resume-module.css.
+  ============================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internship Certificate - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/profile-module.css">
+<link rel="stylesheet" href="../css/resume-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dashboard-shell">
+
+  <!-- ============ LEFT SIDEBAR ============ -->
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div class="dashboard-main-col">
+
+    <!-- ============ TOP NAVBAR ============ -->
+    <header class="dashboard-topbar"></header>
+
+    <!-- ============ PAGE CONTENT ============ -->
+    <main class="dashboard-content">
+
+      <div class="pm-breadcrumb">
+        <a href="student-dashboard.html">Dashboard</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <a href="resume-dashboard.html">Resume &amp; Documents</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="current">Internship Certificate</span>
+      </div>
+
+      <!-- Certificate preview -->
+      <div class="rd-cert-wrap" id="rdCertWrap">
+        <div class="rd-certificate" id="rdCertificate">
+          <span class="rd-cert-id-badge" id="rdCertIdBadge">ID: -</span>
+
+          <div class="rd-cert-emblem"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="rd-cert-org">SIMS &middot; Smart Student Internship Management System</div>
+          <div class="rd-cert-title">Certificate of Completion</div>
+          <div class="rd-cert-sub">This certificate is proudly presented for successful completion of an internship program</div>
+
+          <div class="rd-cert-presented">This certificate is presented to</div>
+          <div class="rd-cert-name" id="rdCertStudentName">Student Name</div>
+
+          <div class="rd-cert-body">
+            For successfully completing an internship as <strong id="rdCertRole">-</strong> at
+            <strong id="rdCertCompany">-</strong>, demonstrating dedication, professionalism and strong
+            technical skills throughout the program duration of <strong id="rdCertDuration">-</strong>.
+          </div>
+
+          <div class="rd-cert-details">
+            <div>
+              <div class="rd-cert-detail-label">Company</div>
+              <div class="rd-cert-detail-value" id="rdCertDetailCompany">-</div>
+            </div>
+            <div>
+              <div class="rd-cert-detail-label">Duration</div>
+              <div class="rd-cert-detail-value" id="rdCertDetailDuration">-</div>
+            </div>
+            <div>
+              <div class="rd-cert-detail-label">Grade</div>
+              <div class="rd-cert-detail-value" id="rdCertDetailGrade">-</div>
+            </div>
+          </div>
+
+          <div class="rd-cert-footer">
+            <div class="rd-cert-signature">
+              <div class="rd-sign-line">SIMS</div>
+              <span>Placement Cell Coordinator</span>
+            </div>
+            <div class="rd-cert-qr">
+              <img id="rdCertQrImg" src="" alt="Certificate verification QR code">
+              <span>Scan to verify</span>
+            </div>
+            <div class="rd-cert-signature">
+              <div class="rd-sign-line" id="rdCertIssueDate">-</div>
+              <span>Date of Issue</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="rd-cert-actions">
+        <button type="button" class="btn btn-primary" id="rdCertDownloadBtn"><i class="fa-solid fa-download"></i> Download PDF</button>
+        <button type="button" class="btn btn-ghost" id="rdCertPrintBtn"><i class="fa-solid fa-print"></i> Print Certificate</button>
+        <button type="button" class="btn btn-ghost" id="rdCertShareBtn"><i class="fa-solid fa-share-nodes"></i> Share Certificate</button>
+        <a href="student-dashboard.html" class="btn btn-ghost"><i class="fa-solid fa-house"></i> Back to Dashboard</a>
+      </div>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links">
+        <a href="privacy-security.html">Privacy Policy</a>
+        <span>|</span>
+        <a href="privacy-security.html">Terms &amp; Conditions</a>
+        <span>|</span>
+        <a href="help-support.html">Support</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- Logout confirmation modal -->
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px; text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Student Dashboard?</p>
+    <div style="display:flex; gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1; justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1; justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="login-toast" id="dashToast">
+  <i class="fa-solid fa-circle-check"></i>
+  <span id="dashToastMsg">Done!</span>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../js/global-store.js"></script>
+<script src="../js/student-layout.js"></script>
+<script src="../js/profile-shared.js"></script>
+<script src="../js/resume-shared.js"></script>
+<script src="../js/internship-certificate.js"></script>
+</body>
+</html>

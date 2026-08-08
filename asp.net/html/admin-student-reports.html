@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Reports - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .rep-card { background:#fff;border:1px solid var(--border-light);border-radius:12px;padding:20px;text-align:center; }
+  .rep-num { font-size:32px;font-weight:800;color:var(--text-dark);margin-bottom:4px; }
+  .rep-lbl { font-size:13px;color:var(--text-muted); }
+  
+  .rep-bar-chart { display:flex;align-items:flex-end;gap:10px;height:200px;padding-top:16px; }
+  .rep-bar-col   { flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end; }
+  .rep-bar       { width:100%;border-radius:6px 6px 0 0;min-height:4px; }
+  .rep-bar-lbl   { font-size:10.5px;color:var(--text-muted); }
+  .rep-bar-val   { font-size:10.5px;font-weight:700;color:var(--text-dark); }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Student Reports<span>Generate and analyze student registration and placement data</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="admin-students.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-list-ul"></i> Student List</a>
+        <a href="admin-student-verification.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-user-check"></i> Verification <span class="badge-count">8</span></a>
+        <a href="admin-student-reports.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-chart-bar"></i> Reports</a>
+        <a href="admin-student-block.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-user-slash"></i> Blocked</a>
+      </div>
+
+      <div class="co-page-header">
+        <div class="co-page-header-left">
+          <h1>Student Reports</h1>
+          <p>Analytical overview of student performance and engagement</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="simsShowToast('Report Generated!','success')"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate Report</button>
+          <button class="btn btn-ghost" onclick="simsShowToast('Downloading PDF...','success')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+          <button class="btn btn-ghost" onclick="simsShowToast('Downloading Excel...','success')"><i class="fa-solid fa-file-excel"></i> Excel</button>
+          <button class="btn btn-ghost" onclick="window.print()"><i class="fa-solid fa-print"></i> Print</button>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="co-grid-4" style="margin-bottom:24px;">
+        <div class="rep-card" style="border-top:4px solid #3b82f6;">
+          <div class="rep-num">1,248</div>
+          <div class="rep-lbl">Total Registered Students</div>
+        </div>
+        <div class="rep-card" style="border-top:4px solid #16a34a;">
+          <div class="rep-num">1,180</div>
+          <div class="rep-lbl">Active Students</div>
+        </div>
+        <div class="rep-card" style="border-top:4px solid #8b5cf6;">
+          <div class="rep-num">1,142</div>
+          <div class="rep-lbl">Verified Students</div>
+        </div>
+        <div class="rep-card" style="border-top:4px solid #ef4444;">
+          <div class="rep-num">30</div>
+          <div class="rep-lbl">Blocked Students</div>
+        </div>
+        <div class="rep-card" style="border-top:4px solid #f59e0b;">
+          <div class="rep-num">398</div>
+          <div class="rep-lbl">Placement Count</div>
+        </div>
+      </div>
+
+      <!-- Charts Grid -->
+      <div class="co-grid-2">
+        <div class="co-panel">
+          <div class="co-panel-header"><h3>Department Wise Students</h3></div>
+          <div class="rep-bar-chart">
+            <div class="rep-bar-col"><div class="rep-bar-val">450</div><div class="rep-bar" style="height:100%;background:linear-gradient(180deg,#60a5fa,#2563eb);"></div><div class="rep-bar-lbl" style="text-align:center;">Computer<br>Science</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">320</div><div class="rep-bar" style="height:71%;background:linear-gradient(180deg,#34d399,#16a34a);"></div><div class="rep-bar-lbl" style="text-align:center;">Information<br>Technology</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">210</div><div class="rep-bar" style="height:46%;background:linear-gradient(180deg,#c084fc,#9333ea);"></div><div class="rep-bar-lbl" style="text-align:center;">Mechanical<br>Engineering</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">150</div><div class="rep-bar" style="height:33%;background:linear-gradient(180deg,#fbbf24,#ea580c);"></div><div class="rep-bar-lbl" style="text-align:center;">Civil<br>Engineering</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">118</div><div class="rep-bar" style="height:26%;background:linear-gradient(180deg,#f472b6,#db2777);"></div><div class="rep-bar-lbl" style="text-align:center;">Design &<br>Arts</div></div>
+          </div>
+        </div>
+
+        <div class="co-panel">
+          <div class="co-panel-header"><h3>Monthly Registrations</h3><span style="font-size:11px;color:var(--text-muted);">2026</span></div>
+          <div class="rep-bar-chart">
+            <div class="rep-bar-col"><div class="rep-bar-val">85</div><div class="rep-bar" style="height:77%;background:linear-gradient(180deg,#60a5fa,#2563eb);"></div><div class="rep-bar-lbl">Jan</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">110</div><div class="rep-bar" style="height:100%;background:linear-gradient(180deg,#60a5fa,#2563eb);"></div><div class="rep-bar-lbl">Feb</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">95</div><div class="rep-bar" style="height:86%;background:linear-gradient(180deg,#60a5fa,#2563eb);"></div><div class="rep-bar-lbl">Mar</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">72</div><div class="rep-bar" style="height:65%;background:linear-gradient(180deg,#60a5fa,#2563eb);"></div><div class="rep-bar-lbl">Apr</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">100</div><div class="rep-bar" style="height:91%;background:linear-gradient(180deg,#60a5fa,#2563eb);"></div><div class="rep-bar-lbl">May</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">88</div><div class="rep-bar" style="height:80%;background:linear-gradient(180deg,#60a5fa,#2563eb);"></div><div class="rep-bar-lbl">Jun</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">34</div><div class="rep-bar" style="height:31%;background:linear-gradient(180deg,#93c5fd,#60a5fa);"></div><div class="rep-bar-lbl">Jul</div></div>
+          </div>
+        </div>
+
+        <div class="co-panel">
+          <div class="co-panel-header"><h3>Internship Applications</h3></div>
+          <div class="rep-bar-chart">
+            <div class="rep-bar-col"><div class="rep-bar-val">1,200</div><div class="rep-bar" style="height:85%;background:linear-gradient(180deg,#c084fc,#9333ea);"></div><div class="rep-bar-lbl">Jan</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">1,400</div><div class="rep-bar" style="height:100%;background:linear-gradient(180deg,#c084fc,#9333ea);"></div><div class="rep-bar-lbl">Feb</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">1,100</div><div class="rep-bar" style="height:78%;background:linear-gradient(180deg,#c084fc,#9333ea);"></div><div class="rep-bar-lbl">Mar</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">800</div><div class="rep-bar" style="height:57%;background:linear-gradient(180deg,#c084fc,#9333ea);"></div><div class="rep-bar-lbl">Apr</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">950</div><div class="rep-bar" style="height:67%;background:linear-gradient(180deg,#c084fc,#9333ea);"></div><div class="rep-bar-lbl">May</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">1,150</div><div class="rep-bar" style="height:82%;background:linear-gradient(180deg,#c084fc,#9333ea);"></div><div class="rep-bar-lbl">Jun</div></div>
+            <div class="rep-bar-col"><div class="rep-bar-val">450</div><div class="rep-bar" style="height:32%;background:linear-gradient(180deg,#d8b4fe,#a855f7);"></div><div class="rep-bar-lbl">Jul</div></div>
+          </div>
+        </div>
+
+        <div class="co-panel">
+          <div class="co-panel-header"><h3>Placement Statistics</h3></div>
+          <div style="padding-top:20px;">
+            <div style="margin-bottom:16px;">
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span>Applications Reviewed</span><span style="font-weight:700;">78%</span></div>
+              <div style="height:10px;background:#f1f5f9;border-radius:5px;overflow:hidden;"><div style="height:100%;width:78%;background:linear-gradient(90deg,#60a5fa,#2563eb);border-radius:5px;"></div></div>
+            </div>
+            <div style="margin-bottom:16px;">
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span>Students Interviewed</span><span style="font-weight:700;">45%</span></div>
+              <div style="height:10px;background:#f1f5f9;border-radius:5px;overflow:hidden;"><div style="height:100%;width:45%;background:linear-gradient(90deg,#fbbf24,#ea580c);border-radius:5px;"></div></div>
+            </div>
+            <div style="margin-bottom:16px;">
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span>Students Selected</span><span style="font-weight:700;">32%</span></div>
+              <div style="height:10px;background:#f1f5f9;border-radius:5px;overflow:hidden;"><div style="height:100%;width:32%;background:linear-gradient(90deg,#34d399,#16a34a);border-radius:5px;"></div></div>
+            </div>
+            <div style="margin-bottom:16px;">
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span>Offers Accepted</span><span style="font-weight:700;">29%</span></div>
+              <div style="height:10px;background:#f1f5f9;border-radius:5px;overflow:hidden;"><div style="height:100%;width:29%;background:linear-gradient(90deg,#c084fc,#9333ea);border-radius:5px;"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Admin Panel?</p>
+    <div style="display:flex;gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1;justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1;justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+</body>
+</html>

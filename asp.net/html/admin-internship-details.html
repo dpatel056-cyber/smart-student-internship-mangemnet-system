@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internship Details - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .det-label { font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px; }
+  .det-val { font-size:14px;color:var(--text-dark);font-weight:600;margin-bottom:16px; }
+  .det-list { padding-left:20px;font-size:13.5px;color:var(--text-muted);line-height:1.6;margin-bottom:20px; }
+  .det-list li { margin-bottom:8px; }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Internship Details<span>Complete overview of the internship posting</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Action Bar -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+        <a href="admin-internships.html" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Back to List</a>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a href="admin-company-details.html" class="btn btn-ghost" style="font-size:13px;"><i class="fa-solid fa-building"></i> View Company</a>
+          <button class="btn btn-ghost" style="font-size:13px;"><i class="fa-solid fa-pen"></i> Edit Internship</button>
+          <button class="btn btn-ghost" style="font-size:13px;background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;" onclick="simsShowToast('Approved!','success')"><i class="fa-solid fa-check"></i> Approve</button>
+          <button class="btn btn-ghost" style="font-size:13px;background:#fef2f2;color:#ef4444;border-color:#fecaca;" onclick="simsShowToast('Rejected!','error')"><i class="fa-solid fa-xmark"></i> Reject</button>
+        </div>
+      </div>
+
+      <div class="co-page-header">
+        <div class="co-page-header-left">
+          <h1 style="margin-bottom:6px;">Frontend Developer Intern</h1>
+          <p><i class="fa-solid fa-building" style="margin-right:6px;"></i>TechNova Pvt Ltd &bull; <i class="fa-solid fa-location-dot" style="margin:left:6px;margin-right:6px;"></i>Ahmedabad, Gujarat</p>
+        </div>
+        <div>
+          <span class="co-badge" style="background:#fefce8;color:#ca8a04;border-color:#fef08a;font-size:14px;padding:6px 12px;">Pending Approval</span>
+        </div>
+      </div>
+
+      <div class="co-grid-2">
+        <!-- Left: Description & Lists -->
+        <div>
+          <div class="co-panel" style="margin-bottom:20px;">
+            <h3 style="font-size:16px;font-weight:700;margin:0 0 16px;">About The Internship</h3>
+            <p style="font-size:13.5px;color:var(--text-muted);line-height:1.6;">We are looking for an enthusiastic and motivated Frontend Developer Intern to join our growing team. You will be working closely with senior developers on real-world projects, building responsive and high-performance web applications.</p>
+            
+            <h4 style="font-size:14px;font-weight:700;margin:20px 0 10px;">Responsibilities</h4>
+            <ul class="det-list">
+              <li>Develop and maintain web applications using HTML, CSS, JavaScript, and React.js.</li>
+              <li>Collaborate with the design team to implement UI/UX designs.</li>
+              <li>Optimize applications for maximum speed and scalability.</li>
+              <li>Participate in code reviews and team meetings.</li>
+            </ul>
+
+            <h4 style="font-size:14px;font-weight:700;margin:20px 0 10px;">Required Skills</h4>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <span class="co-badge" style="background:#f1f5f9;color:var(--text-dark);">HTML5</span>
+              <span class="co-badge" style="background:#f1f5f9;color:var(--text-dark);">CSS3</span>
+              <span class="co-badge" style="background:#f1f5f9;color:var(--text-dark);">JavaScript</span>
+              <span class="co-badge" style="background:#f1f5f9;color:var(--text-dark);">React.js</span>
+              <span class="co-badge" style="background:#f1f5f9;color:var(--text-dark);">Git</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Meta Details -->
+        <div>
+          <div class="co-panel" style="margin-bottom:20px;">
+            <h3 style="font-size:16px;font-weight:700;margin:0 0 16px;">Internship Details</h3>
+            
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:x-16px;">
+              <div>
+                <div class="det-label">Category</div>
+                <div class="det-val">Web Development</div>
+              </div>
+              <div>
+                <div class="det-label">Internship Type</div>
+                <div class="det-val">In-Office (Full Time)</div>
+              </div>
+              <div>
+                <div class="det-label">Duration</div>
+                <div class="det-val">6 Months</div>
+              </div>
+              <div>
+                <div class="det-label">Stipend</div>
+                <div class="det-val" style="color:#16a34a;">₹15,000 / month</div>
+              </div>
+              <div>
+                <div class="det-label">Openings</div>
+                <div class="det-val">5</div>
+              </div>
+              <div>
+                <div class="det-label">Eligibility</div>
+                <div class="det-val">B.E/B.Tech (CE/IT), MCA</div>
+              </div>
+            </div>
+
+            <hr style="border:0;border-top:1px solid var(--border-light);margin:4px 0 16px;">
+            
+            <div style="display:flex;gap:20px;">
+              <div>
+                <div class="det-label">Posted Date</div>
+                <div class="det-val">01 Jul 2026</div>
+              </div>
+              <div>
+                <div class="det-label">Apply By</div>
+                <div class="det-val" style="color:#ef4444;">25 Jul 2026</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="co-panel">
+            <h3 style="font-size:16px;font-weight:700;margin:0 0 16px;">Perks & Benefits</h3>
+            <ul class="det-list" style="margin:0;list-style-type:square;">
+              <li>Certificate of Completion</li>
+              <li>Letter of Recommendation</li>
+              <li>Pre-Placement Offer (PPO) based on performance</li>
+              <li>Flexible working hours</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </main>
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS. All rights reserved.</p></footer>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+</body>
+</html>

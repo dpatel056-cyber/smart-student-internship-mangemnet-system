@@ -1,0 +1,210 @@
+<!--
+  ============================================================================
+  SIMS - Student Dashboard Page
+  ----------------------------------------------------------------------------
+  ASP.NET MASTER PAGE INTEGRATION NOTE:
+    1. Rename to StudentDashboard.aspx and add:
+         <%@ Page Title="Student Dashboard" Language="C#" MasterPageFile="~/Site.Master"
+             AutoEventWireup="true" CodeBehind="StudentDashboard.aspx.cs"
+             Inherits="SIMS.StudentDashboard" %>
+    2. Everything inside <div class="dashboard-shell"> goes inside:
+         <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    3. This page expects an authenticated Student session. Enforce that
+       server-side in Page_Load (Session["Role"] == "Student", else
+       Response.Redirect("~/Login.aspx")) in addition to the client-side
+       guard already implemented in dashboard.js (which checks
+       localStorage "simsSession" purely for this front-end demo).
+    4. Sidebar / Topbar / Profile Card / Cards / Tables below are static
+       demo markup + demo arrays in dashboard.js. In production, bind them
+       to <asp:Repeater>/<asp:GridView> controls or fetch them via a Web
+       API/WebMethod called from dashboard.js's renderX() functions,
+       without changing any CSS class names.
+  ============================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dashboard-shell">
+
+  <!-- ============ LEFT SIDEBAR ============ -->
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div class="dashboard-main-col">
+
+    <!-- ============ TOP NAVBAR ============ -->
+    <header class="dashboard-topbar"><div class="topbar-left"><button class="icon-btn dash-icon-btn" id="dashNotifBtn" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span id="notifBadge" class="badge">0</span></button></div></header>
+
+    <!-- ============ DASHBOARD CONTENT ============ -->
+    <main class="dashboard-content">
+
+      <!-- Welcome banner -->
+      <div class="welcome-banner">
+        <div>
+          <h2 id="welcomeHeading">Welcome back, Aarav! 👋</h2>
+          <p>You have 2 shortlisted applications and 1 interview coming up this week. Keep up the great work!</p>
+          <div class="welcome-date" id="welcomeDate">Friday, 17 July 2026</div>
+        </div>
+      </div>
+
+      <!-- Profile card + Stat cards -->
+      <div class="dashboard-grid-top">
+
+        <!-- Student Profile Card -->
+        <div class="profile-card">
+          <div class="dash-avatar-lg" id="dashAvatarLg">AP</div>
+          <h3 id="profileName">Aarav Patel</h3>
+          <span class="profile-role" id="profileEnrollment">ENR2024001</span>
+          <ul class="profile-meta-list">
+            <li><i class="fa-solid fa-envelope"></i> <span id="profileEmail">student@sims.com</span></li>
+            <li><i class="fa-solid fa-graduation-cap"></i> <span id="profileCourse">B.Tech, Computer Engineering</span></li>
+            <li><i class="fa-solid fa-building-columns"></i> <span id="profileCollege">L.D. College of Engineering</span></li>
+            <li><i class="fa-solid fa-phone"></i> <span>+91 98765 43210</span></li>
+          </ul>
+          <a href="edit-profile.html" class="btn btn-primary">Edit Profile</a>
+        </div>
+
+        <!-- Dashboard stat cards + Quick actions -->
+        <div>
+          <div class="stat-cards-grid" style="margin-bottom:20px;">
+            <div class="dash-stat-card">
+              <span class="dash-stat-icon icon-blue"><i class="fa-solid fa-paper-plane"></i></span>
+               <h4 id="studentTotalApps">12</h4><p>Applications Sent</p></div>
+            </div>
+            <div class="dash-stat-card">
+              <span class="dash-stat-icon icon-green"><i class="fa-solid fa-circle-check"></i></span>
+               <h4 id="studentShortlisted">3</h4><p>Shortlisted</p></div>
+            </div>
+            <div class="dash-stat-card">
+              <span class="dash-stat-icon icon-purple"><i class="fa-solid fa-calendar-days"></i></span>
+               <h4 id="studentInterviewsScheduled">2</h4><p>Interviews Scheduled</p></div>
+            </div>
+            <div class="dash-stat-card">
+              <span class="dash-stat-icon icon-orange"><i class="fa-solid fa-award"></i></span>
+               <h4 id="studentCertificates">4</h4><p>Certificates Earned</p></div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="quick-actions-card">
+            <h3>Quick Actions</h3>
+            <div class="quick-actions-grid">
+              <a href="browse-internships.html" class="quick-action-btn"><i class="fa-solid fa-magnifying-glass"></i> Browse Internships</a>
+              <a href="upload-resume.html" class="quick-action-btn"><i class="fa-solid fa-file-arrow-up"></i> Upload Resume</a>
+              <a href="edit-profile.html" class="quick-action-btn"><i class="fa-solid fa-user-pen"></i> Update Profile</a>
+              <a href="certificates-documents.html" class="quick-action-btn"><i class="fa-solid fa-certificate"></i> View Certificates</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Applications + Right rail (Interviews / Notifications) -->
+      <div class="dashboard-grid-bottom">
+
+        <!-- Left: Recent Applications -->
+        <div>
+          <div class="dash-panel">
+            <div class="dash-panel-header">
+              <h3>Recent Applications</h3>
+              <a href="my-applications.html">View All</a>
+            </div>
+            <table class="applications-table" id="applicationsTable">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Role</th>
+                  <th>Applied On</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="applicationsTableBody">
+                <!-- Rows injected by dashboard.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right rail -->
+        <div>
+          <!-- Upcoming Interviews -->
+          <div class="dash-panel">
+            <div class="dash-panel-header">
+              <h3>Upcoming Interviews</h3>
+              <a href="interview-schedule.html">View All</a>
+            </div>
+            <div id="upcomingInterviewsList">
+              <!-- Items injected by dashboard.js -->
+            </div>
+          </div>
+
+          <!-- Notifications -->
+          <div class="dash-panel">
+            <div class="dash-panel-header">
+              <h3>Notifications</h3>
+              <a href="notifications.html">View All</a>
+            </div>
+            <div id="dashNotificationsList">
+              <!-- Items injected by dashboard.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links">
+        <a href="privacy-security.html">Privacy Policy</a>
+        <span>|</span>
+        <a href="privacy-security.html">Terms &amp; Conditions</a>
+        <span>|</span>
+        <a href="help-support.html">Support</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     LOGOUT CONFIRMATION MODAL
+     Logout click -> confirmation popup -> Yes: Public Home Page
+     / No: stay on Dashboard.
+============================================================ -->
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px; text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Student Dashboard?</p>
+    <div style="display:flex; gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1; justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1; justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast notification (same visual style as login page) -->
+<div class="login-toast" id="dashToast">
+  <i class="fa-solid fa-circle-check"></i>
+  <span id="dashToastMsg">Done!</span>
+</div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/student-layout.js"></script>
+<script src="../js/notifications.js"></script>
+<script src="../js/dashboard.js"></script>
+</body>
+</html>

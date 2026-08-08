@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hired Students - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Hired Students<span>Manage successfully recruited candidates</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="badge">2</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">TN</span>
+          <span class="dash-name" id="dashNameTop">TechNova Pvt Ltd<span>Company</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="company-profile.html"><i class="fa-solid fa-building"></i> Company Profile</a>
+            <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+            <hr>
+            <a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <div class="co-page-header">
+        <div class="co-page-header-left">
+          <h1>Hired Students</h1>
+          <p>Track joining dates, offer acceptance, and manage documents</p>
+        </div>
+      </div>
+
+      <div class="co-panel">
+        <div class="companies-results-top" style="margin-bottom:20px;">
+          <!-- Search & Filter -->
+          <div style="display:flex;gap:12px;flex-wrap:wrap;flex:1;">
+            <div class="login-input-wrap" style="max-width:300px;flex:1;">
+              <i class="fa-solid fa-magnifying-glass input-icon" style="top:50%;transform:translateY(-50%);"></i>
+              <input type="text" placeholder="Search by name..." style="padding:10px 14px 10px 42px;border:1px solid var(--border-light);border-radius:8px;width:100%;font-size:13.5px;font-family:inherit;outline:none;">
+            </div>
+            <select style="padding:10px 14px;border:1px solid var(--border-light);border-radius:8px;font-size:13.5px;outline:none;">
+              <option value="">All Internships</option>
+              <option>Frontend Developer Intern</option>
+              <option>Data Analyst Intern</option>
+              <option>UI/UX Design Intern</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="co-table">
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Internship</th>
+                <th>Joining Date</th>
+                <th>Offer Status</th>
+                <th>Documents</th>
+                <th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 1 -->
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <img src="https://ui-avatars.com/api/?name=Anjali+Desai&background=db2777&color=fff" alt="Student" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
+                    <strong style="color:var(--text-dark);font-size:14px;">Anjali Desai</strong>
+                  </div>
+                </td>
+                <td>Data Analyst Intern</td>
+                <td>18 Jul 2026</td>
+                <td><span class="co-badge co-badge-active">Accepted</span></td>
+                <td><span class="co-badge co-badge-active" style="background:#f0fdf4;color:#16a34a;"><i class="fa-solid fa-check"></i> Verified</span></td>
+                <td style="text-align:right;">
+                  <a href="company-student-details.html" class="btn btn-ghost" style="padding:6px 12px;font-size:12px;" title="View Profile"><i class="fa-solid fa-eye"></i></a>
+                  <button class="btn btn-ghost" style="padding:6px 12px;font-size:12px;color:#2563eb;" title="Send Message" onclick="statusToast('Message panel opening...')"><i class="fa-solid fa-message"></i></button>
+                  <button class="btn btn-ghost" style="padding:6px 12px;font-size:12px;color:#0d9488;" title="Generate Certificate" onclick="statusToast('Certificate generation will open at internship completion.')"><i class="fa-solid fa-certificate"></i></button>
+                </td>
+              </tr>
+              <!-- Row 2 -->
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <img src="https://ui-avatars.com/api/?name=Kavya+Shah&background=0d9488&color=fff" alt="Student" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
+                    <strong style="color:var(--text-dark);font-size:14px;">Kavya Shah</strong>
+                  </div>
+                </td>
+                <td>UI/UX Design Intern</td>
+                <td>29 Jul 2026</td>
+                <td><span class="co-badge co-badge-pending">Sent (Awaiting)</span></td>
+                <td><span class="co-badge co-badge-pending" style="background:#fef9c3;color:#ca8a04;"><i class="fa-regular fa-clock"></i> Pending</span></td>
+                <td style="text-align:right;">
+                  <a href="company-student-details.html" class="btn btn-ghost" style="padding:6px 12px;font-size:12px;" title="View Profile"><i class="fa-solid fa-eye"></i></a>
+                  <button class="btn btn-ghost" style="padding:6px 12px;font-size:12px;color:#2563eb;" title="Send Message" onclick="statusToast('Message panel opening...')"><i class="fa-solid fa-message"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links"><a href="#">Privacy Policy</a><span>|</span><a href="#">Terms &amp; Conditions</a><span>|</span><a href="#">Support</a></div>
+    </footer>
+  </div>
+</div>
+
+<!-- Logout Modal -->
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Company Dashboard?</p>
+    <div style="display:flex;gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1;justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1;justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/company-dashboard.js"></script>
+<script>
+  function statusToast(msg, type='success') {
+    if(window.simsShowToast) window.simsShowToast(msg, type);
+  }
+</script>
+</body>
+</html>

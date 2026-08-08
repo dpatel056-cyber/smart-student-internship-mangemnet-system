@@ -1,0 +1,326 @@
+/* ============================================================
+   SIMS - Module 3 : Resume & Documents Management
+   Shared stylesheet for: resume-dashboard / upload-resume /
+   resume-preview / certificates-documents / internship-certificate.
+
+   Reuses --blue-600 / --navy-900 / .btn / .modal-* / .pm-card /
+   .pm-breadcrumb / .pm-form-group / .pm-item-card etc. from
+   style.css + profile-module.css. Only NEW component classes
+   needed for Module 3 live here, so style.css and
+   profile-module.css never have to be touched.
+============================================================ */
+
+/* ---- Status hero banner (Resume Dashboard) ---- */
+.rd-hero{
+  background:linear-gradient(120deg,var(--navy-900), var(--blue-700));
+  border-radius:16px;
+  padding:26px 30px;
+  color:#fff;
+  margin-bottom:24px;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.rd-hero::after{
+  content:'';
+  position:absolute;
+  width:220px; height:220px;
+  background:rgba(255,255,255,.06);
+  border-radius:50%;
+  right:-60px; top:-90px;
+}
+.rd-hero-left{position:relative; display:flex; align-items:center; gap:16px;}
+.rd-hero-icon{
+  width:56px; height:56px; min-width:56px; border-radius:14px;
+  background:rgba(255,255,255,.14);
+  display:flex; align-items:center; justify-content:center; font-size:22px;
+}
+.rd-hero h2{font-size:20px; font-weight:700; margin-bottom:4px;}
+.rd-hero p{font-size:13px; color:#d7ddf5;}
+.rd-hero-right{position:relative; text-align:right;}
+.rd-hero-right .btn{margin-left:auto;}
+
+/* ---- Resume status pill (reuses colours of pm-resume-status) ---- */
+.rd-status-pill{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:12px; font-weight:700; padding:5px 14px; border-radius:20px;
+}
+.rd-status-pill.uploaded{background:rgba(34,197,94,.18); color:#bbf7d0;}
+.rd-status-pill.missing{background:rgba(239,68,68,.2); color:#fecaca;}
+
+/* ---- Feature / action card grid (Resume Dashboard) ---- */
+.rd-card-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:20px;
+  margin-bottom:24px;
+}
+.rd-action-card{
+  background:#fff;
+  border-radius:16px;
+  padding:24px;
+  box-shadow:0 10px 30px rgba(15,23,42,.05);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  transition:box-shadow .2s, transform .2s;
+}
+.rd-action-card:hover{box-shadow:0 14px 34px rgba(15,23,42,.09); transform:translateY(-2px);}
+.rd-action-icon{
+  width:48px; height:48px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center; font-size:19px; color:#fff;
+}
+.rd-action-card h3{font-size:15.5px; color:var(--navy-900);}
+.rd-action-card p{font-size:12.5px; color:var(--text-muted); line-height:1.6; flex:1;}
+.rd-action-card .btn{align-self:flex-start; padding:9px 18px; font-size:13px;}
+.rd-action-card .btn-danger{background:#fee2e2; color:#ef4444;}
+.rd-action-card .btn-danger:hover{background:#fecaca;}
+
+/* ---- Drag & drop upload zone ---- */
+.rd-dropzone{
+  border:2px dashed var(--border-light);
+  border-radius:16px;
+  padding:46px 24px;
+  text-align:center;
+  background:#f8fafc;
+  transition:border-color .2s, background .2s;
+  cursor:pointer;
+}
+.rd-dropzone.drag-over{border-color:var(--blue-600); background:var(--blue-50);}
+.rd-dropzone.has-file{border-style:solid; border-color:#22c55e; background:#f0fdf4;}
+.rd-dropzone-icon{
+  width:64px; height:64px; margin:0 auto 16px;
+  border-radius:50%; background:var(--blue-50); color:var(--blue-600);
+  display:flex; align-items:center; justify-content:center; font-size:26px;
+}
+.rd-dropzone.has-file .rd-dropzone-icon{background:#dcfce7; color:#16a34a;}
+.rd-dropzone h3{font-size:16px; color:var(--navy-900); margin-bottom:6px;}
+.rd-dropzone p{font-size:12.5px; color:var(--text-muted);}
+.rd-dropzone .rd-browse-link{color:var(--blue-600); font-weight:700; text-decoration:underline; cursor:pointer;}
+
+.rd-upload-rules{
+  display:flex; flex-wrap:wrap; gap:10px 22px;
+  margin-top:18px;
+}
+.rd-upload-rule{
+  display:flex; align-items:center; gap:8px;
+  font-size:12.5px; color:var(--text-muted);
+}
+.rd-upload-rule i{color:var(--blue-600); font-size:13px;}
+
+/* ---- Selected file row ---- */
+.rd-file-row{
+  display:flex; align-items:center; gap:14px;
+  border:1px solid var(--border-light);
+  border-radius:12px;
+  padding:14px 16px;
+  margin-top:20px;
+}
+.rd-file-row .rd-file-icon{
+  width:42px; height:42px; min-width:42px; border-radius:10px;
+  background:#fee2e2; color:#ef4444;
+  display:flex; align-items:center; justify-content:center; font-size:18px;
+}
+.rd-file-row .rd-file-info{flex:1; min-width:0;}
+.rd-file-row .rd-file-name{font-size:13.5px; font-weight:600; color:var(--text-dark); word-break:break-all;}
+.rd-file-row .rd-file-size{font-size:12px; color:var(--text-muted); margin-top:2px;}
+.rd-file-row .rd-file-remove{
+  width:32px; height:32px; border-radius:8px; background:#f1f5f9; color:var(--text-muted);
+  display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0;
+  transition:all .2s;
+}
+.rd-file-row .rd-file-remove:hover{background:#fee2e2; color:#ef4444;}
+
+/* ---- Upload progress bar ---- */
+.rd-progress-wrap{margin-top:20px; display:none;}
+.rd-progress-wrap.show{display:block;}
+.rd-progress-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;}
+.rd-progress-top span{font-size:12.5px; font-weight:600; color:var(--text-dark);}
+.rd-progress-top strong{font-size:13px; color:var(--blue-600);}
+.rd-progress-track{width:100%; height:10px; background:#e5e9f2; border-radius:20px; overflow:hidden;}
+.rd-progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--blue-600),var(--blue-700)); border-radius:20px; transition:width .25s linear;}
+
+.rd-upload-actions{display:flex; gap:12px; margin-top:24px; justify-content:flex-end;}
+.rd-upload-actions .btn{min-width:150px; justify-content:center;}
+
+/* ---- PDF preview card (Resume Preview) ---- */
+.rd-preview-layout{
+  display:grid;
+  grid-template-columns:340px 1fr;
+  gap:20px;
+  align-items:start;
+}
+.rd-pdf-card{
+  background:#fff; border-radius:16px; padding:22px;
+  box-shadow:0 10px 30px rgba(15,23,42,.05);
+  text-align:center;
+}
+.rd-pdf-frame-wrap{
+  border:1px solid var(--border-light); border-radius:12px; overflow:hidden;
+  background:#eef1f8; height:360px; display:flex; align-items:center; justify-content:center;
+  margin-bottom:16px;
+}
+.rd-pdf-frame-wrap iframe{width:100%; height:100%; border:none;}
+.rd-pdf-placeholder{color:var(--text-muted); padding:20px;}
+.rd-pdf-placeholder i{font-size:52px; color:#cbd5e1; margin-bottom:14px; display:block;}
+.rd-pdf-placeholder p{font-size:12.5px;}
+.rd-pdf-card .rd-pdf-name{font-size:14px; font-weight:700; color:var(--navy-900); margin-bottom:4px; word-break:break-all;}
+.rd-pdf-card .rd-pdf-meta{font-size:12px; color:var(--text-muted);}
+
+.rd-info-list{display:flex; flex-direction:column; gap:0;}
+.rd-info-list .pm-info-item{padding:12px 0; border-bottom:1px solid var(--border-light);}
+.rd-info-list .pm-info-item:last-child{border-bottom:none;}
+
+.rd-empty-resume{
+  background:#fff; border-radius:16px; padding:60px 30px; text-align:center;
+  box-shadow:0 10px 30px rgba(15,23,42,.05);
+}
+.rd-empty-resume i{font-size:54px; color:#cbd5e1; margin-bottom:18px; display:block;}
+.rd-empty-resume h3{font-size:17px; color:var(--navy-900); margin-bottom:8px;}
+.rd-empty-resume p{font-size:13px; color:var(--text-muted); margin-bottom:22px; max-width:380px; margin-left:auto; margin-right:auto;}
+
+/* ---- Certificates & Documents ---- */
+.rd-doc-toolbar{
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  flex-wrap:wrap; margin-bottom:20px;
+}
+.rd-doc-toolbar-actions{display:flex; gap:10px; flex-wrap:wrap;}
+
+.rd-doc-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+  gap:18px;
+}
+.rd-doc-card{
+  background:#fff; border:1px solid var(--border-light); border-radius:14px;
+  padding:18px; display:flex; flex-direction:column; gap:10px;
+  transition:box-shadow .2s, border-color .2s;
+}
+.rd-doc-card:hover{box-shadow:0 10px 26px rgba(15,23,42,.07); border-color:#dbe8ff;}
+.rd-doc-card-top{display:flex; align-items:flex-start; gap:12px;}
+.rd-doc-icon{
+  width:42px; height:42px; min-width:42px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center; font-size:17px; color:#fff;
+}
+.rd-doc-icon.cat-certificate{background:#f59e0b;}
+.rd-doc-icon.cat-academic{background:#9333ea;}
+.rd-doc-card h4{font-size:14px; color:var(--navy-900); line-height:1.35;}
+.rd-doc-card .rd-doc-issuer{font-size:12px; color:var(--blue-600); font-weight:600; margin-top:2px;}
+.rd-doc-card .rd-doc-meta{font-size:11.5px; color:var(--text-muted); display:flex; flex-wrap:wrap; gap:5px 12px; margin-top:2px;}
+.rd-doc-card .rd-doc-file{font-size:11.5px; color:var(--text-muted); display:flex; align-items:center; gap:6px; margin-top:2px;}
+.rd-doc-card-actions{display:flex; gap:8px; margin-top:auto; padding-top:8px; border-top:1px solid var(--border-light);}
+.rd-doc-card-actions .pm-icon-action{flex:1; border-radius:8px; font-size:12px; gap:6px; height:32px;}
+.rd-cat-badge{
+  display:inline-flex; align-items:center; gap:5px; width:fit-content;
+  font-size:10.5px; font-weight:700; padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:.3px;
+}
+.rd-cat-badge.cat-certificate{background:#fff4e2; color:#b45309;}
+.rd-cat-badge.cat-academic{background:#f3e8ff; color:#9333ea;}
+
+/* ---- File type select cards inside upload document modal ---- */
+.rd-radio-cards{display:flex; gap:12px; margin-bottom:18px; flex-wrap:wrap;}
+.rd-radio-card{
+  flex:1; min-width:150px; border:1px solid var(--border-light); border-radius:10px;
+  padding:12px 14px; display:flex; align-items:center; gap:10px; cursor:pointer;
+  transition:all .2s;
+}
+.rd-radio-card input{accent-color:var(--blue-600);}
+.rd-radio-card.active{border-color:var(--blue-600); background:var(--blue-50);}
+.rd-radio-card span{font-size:13px; font-weight:600; color:var(--text-dark);}
+
+/* ---- Internship Certificate ---- */
+.rd-cert-wrap{
+  background:#fff; border-radius:16px; padding:20px;
+  box-shadow:0 10px 30px rgba(15,23,42,.05);
+  margin-bottom:22px;
+}
+.rd-certificate{
+  position:relative;
+  border:10px solid var(--navy-900);
+  border-image:linear-gradient(135deg,var(--navy-900), var(--blue-700)) 1;
+  border-radius:6px;
+  padding:44px 46px;
+  background:
+    radial-gradient(circle at top left, rgba(37,99,235,.06), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(37,99,235,.06), transparent 40%),
+    #fff;
+  text-align:center;
+}
+.rd-cert-emblem{
+  width:64px; height:64px; margin:0 auto 14px; border-radius:50%;
+  background:linear-gradient(135deg,var(--blue-600),var(--blue-700));
+  color:#fff; display:flex; align-items:center; justify-content:center; font-size:26px;
+}
+.rd-cert-org{font-size:12.5px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--blue-600); margin-bottom:4px;}
+.rd-cert-title{font-size:28px; font-weight:800; color:var(--navy-900); margin-bottom:6px; letter-spacing:.3px;}
+.rd-cert-sub{font-size:13px; color:var(--text-muted); margin-bottom:26px;}
+.rd-cert-presented{font-size:12.5px; color:var(--text-muted); margin-bottom:6px;}
+.rd-cert-name{
+  font-size:30px; font-weight:800; color:var(--navy-900); margin-bottom:18px;
+  font-family:'Poppins', sans-serif; border-bottom:2px solid var(--blue-50); display:inline-block; padding-bottom:8px;
+}
+.rd-cert-body{font-size:14px; color:var(--text-dark); line-height:1.9; max-width:640px; margin:0 auto 26px;}
+.rd-cert-body strong{color:var(--navy-900);}
+
+.rd-cert-details{
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:18px;
+  max-width:640px; margin:0 auto 30px;
+  padding-top:22px; border-top:1px dashed var(--border-light);
+}
+.rd-cert-detail-label{font-size:10.5px; text-transform:uppercase; letter-spacing:.4px; color:var(--text-muted); margin-bottom:4px;}
+.rd-cert-detail-value{font-size:13.5px; font-weight:700; color:var(--navy-900);}
+
+.rd-cert-footer{
+  display:flex; align-items:flex-end; justify-content:space-between; gap:20px;
+  max-width:720px; margin:0 auto; flex-wrap:wrap;
+}
+.rd-cert-signature{text-align:center;}
+.rd-cert-signature .rd-sign-line{
+  font-family:'Poppins', sans-serif; font-size:20px; font-weight:700; color:var(--navy-900);
+  border-bottom:1px solid var(--border-light); padding:0 20px 6px; margin-bottom:6px;
+}
+.rd-cert-signature span{font-size:11.5px; color:var(--text-muted);}
+.rd-cert-qr{text-align:center;}
+.rd-cert-qr img{width:96px; height:96px; border-radius:8px; border:1px solid var(--border-light); padding:4px; background:#fff;}
+.rd-cert-qr span{display:block; font-size:10.5px; color:var(--text-muted); margin-top:6px;}
+.rd-cert-id-badge{
+  position:absolute; top:18px; right:18px;
+  background:var(--blue-50); color:var(--blue-600);
+  font-size:10.5px; font-weight:700; padding:5px 12px; border-radius:20px;
+}
+
+.rd-cert-actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+.rd-cert-actions .btn{min-width:170px; justify-content:center;}
+
+/* ---- Responsive ---- */
+@media (max-width:1100px){
+  .rd-card-grid{grid-template-columns:repeat(2, 1fr);}
+  .rd-preview-layout{grid-template-columns:1fr;}
+}
+@media (max-width:768px){
+  .rd-cert-details{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:640px){
+  .rd-card-grid{grid-template-columns:1fr;}
+  .rd-hero{flex-direction:column; align-items:flex-start;}
+  .rd-hero-right{text-align:left; width:100%;}
+  .rd-hero-right .btn{margin-left:0;}
+  .rd-certificate{padding:28px 20px;}
+  .rd-cert-title{font-size:21px;}
+  .rd-cert-name{font-size:22px;}
+  .rd-cert-details{grid-template-columns:1fr;}
+  .rd-cert-footer{flex-direction:column; align-items:center; text-align:center;}
+  .rd-doc-toolbar{flex-direction:column; align-items:stretch;}
+}
+
+/* ---- Print styles: only the certificate should print ---- */
+@media print{
+  body *{visibility:hidden;}
+  .rd-cert-wrap, .rd-cert-wrap *{visibility:visible;}
+  .rd-cert-wrap{position:absolute; left:0; top:0; width:100%; margin:0; box-shadow:none; padding:0;}
+  .sidebar-backdrop, .dashboard-sidebar, .dashboard-topbar, .dashboard-footer, .pm-breadcrumb, .rd-cert-actions{display:none !important;}
+}

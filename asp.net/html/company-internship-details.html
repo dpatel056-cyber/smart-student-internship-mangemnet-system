@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internship Details - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Internship Details<span>Review your internship posting</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="badge">2</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">TN</span>
+          <span class="dash-name" id="dashNameTop">TechNova Pvt Ltd<span>Company</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="company-profile.html"><i class="fa-solid fa-building"></i> Company Profile</a>
+            <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+            <hr>
+            <a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <div class="co-page-header" style="margin-bottom:14px;">
+        <div class="co-page-header-left">
+          <h1 style="display:flex;align-items:center;gap:10px;" id="detailTitle">Internship Title <span class="co-badge co-badge-active" id="detailStatus" style="font-size:12px;padding:3px 10px;vertical-align:middle;">Active</span></h1>
+          <p id="detailPosted">Posted recently</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="#" class="btn btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-file-lines"></i> View Applications
+          </a>
+          <a href="company-edit-internship.html" class="btn btn-ghost" id="detailEditBtn" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-pen"></i> Edit
+          </a>
+          <button type="button" class="btn btn-ghost" id="detailCloseBtn" style="display:inline-flex;align-items:center;gap:8px;color:#dc2626;">
+            <i class="fa-solid fa-ban"></i> Close Internship
+          </button>
+          <button type="button" class="btn btn-ghost" id="detailDeleteBtn" style="display:inline-flex;align-items:center;gap:8px;color:#dc2626;">
+            <i class="fa-solid fa-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+
+      <div class="co-grid-2">
+        <div>
+          <div class="co-panel" style="margin-bottom:20px;">
+            <h3 style="font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:12px;">Internship Description</h3>
+            <p style="font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:20px;" id="detailDescription">Loading...</p>
+
+            <h3 style="font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:10px;">Key Responsibilities</h3>
+            <ul style="font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:20px;padding-left:20px;list-style-type:disc;" id="detailResponsibilities"></ul>
+
+            <h3 style="font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:10px;">Benefits &amp; Perks</h3>
+            <ul style="font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:20px;padding-left:20px;list-style-type:disc;" id="detailBenefits"></ul>
+          </div>
+        </div>
+
+        <div>
+          <div class="co-panel" style="margin-bottom:20px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border-light);">
+              <div class="co-profile-logo" style="width:60px;height:60px;font-size:20px;margin:0;box-shadow:none;border:none;" id="detailCompanyLogo">TN</div>
+              <div>
+                <h3 style="font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:2px;" id="detailCompany">TechNova Pvt Ltd</h3>
+                <p style="font-size:13px;color:var(--text-muted);" id="detailIndustry">Information Technology</p>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="co-info-row">
+                <i class="fa-solid fa-briefcase"></i>
+                <div><div class="co-info-label">Category / Dept</div><div class="co-info-value" id="detailCategoryDept">Software Development</div></div>
+              </div>
+              <div class="co-info-row">
+                <i class="fa-solid fa-location-dot"></i>
+                <div><div class="co-info-label">Location / Type</div><div class="co-info-value" id="detailLocationType">Ahmedabad, Gujarat</div></div>
+              </div>
+              <div class="co-info-row">
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+                <div><div class="co-info-label">Stipend</div><div class="co-info-value" id="detailStipend">₹15,000 / month</div></div>
+              </div>
+              <div class="co-info-row">
+                <i class="fa-solid fa-clock"></i>
+                <div><div class="co-info-label">Duration</div><div class="co-info-value" id="detailDuration">6 Months</div></div>
+              </div>
+              <div class="co-info-row">
+                <i class="fa-solid fa-users"></i>
+                <div><div class="co-info-label">Vacancies</div><div class="co-info-value" id="detailVacancies">5 Openings</div></div>
+              </div>
+              <div class="co-info-row">
+                <i class="fa-solid fa-calendar-xmark"></i>
+                <div><div class="co-info-label">Last Date to Apply</div><div class="co-info-value" style="color:#ef4444;" id="detailLastDate">30 Jul 2026</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="co-panel">
+            <h3 style="font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:12px;">Required Skills</h3>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;" id="detailSkills"></div>
+
+            <h3 style="font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:10px;">Eligibility</h3>
+            <p style="font-size:13.5px;color:var(--text-muted);line-height:1.6;">Current internship record from company panel.</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links"><a href="#">Privacy Policy</a><span>|</span><a href="#">Terms &amp; Conditions</a><span>|</span><a href="#">Support</a></div>
+    </footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Company Dashboard?</p>
+    <div style="display:flex;gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1;justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1;justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/company-dashboard.js"></script>
+<script src="../js/company-internship-details.js"></script>
+</body>
+</html>

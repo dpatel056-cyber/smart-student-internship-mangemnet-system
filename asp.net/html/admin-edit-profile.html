@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Admin Profile - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .photo-upload-wrap { width:100px;height:100px;border-radius:50%;border:3px dashed var(--border-light);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s;position:relative;overflow:hidden;background:#f8fafc;font-size:36px;font-weight:800;color:#94a3b8; }
+  .photo-upload-wrap:hover { border-color:var(--primary);background:#eff6ff; }
+  .photo-upload-wrap:hover .photo-overlay { opacity:1; }
+  .photo-overlay { position:absolute;inset:0;background:rgba(37,99,235,.6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;opacity:0;transition:.2s; }
+</style>
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Edit Admin Profile<span>Update your personal and account details</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <a href="admin-settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+            <hr>
+            <a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <div class="co-page-header">
+        <div class="co-page-header-left">
+          <h1>Edit Admin Profile</h1>
+          <p>Update your personal details, designation and contact information</p>
+        </div>
+      </div>
+
+      <div class="co-panel" style="max-width:700px;">
+        <form id="editProfileForm">
+
+          <!-- Photo Upload -->
+          <div style="display:flex;align-items:center;gap:24px;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border-light);">
+            <div class="photo-upload-wrap" id="photoUploadWrap" onclick="document.getElementById('photoInput').click()">
+              <span id="avatarPreview">SA</span>
+              <div class="photo-overlay"><i class="fa-solid fa-camera"></i></div>
+            </div>
+            <input type="file" id="photoInput" accept="image/*" style="display:none;" onchange="previewPhoto(event)">
+            <div>
+              <h4 style="font-size:15px;font-weight:600;color:var(--text-dark);margin:0 0 6px 0;">Profile Photo</h4>
+              <p style="font-size:13px;color:var(--text-muted);margin:0 0 12px 0;">Click the avatar to upload. JPG/PNG, max 2MB.</p>
+              <button type="button" class="btn btn-ghost" onclick="document.getElementById('photoInput').click()" style="padding:5px 12px;font-size:12.5px;">
+                <i class="fa-solid fa-upload"></i> Upload Photo
+              </button>
+            </div>
+          </div>
+
+          <!-- Fields -->
+          <div class="co-form-grid-2">
+            <div class="co-form-group">
+              <label>Full Name <span style="color:#ef4444">*</span></label>
+              <input type="text" id="epName" value="System Administrator" required>
+            </div>
+            <div class="co-form-group">
+              <label>Email Address <span style="color:#ef4444">*</span></label>
+              <input type="email" id="epEmail" value="admin@sims.com" required>
+            </div>
+          </div>
+
+          <div class="co-form-grid-2">
+            <div class="co-form-group">
+              <label>Mobile Number</label>
+              <input type="tel" id="epMobile" value="+91 98765 43210">
+            </div>
+            <div class="co-form-group">
+              <label>Designation</label>
+              <input type="text" id="epDesignation" value="Platform Administrator">
+            </div>
+          </div>
+
+          <div class="co-form-group">
+            <label>Address</label>
+            <textarea id="epAddress" rows="3" style="resize:vertical;">Ahmedabad, Gujarat, India</textarea>
+          </div>
+
+          <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;">
+            <button type="submit" class="btn btn-primary" id="saveBtn">
+              <span class="btn-spinner" id="saveSpinner" style="display:none;"></span>
+              <i class="fa-solid fa-floppy-disk"></i> Save Changes
+            </button>
+            <a href="admin-profile.html" class="btn btn-ghost" style="text-decoration:none;">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Admin Panel?</p>
+    <div style="display:flex;gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1;justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1;justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script>
+  function previewPhoto(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const wrap = document.getElementById('photoUploadWrap');
+      wrap.innerHTML = `<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"><div class="photo-overlay"><i class="fa-solid fa-camera"></i></div>`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  document.getElementById('editProfileForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const btn  = document.getElementById('saveBtn');
+    const spin = document.getElementById('saveSpinner');
+    btn.disabled = true; spin.style.display = 'inline-block';
+    setTimeout(() => {
+      btn.disabled = false; spin.style.display = 'none';
+      // Update session name
+      let session = {};
+      try { session = JSON.parse(localStorage.getItem('simsSession')) || {}; } catch(err){}
+      session.name = document.getElementById('epName').value;
+      localStorage.setItem('simsSession', JSON.stringify(session));
+      if (window.simsShowToast) window.simsShowToast('Profile updated successfully!', 'success');
+      setTimeout(() => window.location.href = 'admin-profile.html', 1000);
+    }, 1000);
+  });
+</script>
+</body>
+</html>

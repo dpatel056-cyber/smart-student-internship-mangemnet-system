@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Feedback - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .rating-row { display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border-light); }
+  .rating-row:last-child { border-bottom:none; }
+  .rating-lbl { font-size:13.5px;font-weight:600;color:var(--text-dark); }
+  .rating-stars { display:flex;gap:4px;color:#cbd5e1;font-size:18px;cursor:pointer; }
+  .rating-stars i.active { color:#fbbf24; }
+  .rating-stars i:hover { color:#fcd34d; }
+  
+  .result-opt { flex:1;padding:12px;border:1px solid var(--border-light);border-radius:8px;text-align:center;cursor:pointer;font-weight:600;font-size:13.5px;transition:all .2s; }
+  .result-opt input { display:none; }
+  .result-opt.selected-green { background:#f0fdf4;border-color:#16a34a;color:#16a34a; }
+  .result-opt.selected-red { background:#fef2f2;border-color:#ef4444;color:#ef4444; }
+  .result-opt.selected-yellow { background:#fefce8;border-color:#ca8a04;color:#ca8a04; }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Interview Feedback<span>Record and submit evaluation details for student interviews</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="admin-interviews.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-users-viewfinder"></i> Interviews</a>
+        <a href="admin-interview-schedule.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-calendar-days"></i> Schedule</a>
+        <a href="admin-interview-feedback.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+        <a href="admin-offer-letters.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-envelope-open-text"></i> Offer Letters</a>
+        <a href="admin-certificates.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-certificate"></i> Certificates</a>
+        <a href="admin-qr-verification.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-qrcode"></i> QR Verify</a>
+      </div>
+
+      <div class="co-grid-2" style="grid-template-columns: 1fr 2fr;">
+        <!-- Left: Details -->
+        <div>
+          <div class="co-panel" style="margin-bottom:20px;">
+            <h3 style="font-size:15px;font-weight:700;margin:0 0 16px;">Student Details</h3>
+            <div style="display:flex;align-items:center;gap:14px;">
+              <img src="https://ui-avatars.com/api/?name=Sneha+Joshi&background=16a34a&color=fff&size=60" style="width:50px;height:50px;border-radius:50%;">
+              <div>
+                <div style="font-weight:700;color:var(--text-dark);">Sneha Joshi</div>
+                <div style="font-size:12.5px;color:var(--text-muted);">ENR2024004</div>
+              </div>
+            </div>
+          </div>
+          <div class="co-panel">
+            <h3 style="font-size:15px;font-weight:700;margin:0 0 16px;">Internship Details</h3>
+            <div style="margin-bottom:12px;">
+              <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;">Company</div>
+              <div style="font-weight:600;font-size:13.5px;color:var(--text-dark);">DataMind Analytics</div>
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;">Role</div>
+              <div style="font-weight:600;font-size:13.5px;color:var(--text-dark);">Data Analyst Intern</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Evaluation Form -->
+        <div class="co-panel">
+          <h3 style="font-size:16px;font-weight:700;margin:0 0 16px;">Evaluation Form</h3>
+          
+          <div style="margin-bottom:20px;">
+            <div class="rating-row">
+              <div class="rating-lbl">Technical Skills</div>
+              <div class="rating-stars" onclick="setStar(this)">
+                <i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+            <div class="rating-row">
+              <div class="rating-lbl">Communication Skills</div>
+              <div class="rating-stars" onclick="setStar(this)">
+                <i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+            <div class="rating-row">
+              <div class="rating-lbl">Problem Solving</div>
+              <div class="rating-stars" onclick="setStar(this)">
+                <i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+            <div class="rating-row">
+              <div class="rating-lbl">Confidence & Body Language</div>
+              <div class="rating-stars" onclick="setStar(this)">
+                <i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+            <div class="rating-row">
+              <div class="rating-lbl">Overall Rating</div>
+              <div class="rating-stars" onclick="setStar(this)">
+                <i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star active"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="co-form-group">
+            <label>Detailed Comments & Feedback</label>
+            <textarea class="co-input" rows="4" placeholder="Enter specific feedback regarding the candidate's performance..."></textarea>
+          </div>
+
+          <div class="co-form-group">
+            <label>Final Result</label>
+            <div style="display:flex;gap:12px;">
+              <label class="result-opt" id="optSelect" onclick="selResult('optSelect','selected-green')">
+                <input type="radio" name="result"> Selected
+              </label>
+              <label class="result-opt" id="optReject" onclick="selResult('optReject','selected-red')">
+                <input type="radio" name="result"> Rejected
+              </label>
+              <label class="result-opt" id="optHold" onclick="selResult('optHold','selected-yellow')">
+                <input type="radio" name="result"> Hold
+              </label>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:24px;">
+            <button class="btn btn-ghost">Save Draft</button>
+            <button class="btn btn-primary" onclick="submitFeedback()">Submit Feedback</button>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="successModal">
+  <div class="modal-box" style="max-width:360px;text-align:center;">
+    <div class="modal-icon icon-green"><i class="fa-solid fa-circle-check"></i></div>
+    <h3 class="modal-title">Feedback Submitted</h3>
+    <p class="modal-sub">The interview evaluation has been recorded successfully.</p>
+    <button class="btn btn-primary" onclick="document.getElementById('successModal').classList.remove('open')" style="width:100%;">Done</button>
+  </div>
+</div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script>
+function setStar(container) {
+  // Simple visual toggle for demo
+  const stars = container.querySelectorAll('i');
+  let active = false;
+  stars.forEach(s => {
+    s.onclick = (e) => {
+      e.stopPropagation();
+      let passed = false;
+      stars.forEach(star => {
+        if(!passed) star.classList.add('active');
+        else star.classList.remove('active');
+        if(star === s) passed = true;
+      });
+    }
+  });
+}
+function selResult(id, cls) {
+  document.getElementById('optSelect').className = 'result-opt';
+  document.getElementById('optReject').className = 'result-opt';
+  document.getElementById('optHold').className = 'result-opt';
+  document.getElementById(id).classList.add(cls);
+}
+function submitFeedback() {
+  document.getElementById('successModal').classList.add('open');
+}
+</script>
+</body>
+</html>

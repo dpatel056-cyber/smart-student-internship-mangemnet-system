@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Analytics - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Reports &amp; Analytics<span>Performance insights and hiring statistics</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="badge">2</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">TN</span>
+          <span class="dash-name" id="dashNameTop">TechNova Pvt Ltd<span>Company</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="company-profile.html"><i class="fa-solid fa-building"></i> Company Profile</a>
+            <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+            <hr>
+            <a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <div class="co-page-header">
+        <div class="co-page-header-left">
+          <h1>Reports &amp; Analytics</h1>
+          <p>Track performance, application trends and hiring success rate</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-ghost" style="display:inline-flex;align-items:center;gap:8px;" id="exportBtn">
+            <i class="fa-solid fa-download"></i> Export Report
+          </button>
+          <button class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;" id="refreshBtn">
+            <i class="fa-solid fa-rotate"></i> Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- Hero Analytics Cards -->
+      <div class="co-analytics-hero">
+        <div class="co-analytics-hero-card">
+          <h2>312</h2>
+          <p>Total Applications Received</p>
+          <small><i class="fa-solid fa-arrow-trend-up"></i> +28 this week &bull; +12% vs last month</small>
+        </div>
+        <div class="co-analytics-hero-card green">
+          <h2>19</h2>
+          <p>Students Selected</p>
+          <small><i class="fa-solid fa-arrow-trend-up"></i> +3 this month &bull; 92% success rate</small>
+        </div>
+        <div class="co-analytics-hero-card purple">
+          <h2>24</h2>
+          <p>Total Internships Posted</p>
+          <small><i class="fa-solid fa-arrow-trend-up"></i> 8 currently active</small>
+        </div>
+      </div>
+
+      <!-- Stat Cards Row -->
+      <div class="co-stat-grid" style="margin-bottom:26px;">
+        <div class="co-stat-card">
+          <div class="co-stat-icon blue"><i class="fa-solid fa-file-lines"></i></div>
+          <div class="co-stat-info"><h3>188</h3><p>Pending Applications</p><small class="up"><i class="fa-solid fa-clock"></i> Awaiting review</small></div>
+        </div>
+        <div class="co-stat-card">
+          <div class="co-stat-icon orange"><i class="fa-solid fa-star"></i></div>
+          <div class="co-stat-info"><h3>47</h3><p>Shortlisted Students</p><small class="up"><i class="fa-solid fa-arrow-trend-up"></i> 6 added today</small></div>
+        </div>
+        <div class="co-stat-card">
+          <div class="co-stat-icon teal"><i class="fa-solid fa-user-check"></i></div>
+          <div class="co-stat-info"><h3>19</h3><p>Selected Students</p><small class="up"><i class="fa-solid fa-arrow-trend-up"></i> 3 this month</small></div>
+        </div>
+        <div class="co-stat-card">
+          <div class="co-stat-icon red"><i class="fa-solid fa-user-xmark"></i></div>
+          <div class="co-stat-info"><h3>58</h3><p>Rejected Students</p><small class="down"><i class="fa-solid fa-arrow-trend-down"></i> -5 vs last month</small></div>
+        </div>
+      </div>
+
+      <!-- Charts Row 1 -->
+      <div class="co-grid-2-equal" style="margin-bottom:26px;">
+
+        <!-- Applications Per Month -->
+        <div class="co-panel">
+          <div class="co-panel-header">
+            <h3>Applications Per Month</h3>
+            <span style="font-size:12px;color:var(--text-muted);">Year 2026</span>
+          </div>
+          <div class="co-chart-container" id="analyticsBarChart"></div>
+        </div>
+
+      <!-- Charts Row 2 -->
+      <div class="co-grid-2-equal" style="margin-bottom:26px;">
+
+        <!-- Hiring Success Rate Donut -->
+        <div class="co-panel">
+          <div class="co-panel-header">
+            <h3>Hiring Success Rate</h3>
+            <span style="font-size:12px;color:var(--text-muted);">Overall breakdown</span>
+          </div>
+          <div class="co-donut-wrap" style="padding-top:10px;">
+            <svg width="160" height="160" viewBox="0 0 160 160">
+              <circle cx="80" cy="80" r="65" fill="none" stroke="#f1f5f9" stroke-width="22"/>
+              <!-- Pending: 188/312 = 60.3% → ~226deg -->
+              <circle cx="80" cy="80" r="65" fill="none" stroke="#e2e8f0" stroke-width="22"
+                stroke-dasharray="245 163" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 80 80)"/>
+              <!-- Shortlisted: 47/312 = 15% → ~56deg -->
+              <circle cx="80" cy="80" r="65" fill="none" stroke="#2563eb" stroke-width="22"
+                stroke-dasharray="61 347" stroke-dashoffset="-245" stroke-linecap="round" transform="rotate(-90 80 80)"/>
+              <!-- Selected: 19/312 = 6% → ~23deg -->
+              <circle cx="80" cy="80" r="65" fill="none" stroke="#16a34a" stroke-width="22"
+                stroke-dasharray="23 385" stroke-dashoffset="-306" stroke-linecap="round" transform="rotate(-90 80 80)"/>
+              <!-- Rejected: 58/312 = 18.6% → ~70deg -->
+              <circle cx="80" cy="80" r="65" fill="none" stroke="#ef4444" stroke-width="22"
+                stroke-dasharray="76 332" stroke-dashoffset="-329" stroke-linecap="round" transform="rotate(-90 80 80)"/>
+              <text x="80" y="75" text-anchor="middle" font-size="22" font-weight="800" fill="#1e293b">92%</text>
+              <text x="80" y="95" text-anchor="middle" font-size="12" fill="#64748b">Success</text>
+            </svg>
+            <div class="co-donut-legend">
+              <div class="co-donut-legend-item"><span class="co-legend-dot" style="background:#e2e8f0;border:1px solid #cbd5e1;"></span> Pending <strong style="margin-left:auto;padding-left:16px;">188</strong></div>
+              <div class="co-donut-legend-item"><span class="co-legend-dot" style="background:#2563eb;"></span> Shortlisted <strong style="margin-left:auto;padding-left:16px;">47</strong></div>
+              <div class="co-donut-legend-item"><span class="co-legend-dot" style="background:#16a34a;"></span> Selected <strong style="margin-left:auto;padding-left:16px;">19</strong></div>
+              <div class="co-donut-legend-item"><span class="co-legend-dot" style="background:#ef4444;"></span> Rejected <strong style="margin-left:auto;padding-left:16px;">58</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Stats Cards -->
+        <div class="co-panel">
+          <div class="co-panel-header"><h3>Performance Summary</h3></div>
+          <div style="display:flex;flex-direction:column;gap:14px;padding-top:6px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;background:#f8fafc;border-radius:10px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="co-stat-icon blue" style="width:38px;height:38px;border-radius:10px;font-size:15px;"><i class="fa-solid fa-briefcase"></i></div>
+                <div><div style="font-size:13px;font-weight:600;">Avg. Applications / Internship</div><div style="font-size:12px;color:var(--text-muted);">Based on all 24 posts</div></div>
+              </div>
+              <strong style="font-size:20px;color:#2563eb;">13</strong>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;background:#f8fafc;border-radius:10px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="co-stat-icon green" style="width:38px;height:38px;border-radius:10px;font-size:15px;"><i class="fa-solid fa-calendar-check"></i></div>
+                <div><div style="font-size:13px;font-weight:600;">Avg. Time to Hire</div><div style="font-size:12px;color:var(--text-muted);">From application to selection</div></div>
+              </div>
+              <strong style="font-size:20px;color:#16a34a;">8 days</strong>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;background:#f8fafc;border-radius:10px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="co-stat-icon purple" style="width:38px;height:38px;border-radius:10px;font-size:15px;"><i class="fa-solid fa-star"></i></div>
+                <div><div style="font-size:13px;font-weight:600;">Company Rating</div><div style="font-size:12px;color:var(--text-muted);">Based on student reviews</div></div>
+              </div>
+              <strong style="font-size:20px;color:#7c3aed;">4.6 / 5</strong>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;background:#f8fafc;border-radius:10px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="co-stat-icon orange" style="width:38px;height:38px;border-radius:10px;font-size:15px;"><i class="fa-solid fa-chart-line"></i></div>
+                <div><div style="font-size:13px;font-weight:600;">Profile Views This Month</div><div style="font-size:12px;color:var(--text-muted);">Students who viewed your profile</div></div>
+              </div>
+              <strong style="font-size:20px;color:#ea580c;">1,840</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Back to Dashboard -->
+      <div>
+        <a href="company-dashboard.html" class="btn btn-ghost" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;">
+          <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+      </div>
+
+    </main>
+
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links">
+        <a href="#">Privacy Policy</a><span>|</span><a href="#">Terms &amp; Conditions</a><span>|</span><a href="#">Support</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Company Dashboard?</p>
+    <div style="display:flex;gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1;justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1;justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/company-dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Bar Chart
+  const barData = [
+    { label: 'Jan', val: 18 }, { label: 'Feb', val: 24 }, { label: 'Mar', val: 30 },
+    { label: 'Apr', val: 22 }, { label: 'May', val: 38 }, { label: 'Jun', val: 45 },
+    { label: 'Jul', val: 62 }, { label: 'Aug', val: 28 }, { label: 'Sep', val: 55 },
+    { label: 'Oct', val: 42 }, { label: 'Nov', val: 35 }, { label: 'Dec', val: 48 }
+  ];
+  const maxVal = Math.max(...barData.map(d => d.val));
+  const barChart = document.getElementById('analyticsBarChart');
+  if (barChart) {
+    barChart.innerHTML = barData.map(d => {
+      const pct = Math.round((d.val / maxVal) * 200);
+      return `<div class="co-bar-group">
+        <div class="co-bar-val">${d.val}</div>
+        <div class="co-bar" style="height:${pct}px;" title="${d.label}: ${d.val} applications"></div>
+        <div class="co-bar-label">${d.label}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Internship Wise
+  const internships = [
+    { name: 'Frontend Developer Intern', apps: 78, color: '#2563eb' },
+    { name: 'Data Analyst Intern', apps: 62, color: '#7c3aed' },
+    { name: 'Backend Developer Intern', apps: 55, color: '#0d9488' },
+    { name: 'UI/UX Design Intern', apps: 43, color: '#ea580c' },
+    { name: 'Marketing Intern', apps: 34, color: '#db2777' },
+  ];
+  const maxApps = Math.max(...internships.map(d => d.apps));
+  const iwContainer = document.getElementById('internshipWise');
+  if (iwContainer) {
+    iwContainer.innerHTML = internships.map(d => {
+      const pct = Math.round((d.apps / maxApps) * 100);
+      return `<div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--text-dark);margin-bottom:5px;">
+          <span>${d.name}</span><span>${d.apps} apps</span>
+        </div>
+        <div style="background:#f1f5f9;border-radius:20px;height:8px;overflow:hidden;">
+          <div style="width:${pct}%;background:${d.color};height:100%;border-radius:20px;transition:width .6s ease;"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Buttons
+  const exportBtn = document.getElementById('exportBtn');
+  if (exportBtn) exportBtn.addEventListener('click', () => { if (window.simsShowToast) window.simsShowToast('Report export coming soon!', 'success'); });
+
+  const refreshBtn = document.getElementById('refreshBtn');
+  if (refreshBtn) refreshBtn.addEventListener('click', () => { if (window.simsShowToast) window.simsShowToast('Analytics refreshed!', 'success'); });
+});
+</script>
+</body>
+</html>

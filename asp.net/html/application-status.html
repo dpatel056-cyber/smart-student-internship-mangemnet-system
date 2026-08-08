@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Application Status - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/internship-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dashboard-shell">
+
+  <!-- ============ LEFT SIDEBAR ============ -->
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div class="dashboard-main-col">
+
+    <!-- ============ TOP NAVBAR ============ -->
+    <header class="dashboard-topbar"></header>
+
+    <!-- ============ DASHBOARD CONTENT ============ -->
+    <main class="dashboard-content">
+
+      <!-- Breadcrumb -->
+      <div class="pm-breadcrumb" style="margin-bottom: 24px;">
+        <a href="student-dashboard.html">Dashboard</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <a href="my-applications.html">My Applications</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="current">Application Status</span>
+      </div>
+      
+      <div class="im-timeline-card">
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+          <div>
+            <h2 id="stTitle" style="font-size: 24px; font-weight: 700; color: var(--navy-900); margin-bottom: 4px;">Internship Role</h2>
+            <p id="stCompany" style="font-size: 16px; color: var(--text-muted); margin: 0;">Company Name</p>
+          </div>
+          <div id="stBadgeWrap">
+            <!-- Badge injected here -->
+          </div>
+        </div>
+        
+        <div style="background: #f8fafc; border-radius: 12px; padding: 16px; margin-bottom: 30px; display: flex; gap: 24px; border: 1px solid var(--border-light);">
+          <div>
+            <span style="display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 2px;">Applied On</span>
+            <strong id="stAppliedDate" style="font-size: 14px; color: var(--navy-900);">Date</strong>
+          </div>
+          <div>
+            <span style="display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 2px;">Location</span>
+            <strong id="stLocation" style="font-size: 14px; color: var(--navy-900);">Location</strong>
+          </div>
+          <div>
+            <span style="display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 2px;">Applicant ID</span>
+            <strong id="stAppId" style="font-size: 14px; color: var(--navy-900);">APP-000</strong>
+          </div>
+        </div>
+
+        <div class="im-timeline" id="timelineWrap">
+          <!-- Timeline steps injected by JS -->
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding-top: 24px; border-top: 1px dashed var(--border-light);">
+          <p id="stMessage" style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">Message goes here</p>
+          <button type="button" class="btn btn-ghost" id="withdrawBtn" style="color: #ef4444;"><i class="fa-solid fa-xmark"></i> Withdraw Application</button>
+        </div>
+        
+      </div>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links">
+        <a href="privacy-security.html">Privacy Policy</a>
+        <span>|</span>
+        <a href="privacy-security.html">Terms &amp; Conditions</a>
+        <span>|</span>
+        <a href="help-support.html">Support</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- Logout Confirmation Modal -->
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px; text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Student Dashboard?</p>
+    <div style="display:flex; gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1; justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1; justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- Withdraw Confirmation Modal -->
+<div class="modal-overlay" id="withdrawModalOverlay">
+  <div class="modal-box" style="max-width:420px; text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+    <h3 class="modal-title">Withdraw Application?</h3>
+    <p class="modal-sub">Are you sure you want to withdraw this application? This action cannot be undone.</p>
+    <div style="display:flex; gap:12px; margin-top: 24px;">
+      <button type="button" class="btn btn-ghost" id="withdrawCancelBtn" style="flex:1; justify-content:center;">Cancel</button>
+      <button type="button" class="btn btn-primary" id="withdrawConfirmBtn" style="flex:1; justify-content:center; background:#ef4444; border-color:#ef4444;">Withdraw</button>
+    </div>
+  </div>
+</div>
+
+<!-- Withdraw Success Modal -->
+<div class="modal-overlay" id="withdrawSuccessModalOverlay">
+  <div class="modal-box" style="max-width:380px; text-align:center;">
+    <div class="modal-icon icon-green"><i class="fa-solid fa-circle-check"></i></div>
+    <h3 class="modal-title">Application Withdrawn</h3>
+    <p class="modal-sub">Application withdrawn successfully.</p>
+    <button type="button" class="btn btn-primary" id="withdrawSuccessOkBtn" style="width:100%; justify-content:center;">OK</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="login-toast" id="dashToast">
+  <i class="fa-solid fa-circle-check"></i>
+  <span id="dashToastMsg">Done!</span>
+</div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/student-layout.js"></script>
+<script src="../js/dashboard.js"></script>
+<script src="../js/companies-data.js"></script>
+<script src="../js/internships-data.js"></script>
+<script src="../js/application-status.js"></script>
+</body>
+</html>
