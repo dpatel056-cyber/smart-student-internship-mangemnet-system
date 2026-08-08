@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Schedule - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/internship-module.css">
+<link rel="stylesheet" href="../css/interview-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dashboard-shell">
+
+  <!-- ============ LEFT SIDEBAR ============ -->
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div class="dashboard-main-col">
+
+    <!-- ============ TOP NAVBAR ============ -->
+    <header class="dashboard-topbar"></header>
+
+    <!-- ============ DASHBOARD CONTENT ============ -->
+    <main class="dashboard-content">
+
+      <!-- Breadcrumb -->
+      <div class="pm-breadcrumb" style="margin-bottom: 24px;">
+        <a href="student-dashboard.html">Dashboard</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="current">Interview Schedule</span>
+      </div>
+      
+      <div class="im-header">
+        <div>
+          <h2 class="im-title">Upcoming Interviews</h2>
+          <p class="im-subtitle">You have <span id="ivCount">0</span> interviews scheduled.</p>
+        </div>
+      </div>
+
+      <div class="iv-grid" id="ivGrid">
+        <!-- Cards injected by JS -->
+      </div>
+      
+      <div class="im-empty-state" id="noIvResults" style="display:none;">
+        <i class="fa-solid fa-calendar-xmark im-empty-icon" style="color: #cbd5e1;"></i>
+        <h3 class="im-empty-title">No Interviews Scheduled</h3>
+        <p class="im-empty-text">You don't have any upcoming interviews at the moment. Keep applying to internships!</p>
+        <a href="browse-internships.html" class="btn btn-primary">Browse Internships</a>
+      </div>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links">
+        <a href="privacy-security.html">Privacy Policy</a>
+        <span>|</span>
+        <a href="privacy-security.html">Terms &amp; Conditions</a>
+        <span>|</span>
+        <a href="help-support.html">Support</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- Reschedule Modal -->
+<div class="modal-overlay" id="rescheduleModal">
+  <div class="modal-box" style="max-width:400px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+      <h3 style="margin: 0; font-size: 18px; color: var(--navy-900);">Reschedule Request</h3>
+      <button type="button" class="icon-btn" id="closeRescheduleBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Please provide a reason and your preferred new time slots for the <strong id="resCompany">Company</strong> interview.</p>
+    
+    <form id="rescheduleForm">
+      <div class="ima-form-group" style="margin-bottom: 16px;">
+        <label class="ima-label" style="font-size: 13px; display: block; margin-bottom: 6px;">Reason for rescheduling</label>
+        <textarea class="ima-textarea" required style="width: 100%; min-height: 80px; padding: 10px; border: 1px solid var(--border-light); border-radius: 6px;"></textarea>
+      </div>
+      <div class="ima-form-group" style="margin-bottom: 24px;">
+        <label class="ima-label" style="font-size: 13px; display: block; margin-bottom: 6px;">Preferred Dates / Times</label>
+        <input type="text" class="ima-textarea" required placeholder="e.g. 24th July after 2 PM" style="width: 100%; padding: 10px; border: 1px solid var(--border-light); border-radius: 6px;">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Submit Request</button>
+    </form>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="login-toast" id="dashToast">
+  <i class="fa-solid fa-circle-check"></i>
+  <span id="dashToastMsg">Done!</span>
+</div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/student-layout.js"></script>
+<script src="../js/dashboard.js"></script>
+<script src="../js/interviews-data.js"></script>
+<script src="../js/interview-schedule.js"></script>
+</body>
+</html>

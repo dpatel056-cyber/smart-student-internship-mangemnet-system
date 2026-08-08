@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upcoming Deadlines - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/internship-module.css">
+<link rel="stylesheet" href="../css/interview-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dashboard-shell">
+
+  <!-- ============ LEFT SIDEBAR ============ -->
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div class="dashboard-main-col">
+
+    <!-- ============ TOP NAVBAR ============ -->
+    <header class="dashboard-topbar"></header>
+
+    <!-- ============ DASHBOARD CONTENT ============ -->
+    <main class="dashboard-content">
+
+      <!-- Breadcrumb -->
+      <div class="pm-breadcrumb" style="margin-bottom: 24px;">
+        <a href="student-dashboard.html">Dashboard</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="current">Upcoming Deadlines</span>
+      </div>
+
+      <div class="dl-layout">
+        
+        <!-- Left: Calendar View -->
+        <div class="dl-calendar-card">
+          <div class="dl-cal-header">
+            <h3 id="calMonthYear">July 2026</h3>
+            <div class="dl-cal-nav">
+              <button class="icon-btn" id="btnPrevMonth"><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="icon-btn" id="btnNextMonth"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+          
+          <div class="dl-cal-grid" id="calGrid">
+            <!-- Days header -->
+            <div class="dl-cal-day-header">Su</div>
+            <div class="dl-cal-day-header">Mo</div>
+            <div class="dl-cal-day-header">Tu</div>
+            <div class="dl-cal-day-header">We</div>
+            <div class="dl-cal-day-header">Th</div>
+            <div class="dl-cal-day-header">Fr</div>
+            <div class="dl-cal-day-header">Sa</div>
+            
+            <!-- Dates injected here -->
+          </div>
+          
+          <div style="margin-top: 24px; display: flex; gap: 16px; font-size: 12px; color: var(--text-muted); justify-content: center;">
+            <div style="display:flex; align-items:center; gap:6px;"><div class="dl-cal-indicator interview" style="margin:0;"></div> Interview</div>
+            <div style="display:flex; align-items:center; gap:6px;"><div class="dl-cal-indicator offer" style="margin:0;"></div> Offer</div>
+            <div style="display:flex; align-items:center; gap:6px;"><div class="dl-cal-indicator deadline" style="margin:0;"></div> Deadline</div>
+          </div>
+        </div>
+
+        <!-- Right: List View -->
+        <div>
+          <h3 style="font-size: 18px; font-weight: 600; color: var(--navy-900); margin: 0 0 16px 0;">Reminders</h3>
+          <div class="dl-reminder-list" id="reminderList">
+            <!-- Reminder cards injected here -->
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="im-header" style="margin-top: 48px;">
+        <h2 class="im-title">Timeline View</h2>
+      </div>
+      
+      <div class="im-timeline-card" style="margin-bottom: 0;">
+        <div class="im-timeline" id="timelineList" style="margin: 0 auto;">
+          <!-- Timeline injected here -->
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links">
+        <a href="#">Privacy Policy</a>
+        <span>|</span>
+        <a href="#">Terms &amp; Conditions</a>
+        <span>|</span>
+        <a href="#">Support</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="login-toast" id="dashToast">
+  <i class="fa-solid fa-circle-check"></i>
+  <span id="dashToastMsg">Done!</span>
+</div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/student-layout.js"></script>
+<script src="../js/dashboard.js"></script>
+<script src="../js/interviews-data.js"></script>
+<script src="../js/upcoming-deadlines.js"></script>
+</body>
+</html>

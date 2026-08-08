@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Verification - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .vfy-table th { background:#f8fafc;font-size:11.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;padding:12px 16px;border:none;white-space:nowrap; }
+  .vfy-table td { padding:14px 16px;border-color:var(--border-light);vertical-align:middle;font-size:13px; }
+  .vfy-table tbody tr:hover { background:#f8faff; }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Company Verification<span>Review and approve pending corporate registrations</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="admin-companies.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-building"></i> Company List</a>
+        <a href="admin-company-verification.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-building-circle-check"></i> Verification <span class="badge-count" style="background:#fff;color:#2563eb;">3</span></a>
+      </div>
+
+      <div class="co-page-header">
+        <div class="co-page-header-left">
+          <h1>Pending Company Approvals</h1>
+          <p>Review the corporate documents and verify the authenticity of companies.</p>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="co-panel" style="padding:0;overflow:hidden;">
+        <div style="overflow-x:auto;">
+          <table class="table vfy-table mb-0">
+            <thead>
+              <tr>
+                <th>Company Name</th>
+                <th>Industry</th>
+                <th>HR Contact</th>
+                <th>Registration Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="vfyTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<!-- Reject Modal -->
+<div class="modal-overlay" id="rejectModal">
+  <div class="modal-box" style="max-width:420px;">
+    <h3 class="modal-title">Reject Company</h3>
+    <p class="modal-sub">Please provide a reason for rejecting this company's application.</p>
+    <div class="co-form-group" style="margin-bottom:16px;">
+      <label>Reason</label>
+      <textarea id="rejectReason" rows="3" placeholder="e.g. Invalid documents, unverified domain..."></textarea>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-ghost" onclick="closeReject()" style="flex:1;justify-content:center;">Cancel</button>
+      <button class="btn btn-primary" style="flex:1;justify-content:center;background:#ef4444;border-color:#ef4444;" onclick="confirmReject()">Reject Application</button>
+    </div>
+  </div>
+</div>
+
+<!-- Success Popup -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal-box" style="max-width:360px;text-align:center;">
+    <div class="modal-icon icon-green"><i class="fa-solid fa-circle-check"></i></div>
+    <h3 class="modal-title" id="successTitle">Company Verified!</h3>
+    <p class="modal-sub" id="successMsg">The company has been approved and notified via email.</p>
+    <button class="btn btn-primary" onclick="document.getElementById('successModal').classList.remove('open')" style="width:100%;">Done</button>
+  </div>
+</div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script>
+const VFY_DATA = [
+  { id:1, logo:'https://ui-avatars.com/api/?name=DesignStudio&background=ea580c&color=fff', name:'DesignStudio Co.', ind:'Design', hr:'Priya Shah', date:'05 Jan 2024', status:'Pending' },
+  { id:2, logo:'https://ui-avatars.com/api/?name=CloudNet&background=0284c7&color=fff', name:'CloudNet Solutions', ind:'IT Services', hr:'Vikram Rao', date:'12 Jan 2024', status:'Pending' },
+  { id:3, logo:'https://ui-avatars.com/api/?name=NeoFin&background=65a30d&color=fff', name:'NeoFin Advisors', ind:'Finance', hr:'Meera Gupta', date:'14 Jan 2024', status:'Pending' },
+];
+
+let rejectId = null;
+
+function renderVfy() {
+  document.getElementById('vfyTableBody').innerHTML = VFY_DATA.length ? VFY_DATA.map(v => `
+    <tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="${v.logo}" style="width:36px;height:36px;border-radius:8px;border:1px solid var(--border-light);">
+          <div><div style="font-weight:600;color:var(--text-dark);">${v.name}</div></div>
+        </div>
+      </td>
+      <td>${v.ind}</td>
+      <td>${v.hr}</td>
+      <td>${v.date}</td>
+      <td><span class="co-badge" style="background:#fefce8;color:#ca8a04;border-color:#fef08a;">${v.status}</span></td>
+      <td style="white-space:nowrap;">
+        <button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;margin-right:4px;" title="View Docs" onclick="simsShowToast('Documents Opened')"><i class="fa-solid fa-file-contract"></i></button>
+        <a href="admin-company-details.html" class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;margin-right:4px;" title="Details"><i class="fa-solid fa-eye"></i></a>
+        <button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;margin-right:4px;" title="Approve" onclick="approveComp(${v.id})"><i class="fa-solid fa-check"></i></button>
+        <button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;background:#fef2f2;color:#ef4444;border-color:#fecaca;" title="Reject" onclick="openReject(${v.id})"><i class="fa-solid fa-xmark"></i></button>
+      </td>
+    </tr>
+  `).join('') : '<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text-muted);">No pending verifications.</td></tr>';
+}
+
+function approveComp(id) {
+  const idx = VFY_DATA.findIndex(v=>v.id===id);
+  if(idx>-1) VFY_DATA.splice(idx,1);
+  renderVfy();
+  document.getElementById('successTitle').textContent = 'Company Verified!';
+  document.getElementById('successMsg').textContent   = 'Company account has been fully activated.';
+  document.getElementById('successModal').classList.add('open');
+}
+
+function openReject(id) { rejectId = id; document.getElementById('rejectModal').classList.add('open'); }
+function closeReject()  { document.getElementById('rejectModal').classList.remove('open'); }
+function confirmReject() {
+  const idx = VFY_DATA.findIndex(v=>v.id===rejectId);
+  if(idx>-1) VFY_DATA.splice(idx,1);
+  closeReject(); renderVfy();
+  document.getElementById('successTitle').textContent = 'Application Rejected';
+  document.getElementById('successMsg').textContent   = 'The company has been notified about the rejection.';
+  document.getElementById('successModal').classList.add('open');
+}
+
+renderVfy();
+</script>
+</body>
+</html>

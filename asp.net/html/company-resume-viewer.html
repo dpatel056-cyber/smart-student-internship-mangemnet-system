@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Viewer - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .co-pdf-viewer {
+    width: 100%;
+    height: calc(100vh - 280px);
+    background: #e2e8f0;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Resume Viewer<span>Preview student resume documents</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="badge">2</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">TN</span>
+          <span class="dash-name" id="dashNameTop">TechNova Pvt Ltd<span>Company</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="company-profile.html"><i class="fa-solid fa-building"></i> Company Profile</a>
+            <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+            <hr>
+            <a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <div class="co-page-header">
+        <div class="co-page-header-left">
+          <h1>Resume: Rahul_Sharma_Resume.pdf</h1>
+          <p>Applied for <strong style="color:var(--text-dark);">Frontend Developer Intern</strong> on 10 Jul 2026</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;" onclick="statusToast('Downloading resume...')">
+            <i class="fa-solid fa-download"></i> Download Resume
+          </button>
+          <button class="btn btn-ghost" style="display:inline-flex;align-items:center;gap:8px;" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> Print Resume
+          </button>
+          <a href="company-student-details.html" class="btn btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </a>
+        </div>
+      </div>
+
+      <!-- Fake PDF Viewer UI -->
+      <div class="co-panel" style="padding:16px;">
+        <div class="co-pdf-viewer">
+          <i class="fa-solid fa-file-pdf" style="font-size:48px;color:#cbd5e1;margin-bottom:16px;"></i>
+          <p style="font-size:15px;font-weight:600;color:var(--text-dark);margin-bottom:8px;">Interactive PDF Viewer</p>
+          <p style="font-size:13px;max-width:300px;text-align:center;">In a live environment, the actual PDF file would be rendered here using an iframe or PDF.js library.</p>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links"><a href="#">Privacy Policy</a><span>|</span><a href="#">Terms &amp; Conditions</a><span>|</span><a href="#">Support</a></div>
+    </footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Company Dashboard?</p>
+    <div style="display:flex;gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1;justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1;justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/company-dashboard.js"></script>
+<script>
+  function statusToast(msg, type='success') {
+    if(window.simsShowToast) window.simsShowToast(msg, type);
+  }
+</script>
+</body>
+</html>

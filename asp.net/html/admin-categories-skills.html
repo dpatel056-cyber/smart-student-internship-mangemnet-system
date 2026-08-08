@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Categories & Skills - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .tab-nav { display:flex;gap:20px;border-bottom:1px solid var(--border-light);margin-bottom:20px; }
+  .tab-nav button { background:none;border:none;padding:12px 0;font-size:14px;font-weight:600;color:var(--text-muted);cursor:pointer;position:relative; }
+  .tab-nav button.active { color:var(--primary); }
+  .tab-nav button.active::after { content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--primary); }
+  .cat-list { list-style:none;padding:0;margin:0; }
+  .cat-item { display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border:1px solid var(--border-light);border-radius:8px;margin-bottom:10px;background:#fff; }
+  .cat-item-name { font-weight:600;color:var(--text-dark);font-size:13.5px; }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Categories & Skills<span>Manage system-wide domains and skill sets</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="admin-internships.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-briefcase"></i> Internship List</a>
+        <a href="admin-internship-approval.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-clipboard-check"></i> Approval Queue</a>
+        <a href="admin-categories-skills.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-tags"></i> Categories & Skills</a>
+      </div>
+
+      <div class="co-panel">
+        <div class="tab-nav">
+          <button class="active" onclick="switchTab('categories', this)">Internship Categories</button>
+          <button onclick="switchTab('skills', this)">Skill Tags</button>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+          <div class="login-input-wrap" style="max-width:300px;margin:0;">
+            <i class="fa-solid fa-magnifying-glass input-icon" style="top:50%;transform:translateY(-50%);"></i>
+            <input type="text" placeholder="Search..." style="padding:9px 14px 9px 42px;border:1px solid var(--border-light);border-radius:8px;width:100%;font-size:13px;outline:none;">
+          </div>
+          <button class="btn btn-primary" onclick="openAddModal()"><i class="fa-solid fa-plus"></i> Add New</button>
+        </div>
+
+        <!-- Categories List -->
+        <ul class="cat-list" id="catList" style="display:block;">
+          <li class="cat-item">
+            <div class="cat-item-name">Web Development</div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;color:#ef4444;" onclick="simsShowToast('Deleted','error')"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </li>
+          <li class="cat-item">
+            <div class="cat-item-name">Data Science</div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;color:#ef4444;" onclick="simsShowToast('Deleted','error')"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </li>
+          <li class="cat-item">
+            <div class="cat-item-name">Digital Marketing</div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;color:#ef4444;" onclick="simsShowToast('Deleted','error')"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </li>
+        </ul>
+
+        <!-- Skills List -->
+        <ul class="cat-list" id="skillList" style="display:none;">
+          <li class="cat-item">
+            <div class="cat-item-name">React.js</div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;color:#ef4444;" onclick="simsShowToast('Deleted','error')"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </li>
+          <li class="cat-item">
+            <div class="cat-item-name">Python</div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;color:#ef4444;" onclick="simsShowToast('Deleted','error')"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </li>
+          <li class="cat-item">
+            <div class="cat-item-name">SEO</div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;color:#ef4444;" onclick="simsShowToast('Deleted','error')"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+
+    </main>
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="addModal">
+  <div class="modal-box" style="max-width:400px;">
+    <h3 class="modal-title" id="addTitle">Add Category</h3>
+    <div class="co-form-group">
+      <label id="addLabel">Category Name</label>
+      <input type="text" class="co-input" placeholder="Enter name...">
+    </div>
+    <div style="display:flex;gap:10px;margin-top:16px;">
+      <button class="btn btn-ghost" onclick="document.getElementById('addModal').classList.remove('open')" style="flex:1;justify-content:center;">Cancel</button>
+      <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="saveItem()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script>
+let currentTab = 'categories';
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-nav button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentTab = tab;
+  if(tab === 'categories') {
+    document.getElementById('catList').style.display = 'block';
+    document.getElementById('skillList').style.display = 'none';
+  } else {
+    document.getElementById('catList').style.display = 'none';
+    document.getElementById('skillList').style.display = 'block';
+  }
+}
+function openAddModal() {
+  document.getElementById('addTitle').textContent = currentTab === 'categories' ? 'Add Category' : 'Add Skill Tag';
+  document.getElementById('addLabel').textContent = currentTab === 'categories' ? 'Category Name' : 'Skill Name';
+  document.getElementById('addModal').classList.add('open');
+}
+function saveItem() {
+  document.getElementById('addModal').classList.remove('open');
+  if(window.simsShowToast) simsShowToast('Saved successfully!','success');
+}
+</script>
+</body>
+</html>

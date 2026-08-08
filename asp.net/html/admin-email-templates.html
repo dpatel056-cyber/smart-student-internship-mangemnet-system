@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Templates - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .template-nav { display:flex;flex-direction:column;gap:4px;border-right:1px solid var(--border-light);padding-right:16px;min-height:400px; }
+  .template-nav-btn { background:none;border:none;padding:12px 16px;border-radius:8px;text-align:left;font-size:13.5px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px; }
+  .template-nav-btn:hover { background:#f8fafc;color:var(--text-dark); }
+  .template-nav-btn.active { background:#eff6ff;color:#2563eb; }
+  
+  .rich-editor-toolbar { border:1px solid var(--border-light);border-bottom:none;border-radius:8px 8px 0 0;background:#f8fafc;padding:10px;display:flex;gap:6px;flex-wrap:wrap; }
+  .rich-editor-toolbar button { background:none;border:none;padding:6px 10px;border-radius:4px;color:var(--text-muted);cursor:pointer;font-size:14px; }
+  .rich-editor-toolbar button:hover { background:#e2e8f0;color:var(--text-dark); }
+  .rich-editor-area { border:1px solid var(--border-light);border-radius:0 0 8px 8px;min-height:300px;padding:16px;font-size:14px;line-height:1.6;color:var(--text-dark);font-family:inherit;outline:none;background:#fff;overflow-y:auto; }
+  
+  .var-pill { display:inline-block;padding:2px 8px;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:12px;font-size:11px;font-family:monospace;color:var(--text-dark);margin-right:4px;cursor:copy; }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Email Templates<span>Manage system-generated automated emails</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="admin-notifications.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-bell"></i> Notifications</a>
+        <a href="admin-messages.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-message"></i> Messages</a>
+        <a href="admin-contact.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-address-book"></i> Contact Us</a>
+        <a href="admin-feedback.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-star-half-stroke"></i> Feedback</a>
+        <a href="admin-reports.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-file-invoice"></i> Reports</a>
+        <a href="admin-analytics.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+        <a href="admin-email-templates.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-envelope-open-text"></i> Email Templates</a>
+      </div>
+
+      <div class="co-panel" style="padding:24px;">
+        <div style="display:grid;grid-template-columns:250px 1fr;gap:24px;">
+          
+          <!-- Template Selection -->
+          <div class="template-nav">
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;padding-left:16px;">System Emails</div>
+            <button class="template-nav-btn active"><i class="fa-solid fa-hand-wave"></i> Welcome Email</button>
+            <button class="template-nav-btn"><i class="fa-solid fa-shield-check"></i> Verification Email</button>
+            <button class="template-nav-btn"><i class="fa-solid fa-unlock-keyhole"></i> Password Reset</button>
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin:20px 0 12px;padding-left:16px;">Workflow Emails</div>
+            <button class="template-nav-btn"><i class="fa-solid fa-video"></i> Interview Invitation</button>
+            <button class="template-nav-btn"><i class="fa-solid fa-file-signature"></i> Offer Letter Email</button>
+            <button class="template-nav-btn"><i class="fa-solid fa-certificate"></i> Certificate Email</button>
+          </div>
+
+          <!-- Editor -->
+          <div>
+            <div class="co-form-group">
+              <label>Email Subject</label>
+              <input type="text" class="co-input" value="Welcome to SIMS, {{user_name}}!">
+            </div>
+
+            <div class="co-form-group">
+              <label>Email Body</label>
+              <div class="rich-editor-toolbar">
+                <button title="Bold"><i class="fa-solid fa-bold"></i></button>
+                <button title="Italic"><i class="fa-solid fa-italic"></i></button>
+                <button title="Underline"><i class="fa-solid fa-underline"></i></button>
+                <div style="width:1px;background:var(--border-light);margin:0 4px;"></div>
+                <button title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
+                <button title="Numbered List"><i class="fa-solid fa-list-ol"></i></button>
+                <div style="width:1px;background:var(--border-light);margin:0 4px;"></div>
+                <button title="Insert Link"><i class="fa-solid fa-link"></i></button>
+                <button title="Insert Image"><i class="fa-solid fa-image"></i></button>
+              </div>
+              <div class="rich-editor-area" contenteditable="true">
+                <p>Hi <strong>{{user_name}}</strong>,</p>
+                <p>Welcome to the Smart Student Internship Management System (SIMS)! We are excited to have you on board.</p>
+                <p>You can now explore thousands of internship opportunities from verified companies.</p>
+                <p>Please ensure your profile is 100% complete so companies can evaluate you better.</p>
+                <p>Best Regards,<br>The SIMS Admin Team</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom:24px;">
+              <div style="font-size:12px;font-weight:600;color:var(--text-dark);margin-bottom:8px;">Available Variables (Click to copy)</div>
+              <div>
+                <span class="var-pill" onclick="simsShowToast('Variable copied')">{{user_name}}</span>
+                <span class="var-pill" onclick="simsShowToast('Variable copied')">{{user_email}}</span>
+                <span class="var-pill" onclick="simsShowToast('Variable copied')">{{login_url}}</span>
+                <span class="var-pill" onclick="simsShowToast('Variable copied')">{{company_name}}</span>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <button class="btn btn-ghost" style="color:#ef4444;" onclick="if(confirm('Reset to system default?')) simsShowToast('Reset successful')">Reset Default</button>
+              <div style="display:flex;gap:10px;">
+                <button class="btn btn-ghost" onclick="simsShowToast('Test email sent!','success')">Send Test Email</button>
+                <button class="btn btn-primary" onclick="simsShowToast('Template saved!','success')">Save Template</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </main>
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS. All rights reserved.</p></footer>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script>
+document.querySelectorAll('.template-nav-btn').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('.template-nav-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+  }
+});
+</script>
+</body>
+</html>

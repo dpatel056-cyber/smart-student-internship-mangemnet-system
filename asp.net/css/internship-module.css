@@ -1,0 +1,1369 @@
+/* ==========================================================================
+   SIMS - INTERNSHIP MANAGEMENT MODULE STYLES
+   Used across all module 4 pages (Browse, Details, Apply, Saved, Applications, Status)
+========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. LAYOUT & UTILITIES
+-------------------------------------------------------------------------- */
+.im-container {
+    padding: 24px 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.im-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.im-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy-900, #0b1437);
+    margin: 0;
+}
+
+.im-subtitle {
+    font-size: 14px;
+    color: var(--text-muted, #64748b);
+    margin-top: 4px;
+}
+
+.im-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px dashed var(--border-light, #e5e9f2);
+}
+
+.im-empty-icon {
+    font-size: 64px;
+    color: #cbd5e1;
+    margin-bottom: 20px;
+}
+
+.im-empty-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy-900, #0b1437);
+    margin-bottom: 12px;
+}
+
+.im-empty-text {
+    font-size: 15px;
+    color: var(--text-muted, #64748b);
+    max-width: 400px;
+    margin: 0 auto 24px;
+}
+
+/* --------------------------------------------------------------------------
+   2. BROWSE INTERNSHIPS (DASHBOARD VERSION)
+-------------------------------------------------------------------------- */
+.im-browse-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* Filter Sidebar */
+.im-filters {
+    flex: 0 0 280px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    padding: 24px;
+    position: sticky;
+    top: 100px; /* Offset for topbar */
+}
+
+.im-filters-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-light, #e5e9f2);
+}
+
+.im-filters-head h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy-900, #0b1437);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.im-filters-clear {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue-600, #2563eb);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.im-filter-group {
+    margin-bottom: 20px;
+}
+
+.im-filter-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy-900, #0b1437);
+    margin-bottom: 12px;
+}
+
+.im-checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--text-dark, #1e293b);
+    cursor: pointer;
+}
+
+.im-checkbox-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    accent-color: var(--blue-600, #2563eb);
+    cursor: pointer;
+}
+
+/* Results Area */
+.im-results {
+    flex: 1;
+    min-width: 0;
+}
+
+.im-results-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.im-results-count {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-dark, #1e293b);
+}
+
+.im-sort-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.im-sort-label {
+    font-size: 14px;
+    color: var(--text-muted, #64748b);
+}
+
+.im-sort-select {
+    padding: 8px 36px 8px 14px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text-dark, #1e293b);
+    background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%2364748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right 12px center;
+    appearance: none;
+    cursor: pointer;
+}
+
+/* Search Bar (Dashboard) */
+.im-search-bar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    background: #fff;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+}
+
+.im-search-input-wrap {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.im-search-input-wrap i {
+    position: absolute;
+    left: 16px;
+    color: var(--text-muted, #64748b);
+    font-size: 16px;
+}
+
+.im-search-input-wrap input,
+.im-search-input-wrap select {
+    width: 100%;
+    padding: 12px 16px 12px 44px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s;
+    background: #f8fafc;
+}
+
+.im-search-input-wrap input:focus,
+.im-search-input-wrap select:focus {
+    background: #fff;
+    border-color: var(--blue-600, #2563eb);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    outline: none;
+}
+
+.im-search-input-wrap select {
+    padding-left: 44px;
+    appearance: none;
+}
+
+.im-search-input-wrap .fa-chevron-down {
+    position: absolute;
+    right: 16px;
+    left: auto;
+    font-size: 12px;
+    pointer-events: none;
+}
+
+/* Internship Cards */
+.im-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.im-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    padding: 24px;
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.im-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+    border-color: #cbd5e1;
+}
+
+.im-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.im-company-logo {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06);
+}
+
+.im-save-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    border: 1px solid var(--border-light, #e5e9f2);
+    color: var(--text-muted, #64748b);
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.im-save-btn:hover {
+    background: #f1f5f9;
+    color: var(--navy-900, #0b1437);
+}
+
+.im-save-btn.saved {
+    background: rgba(37, 99, 235, 0.1);
+    border-color: transparent;
+    color: var(--blue-600, #2563eb);
+}
+
+.im-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy-900, #0b1437);
+    margin: 0 0 4px;
+    line-height: 1.4;
+}
+
+.im-card-company {
+    font-size: 14px;
+    color: var(--text-muted, #64748b);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.im-card-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+    background: #f8fafc;
+    padding: 12px 16px;
+    border-radius: 10px;
+}
+
+.im-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: var(--text-dark, #1e293b);
+}
+
+.im-meta-item i {
+    color: var(--text-muted, #64748b);
+    width: 14px;
+    text-align: center;
+}
+
+.im-card-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border-light, #e5e9f2);
+}
+
+.im-badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.im-badge.primary { background: rgba(37, 99, 235, 0.1); color: var(--blue-600, #2563eb); }
+.im-badge.success { background: rgba(34, 197, 94, 0.1); color: #16a34a; }
+.im-badge.warning { background: rgba(245, 158, 11, 0.1); color: #b45309; }
+
+.im-card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   3. INTERNSHIP DETAILS
+-------------------------------------------------------------------------- */
+.imd-header {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    overflow: hidden;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.imd-cover {
+    height: 140px;
+    background: linear-gradient(135deg, var(--navy-900, #0b1437), var(--blue-700, #1d4ed8));
+    position: relative;
+}
+
+.imd-content {
+    padding: 0 32px 32px;
+    position: relative;
+}
+
+.imd-logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 16px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+    margin-top: -45px;
+    margin-bottom: 16px;
+    border: 4px solid #fff;
+}
+
+.imd-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy-900, #0b1437);
+    margin: 0 0 8px;
+}
+
+.imd-company {
+    font-size: 16px;
+    color: var(--text-muted, #64748b);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.imd-company a {
+    color: var(--blue-600, #2563eb);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.imd-company a:hover {
+    text-decoration: underline;
+}
+
+.imd-quick-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.imd-info-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #f8fafc;
+    border-radius: 99px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark, #1e293b);
+    border: 1px solid var(--border-light, #e5e9f2);
+}
+
+.imd-info-pill i {
+    color: var(--blue-600, #2563eb);
+}
+
+/* Details Layout */
+.imd-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.imd-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.imd-sidebar {
+    flex: 0 0 320px;
+}
+
+.imd-section {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    padding: 32px;
+    margin-bottom: 24px;
+}
+
+.imd-section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy-900, #0b1437);
+    margin: 0 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light, #e5e9f2);
+}
+
+.imd-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-muted, #64748b);
+    margin-bottom: 0;
+}
+
+.imd-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.imd-list li {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-muted, #64748b);
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.imd-list li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: #16a34a;
+    font-size: 14px;
+}
+
+.imd-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.imd-skill-tag {
+    padding: 6px 14px;
+    background: #f1f5f9;
+    color: var(--text-dark, #1e293b);
+    border-radius: 6px;
+    font-size: 13.5px;
+    font-weight: 500;
+}
+
+/* Details Sidebar Cards */
+.imd-side-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.imd-side-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy-900, #0b1437);
+    margin: 0 0 16px;
+}
+
+.imd-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.imd-btn-apply {
+    width: 100%;
+    justify-content: center;
+    padding: 14px;
+    font-size: 16px;
+}
+
+.imd-btn-save {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid var(--blue-600, #2563eb);
+    color: var(--blue-600, #2563eb);
+}
+
+.imd-btn-save:hover {
+    background: var(--blue-50, #eff6ff);
+}
+
+.imd-share-links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.imd-share-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    border: 1px solid var(--border-light, #e5e9f2);
+    color: var(--text-muted, #64748b);
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.imd-share-btn:hover {
+    background: var(--blue-600, #2563eb);
+    color: #fff;
+    border-color: var(--blue-600, #2563eb);
+    transform: translateY(-2px);
+}
+
+.imd-meta-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.imd-meta-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--border-light, #e5e9f2);
+    font-size: 14px;
+}
+
+.imd-meta-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.imd-meta-label {
+    color: var(--text-muted, #64748b);
+}
+
+.imd-meta-value {
+    font-weight: 600;
+    color: var(--navy-900, #0b1437);
+    text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   4. APPLY INTERNSHIP
+-------------------------------------------------------------------------- */
+.ima-form-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto 40px;
+}
+
+.ima-student-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.ima-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-600, #2563eb), var(--blue-700, #1d4ed8));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.ima-student-details h4 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    color: var(--navy-900, #0b1437);
+}
+
+.ima-student-details p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-muted, #64748b);
+}
+
+.ima-form-group {
+    margin-bottom: 24px;
+}
+
+.ima-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy-900, #0b1437);
+    margin-bottom: 12px;
+}
+
+.ima-label span {
+    color: #ef4444;
+}
+
+/* Resume Selection Cards */
+.ima-resume-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.ima-resume-card {
+    border: 2px solid var(--border-light, #e5e9f2);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.ima-resume-card:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.ima-resume-card.selected {
+    border-color: var(--blue-600, #2563eb);
+    background: rgba(37, 99, 235, 0.04);
+}
+
+.ima-resume-card input[type="radio"] {
+    margin-top: 4px;
+    accent-color: var(--blue-600, #2563eb);
+}
+
+.ima-resume-icon {
+    font-size: 24px;
+    color: #ef4444; /* PDF red */
+}
+
+.ima-resume-info h5 {
+    margin: 0 0 4px;
+    font-size: 15px;
+    color: var(--navy-900, #0b1437);
+}
+
+.ima-resume-info p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-muted, #64748b);
+}
+
+.ima-textarea {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    border-radius: 12px;
+    font-size: 14.5px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 150px;
+    transition: all 0.2s;
+    background: #f8fafc;
+    color: var(--text-dark, #1e293b);
+}
+
+.ima-textarea:focus {
+    background: #fff;
+    border-color: var(--blue-600, #2563eb);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    outline: none;
+}
+
+.ima-char-count {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted, #64748b);
+    margin-top: 6px;
+}
+
+.ima-terms {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #f8fafc;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.ima-terms input {
+    margin-top: 3px;
+    accent-color: var(--blue-600, #2563eb);
+}
+
+.ima-terms label {
+    font-size: 14px;
+    color: var(--text-muted, #64748b);
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.ima-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-light, #e5e9f2);
+}
+
+/* --------------------------------------------------------------------------
+   5. SAVED COMPANIES
+-------------------------------------------------------------------------- */
+.imc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.imc-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    padding: 24px;
+    text-align: center;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+.imc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+}
+
+.imc-remove-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+}
+
+.imc-card:hover .imc-remove-btn {
+    opacity: 1;
+}
+
+.imc-remove-btn:hover {
+    background: #ef4444;
+    color: #fff;
+}
+
+.imc-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.imc-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy-900, #0b1437);
+    margin: 0 0 8px;
+}
+
+.imc-industry {
+    font-size: 13px;
+    color: var(--blue-600, #2563eb);
+    background: rgba(37, 99, 235, 0.1);
+    padding: 4px 12px;
+    border-radius: 99px;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.imc-location {
+    font-size: 14px;
+    color: var(--text-muted, #64748b);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.imc-btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   6. MY APPLICATIONS
+-------------------------------------------------------------------------- */
+.imapp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.imapp-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.imapp-card:hover {
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
+    border-color: #cbd5e1;
+}
+
+.imapp-info-wrap {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.imapp-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06);
+}
+
+.imapp-details h4 {
+    margin: 0 0 6px;
+    font-size: 18px;
+    color: var(--navy-900, #0b1437);
+}
+
+.imapp-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--text-muted, #64748b);
+}
+
+.imapp-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.imapp-status-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   7. APPLICATION STATUS TIMELINE
+-------------------------------------------------------------------------- */
+.ims-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto 40px;
+}
+
+.ims-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--border-light, #e5e9f2);
+    margin-bottom: 40px;
+}
+
+.ims-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 700;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+}
+
+.ims-title-wrap h2 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    color: var(--navy-900, #0b1437);
+}
+
+.ims-title-wrap p {
+    margin: 0;
+    font-size: 16px;
+    color: var(--text-muted, #64748b);
+}
+
+/* Horizontal Progress Bar */
+.ims-progress-wrap {
+    margin-bottom: 50px;
+}
+
+.ims-progress-text {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy-900, #0b1437);
+}
+
+.ims-progress-bar-bg {
+    height: 8px;
+    background: #f1f5f9;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.ims-progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue-600, #2563eb), #38bdf8);
+    border-radius: 99px;
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Vertical Timeline */
+.ims-timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.ims-timeline::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e2e8f0;
+}
+
+.ims-step {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.ims-step:last-child {
+    margin-bottom: 0;
+}
+
+.ims-step-icon {
+    position: absolute;
+    left: -40px;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.ims-step-icon i {
+    font-size: 10px;
+    color: transparent;
+}
+
+.ims-step.completed .ims-step-icon {
+    background: #16a34a;
+    border-color: #16a34a;
+}
+
+.ims-step.completed .ims-step-icon i {
+    color: #fff;
+}
+
+.ims-step.active .ims-step-icon {
+    border-color: var(--blue-600, #2563eb);
+    border-width: 4px;
+}
+
+.ims-step.active .ims-step-icon::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid var(--blue-600, #2563eb);
+    animation: imsPulse 2s infinite;
+}
+
+.ims-step.rejected .ims-step-icon {
+    background: #ef4444;
+    border-color: #ef4444;
+}
+
+.ims-step.rejected .ims-step-icon i {
+    color: #fff;
+}
+
+.ims-step-content {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    position: relative;
+}
+
+.ims-step.active .ims-step-content {
+    background: #fff;
+    border-color: var(--blue-600, #2563eb);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
+}
+
+.ims-step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.ims-step-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy-900, #0b1437);
+    margin: 0;
+}
+
+.ims-step.completed .ims-step-title {
+    color: #16a34a;
+}
+
+.ims-step.rejected .ims-step-title {
+    color: #ef4444;
+}
+
+.ims-step-date {
+    font-size: 13px;
+    color: var(--text-muted, #64748b);
+    font-weight: 500;
+}
+
+.ims-step-desc {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-muted, #64748b);
+    line-height: 1.5;
+}
+
+@keyframes imsPulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   8. RESPONSIVE OVERRIDES
+-------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+    .im-browse-layout {
+        flex-direction: column;
+    }
+    
+    .im-filters {
+        flex: none;
+        width: 100%;
+        position: static;
+    }
+    
+    .imd-layout {
+        flex-direction: column;
+    }
+    
+    .imd-sidebar {
+        flex: none;
+        width: 100%;
+        order: -1; /* Move sidebar actions to top on mobile */
+    }
+    
+    .imd-actions {
+        flex-direction: row;
+    }
+    
+    .imd-btn-apply, .imd-btn-save {
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .im-search-bar {
+        flex-direction: column;
+    }
+    
+    .ima-resume-grid, .imc-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .imapp-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    
+    .imapp-status-wrap {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid var(--border-light, #e5e9f2);
+        padding-top: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .im-container {
+        padding: 16px;
+    }
+    
+    .im-results-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .imd-content {
+        padding: 0 20px 20px;
+    }
+    
+    .imd-quick-info {
+        flex-direction: column;
+    }
+    
+    .imd-actions {
+        flex-direction: column;
+    }
+    
+    .ima-form-card, .ims-card {
+        padding: 24px 20px;
+    }
+    
+    .ima-student-info {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .ims-header {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   5. APPLICATION STATUS TIMELINE
+-------------------------------------------------------------------------- */
+.im-timeline-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light, #e5e9f2);
+    padding: 32px;
+    margin-bottom: 24px;
+}
+.im-timeline {
+    position: relative;
+    max-width: 600px;
+    margin: 40px auto;
+}
+.im-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 24px;
+    width: 2px;
+    background: var(--border-light, #e5e9f2);
+}
+.im-tl-step {
+    position: relative;
+    padding-left: 64px;
+    margin-bottom: 30px;
+}
+.im-tl-step:last-child {
+    margin-bottom: 0;
+}
+.im-tl-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--border-light, #e5e9f2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--text-muted, #64748b);
+    z-index: 1;
+}
+.im-tl-step.active .im-tl-icon {
+    border-color: var(--blue-600, #2563eb);
+    background: var(--blue-600, #2563eb);
+    color: #fff;
+}
+.im-tl-step.done .im-tl-icon {
+    border-color: #16a34a;
+    background: #16a34a;
+    color: #fff;
+}
+.im-tl-step.rejected .im-tl-icon {
+    border-color: #ef4444;
+    background: #ef4444;
+    color: #fff;
+}
+.im-tl-content h4 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    color: var(--navy-900, #0b1437);
+}
+.im-tl-content p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-muted, #64748b);
+}
+.im-tl-date {
+    display: block;
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 4px;
+}

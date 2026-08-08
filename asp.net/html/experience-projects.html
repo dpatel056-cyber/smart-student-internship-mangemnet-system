@@ -1,0 +1,189 @@
+<!--
+  ============================================================================
+  SIMS - Module 2 : Student Profile Management
+  Page: Experience & Projects
+  ----------------------------------------------------------------------------
+  ASP.NET MASTER PAGE INTEGRATION NOTE: see my-profile.html for the standard
+  MasterPageFile / auth-guard notes. This page has 4 tabs that all share one
+  Add/Edit modal + one card list renderer (see experience-projects.js). Each
+  tab maps to its own array on the profile: projects, experience,
+  certificates, achievements. Swap the PMData calls for Web API calls
+  (GET/POST/PUT/DELETE /api/student/{projects|experience|certificates|achievements})
+  to go live — the tab plumbing does not need to change.
+  ============================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experience & Projects - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/profile-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dashboard-shell">
+
+  <!-- ============ LEFT SIDEBAR ============ -->
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div class="dashboard-main-col">
+
+    <!-- ============ TOP NAVBAR ============ -->
+    <header class="dashboard-topbar"></header>
+
+    <!-- ============ PAGE CONTENT ============ -->
+    <main class="dashboard-content">
+
+      <div class="pm-breadcrumb">
+        <a href="student-dashboard.html">Dashboard</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <a href="my-profile.html">My Profile</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="current">Experience &amp; Projects</span>
+      </div>
+
+      <div class="pm-card">
+        <div class="pm-tabs" id="epTabs">
+          <button type="button" class="pm-tab-btn active" data-tab="projects"><i class="fa-solid fa-diagram-project"></i> Academic Projects <span class="pm-tab-count" id="countProjects">0</span></button>
+          <button type="button" class="pm-tab-btn" data-tab="experience"><i class="fa-solid fa-briefcase"></i> Internship Experience <span class="pm-tab-count" id="countExperience">0</span></button>
+          <button type="button" class="pm-tab-btn" data-tab="certificates"><i class="fa-solid fa-certificate"></i> Certificates <span class="pm-tab-count" id="countCertificates">0</span></button>
+          <button type="button" class="pm-tab-btn" data-tab="achievements"><i class="fa-solid fa-trophy"></i> Achievements <span class="pm-tab-count" id="countAchievements">0</span></button>
+        </div>
+
+        <!-- Academic Projects -->
+        <div class="pm-tab-panel active" data-panel="projects">
+          <div class="pm-card-header">
+            <div><h3>Academic Projects</h3><p>Class, mini &amp; major projects you've built</p></div>
+            <button type="button" class="btn btn-primary pm-add-btn" data-type="projects"><i class="fa-solid fa-plus"></i> Add Project</button>
+          </div>
+          <div class="pm-item-list" id="listProjects"></div>
+          <div class="pm-empty-state" id="emptyProjects" style="display:none;"><i class="fa-solid fa-diagram-project"></i><p>No academic projects added yet.</p></div>
+        </div>
+
+        <!-- Internship Experience -->
+        <div class="pm-tab-panel" data-panel="experience">
+          <div class="pm-card-header">
+            <div><h3>Internship Experience</h3><p>Internships and work experience</p></div>
+            <button type="button" class="btn btn-primary pm-add-btn" data-type="experience"><i class="fa-solid fa-plus"></i> Add Experience</button>
+          </div>
+          <div class="pm-item-list" id="listExperience"></div>
+          <div class="pm-empty-state" id="emptyExperience" style="display:none;"><i class="fa-solid fa-briefcase"></i><p>No internship experience added yet.</p></div>
+        </div>
+
+        <!-- Certificates -->
+        <div class="pm-tab-panel" data-panel="certificates">
+          <div class="pm-card-header">
+            <div><h3>Certificates</h3><p>Online courses &amp; professional certifications</p></div>
+            <button type="button" class="btn btn-primary pm-add-btn" data-type="certificates"><i class="fa-solid fa-plus"></i> Add Certificate</button>
+          </div>
+          <div class="pm-item-list" id="listCertificates"></div>
+          <div class="pm-empty-state" id="emptyCertificates" style="display:none;"><i class="fa-solid fa-certificate"></i><p>No certificates added yet.</p></div>
+        </div>
+
+        <!-- Achievements -->
+        <div class="pm-tab-panel" data-panel="achievements">
+          <div class="pm-card-header">
+            <div><h3>Achievements</h3><p>Awards, hackathon wins &amp; recognitions</p></div>
+            <button type="button" class="btn btn-primary pm-add-btn" data-type="achievements"><i class="fa-solid fa-plus"></i> Add Achievement</button>
+          </div>
+          <div class="pm-item-list" id="listAchievements"></div>
+          <div class="pm-empty-state" id="emptyAchievements" style="display:none;"><i class="fa-solid fa-trophy"></i><p>No achievements added yet.</p></div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links">
+        <a href="privacy-security.html">Privacy Policy</a>
+        <span>|</span>
+        <a href="privacy-security.html">Terms &amp; Conditions</a>
+        <span>|</span>
+        <a href="help-support.html">Support</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- Add / Edit item modal (shared across all 4 tabs) -->
+<div class="modal-overlay" id="epModalOverlay">
+  <div class="modal-box" style="max-width:520px; text-align:left;">
+    <button type="button" class="modal-close" id="epModalCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-icon icon-blue" id="epModalIcon"><i class="fa-solid fa-diagram-project"></i></div>
+    <h3 class="modal-title" id="epModalTitle">Add Project</h3>
+    <p class="modal-sub" id="epModalSub">Share the details of your project.</p>
+
+    <div class="pm-form-group">
+      <label id="epTitleLabel" for="epTitleInput">Project Title</label>
+      <input type="text" id="epTitleInput" placeholder="e.g. Smart Attendance System">
+      <div class="pm-field-error" id="epTitleError">This field is required.</div>
+    </div>
+    <div class="pm-form-group">
+      <label id="epMetaLabel" for="epMetaInput">Tech Stack</label>
+      <input type="text" id="epMetaInput" placeholder="e.g. Python, OpenCV, Flask">
+    </div>
+    <div class="pm-form-group">
+      <label id="epDateLabel" for="epDateInput">Year</label>
+      <input type="text" id="epDateInput" placeholder="e.g. 2025">
+    </div>
+    <div class="pm-form-group">
+      <label id="epDescLabel" for="epDescInput">Description</label>
+      <textarea id="epDescInput" placeholder="Briefly describe what you built and your role..."></textarea>
+    </div>
+
+    <div style="display:flex; gap:12px;">
+      <button type="button" class="btn btn-ghost" id="epCancelBtn" style="flex:1; justify-content:center;">Cancel</button>
+      <button type="button" class="btn btn-primary" id="epSaveBtn" style="flex:1; justify-content:center;">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete confirmation modal (shared) -->
+<div class="modal-overlay" id="epDeleteModalOverlay">
+  <div class="modal-box" style="max-width:380px; text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-trash"></i></div>
+    <h3 class="modal-title">Delete This Entry?</h3>
+    <p class="modal-sub">Are you sure you want to delete "<strong id="epDeleteName">this item</strong>"? This action cannot be undone.</p>
+    <div style="display:flex; gap:12px;">
+      <button type="button" class="btn btn-ghost" id="epDeleteNoBtn" style="flex:1; justify-content:center;">Cancel</button>
+      <button type="button" class="btn btn-primary" id="epDeleteYesBtn" style="flex:1; justify-content:center; background:linear-gradient(135deg,#ef4444,#dc2626);">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Logout confirmation modal -->
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px; text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Student Dashboard?</p>
+    <div style="display:flex; gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1; justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1; justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="login-toast" id="dashToast">
+  <i class="fa-solid fa-circle-check"></i>
+  <span id="dashToastMsg">Done!</span>
+</div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/student-layout.js"></script>
+<script src="../js/profile-shared.js"></script>
+<script src="../js/experience-projects.js"></script>
+</body>
+</html>

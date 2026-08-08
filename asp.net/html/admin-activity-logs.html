@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Logs - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .log-table th { background:#f8fafc;font-size:11.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;padding:12px 14px;border:none;white-space:nowrap; }
+  .log-table td { padding:13px 14px;border-color:var(--border-light);vertical-align:middle;font-size:13px; }
+  .log-table tbody tr:hover { background:#f8faff; }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Audit Logs<span>Track system administrative events and security history</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm"></span>
+          <span class="dash-name" id="dashNameTop"></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav -->
+      <div class="set-nav" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="admin-settings.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-gear"></i> General Settings</a>
+        <a href="admin-roles.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-users-gear"></i> Roles & Permissions</a>
+        <a href="admin-change-password.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-lock"></i> Change Password</a>
+        <a href="admin-theme.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-palette"></i> Theme & Appearance</a>
+        <a href="admin-backup.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-database"></i> Backup & Restore</a>
+        <a href="admin-activity-logs.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-clock-rotate-left"></i> Audit Logs</a>
+      </div>
+
+      <!-- Table Panel -->
+      <div class="co-panel" style="padding:0;overflow:hidden;">
+        <!-- Toolbar -->
+        <div style="padding:16px 20px;border-bottom:1px solid var(--border-light);display:flex;gap:12px;flex-wrap:wrap;align-items:center;background:#f8fafc;">
+          <div class="login-input-wrap" style="max-width:280px;flex:1;margin:0;">
+            <i class="fa-solid fa-magnifying-glass input-icon" style="top:50%;transform:translateY(-50%);"></i>
+            <input type="text" id="logSearch" placeholder="Search activity, IP, user..." oninput="filterLogs()" style="padding:9px 14px 9px 42px;border:1px solid var(--border-light);border-radius:8px;width:100%;font-size:13px;outline:none;">
+          </div>
+          <select id="roleFilter" onchange="filterLogs()" style="padding:9px 14px;border:1px solid var(--border-light);border-radius:8px;font-size:13px;outline:none;">
+            <option value="">All Roles</option>
+            <option value="Super Admin">Super Admin</option>
+            <option value="Admin">Admin</option>
+            <option value="Company">Company</option>
+          </select>
+          <button class="btn btn-ghost" onclick="simsShowToast('Exporting activity logs...','success')" style="font-size:13px;"><i class="fa-solid fa-file-export"></i> Export Logs</button>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="table log-table mb-0">
+            <thead>
+              <tr>
+                <th>Log ID</th>
+                <th>User Name</th>
+                <th>Role</th>
+                <th>Module</th>
+                <th>Activity</th>
+                <th>IP Address</th>
+                <th>Date & Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="logTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-top:1px solid var(--border-light);">
+          <span style="font-size:13px;color:var(--text-muted);" id="paginInfo">Showing 1–3 of 3 logs</span>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:12.5px;">&laquo;</button>
+            <button class="btn btn-primary" style="padding:5px 10px;font-size:12.5px;">1</button>
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:12.5px;">&raquo;</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script>
+const LOGS = [
+  { id: 1042, user: 'System Admin', role: 'Super Admin', module: 'Backup & Restore', activity: 'Created system database backup', ip: '192.168.1.1', dt: '17 Jul 2026, 02:00 PM', status: 'Success' },
+  { id: 1041, user: 'Pankaj Kumar', role: 'Admin', module: 'Company Management', activity: 'Approved company: TechNova Pvt Ltd', ip: '192.168.1.5', dt: '17 Jul 2026, 01:45 PM', status: 'Success' },
+  { id: 1040, user: 'System Admin', role: 'Super Admin', module: 'System Settings', activity: 'SMTP host changed to smtp.office365.com', ip: '192.168.1.1', dt: '17 Jul 2026, 01:10 PM', status: 'Success' },
+];
+
+function renderLogs(data) {
+  document.getElementById('logTableBody').innerHTML = data.length ? data.map(l => `
+    <tr>
+      <td style="font-weight:700;color:var(--text-muted);">#${l.id}</td>
+      <td style="font-weight:600;color:var(--text-dark);">${l.user}</td>
+      <td><span class="co-badge" style="background:#eff6ff;color:#2563eb;border-color:#bfdbfe;">${l.role}</span></td>
+      <td>${l.module}</td>
+      <td>${l.activity}</td>
+      <td><code>${l.ip}</code></td>
+      <td style="white-space:nowrap;">${l.dt}</td>
+      <td><span class="co-badge" style="background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;">${l.status}</span></td>
+      <td>
+        <button class="btn btn-ghost" style="padding:4px 8px;font-size:12px;" title="View Details" onclick="simsShowToast('IP details: ${l.ip}','success')"><i class="fa-solid fa-eye"></i></button>
+      </td>
+    </tr>
+  `).join('') : '<tr><td colspan="9" style="text-align:center;padding:30px;color:var(--text-muted);">No activity logs found.</td></tr>';
+}
+
+function filterLogs() {
+  const q = document.getElementById('logSearch').value.toLowerCase();
+  const r = document.getElementById('roleFilter').value;
+  const filtered = LOGS.filter(l => 
+    (!q || l.user.toLowerCase().includes(q) || l.activity.toLowerCase().includes(q) || l.ip.includes(q)) &&
+    (!r || l.role === r)
+  );
+  renderLogs(filtered);
+}
+
+renderLogs(LOGS);
+</script>
+</body>
+</html>

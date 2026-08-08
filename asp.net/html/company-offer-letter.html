@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Offer Letter Generation - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Offer Letter Generation<span>Create and send offer letters to selected candidates</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="badge">2</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">TN</span>
+          <span class="dash-name" id="dashNameTop">TechNova Pvt Ltd<span>Company</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="company-profile.html"><i class="fa-solid fa-building"></i> Company Profile</a>
+            <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+            <hr>
+            <a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <div class="co-page-header">
+        <div class="co-page-header-left">
+          <h1>Generate Offer Letter</h1>
+          <p>Fill out the details to generate an official offer letter for <strong style="color:var(--text-dark);">Kavya Shah</strong>.</p>
+        </div>
+      </div>
+
+      <div class="co-grid-2">
+        
+        <!-- Offer Details Form -->
+        <div>
+          <form id="offerForm" class="co-panel">
+            <h3 style="font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:16px;">Offer Details</h3>
+            
+            <div class="co-form-group">
+              <label>Student Name <span style="color:#ef4444">*</span></label>
+              <input type="text" value="Kavya Shah" readonly style="background:#f8fafc;">
+            </div>
+            
+            <div class="co-form-group">
+              <label>Internship Title <span style="color:#ef4444">*</span></label>
+              <input type="text" value="UI/UX Design Intern" readonly style="background:#f8fafc;">
+            </div>
+
+            <div class="co-form-grid-2">
+              <div class="co-form-group">
+                <label>Joining Date <span style="color:#ef4444">*</span></label>
+                <input type="date" id="joinDate" required>
+              </div>
+              <div class="co-form-group">
+                <label>Duration <span style="color:#ef4444">*</span></label>
+                <input type="text" value="6 Months" required>
+              </div>
+              <div class="co-form-group">
+                <label>Stipend (per month) <span style="color:#ef4444">*</span></label>
+                <input type="text" value="₹15,000" required>
+              </div>
+              <div class="co-form-group">
+                <label>Working Hours</label>
+                <input type="text" value="9:30 AM to 6:30 PM">
+              </div>
+            </div>
+
+            <div class="co-form-group">
+              <label>HR / Authorized Signatory Name <span style="color:#ef4444">*</span></label>
+              <input type="text" value="Rahul Verma" required>
+            </div>
+
+            <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;">
+              <button type="submit" class="btn btn-primary" id="generateBtn" style="display:inline-flex;align-items:center;gap:8px;">
+                <span class="btn-spinner" id="genSpinner" style="display:none;"></span>
+                <i class="fa-solid fa-file-signature"></i> Generate Offer Letter
+              </button>
+              <button type="button" class="btn btn-ghost" id="previewBtn" style="display:inline-flex;align-items:center;gap:8px;">
+                <i class="fa-solid fa-eye"></i> Preview
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Document Preview / Actions -->
+        <div>
+          <div class="co-panel" style="height:100%;display:flex;flex-direction:column;">
+            <h3 style="font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:16px;">Document Status</h3>
+            
+            <div id="emptyState" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text-muted);">
+              <i class="fa-solid fa-file-invoice" style="font-size:48px;color:#e2e8f0;margin-bottom:14px;"></i>
+              <p style="font-size:14px;">Fill out the details and generate to preview.</p>
+            </div>
+
+            <div id="generatedState" style="display:none;flex:1;flex-direction:column;">
+              <div style="padding:16px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;margin-bottom:20px;display:flex;align-items:center;gap:12px;">
+                <i class="fa-solid fa-circle-check" style="color:#16a34a;font-size:24px;"></i>
+                <div>
+                  <h4 style="font-size:14px;font-weight:600;color:#166534;margin:0;">Offer Letter Generated Successfully!</h4>
+                  <p style="font-size:12px;color:#15803d;margin:0;">The PDF is ready to be downloaded or sent via email.</p>
+                </div>
+              </div>
+
+              <div style="background:#f8fafc;border:1px solid var(--border-light);border-radius:12px;padding:24px;text-align:center;margin-bottom:20px;">
+                <i class="fa-solid fa-file-pdf" style="font-size:64px;color:#ef4444;margin-bottom:14px;"></i>
+                <h4 style="font-size:15px;font-weight:600;color:var(--text-dark);margin:0 0 4px 0;">Offer_Letter_Kavya_Shah.pdf</h4>
+                <p style="font-size:13px;color:var(--text-muted);margin:0;">TechNova Pvt Ltd</p>
+              </div>
+
+              <div style="display:flex;gap:12px;margin-top:auto;">
+                <button class="btn btn-ghost" style="flex:1;" onclick="statusToast('Downloading PDF...')"><i class="fa-solid fa-download"></i> Download PDF</button>
+                <button class="btn btn-primary" style="flex:1;" onclick="sendEmail()"><i class="fa-solid fa-paper-plane"></i> Send via Email</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links"><a href="#">Privacy Policy</a><span>|</span><a href="#">Terms &amp; Conditions</a><span>|</span><a href="#">Support</a></div>
+    </footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Company Dashboard?</p>
+    <div style="display:flex;gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1;justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1;justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/company-dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const d = new Date(); d.setDate(d.getDate() + 15);
+  document.getElementById('joinDate').value = d.toISOString().split('T')[0];
+
+  const form = document.getElementById('offerForm');
+  const btn = document.getElementById('generateBtn');
+  const preview = document.getElementById('previewBtn');
+  
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if(!document.getElementById('joinDate').value) return;
+
+    btn.disabled = true;
+    preview.disabled = true;
+    const spinner = document.getElementById('genSpinner');
+    if(spinner) spinner.style.display = 'inline-block';
+    
+    setTimeout(() => {
+      btn.disabled = false;
+      preview.disabled = false;
+      if(spinner) spinner.style.display = 'none';
+      if(window.simsShowToast) window.simsShowToast('Offer letter generated successfully!', 'success');
+      
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('generatedState').style.display = 'flex';
+    }, 1200);
+  });
+
+  preview.addEventListener('click', () => {
+    if(window.simsShowToast) window.simsShowToast('Previewing document...', 'success');
+  });
+});
+
+function sendEmail() {
+  if(window.simsShowToast) window.simsShowToast('Offer letter sent to student via email!', 'success');
+  setTimeout(() => { window.location.href = 'company-hired.html'; }, 1500);
+}
+function statusToast(msg, type='success') {
+  if(window.simsShowToast) window.simsShowToast(msg, type);
+}
+</script>
+</body>
+</html>

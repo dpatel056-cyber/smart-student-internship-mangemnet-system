@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Verification - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .vfy-table th { background:#f8fafc;font-size:11.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;padding:12px 16px;border:none; }
+  .vfy-table td { padding:14px 16px;border-color:var(--border-light);vertical-align:middle;font-size:13px; }
+  .vfy-table tbody tr:hover { background:#f8faff; }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Student Verification<span>Review and approve pending student registrations</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="admin-students.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-list-ul"></i> Student List</a>
+        <a href="admin-student-verification.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-user-check"></i> Verification <span class="badge-count" style="background:#fff;color:#2563eb;">8</span></a>
+        <a href="admin-student-reports.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-chart-bar"></i> Reports</a>
+        <a href="admin-student-block.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-user-slash"></i> Blocked</a>
+      </div>
+
+      <div class="co-page-header">
+        <div class="co-page-header-left">
+          <h1>Student Verification Queue</h1>
+          <p><strong>8 students</strong> are awaiting verification. Review and approve or reject each submission.</p>
+        </div>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="co-panel" style="margin-bottom:20px;padding:14px 20px;">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+          <div class="login-input-wrap" style="max-width:260px;flex:1;margin:0;">
+            <i class="fa-solid fa-magnifying-glass input-icon" style="top:50%;transform:translateY(-50%);"></i>
+            <input type="text" placeholder="Search by name or enrollment..." id="vfySearch" oninput="renderVfy()" style="padding:9px 14px 9px 42px;border:1px solid var(--border-light);border-radius:8px;width:100%;font-size:13px;outline:none;">
+          </div>
+          <select id="vfyFilter" onchange="renderVfy()" style="padding:9px 14px;border:1px solid var(--border-light);border-radius:8px;font-size:13px;outline:none;">
+            <option value="">All</option>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+          <button class="btn btn-ghost" style="padding:6px 12px;font-size:12.5px;background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;" onclick="approveAll()">
+            <i class="fa-solid fa-check-double"></i> Approve All
+          </button>
+        </div>
+      </div>
+
+      <div class="co-panel" style="padding:0;overflow:hidden;">
+        <div style="overflow-x:auto;">
+          <table class="table vfy-table mb-0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Student</th>
+                <th>Enrollment No.</th>
+                <th>College</th>
+                <th>Registration Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="vfyTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<!-- Reject Modal -->
+<div class="modal-overlay" id="rejectModal">
+  <div class="modal-box" style="max-width:420px;">
+    <h3 class="modal-title">Reject Student Registration</h3>
+    <p class="modal-sub">Please provide a reason for rejection to notify the student.</p>
+    <div class="co-form-group" style="margin-bottom:16px;">
+      <label>Reason</label>
+      <textarea id="rejectReason" rows="3" placeholder="e.g. Incomplete documents, Invalid enrollment number..." style="resize:vertical;"></textarea>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-ghost" onclick="closeReject()" style="flex:1;justify-content:center;">Cancel</button>
+      <button class="btn btn-primary" style="flex:1;justify-content:center;background:#ef4444;border-color:#ef4444;" onclick="confirmReject()">Confirm Reject</button>
+    </div>
+  </div>
+</div>
+
+<!-- Success Popup -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal-box" style="max-width:360px;text-align:center;">
+    <div class="modal-icon icon-green"><i class="fa-solid fa-circle-check"></i></div>
+    <h3 class="modal-title" id="successTitle">Student Approved!</h3>
+    <p class="modal-sub" id="successMsg">The student has been successfully verified and notified.</p>
+    <button class="btn btn-primary" onclick="closeSuccess()" style="width:100%;">Done</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Admin Panel?</p>
+    <div style="display:flex;gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1;justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1;justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script>
+const VFY_DATA = [
+  { id:1, photo:'https://ui-avatars.com/api/?name=Kavya+Shah&background=ea580c&color=fff',    name:'Kavya Shah',    enr:'ENR2024002', college:'GLS University',           date:'03 Jan 2024', status:'Pending'  },
+  { id:2, photo:'https://ui-avatars.com/api/?name=Sneha+Joshi&background=16a34a&color=fff',   name:'Sneha Joshi',   enr:'ENR2024004', college:'Nirma University',          date:'07 Jan 2024', status:'Pending'  },
+  { id:3, photo:'https://ui-avatars.com/api/?name=Dev+Shah&background=7c3aed&color=fff',      name:'Dev Shah',      enr:'ENR2024009', college:'Silver Oak University',     date:'12 Jan 2024', status:'Pending'  },
+  { id:4, photo:'https://ui-avatars.com/api/?name=Minal+Patel&background=ca8a04&color=fff',   name:'Minal Patel',   enr:'ENR2024010', college:'LJ University',             date:'14 Jan 2024', status:'Pending'  },
+  { id:5, photo:'https://ui-avatars.com/api/?name=Jay+Trivedi&background=2563eb&color=fff',   name:'Jay Trivedi',   enr:'ENR2024011', college:'Parul University',          date:'15 Jan 2024', status:'Approved' },
+  { id:6, photo:'https://ui-avatars.com/api/?name=Pooja+Rana&background=db2777&color=fff',    name:'Pooja Rana',    enr:'ENR2024012', college:'GTU Affiliated College',    date:'16 Jan 2024', status:'Rejected' },
+];
+
+const STATUS_BADGE_VFY = {
+  Pending:  'background:#fefce8;color:#ca8a04;border-color:#fef08a;',
+  Approved: 'background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;',
+  Rejected: 'background:#fef2f2;color:#ef4444;border-color:#fecaca;',
+};
+
+let rejectId = null;
+
+function renderVfy() {
+  const q  = (document.getElementById('vfySearch').value || '').toLowerCase();
+  const st = (document.getElementById('vfyFilter').value || '');
+  const data = VFY_DATA.filter(v =>
+    (!q  || v.name.toLowerCase().includes(q) || v.enr.toLowerCase().includes(q)) &&
+    (!st || v.status === st)
+  );
+  document.getElementById('vfyTableBody').innerHTML = data.map((v,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="${v.photo}" style="width:36px;height:36px;border-radius:50%;">
+          <div><div style="font-weight:600;color:var(--text-dark);">${v.name}</div></div>
+        </div>
+      </td>
+      <td style="font-weight:500;">${v.enr}</td>
+      <td>${v.college}</td>
+      <td>${v.date}</td>
+      <td><span class="co-badge" style="${STATUS_BADGE_VFY[v.status]}">${v.status}</span></td>
+      <td style="white-space:nowrap;">
+        <a href="admin-student-details.html" class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;margin-right:4px;" title="Details"><i class="fa-solid fa-eye"></i> View</a>
+        ${v.status === 'Pending' ? `
+          <button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;margin-right:4px;" onclick="approveStudent(${v.id})">
+            <i class="fa-solid fa-check"></i> Approve
+          </button>
+          <button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;background:#fef2f2;color:#ef4444;border-color:#fecaca;" onclick="openReject(${v.id})">
+            <i class="fa-solid fa-xmark"></i> Reject
+          </button>
+        ` : '—'}
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--text-muted);">No records found.</td></tr>';
+}
+
+function approveStudent(id) {
+  const idx = VFY_DATA.findIndex(v=>v.id===id);
+  if(idx>-1) VFY_DATA[idx].status = 'Approved';
+  renderVfy();
+  document.getElementById('successTitle').textContent = 'Student Approved!';
+  document.getElementById('successMsg').textContent   = 'The student has been successfully verified and notified via email.';
+  document.getElementById('successModal').classList.add('open');
+}
+
+function openReject(id) { rejectId = id; document.getElementById('rejectModal').classList.add('open'); }
+function closeReject()  { document.getElementById('rejectModal').classList.remove('open'); }
+
+function confirmReject() {
+  const idx = VFY_DATA.findIndex(v=>v.id===rejectId);
+  if(idx>-1) VFY_DATA[idx].status = 'Rejected';
+  closeReject();
+  renderVfy();
+  document.getElementById('successTitle').textContent = 'Student Rejected';
+  document.getElementById('successMsg').textContent   = 'The student has been notified with the rejection reason.';
+  document.getElementById('successModal').classList.add('open');
+}
+
+function closeSuccess() { document.getElementById('successModal').classList.remove('open'); }
+
+function approveAll() {
+  VFY_DATA.filter(v=>v.status==='Pending').forEach(v=>v.status='Approved');
+  renderVfy();
+  document.getElementById('successTitle').textContent = 'All Students Approved!';
+  document.getElementById('successMsg').textContent   = 'All pending students have been verified successfully.';
+  document.getElementById('successModal').classList.add('open');
+}
+
+renderVfy();
+</script>
+</body>
+</html>

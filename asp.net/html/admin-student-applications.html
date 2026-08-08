@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Applications - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .app-card { background:#fff;border:1px solid var(--border-light);border-radius:12px;padding:20px;margin-bottom:16px;transition:box-shadow .2s; }
+  .app-card:hover { box-shadow:0 4px 16px rgba(0,0,0,.06); }
+  .tl-row { display:flex;gap:0;position:relative; }
+  .tl-step { flex:1;display:flex;flex-direction:column;align-items:center;position:relative; }
+  .tl-step:not(:last-child)::after { content:'';position:absolute;top:12px;left:50%;width:100%;height:2px;background:#e2e8f0;z-index:0; }
+  .tl-circle { width:24px;height:24px;border-radius:50%;border:3px solid #e2e8f0;background:#fff;z-index:1;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700; }
+  .tl-circle.done   { background:#16a34a;border-color:#16a34a;color:#fff; }
+  .tl-circle.active { background:#2563eb;border-color:#2563eb;color:#fff; }
+  .tl-label { font-size:10.5px;color:var(--text-muted);margin-top:6px;text-align:center; }
+  .tl-label.done   { color:#16a34a;font-weight:600; }
+  .tl-label.active { color:#2563eb;font-weight:700; }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Student Applications<span>Track all internship applications made by students</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+        <a href="admin-student-details.html" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Back to Student Details</a>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-ghost" onclick="simsShowToast('Resume downloaded!','success')"><i class="fa-solid fa-download"></i> Download Resume</button>
+          <button class="btn btn-primary" onclick="simsShowToast('Report exported!','success')"><i class="fa-solid fa-file-export"></i> Export Report</button>
+        </div>
+      </div>
+
+      <!-- Student Summary -->
+      <div class="co-panel" style="margin-bottom:20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+        <img src="https://ui-avatars.com/api/?name=Rahul+Sharma&background=2563eb&color=fff&size=60" style="width:60px;height:60px;border-radius:50%;">
+        <div style="flex:1;">
+          <h3 style="font-size:16px;font-weight:700;color:var(--text-dark);margin:0;">Rahul Sharma</h3>
+          <p style="font-size:13px;color:var(--text-muted);margin:0;">ENR2024001 &bull; Computer Science &bull; Silver Oak University</p>
+        </div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="font-size:22px;font-weight:800;color:var(--text-dark);">3</div>
+            <div style="font-size:12px;color:var(--text-muted);">Total Applied</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:22px;font-weight:800;color:#16a34a;">1</div>
+            <div style="font-size:12px;color:var(--text-muted);">Shortlisted</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:22px;font-weight:800;color:#ca8a04;">1</div>
+            <div style="font-size:12px;color:var(--text-muted);">Under Review</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:22px;font-weight:800;color:#ef4444;">1</div>
+            <div style="font-size:12px;color:var(--text-muted);">Rejected</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Application Cards -->
+      <div id="appCards"></div>
+    </main>
+
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout?</p>
+    <div style="display:flex;gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1;justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1;justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script>
+const APPS = [
+  {
+    title: 'Frontend Developer Intern', company: 'TechNova Pvt Ltd',
+    applied: '01 Jun 2026', status: 'Shortlisted',
+    steps: [
+      {label:'Applied',cls:'done'},{label:'Under Review',cls:'done'},{label:'Shortlisted',cls:'active'},
+      {label:'Interview',cls:''},{label:'Selected',cls:''},{label:'Rejected',cls:''}
+    ]
+  },
+  {
+    title: 'UI/UX Design Intern', company: 'DesignStudio Co.',
+    applied: '05 Jun 2026', status: 'Under Review',
+    steps: [
+      {label:'Applied',cls:'done'},{label:'Under Review',cls:'active'},{label:'Shortlisted',cls:''},
+      {label:'Interview',cls:''},{label:'Selected',cls:''},{label:'Rejected',cls:''}
+    ]
+  },
+  {
+    title: 'Data Analyst Intern', company: 'DataMind Analytics',
+    applied: '10 May 2026', status: 'Rejected',
+    steps: [
+      {label:'Applied',cls:'done'},{label:'Under Review',cls:'done'},{label:'Shortlisted',cls:'done'},
+      {label:'Interview',cls:'done'},{label:'Selected',cls:''},{label:'Rejected',cls:'active'}
+    ]
+  },
+];
+
+const STATUS_BADGE = {
+  Shortlisted:    'background:#eff6ff;color:#2563eb;border-color:#bfdbfe;',
+  'Under Review': 'background:#fefce8;color:#ca8a04;border-color:#fef08a;',
+  Rejected:       'background:#fef2f2;color:#ef4444;border-color:#fecaca;',
+  Selected:       'background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;',
+};
+
+document.getElementById('appCards').innerHTML = APPS.map(a => `
+  <div class="app-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+      <div>
+        <h4 style="font-size:15px;font-weight:700;color:var(--text-dark);margin:0 0 4px;">${a.title}</h4>
+        <p style="font-size:13px;color:var(--text-muted);margin:0;"><i class="fa-solid fa-building" style="margin-right:4px;"></i>${a.company} &nbsp;&bull;&nbsp; <i class="fa-regular fa-calendar" style="margin-right:4px;"></i>Applied: ${a.applied}</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span class="co-badge" style="${STATUS_BADGE[a.status] || ''}">${a.status}</span>
+        <a href="#" class="btn btn-ghost" style="padding:4px 10px;font-size:12px;" onclick="simsShowToast('Application opened!')"><i class="fa-solid fa-eye"></i> View</a>
+        <a href="#" class="btn btn-ghost" style="padding:4px 10px;font-size:12px;" onclick="simsShowToast('Company page opened!')"><i class="fa-solid fa-building"></i> Company</a>
+        <a href="#" class="btn btn-ghost" style="padding:4px 10px;font-size:12px;" onclick="simsShowToast('Resume downloading!')"><i class="fa-solid fa-download"></i> Resume</a>
+      </div>
+    </div>
+    <div class="tl-row">
+      ${a.steps.map(s => `
+        <div class="tl-step">
+          <div class="tl-circle ${s.cls}">${s.cls === 'done' ? '<i class="fa-solid fa-check" style="font-size:9px;"></i>' : s.cls === 'active' ? '<i class="fa-solid fa-circle" style="font-size:6px;"></i>' : ''}</div>
+          <div class="tl-label ${s.cls}">${s.label}</div>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+`).join('');
+</script>
+<script src="../js/dynamic-renderer.js"></script>
+</body>
+</html>

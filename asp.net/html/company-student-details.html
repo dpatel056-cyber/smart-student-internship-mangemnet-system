@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Details - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Student Details<span>Review comprehensive profile information</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="badge">2</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">TN</span>
+          <span class="dash-name" id="dashNameTop">TechNova Pvt Ltd<span>Company</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="company-profile.html"><i class="fa-solid fa-building"></i> Company Profile</a>
+            <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+            <hr>
+            <a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Action Header -->
+      <div class="co-page-header">
+        <div class="co-page-header-left">
+          <h1 style="display:flex;align-items:center;gap:10px;">
+            <img src="https://ui-avatars.com/api/?name=Rahul+Sharma&background=2563eb&color=fff" style="width:40px;height:40px;border-radius:50%;">
+            Rahul Sharma
+          </h1>
+          <p>Applied for <strong style="color:var(--text-dark);">Frontend Developer Intern</strong> on 10 Jul 2026</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="company-resume-viewer.html" class="btn btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-file-pdf"></i> View Resume
+          </a>
+          <button type="button" class="btn btn-ghost" style="display:inline-flex;align-items:center;gap:8px;color:#dc2626;" onclick="statusToast('Application rejected.', 'error')">
+            <i class="fa-solid fa-xmark"></i> Reject
+          </button>
+          <button type="button" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;background:#f59e0b;color:#fff;border:none;" onclick="statusToast('Student shortlisted successfully!', 'success')">
+            <i class="fa-solid fa-star"></i> Shortlist
+          </button>
+          <button type="button" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;" onclick="statusToast('Interview scheduled!', 'success')">
+            <i class="fa-solid fa-calendar-check"></i> Schedule Interview
+          </button>
+        </div>
+      </div>
+
+      <div class="co-grid-2">
+        
+        <!-- Left Col -->
+        <div>
+          <!-- Basic Info Card -->
+          <div class="co-panel" style="margin-bottom:20px;">
+            <h3 style="font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:16px;">Basic Information</h3>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="co-info-row">
+                <i class="fa-solid fa-id-card"></i>
+                <div><div class="co-info-label">Enrollment Number</div><div class="co-info-value">190280116035</div></div>
+              </div>
+              <div class="co-info-row">
+                <i class="fa-solid fa-envelope"></i>
+                <div><div class="co-info-label">Email Address</div><div class="co-info-value">rahul.sharma@example.com</div></div>
+              </div>
+              <div class="co-info-row">
+                <i class="fa-solid fa-phone"></i>
+                <div><div class="co-info-label">Mobile Number</div><div class="co-info-value">+91 98765 43210</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academic Info Card -->
+          <div class="co-panel" style="margin-bottom:20px;">
+            <h3 style="font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:16px;">Academic Details</h3>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="co-info-row">
+                <i class="fa-solid fa-building-columns"></i>
+                <div><div class="co-info-label">College</div><div class="co-info-value">L.D. College of Engineering (LDCE)</div></div>
+              </div>
+              <div class="co-info-row">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <div><div class="co-info-label">Course / Degree</div><div class="co-info-value">B.E. (Bachelor of Engineering)</div></div>
+              </div>
+              <div class="co-info-row">
+                <i class="fa-solid fa-book-open"></i>
+                <div><div class="co-info-label">Department / Branch</div><div class="co-info-value">Computer Engineering</div></div>
+              </div>
+              <div class="co-info-row">
+                <i class="fa-solid fa-layer-group"></i>
+                <div><div class="co-info-label">Current Semester</div><div class="co-info-value">Semester 7</div></div>
+              </div>
+              <div class="co-info-row">
+                <i class="fa-solid fa-chart-line"></i>
+                <div><div class="co-info-label">CGPA</div><div class="co-info-value">8.4</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skills Card -->
+          <div class="co-panel">
+            <h3 style="font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:16px;">Technical Skills</h3>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <span class="co-tag">HTML5</span>
+              <span class="co-tag">CSS3</span>
+              <span class="co-tag">JavaScript (ES6+)</span>
+              <span class="co-tag">React.js</span>
+              <span class="co-tag">Tailwind CSS</span>
+              <span class="co-tag">Git &amp; GitHub</span>
+              <span class="co-tag">Figma</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Col -->
+        <div>
+          <!-- Projects -->
+          <div class="co-panel" style="margin-bottom:20px;">
+            <h3 style="font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:16px;">Projects</h3>
+            
+            <div style="border-bottom:1px solid var(--border-light);padding-bottom:14px;margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+                <h4 style="font-size:14.5px;font-weight:600;color:var(--text-dark);margin:0;">E-Commerce Web Application</h4>
+                <a href="#" style="font-size:12px;color:var(--primary);text-decoration:none;"><i class="fa-brands fa-github"></i> Source</a>
+              </div>
+              <p style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:8px;">Developed a fully responsive e-commerce frontend using React and Redux. Integrated dummy JSON API for products and cart functionality.</p>
+              <div style="display:flex;gap:6px;"><span class="co-tag" style="background:#f1f5f9;color:#64748b;font-size:11px;">React</span><span class="co-tag" style="background:#f1f5f9;color:#64748b;font-size:11px;">Redux</span></div>
+            </div>
+            
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+                <h4 style="font-size:14.5px;font-weight:600;color:var(--text-dark);margin:0;">Portfolio Website</h4>
+                <a href="#" style="font-size:12px;color:var(--primary);text-decoration:none;"><i class="fa-solid fa-link"></i> Live</a>
+              </div>
+              <p style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:8px;">Designed and built a personal portfolio showcasing academic projects and technical skills using modern CSS and GSAP animations.</p>
+              <div style="display:flex;gap:6px;"><span class="co-tag" style="background:#f1f5f9;color:#64748b;font-size:11px;">HTML/CSS</span><span class="co-tag" style="background:#f1f5f9;color:#64748b;font-size:11px;">GSAP</span></div>
+            </div>
+          </div>
+
+          <!-- Experience -->
+          <div class="co-panel" style="margin-bottom:20px;">
+            <h3 style="font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:16px;">Experience</h3>
+            <div>
+              <h4 style="font-size:14.5px;font-weight:600;color:var(--text-dark);margin:0 0 4px 0;">Web Development Intern</h4>
+              <p style="font-size:13px;color:var(--text-muted);margin-bottom:6px;"><i class="fa-solid fa-building" style="margin-right:4px;"></i> ABC Technologies &nbsp;&bull;&nbsp; <i class="fa-solid fa-calendar" style="margin-right:4px;"></i> May 2025 - Jul 2025</p>
+              <p style="font-size:13px;color:var(--text-muted);line-height:1.6;">Assisted the senior development team in building UI components. Fixed cross-browser compatibility issues and improved page load speed by 15%.</p>
+            </div>
+          </div>
+
+          <!-- Resume Status -->
+          <div class="co-panel">
+            <h3 style="font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:16px;">Resume Document</h3>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border-light);border-radius:8px;background:#f8fafc;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:40px;height:40px;background:#fee2e2;color:#ef4444;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;">
+                  <i class="fa-solid fa-file-pdf"></i>
+                </div>
+                <div>
+                  <div style="font-size:13.5px;font-weight:600;color:var(--text-dark);">Rahul_Sharma_Resume.pdf</div>
+                  <div style="font-size:12px;color:var(--text-muted);">Uploaded 10 Jul 2026 &bull; 1.2 MB</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <a href="company-resume-viewer.html" class="btn btn-ghost" style="padding:8px 12px;font-size:13px;"><i class="fa-solid fa-eye"></i></a>
+                <button class="btn btn-ghost" style="padding:8px 12px;font-size:13px;" onclick="statusToast('Downloading resume...')"><i class="fa-solid fa-download"></i></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links"><a href="#">Privacy Policy</a><span>|</span><a href="#">Terms &amp; Conditions</a><span>|</span><a href="#">Support</a></div>
+    </footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Company Dashboard?</p>
+    <div style="display:flex;gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1;justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1;justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/company-dashboard.js"></script>
+<script>
+  function statusToast(msg, type='success') {
+    if(window.simsShowToast) window.simsShowToast(msg, type);
+  }
+</script>
+</body>
+</html>

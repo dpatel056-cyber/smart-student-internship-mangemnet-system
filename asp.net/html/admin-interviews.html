@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Management - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .adm-kpi-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:24px; }
+  .adm-kpi-card { background:#fff;border:1px solid var(--border-light);border-radius:12px;padding:20px;display:flex;align-items:center;gap:14px;transition:box-shadow .2s,transform .2s;cursor:pointer;text-decoration:none; }
+  .adm-kpi-card:hover { box-shadow:0 6px 20px rgba(0,0,0,.07);transform:translateY(-2px); }
+  .adm-kpi-icon { width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0; }
+  .adm-kpi-num  { font-size:26px;font-weight:800;color:var(--text-dark);line-height:1; }
+  .adm-kpi-lbl  { font-size:12.5px;color:var(--text-muted);margin-top:3px; }
+
+  .int-table th { background:#f8fafc;font-size:11.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;padding:12px 14px;border:none;white-space:nowrap; }
+  .int-table td { padding:13px 14px;border-color:var(--border-light);vertical-align:middle;font-size:13px; }
+  .int-table tbody tr:hover { background:#f8faff; }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Interview Management<span>Manage student interviews and placement process</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <a href="admin-settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav Links -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="admin-interviews.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-users-viewfinder"></i> Interviews</a>
+        <a href="admin-interview-schedule.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-calendar-days"></i> Schedule</a>
+        <a href="admin-interview-feedback.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+        <a href="admin-offer-letters.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-envelope-open-text"></i> Offer Letters</a>
+        <a href="admin-certificates.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-certificate"></i> Certificates</a>
+        <a href="admin-qr-verification.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-qrcode"></i> QR Verify</a>
+      </div>
+
+      <!-- Stats -->
+      <div class="adm-kpi-grid">
+        <a href="#" class="adm-kpi-card" onclick="filterByKpi('')">
+          <div class="adm-kpi-icon" style="background:#eff6ff;color:#2563eb;"><i class="fa-solid fa-users"></i></div>
+          <div><div class="adm-kpi-num">320</div><div class="adm-kpi-lbl">Total Interviews</div></div>
+        </a>
+        <a href="#" class="adm-kpi-card" onclick="filterByKpi('Scheduled')">
+          <div class="adm-kpi-icon" style="background:#fefce8;color:#ca8a04;"><i class="fa-solid fa-calendar-check"></i></div>
+          <div><div class="adm-kpi-num">45</div><div class="adm-kpi-lbl">Scheduled</div></div>
+        </a>
+        <a href="#" class="adm-kpi-card" onclick="filterByKpi('Completed')">
+          <div class="adm-kpi-icon" style="background:#f0fdf4;color:#16a34a;"><i class="fa-solid fa-check-double"></i></div>
+          <div><div class="adm-kpi-num">260</div><div class="adm-kpi-lbl">Completed</div></div>
+        </a>
+        <a href="#" class="adm-kpi-card" onclick="filterByKpi('Cancelled')">
+          <div class="adm-kpi-icon" style="background:#fef2f2;color:#ef4444;"><i class="fa-solid fa-ban"></i></div>
+          <div><div class="adm-kpi-num">15</div><div class="adm-kpi-lbl">Cancelled</div></div>
+        </a>
+      </div>
+
+      <!-- Interview List Table -->
+      <div class="co-panel" style="padding:0;overflow:hidden;">
+        <!-- Toolbar -->
+        <div style="padding:16px 20px;border-bottom:1px solid var(--border-light);display:flex;gap:12px;flex-wrap:wrap;align-items:center;background:#f8fafc;">
+          <div class="login-input-wrap" style="max-width:280px;flex:1;margin:0;">
+            <i class="fa-solid fa-magnifying-glass input-icon" style="top:50%;transform:translateY(-50%);"></i>
+            <input type="text" id="intSearch" placeholder="Search student, company or title..." oninput="filterInterviews()" style="padding:9px 14px 9px 42px;border:1px solid var(--border-light);border-radius:8px;width:100%;font-size:13px;outline:none;">
+          </div>
+          <select id="statusFilter" onchange="filterInterviews()" style="padding:9px 14px;border:1px solid var(--border-light);border-radius:8px;font-size:13px;outline:none;">
+            <option value="">All Status</option>
+            <option value="Scheduled">Scheduled</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+          <select id="sortBy" onchange="sortInterviews()" style="padding:9px 14px;border:1px solid var(--border-light);border-radius:8px;font-size:13px;outline:none;">
+            <option value="date">Sort by Date</option>
+            <option value="student">Sort by Student</option>
+            <option value="company">Sort by Company</option>
+          </select>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="table int-table mb-0" id="interviewTable">
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Company Name</th>
+                <th>Internship Title</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Mode</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="interviewTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-top:1px solid var(--border-light);">
+          <span style="font-size:13px;color:var(--text-muted);" id="paginInfo">Showing 1–10 of 320 interviews</span>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:12.5px;">&laquo;</button>
+            <button class="btn btn-primary" style="padding:5px 10px;font-size:12.5px;">1</button>
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:12.5px;">2</button>
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:12.5px;">3</button>
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:12.5px;">&raquo;</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<!-- Reschedule Modal -->
+<div class="modal-overlay" id="rescheduleModal">
+  <div class="modal-box" style="max-width:420px;">
+    <h3 class="modal-title">Reschedule Interview</h3>
+    <div class="co-form-group">
+      <label>New Date</label>
+      <input type="date" class="co-input">
+    </div>
+    <div class="co-form-group">
+      <label>New Time</label>
+      <input type="time" class="co-input">
+    </div>
+    <div style="display:flex;gap:10px;margin-top:16px;">
+      <button class="btn btn-ghost" onclick="closeModal('rescheduleModal')" style="flex:1;justify-content:center;">Cancel</button>
+      <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="confirmReschedule()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script>
+const INTERVIEWS = [
+  { id:1, student:'Rahul Sharma', company:'TechNova Pvt Ltd', title:'Frontend Developer', date:'2026-07-20', time:'10:30 AM', mode:'Online', status:'Scheduled' },
+  { id:2, student:'Kavya Shah', company:'DesignStudio Co.', title:'UI/UX Designer', date:'2026-07-21', time:'02:00 PM', mode:'Offline', status:'Scheduled' },
+  { id:3, student:'Sneha Joshi', company:'DataMind Analytics', title:'Data Analyst', date:'2026-07-15', time:'11:00 AM', mode:'Online', status:'Completed' },
+  { id:4, student:'Arjun Mehta', company:'InnoSoft Solutions', title:'Backend Developer', date:'2026-07-18', time:'04:00 PM', mode:'Offline', status:'Completed' },
+  { id:5, student:'Riya Patel', company:'TechNova Pvt Ltd', title:'React Intern', date:'2026-07-22', time:'12:30 PM', mode:'Online', status:'Scheduled' },
+  { id:6, student:'Anjali Desai', company:'DesignStudio Co.', title:'Graphic Designer', date:'2026-07-14', time:'09:00 AM', mode:'Online', status:'Cancelled' }
+];
+
+const STATUS_BADGE = {
+  Scheduled: 'background:#fefce8;color:#ca8a04;border-color:#fef08a;',
+  Completed: 'background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;',
+  Cancelled: 'background:#fef2f2;color:#ef4444;border-color:#fecaca;',
+};
+
+let allInterviews = [...INTERVIEWS];
+
+function renderTable(data) {
+  const tbody = document.getElementById('interviewTableBody');
+  tbody.innerHTML = data.length === 0
+    ? `<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text-muted);">No interviews found.</td></tr>`
+    : data.map(i => `
+      <tr>
+        <td style="font-weight:600;color:var(--text-dark);">${i.student}</td>
+        <td>${i.company}</td>
+        <td>${i.title}</td>
+        <td style="white-space:nowrap;">${i.date}</td>
+        <td style="white-space:nowrap;">${i.time}</td>
+        <td>${i.mode}</td>
+        <td><span class="co-badge" style="${STATUS_BADGE[i.status]}">${i.status}</span></td>
+        <td style="white-space:nowrap;">
+          <button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;" title="View Details"><i class="fa-solid fa-eye"></i></button>
+          ${i.status === 'Scheduled' ? `
+          <button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;" title="Reschedule" onclick="openModal('rescheduleModal')"><i class="fa-solid fa-calendar-day"></i></button>
+          <button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;background:#fef2f2;color:#ef4444;border-color:#fecaca;" title="Cancel" onclick="cancelInterview(${i.id})"><i class="fa-solid fa-ban"></i></button>
+          ` : ''}
+        </td>
+      </tr>
+    `).join('');
+}
+
+function filterInterviews() {
+  const q  = document.getElementById('intSearch').value.toLowerCase();
+  const st = document.getElementById('statusFilter').value;
+  allInterviews = INTERVIEWS.filter(i =>
+    (!q  || i.student.toLowerCase().includes(q) || i.company.toLowerCase().includes(q) || i.title.toLowerCase().includes(q)) &&
+    (!st || i.status === st)
+  );
+  renderTable(allInterviews);
+}
+
+function sortInterviews() {
+  const by = document.getElementById('sortBy').value;
+  allInterviews.sort((a,b) => a[by].localeCompare(b[by]));
+  renderTable(allInterviews);
+}
+
+function filterByKpi(status) {
+  document.getElementById('statusFilter').value = status;
+  filterInterviews();
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function confirmReschedule() {
+  closeModal('rescheduleModal');
+  alert('Interview rescheduled successfully.');
+}
+function cancelInterview(id) {
+  if(confirm('Are you sure you want to cancel this interview?')) {
+    const idx = INTERVIEWS.findIndex(i=>i.id===id);
+    if(idx>-1) INTERVIEWS[idx].status='Cancelled';
+    filterInterviews();
+  }
+}
+
+renderTable(INTERVIEWS);
+</script>
+</body>
+</html>

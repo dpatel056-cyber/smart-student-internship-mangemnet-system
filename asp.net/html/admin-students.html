@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Management - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .adm-sm-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:24px; }
+  .adm-sm-card { background:#fff;border:1px solid var(--border-light);border-radius:12px;padding:20px;display:flex;align-items:center;gap:14px;transition:box-shadow .2s,transform .2s;cursor:pointer;text-decoration:none; }
+  .adm-sm-card:hover { box-shadow:0 6px 20px rgba(0,0,0,.07);transform:translateY(-2px); }
+  .adm-sm-icon { width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0; }
+  .adm-sm-num  { font-size:26px;font-weight:800;color:var(--text-dark);line-height:1; }
+  .adm-sm-lbl  { font-size:12.5px;color:var(--text-muted);margin-top:3px; }
+
+  .stud-table th { background:#f8fafc;font-size:11.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;padding:12px 14px;border:none;white-space:nowrap; }
+  .stud-table td { padding:13px 14px;border-color:var(--border-light);vertical-align:middle;font-size:13px; }
+  .stud-table tbody tr:hover { background:#f8faff; }
+  .stud-avatar { width:36px;height:36px;border-radius:50%;object-fit:cover; }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Student Management<span>Manage, verify, and monitor all registered students</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <a href="admin-settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav Links -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="admin-students.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-list-ul"></i> Student List</a>
+        <a href="admin-student-verification.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-user-check"></i> Verification <span class="badge-count">8</span></a>
+        <a href="admin-student-reports.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-chart-bar"></i> Reports</a>
+        <a href="admin-student-block.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-user-slash"></i> Blocked Students</a>
+      </div>
+
+      <!-- Stats -->
+      <div class="adm-sm-grid">
+        <a href="admin-students.html" class="adm-sm-card">
+          <div class="adm-sm-icon" style="background:#eff6ff;color:#2563eb;"><i class="fa-solid fa-user-graduate"></i></div>
+          <div><div class="adm-sm-num">1,248</div><div class="adm-sm-lbl">Total Students</div></div>
+        </a>
+        <a href="admin-students.html" class="adm-sm-card">
+          <div class="adm-sm-icon" style="background:#f0fdf4;color:#16a34a;"><i class="fa-solid fa-user-check"></i></div>
+          <div><div class="adm-sm-num">1,180</div><div class="adm-sm-lbl">Active Students</div></div>
+        </a>
+        <a href="admin-student-verification.html" class="adm-sm-card">
+          <div class="adm-sm-icon" style="background:#fefce8;color:#ca8a04;"><i class="fa-solid fa-hourglass-half"></i></div>
+          <div><div class="adm-sm-num">38</div><div class="adm-sm-lbl">Pending Verification</div></div>
+        </a>
+        <a href="admin-student-block.html" class="adm-sm-card">
+          <div class="adm-sm-icon" style="background:#fef2f2;color:#ef4444;"><i class="fa-solid fa-user-slash"></i></div>
+          <div><div class="adm-sm-num">30</div><div class="adm-sm-lbl">Blocked Students</div></div>
+        </a>
+      </div>
+
+      <!-- Student List Table -->
+      <div class="co-panel" style="padding:0;overflow:hidden;">
+        <!-- Toolbar -->
+        <div style="padding:16px 20px;border-bottom:1px solid var(--border-light);display:flex;gap:12px;flex-wrap:wrap;align-items:center;background:#f8fafc;">
+          <div class="login-input-wrap" style="max-width:280px;flex:1;margin:0;">
+            <i class="fa-solid fa-magnifying-glass input-icon" style="top:50%;transform:translateY(-50%);"></i>
+            <input type="text" id="studentSearch" placeholder="Search by name, enrollment, email..." oninput="filterStudents()" style="padding:9px 14px 9px 42px;border:1px solid var(--border-light);border-radius:8px;width:100%;font-size:13px;outline:none;">
+          </div>
+          <select id="statusFilter" onchange="filterStudents()" style="padding:9px 14px;border:1px solid var(--border-light);border-radius:8px;font-size:13px;outline:none;">
+            <option value="">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Pending">Pending</option>
+            <option value="Blocked">Blocked</option>
+          </select>
+          <select id="deptFilter" onchange="filterStudents()" style="padding:9px 14px;border:1px solid var(--border-light);border-radius:8px;font-size:13px;outline:none;">
+            <option value="">All Departments</option>
+            <option>Computer Science</option>
+            <option>Information Technology</option>
+            <option>Mechanical Engineering</option>
+            <option>Design</option>
+          </select>
+          <select id="sortBy" onchange="sortStudents()" style="padding:9px 14px;border:1px solid var(--border-light);border-radius:8px;font-size:13px;outline:none;">
+            <option value="name">Sort by Name</option>
+            <option value="date">Sort by Date</option>
+            <option value="enrollment">Sort by Enrollment</option>
+          </select>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="table stud-table mb-0" id="studentTable">
+            <thead>
+              <tr>
+                <th><input type="checkbox" id="selectAll" onchange="toggleAll(this)"></th>
+                <th>Student</th>
+                <th>Enrollment No.</th>
+                <th>Department</th>
+                <th>Semester</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Reg. Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-top:1px solid var(--border-light);">
+          <span style="font-size:13px;color:var(--text-muted);" id="paginInfo">Showing 1–10 of 1,248 students</span>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:12.5px;">&laquo;</button>
+            <button class="btn btn-primary" style="padding:5px 10px;font-size:12.5px;">1</button>
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:12.5px;">2</button>
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:12.5px;">3</button>
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:12.5px;">&raquo;</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<!-- Block Modal -->
+<div class="modal-overlay" id="blockModal">
+  <div class="modal-box" style="max-width:420px;">
+    <h3 class="modal-title">Block Student</h3>
+    <p class="modal-sub">Please provide a reason for blocking this student.</p>
+    <div class="co-form-group" style="margin-bottom:16px;">
+      <label>Reason</label>
+      <textarea id="blockReason" rows="3" placeholder="Enter reason..." style="resize:vertical;"></textarea>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-ghost" onclick="closeModal('blockModal')" style="flex:1;justify-content:center;">Cancel</button>
+      <button class="btn btn-primary" style="flex:1;justify-content:center;background:#ef4444;border-color:#ef4444;" onclick="confirmBlock()">Block Student</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-trash"></i></div>
+    <h3 class="modal-title">Delete Student</h3>
+    <p class="modal-sub">This action is permanent and cannot be undone.</p>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-ghost" onclick="closeModal('deleteModal')" style="flex:1;justify-content:center;">Cancel</button>
+      <button class="btn btn-primary" style="flex:1;justify-content:center;background:#ef4444;border-color:#ef4444;" onclick="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Admin Panel?</p>
+    <div style="display:flex;gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1;justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1;justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script>
+let STUDENTS = window.GlobalStore ? window.GlobalStore.getStudents() : [];
+
+const STATUS_BADGE = {
+  Active:  'background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;',
+  Pending: 'background:#fefce8;color:#ca8a04;border-color:#fef08a;',
+  Blocked: 'background:#fef2f2;color:#ef4444;border-color:#fecaca;',
+};
+
+let allStudents = [...STUDENTS];
+
+function refreshStudents() {
+  STUDENTS = window.GlobalStore ? window.GlobalStore.getStudents() : STUDENTS;
+  allStudents = [...STUDENTS];
+  filterStudents();
+}
+
+function renderTable(data) {
+  const tbody = document.getElementById('studentTableBody');
+  tbody.innerHTML = data.length === 0
+    ? `<tr><td colspan="10" style="text-align:center;padding:30px;color:var(--text-muted);">No students found.</td></tr>`
+    : data.map(s => `
+      <tr>
+        <td><input type="checkbox" class="row-chk"></td>
+        <td>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <img src="${s.photo}" class="stud-avatar">
+            <div>
+              <div style="font-weight:600;color:var(--text-dark);white-space:nowrap;">${s.name}</div>
+            </div>
+          </div>
+        </td>
+        <td style="font-weight:500;">${s.enr}</td>
+        <td>${s.dept}</td>
+        <td style="text-align:center;">${s.sem}</td>
+        <td>${s.email}</td>
+        <td>${s.mobile}</td>
+        <td style="white-space:nowrap;">${s.date}</td>
+        <td><span class="co-badge" style="${STATUS_BADGE[s.status] || ''}">${s.status}</span></td>
+        <td style="white-space:nowrap;">
+          <a href="admin-student-details.html" class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;" title="View"><i class="fa-solid fa-eye"></i></a>
+          ${s.status === 'Pending' ? `<button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;" onclick="verifyStudent(${s.id})" title="Verify"><i class="fa-solid fa-check"></i></button>` : ''}
+          <button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;" onclick="" title="Edit"><i class="fa-solid fa-pen"></i></button>
+          ${s.status !== 'Blocked'
+            ? `<button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;background:#fef2f2;color:#ef4444;border-color:#fecaca;" onclick="openBlock(${s.id})" title="Block"><i class="fa-solid fa-ban"></i></button>`
+            : `<button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;" onclick="unblockStudent(${s.id})" title="Unblock"><i class="fa-solid fa-unlock"></i></button>`}
+          <button class="btn btn-ghost" style="padding:3px 8px;font-size:11.5px;background:#fef2f2;color:#ef4444;border-color:#fecaca;" onclick="openDelete(${s.id})" title="Delete"><i class="fa-solid fa-trash"></i></button>
+        </td>
+      </tr>
+    `).join('');
+}
+
+function filterStudents() {
+  const q    = document.getElementById('studentSearch').value.toLowerCase();
+  const st   = document.getElementById('statusFilter').value;
+  const dept = document.getElementById('deptFilter').value;
+  allStudents = (STUDENTS || []).filter(s =>
+    (!q    || s.name.toLowerCase().includes(q) || s.enr.toLowerCase().includes(q) || s.email.toLowerCase().includes(q)) &&
+    (!st   || s.status === st) &&
+    (!dept || s.dept === dept)
+  );
+  renderTable(allStudents);
+}
+
+function sortStudents() {
+  const by = document.getElementById('sortBy').value;
+  allStudents.sort((a,b) => (a[by === 'name' ? 'name' : by === 'enrollment' ? 'enr' : 'date']).localeCompare(b[by === 'name' ? 'name' : by === 'enrollment' ? 'enr' : 'date']));
+  renderTable(allStudents);
+}
+
+function toggleAll(cb) { document.querySelectorAll('.row-chk').forEach(c => c.checked = cb.checked); }
+
+let blockTargetId = null, deleteTargetId = null;
+function openBlock(id)  { blockTargetId = id;  document.getElementById('blockModal').classList.add('open');  }
+function openDelete(id) { deleteTargetId= id; document.getElementById('deleteModal').classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function confirmBlock() {
+  closeModal('blockModal');
+  if (window.GlobalStore) {
+    window.GlobalStore.updateStudent(blockTargetId, { status: 'Blocked' });
+  } else {
+    const idx = STUDENTS.findIndex(s=>s.id===blockTargetId);
+    if(idx>-1) STUDENTS[idx].status='Blocked';
+  }
+  refreshStudents();
+  if(window.simsShowToast) window.simsShowToast('Student blocked successfully!','success');
+}
+function unblockStudent(id) {
+  if (window.GlobalStore) {
+    window.GlobalStore.updateStudent(id, { status: 'Active' });
+  } else {
+    const idx = STUDENTS.findIndex(s=>s.id===id);
+    if(idx>-1) STUDENTS[idx].status='Active';
+  }
+  refreshStudents();
+  if(window.simsShowToast) window.simsShowToast('Student unblocked!','success');
+}
+function confirmDelete() {
+  if (window.GlobalStore) {
+    window.GlobalStore.deleteStudent(deleteTargetId);
+  } else {
+    const idx = STUDENTS.findIndex(s=>s.id===deleteTargetId);
+    if(idx>-1) STUDENTS.splice(idx,1);
+  }
+  closeModal('deleteModal');
+  refreshStudents();
+  if(window.simsShowToast) window.simsShowToast('Student deleted.','error');
+}
+function verifyStudent(id) {
+  if (window.GlobalStore) {
+    window.GlobalStore.updateStudent(id, { status: 'Active' });
+  } else {
+    const idx = STUDENTS.findIndex(s=>s.id===id);
+    if(idx>-1) STUDENTS[idx].status='Active';
+  }
+  refreshStudents();
+  if(window.simsShowToast) window.simsShowToast('Student verified successfully!','success');
+}
+
+window.addEventListener('storage', () => refreshStudents());
+renderTable(STUDENTS);
+</script>
+<script src="../js/dynamic-renderer.js"></script>
+</body>
+</html>

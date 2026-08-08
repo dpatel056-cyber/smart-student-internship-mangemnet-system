@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Schedule - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .cal-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:16px; }
+  .cal-grid { display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--border-light);border:1px solid var(--border-light);border-radius:8px;overflow:hidden; }
+  .cal-day-head { background:#f8fafc;padding:10px;text-align:center;font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase; }
+  .cal-cell { background:#fff;min-height:100px;padding:8px;display:flex;flex-direction:column;gap:4px; }
+  .cal-date { font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:4px;text-align:right; }
+  .cal-event { background:#eff6ff;border-left:3px solid #2563eb;padding:4px 6px;border-radius:4px;font-size:11px;color:#1e3a8a;cursor:pointer; }
+  .cal-event.offline { background:#fefce8;border-color:#ca8a04;color:#854d0e; }
+  .timeline-card { background:#fff;border:1px solid var(--border-light);border-left:4px solid #2563eb;border-radius:8px;padding:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px; }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Interview Schedule<span>Calendar and timeline view of all upcoming interviews</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+          <span class="dash-name" id="dashNameTop">System Admin<span>Administrator</span></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="admin-interviews.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-users-viewfinder"></i> Interviews</a>
+        <a href="admin-interview-schedule.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-calendar-days"></i> Schedule</a>
+        <a href="admin-interview-feedback.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+        <a href="admin-offer-letters.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-envelope-open-text"></i> Offer Letters</a>
+        <a href="admin-certificates.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-certificate"></i> Certificates</a>
+        <a href="admin-qr-verification.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-qrcode"></i> QR Verify</a>
+      </div>
+
+      <div class="co-grid-2" style="grid-template-columns: 2fr 1fr;">
+        <!-- Calendar View -->
+        <div class="co-panel">
+          <div class="cal-header">
+            <h3 style="font-size:16px;font-weight:700;margin:0;">July 2026</h3>
+            <div style="display:flex;gap:4px;">
+              <button class="btn btn-ghost" style="padding:4px 10px;"><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="btn btn-ghost" style="padding:4px 10px;"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+          <div class="cal-grid">
+            <div class="cal-day-head">Sun</div><div class="cal-day-head">Mon</div><div class="cal-day-head">Tue</div><div class="cal-day-head">Wed</div><div class="cal-day-head">Thu</div><div class="cal-day-head">Fri</div><div class="cal-day-head">Sat</div>
+            <!-- Blank days for start of month (dummy layout) -->
+            <div class="cal-cell" style="background:#f8fafc;"></div><div class="cal-cell" style="background:#f8fafc;"></div><div class="cal-cell" style="background:#f8fafc;"></div>
+            <div class="cal-cell"><div class="cal-date">1</div></div>
+            <div class="cal-cell"><div class="cal-date">2</div></div>
+            <div class="cal-cell"><div class="cal-date">3</div></div>
+            <div class="cal-cell"><div class="cal-date">4</div></div>
+            <div class="cal-cell"><div class="cal-date">5</div></div>
+            <div class="cal-cell"><div class="cal-date">6</div></div>
+            <div class="cal-cell"><div class="cal-date">7</div></div>
+            <div class="cal-cell"><div class="cal-date">8</div></div>
+            <div class="cal-cell"><div class="cal-date">9</div></div>
+            <div class="cal-cell"><div class="cal-date">10</div></div>
+            <div class="cal-cell"><div class="cal-date">11</div></div>
+            <div class="cal-cell"><div class="cal-date">12</div></div>
+            <div class="cal-cell"><div class="cal-date">13</div></div>
+            <div class="cal-cell"><div class="cal-date">14</div></div>
+            <div class="cal-cell"><div class="cal-date">15</div></div>
+            <div class="cal-cell"><div class="cal-date">16</div></div>
+            <div class="cal-cell"><div class="cal-date">17</div></div>
+            <div class="cal-cell"><div class="cal-date">18</div><div class="cal-event offline" onclick="alert('Arjun Mehta - InnoSoft Solutions')">04:00 PM - Arjun M.</div></div>
+            <div class="cal-cell"><div class="cal-date">19</div></div>
+            <div class="cal-cell"><div class="cal-date" style="color:var(--primary);">20</div><div class="cal-event" onclick="alert('Rahul Sharma - TechNova Pvt Ltd')">10:30 AM - Rahul S.</div></div>
+            <div class="cal-cell"><div class="cal-date">21</div><div class="cal-event offline" onclick="alert('Kavya Shah - DesignStudio Co.')">02:00 PM - Kavya S.</div></div>
+            <div class="cal-cell"><div class="cal-date">22</div><div class="cal-event" onclick="alert('Riya Patel - TechNova Pvt Ltd')">12:30 PM - Riya P.</div></div>
+            <div class="cal-cell"><div class="cal-date">23</div></div>
+            <div class="cal-cell"><div class="cal-date">24</div></div>
+            <div class="cal-cell"><div class="cal-date">25</div></div>
+            <div class="cal-cell"><div class="cal-date">26</div></div>
+            <div class="cal-cell"><div class="cal-date">27</div></div>
+            <div class="cal-cell"><div class="cal-date">28</div></div>
+            <div class="cal-cell"><div class="cal-date">29</div></div>
+            <div class="cal-cell"><div class="cal-date">30</div></div>
+            <div class="cal-cell"><div class="cal-date">31</div></div>
+            <div class="cal-cell" style="background:#f8fafc;"></div>
+          </div>
+        </div>
+
+        <!-- Timeline View -->
+        <div>
+          <div class="co-panel">
+            <h3 style="font-size:16px;font-weight:700;margin:0 0 16px;">Today's Interviews</h3>
+            <div style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px;">No interviews scheduled for today.</div>
+          </div>
+
+          <div class="co-panel">
+            <h3 style="font-size:16px;font-weight:700;margin:0 0 16px;">Upcoming This Week</h3>
+            
+            <div class="timeline-card">
+              <div>
+                <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px;">20 Jul 2026 &bull; 10:30 AM</div>
+                <div style="font-weight:700;color:var(--text-dark);font-size:14px;">Rahul Sharma</div>
+                <div style="font-size:12.5px;color:var(--text-muted);">TechNova Pvt Ltd &bull; Frontend Developer</div>
+              </div>
+              <div style="display:flex;gap:6px;">
+                <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;" title="Reschedule"><i class="fa-solid fa-calendar-day"></i></button>
+                <a href="#" class="btn btn-primary" style="padding:4px 8px;font-size:11.5px;"><i class="fa-solid fa-video"></i> Start</a>
+              </div>
+            </div>
+
+            <div class="timeline-card" style="border-left-color:#ca8a04;">
+              <div>
+                <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px;">21 Jul 2026 &bull; 02:00 PM</div>
+                <div style="font-weight:700;color:var(--text-dark);font-size:14px;">Kavya Shah</div>
+                <div style="font-size:12.5px;color:var(--text-muted);">DesignStudio Co. &bull; UI/UX Designer</div>
+              </div>
+              <div style="display:flex;gap:6px;">
+                <span class="co-badge" style="background:#fefce8;color:#ca8a04;border-color:#fef08a;">Offline</span>
+                <button class="btn btn-ghost" style="padding:4px 8px;font-size:11.5px;" title="Reschedule"><i class="fa-solid fa-calendar-day"></i></button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+<div id="adminInterviewList"></div>
+      </div>
+
+    </main>
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS. All rights reserved.</p></footer>
+  </div>
+</div>
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script src="../js/company-interview-schedule.js"></script>
+<script src="../js/interview.js"></script>
+</body>
+</html>

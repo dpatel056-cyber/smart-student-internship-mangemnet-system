@@ -1,0 +1,506 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{43F25024-68AA-47E2-9EA4-899AAB7229B5}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>asp.net</RootNamespace>
+    <AssemblyName>asp.net</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44337</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="about.aspx" />
+    <Content Include="admin-dashboard.aspx" />
+    <Content Include="apply now.png" />
+    <Content Include="App_Data\sims.mdf" />
+    <Content Include="App_Data\sims_log.ldf">
+      <DependentUpon>sims.mdf</DependentUpon>
+    </Content>
+    <Content Include="assets\hero-student.png" />
+    <Content Include="assets\logo-accenture.svg" />
+    <Content Include="assets\logo-adobe-test.ico" />
+    <Content Include="assets\logo-adobe-test.png" />
+    <Content Include="assets\logo-adobe.png" />
+    <Content Include="assets\logo-adobe.svg" />
+    <Content Include="assets\logo-amazon.png" />
+    <Content Include="assets\logo-canva.svg" />
+    <Content Include="assets\logo-cognizant.svg" />
+    <Content Include="assets\logo-deloitte.svg" />
+    <Content Include="assets\logo-figma.svg" />
+    <Content Include="assets\logo-flipkart.svg" />
+    <Content Include="assets\logo-google.png" />
+    <Content Include="assets\logo-hcltech.svg" />
+    <Content Include="assets\logo-hdfc.svg" />
+    <Content Include="assets\logo-ibm.svg" />
+    <Content Include="assets\logo-icici.svg" />
+    <Content Include="assets\logo-infosys.png" />
+    <Content Include="assets\logo-linkedin.png" />
+    <Content Include="assets\logo-linkedin.svg" />
+    <Content Include="assets\logo-meta.svg" />
+    <Content Include="assets\logo-microsoft.png" />
+    <Content Include="assets\logo-oracle.svg" />
+    <Content Include="assets\logo-paytm.png" />
+    <Content Include="assets\logo-paytm.svg" />
+    <Content Include="assets\logo-phonepe.svg" />
+    <Content Include="assets\logo-razorpay.svg" />
+    <Content Include="assets\logo-tcs.svg" />
+    <Content Include="assets\logo-techmahindra.svg" />
+    <Content Include="assets\logo-wipro.svg" />
+    <Content Include="assets\logo-zerodha.svg" />
+    <Content Include="companies.aspx" />
+    <Content Include="Companydashboard.aspx" />
+    <Content Include="contact.aspx" />
+    <Content Include="contact.png" />
+    <Content Include="css\communication-module.css" />
+    <Content Include="css\company-module.css" />
+    <Content Include="css\internship-module.css" />
+    <Content Include="css\interview-module.css" />
+    <Content Include="css\offers-module.css" />
+    <Content Include="css\profile-module.css" />
+    <Content Include="css\resume-module.css" />
+    <Content Include="css\settings-module.css" />
+    <Content Include="css\style.css" />
+    <Content Include="faq.aspx" />
+    <Content Include="filter_button.png" />
+    <Content Include="forgot_password.aspx" />
+    <Content Include="home.png" />
+    <Content Include="html\about.html" />
+    <Content Include="html\admin-activity-logs.html" />
+    <Content Include="html\admin-analytics.html" />
+    <Content Include="html\admin-backup.html" />
+    <Content Include="html\admin-categories-skills.html" />
+    <Content Include="html\admin-certificates.html" />
+    <Content Include="html\admin-change-password.html" />
+    <Content Include="html\admin-companies.html" />
+    <Content Include="html\admin-company-details.html" />
+    <Content Include="html\admin-company-verification.html" />
+    <Content Include="html\admin-contact.html" />
+    <Content Include="html\admin-dashboard.html" />
+    <Content Include="html\admin-edit-profile.html" />
+    <Content Include="html\admin-email-templates.html" />
+    <Content Include="html\admin-feedback.html" />
+    <Content Include="html\admin-internship-approval.html" />
+    <Content Include="html\admin-internship-details.html" />
+    <Content Include="html\admin-internships.html" />
+    <Content Include="html\admin-interview-feedback.html" />
+    <Content Include="html\admin-interview-schedule.html" />
+    <Content Include="html\admin-interviews.html" />
+    <Content Include="html\admin-messages.html" />
+    <Content Include="html\admin-notifications.html" />
+    <Content Include="html\admin-offer-letters.html" />
+    <Content Include="html\admin-profile.html" />
+    <Content Include="html\admin-qr-verification.html" />
+    <Content Include="html\admin-reports.html" />
+    <Content Include="html\admin-roles.html" />
+    <Content Include="html\admin-settings.html" />
+    <Content Include="html\admin-student-applications.html" />
+    <Content Include="html\admin-student-block.html" />
+    <Content Include="html\admin-student-details.html" />
+    <Content Include="html\admin-student-reports.html" />
+    <Content Include="html\admin-student-verification.html" />
+    <Content Include="html\admin-students.html" />
+    <Content Include="html\admin-theme.html" />
+    <Content Include="html\application-status.html" />
+    <Content Include="html\apply-internship.html" />
+    <Content Include="html\browse-internships.html" />
+    <Content Include="html\certificates-documents.html" />
+    <Content Include="html\change-password.html" />
+    <Content Include="html\companies.html" />
+    <Content Include="html\company-analytics.html" />
+    <Content Include="html\company-applications.html" />
+    <Content Include="html\company-dashboard.html" />
+    <Content Include="html\company-edit-internship.html" />
+    <Content Include="html\company-edit-profile.html" />
+    <Content Include="html\company-feedback.html" />
+    <Content Include="html\company-hired.html" />
+    <Content Include="html\company-internship-details.html" />
+    <Content Include="html\company-internship-performance.html" />
+    <Content Include="html\company-interview-details.html" />
+    <Content Include="html\company-interview-feedback.html" />
+    <Content Include="html\company-interview-schedule.html" />
+    <Content Include="html\company-manage-internships.html" />
+    <Content Include="html\company-messages.html" />
+    <Content Include="html\company-notifications.html" />
+    <Content Include="html\company-offer-letter.html" />
+    <Content Include="html\company-post-internship.html" />
+    <Content Include="html\company-rejected.html" />
+    <Content Include="html\company-reports.html" />
+    <Content Include="html\company-resume-viewer.html" />
+    <Content Include="html\company-selected.html" />
+    <Content Include="html\company-settings-language.html" />
+    <Content Include="html\company-settings-password.html" />
+    <Content Include="html\company-settings-security.html" />
+    <Content Include="html\company-settings-theme.html" />
+    <Content Include="html\company-settings.html" />
+    <Content Include="html\company-shortlisted.html" />
+    <Content Include="html\company-student-details.html" />
+    <Content Include="html\contact.html" />
+    <Content Include="html\edit-profile.html" />
+    <Content Include="html\education-details.html" />
+    <Content Include="html\experience-projects.html" />
+    <Content Include="html\faq.html" />
+    <Content Include="html\feedback-rating.html" />
+    <Content Include="html\help-support.html" />
+    <Content Include="html\index.html" />
+    <Content Include="html\internship-certificate.html" />
+    <Content Include="html\internship-details.html" />
+    <Content Include="html\internships.html" />
+    <Content Include="html\interview-schedule.html" />
+    <Content Include="html\language-settings.html" />
+    <Content Include="html\login.html" />
+    <Content Include="html\messages.html" />
+    <Content Include="html\my-applications.html" />
+    <Content Include="html\my-profile.html" />
+    <Content Include="html\notifications.html" />
+    <Content Include="html\offer-letter.html" />
+    <Content Include="html\privacy-security.html" />
+    <Content Include="html\profile-completion.html" />
+    <Content Include="html\register.html" />
+    <Content Include="html\resume-dashboard.html" />
+    <Content Include="html\resume-preview.html" />
+    <Content Include="html\saved-companies.html" />
+    <Content Include="html\saved-internships.html" />
+    <Content Include="html\settings.html" />
+    <Content Include="html\skills-management.html" />
+    <Content Include="html\stories.html" />
+    <Content Include="html\student-dashboard.html" />
+    <Content Include="html\theme-settings.html" />
+    <Content Include="html\upcoming-deadlines.html" />
+    <Content Include="html\upload-resume.html" />
+    <Content Include="index.aspx" />
+    <Content Include="internship-details.aspx" />
+    <Content Include="internship.png" />
+    <Content Include="internships.aspx" />
+    <Content Include="js\admin-dashboard.js" />
+    <Content Include="js\admin-reports.js" />
+    <Content Include="js\application-status.js" />
+    <Content Include="js\applications.js" />
+    <Content Include="js\apply-internship.js" />
+    <Content Include="js\browse-internships.js" />
+    <Content Include="js\certificates-documents.js" />
+    <Content Include="js\change-password.js" />
+    <Content Include="js\communication-data.js" />
+    <Content Include="js\companies-data.js" />
+    <Content Include="js\companies.js" />
+    <Content Include="js\company-applications-dynamic.js" />
+    <Content Include="js\company-dashboard.js" />
+    <Content Include="js\company-edit-profile.js" />
+    <Content Include="js\company-internship-details.js" />
+    <Content Include="js\company-interview-schedule.js" />
+    <Content Include="js\company-post-internship.js" />
+    <Content Include="js\company-profile.js" />
+    <Content Include="js\company-reports.js" />
+    <Content Include="js\dashboard.js" />
+    <Content Include="js\dynamic-renderer.js" />
+    <Content Include="js\edit-profile.js" />
+    <Content Include="js\education-details.js" />
+    <Content Include="js\experience-projects.js" />
+    <Content Include="js\faq-data.js" />
+    <Content Include="js\feedback-rating.js" />
+    <Content Include="js\fp-multi.js" />
+    <Content Include="js\global-store.js" />
+    <Content Include="js\help-support.js" />
+    <Content Include="js\internship-certificate.js" />
+    <Content Include="js\internship-details.js" />
+    <Content Include="js\internships-data.js" />
+    <Content Include="js\internships.js" />
+    <Content Include="js\interview-schedule.js" />
+    <Content Include="js\interview.js" />
+    <Content Include="js\interviews-data.js" />
+    <Content Include="js\language-settings.js" />
+    <Content Include="js\login.js" />
+    <Content Include="js\messages.js" />
+    <Content Include="js\my-applications.js" />
+    <Content Include="js\my-profile.js" />
+    <Content Include="js\notifications.js" />
+    <Content Include="js\offer-letter.js" />
+    <Content Include="js\offers.js" />
+    <Content Include="js\privacy-security.js" />
+    <Content Include="js\profile-completion.js" />
+    <Content Include="js\profile-shared.js" />
+    <Content Include="js\register.js" />
+    <Content Include="js\resume-dashboard.js" />
+    <Content Include="js\resume-preview.js" />
+    <Content Include="js\resume-shared.js" />
+    <Content Include="js\saved-companies.js" />
+    <Content Include="js\saved-internships.js" />
+    <Content Include="js\script.js" />
+    <Content Include="js\settings.js" />
+    <Content Include="js\skills-management.js" />
+    <Content Include="js\store-extensions.js" />
+    <Content Include="js\stories.js" />
+    <Content Include="js\student-layout.js" />
+    <Content Include="js\theme-settings.js" />
+    <Content Include="js\ui-utils.js" />
+    <Content Include="js\upcoming-deadlines.js" />
+    <Content Include="js\upload-resume.js" />
+    <Content Include="login register.png" />
+    <Content Include="login.aspx" />
+    <Content Include="login.png" />
+    <Content Include="otp1.png" />
+    <Content Include="otp2.png" />
+    <Content Include="otp3.png" />
+    <Content Include="register.aspx" />
+    <Content Include="register.png" />
+    <Content Include="reset_password.aspx" />
+    <Content Include="search companies.png" />
+    <Content Include="stories.aspx" />
+    <Content Include="student-dashboard.aspx" />
+    <Content Include="verify_otp.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="about.aspx.cs">
+      <DependentUpon>about.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="about.aspx.designer.cs">
+      <DependentUpon>about.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin-dashboard.aspx.cs">
+      <DependentUpon>admin-dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin-dashboard.aspx.designer.cs">
+      <DependentUpon>admin-dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin.Master.cs">
+      <DependentUpon>admin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin.Master.designer.cs">
+      <DependentUpon>admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="companies.aspx.cs">
+      <DependentUpon>companies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="companies.aspx.designer.cs">
+      <DependentUpon>companies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="company.Master.cs">
+      <DependentUpon>company.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="company.Master.designer.cs">
+      <DependentUpon>company.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Companydashboard.aspx.cs">
+      <DependentUpon>Companydashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Companydashboard.aspx.designer.cs">
+      <DependentUpon>Companydashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="contact.aspx.cs">
+      <DependentUpon>contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="contact.aspx.designer.cs">
+      <DependentUpon>contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="faq.aspx.cs">
+      <DependentUpon>faq.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="faq.aspx.designer.cs">
+      <DependentUpon>faq.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="forgot_password.aspx.cs">
+      <DependentUpon>forgot_password.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="forgot_password.aspx.designer.cs">
+      <DependentUpon>forgot_password.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="internship-details.aspx.cs">
+      <DependentUpon>internship-details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="internship-details.aspx.designer.cs">
+      <DependentUpon>internship-details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="internships.aspx.cs">
+      <DependentUpon>internships.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="internships.aspx.designer.cs">
+      <DependentUpon>internships.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="public.Master.cs">
+      <DependentUpon>public.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="public.Master.designer.cs">
+      <DependentUpon>public.Master</DependentUpon>
+    </Compile>
+    <Compile Include="register.aspx.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="register.aspx.designer.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="reset_password.aspx.cs">
+      <DependentUpon>reset_password.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="reset_password.aspx.designer.cs">
+      <DependentUpon>reset_password.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="stories.aspx.cs">
+      <DependentUpon>stories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="stories.aspx.designer.cs">
+      <DependentUpon>stories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="student-dashboard.aspx.cs">
+      <DependentUpon>student-dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="student-dashboard.aspx.designer.cs">
+      <DependentUpon>student-dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="student.Master.cs">
+      <DependentUpon>student.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="student.Master.designer.cs">
+      <DependentUpon>student.Master</DependentUpon>
+    </Compile>
+    <Compile Include="verify_otp.aspx.cs">
+      <DependentUpon>verify_otp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="verify_otp.aspx.designer.cs">
+      <DependentUpon>verify_otp.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="company.Master" />
+    <Content Include="admin.Master" />
+    <None Include="packages.config" />
+    <Content Include="public.Master" />
+    <Content Include="student.Master" />
+    <Content Include="SendOTP.ashx" />
+    <Content Include="VerifyOTP.ashx" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58653</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44337/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

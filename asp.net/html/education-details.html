@@ -1,0 +1,170 @@
+<!--
+  ============================================================================
+  SIMS - Module 2 : Student Profile Management
+  Page: Education Details
+  ----------------------------------------------------------------------------
+  ASP.NET MASTER PAGE INTEGRATION NOTE: see my-profile.html for the standard
+  MasterPageFile / auth-guard notes. Education records live in
+  PMData.getProfile().education (array). Swap the PMData calls used in
+  education-details.js for Web API calls (GET/POST/PUT/DELETE
+  /api/student/education) to go live.
+  ============================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Education Details - SIMS | Smart Student Internship Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/profile-module.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dashboard-shell">
+
+  <!-- ============ LEFT SIDEBAR ============ -->
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div class="dashboard-main-col">
+
+    <!-- ============ TOP NAVBAR ============ -->
+    <header class="dashboard-topbar"></header>
+
+    <!-- ============ PAGE CONTENT ============ -->
+    <main class="dashboard-content">
+
+      <div class="pm-breadcrumb">
+        <a href="student-dashboard.html">Dashboard</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <a href="my-profile.html">My Profile</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="current">Education Details</span>
+      </div>
+
+      <div class="pm-card">
+        <div class="pm-card-header">
+          <div>
+            <h3>Education History</h3>
+            <p id="eduCountLabel">0 records added</p>
+          </div>
+          <button type="button" class="btn btn-primary" id="addEducationBtn"><i class="fa-solid fa-plus"></i> Add Education</button>
+        </div>
+
+        <div class="pm-item-list" id="educationList"></div>
+
+        <div class="pm-empty-state" id="educationEmptyState" style="display:none;">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <p>No education records yet. Click "Add Education" to get started.</p>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="dashboard-footer">
+      <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+      <div class="login-footer-links">
+        <a href="privacy-security.html">Privacy Policy</a>
+        <span>|</span>
+        <a href="privacy-security.html">Terms &amp; Conditions</a>
+        <span>|</span>
+        <a href="help-support.html">Support</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- Add / Edit education modal -->
+<div class="modal-overlay" id="eduModalOverlay">
+  <div class="modal-box" style="max-width:520px; text-align:left;">
+    <button type="button" class="modal-close" id="eduModalCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-icon icon-blue"><i class="fa-solid fa-graduation-cap"></i></div>
+    <h3 class="modal-title" id="eduModalTitle">Add Education</h3>
+    <p class="modal-sub">Fill in the details of your educational qualification.</p>
+
+    <div class="pm-form-row">
+      <div class="pm-form-group pm-full">
+        <label for="eduCollegeInput">College Name</label>
+        <input type="text" id="eduCollegeInput" placeholder="e.g. L.D. College of Engineering">
+        <div class="pm-field-error" id="eduCollegeError">College name is required.</div>
+      </div>
+      <div class="pm-form-group pm-full">
+        <label for="eduUniversityInput">University</label>
+        <input type="text" id="eduUniversityInput" placeholder="e.g. Gujarat Technological University">
+      </div>
+      <div class="pm-form-group">
+        <label for="eduCourseInput">Course</label>
+        <input type="text" id="eduCourseInput" placeholder="e.g. B.Tech">
+      </div>
+      <div class="pm-form-group">
+        <label for="eduDepartmentInput">Department</label>
+        <input type="text" id="eduDepartmentInput" placeholder="e.g. Computer Engineering">
+      </div>
+      <div class="pm-form-group">
+        <label for="eduSemesterInput">Semester</label>
+        <input type="text" id="eduSemesterInput" placeholder="e.g. 6th Semester">
+      </div>
+      <div class="pm-form-group">
+        <label for="eduCgpaInput">CGPA / Percentage</label>
+        <input type="text" id="eduCgpaInput" placeholder="e.g. 8.40 or 85%">
+      </div>
+      <div class="pm-form-group pm-full">
+        <label for="eduYearInput">Passing Year</label>
+        <input type="text" id="eduYearInput" placeholder="e.g. 2027">
+        <div class="pm-field-error" id="eduYearError">Please enter a valid passing year.</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:12px;">
+      <button type="button" class="btn btn-ghost" id="eduCancelBtn" style="flex:1; justify-content:center;">Cancel</button>
+      <button type="button" class="btn btn-primary" id="eduSaveBtn" style="flex:1; justify-content:center;">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete education confirmation modal -->
+<div class="modal-overlay" id="deleteEduModalOverlay">
+  <div class="modal-box" style="max-width:380px; text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-trash"></i></div>
+    <h3 class="modal-title">Delete Education Record?</h3>
+    <p class="modal-sub">Are you sure you want to delete "<strong id="deleteEduName">this record</strong>"? This action cannot be undone.</p>
+    <div style="display:flex; gap:12px;">
+      <button type="button" class="btn btn-ghost" id="deleteEduNoBtn" style="flex:1; justify-content:center;">Cancel</button>
+      <button type="button" class="btn btn-primary" id="deleteEduYesBtn" style="flex:1; justify-content:center; background:linear-gradient(135deg,#ef4444,#dc2626);">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Logout confirmation modal -->
+<div class="modal-overlay" id="logoutModalOverlay">
+  <div class="modal-box" style="max-width:380px; text-align:center;">
+    <div class="modal-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">Logout Confirmation</h3>
+    <p class="modal-sub">Are you sure you want to logout from SIMS Student Dashboard?</p>
+    <div style="display:flex; gap:12px;">
+      <button type="button" class="btn btn-ghost" id="logoutNoBtn" style="flex:1; justify-content:center;">No, Stay</button>
+      <button type="button" class="btn btn-primary" id="logoutYesBtn" style="flex:1; justify-content:center;">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="login-toast" id="dashToast">
+  <i class="fa-solid fa-circle-check"></i>
+  <span id="dashToastMsg">Done!</span>
+</div>
+
+<script src="../js/global-store.js"></script>
+<script src="../js/student-layout.js"></script>
+<script src="../js/profile-shared.js"></script>
+<script src="../js/education-details.js"></script>
+</body>
+</html>

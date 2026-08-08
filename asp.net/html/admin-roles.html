@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Role & Permission Management - SIMS Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/company-module.css">
+<style>
+  .role-table th { background:#f8fafc;font-size:11.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;padding:12px 14px;border:none;white-space:nowrap; }
+  .role-table td { padding:14px 14px;border-color:var(--border-light);vertical-align:middle;font-size:13px; }
+  .perm-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px; }
+  .perm-check { display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-dark); }
+</style>
+</head>
+<body class="dashboard-body">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+  <div class="dashboard-main-col">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="dashboard-page-title">Role & Permission Management<span>Configure access control across the system</span></div>
+      </div>
+      <div class="dashboard-topbar-right">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+        <div class="dash-profile-trigger" id="dashProfileTrigger">
+          <span class="dash-avatar-sm" id="dashAvatarSm"></span>
+          <span class="dash-name" id="dashNameTop"></span>
+          <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="admin-profile.html"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+            <hr><a href="#" class="dropdown-danger" id="dropdownLogoutLink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="pm-breadcrumb" id="breadcrumbNav"></div>
+
+      <!-- Sub-Nav -->
+      <div class="set-nav" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="admin-settings.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-gear"></i> General Settings</a>
+        <a href="admin-roles.html" class="btn btn-primary" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-users-gear"></i> Roles & Permissions</a>
+        <a href="admin-change-password.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-lock"></i> Change Password</a>
+        <a href="admin-theme.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-palette"></i> Theme & Appearance</a>
+        <a href="admin-backup.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-database"></i> Backup & Restore</a>
+        <a href="admin-activity-logs.html" class="btn btn-ghost" style="font-size:12.5px;padding:6px 14px;"><i class="fa-solid fa-clock-rotate-left"></i> Audit Logs</a>
+      </div>
+
+      <div class="co-panel" style="padding:0;overflow:hidden;">
+        <div style="padding:16px 20px;border-bottom:1px solid var(--border-light);background:#f8fafc;display:flex;justify-content:space-between;align-items:center;">
+          <h3 style="font-size:15px;font-weight:700;margin:0;">System Roles</h3>
+          <button class="btn btn-primary" onclick="openRoleModal()"><i class="fa-solid fa-plus"></i> Add Role</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="table role-table mb-0">
+            <thead>
+              <tr>
+                <th>Role Name</th>
+                <th>Users Count</th>
+                <th>Core Access Level</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:700;color:var(--text-dark);">Super Admin</td>
+                <td>2</td>
+                <td><span class="co-badge" style="background:#eff6ff;color:#2563eb;border-color:#bfdbfe;">Full Access</span></td>
+                <td>
+                  <button class="btn btn-ghost" style="padding:4px 8px;font-size:12px;opacity:0.5;cursor:not-allowed;" title="Cannot edit Super Admin"><i class="fa-solid fa-pen"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight:700;color:var(--text-dark);">Admin</td>
+                <td>5</td>
+                <td><span class="co-badge" style="background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;">Elevated Access</span></td>
+                <td>
+                  <button class="btn btn-ghost" style="padding:4px 8px;font-size:12px;" onclick="openRoleModal('Admin')"><i class="fa-solid fa-pen"></i></button>
+                  <button class="btn btn-ghost" style="padding:4px 8px;font-size:12px;color:#ef4444;" title="Delete Role"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight:700;color:var(--text-dark);">Company</td>
+                <td>180</td>
+                <td><span class="co-badge" style="background:#fefce8;color:#ca8a04;border-color:#fef08a;">Restricted</span></td>
+                <td>
+                  <button class="btn btn-ghost" style="padding:4px 8px;font-size:12px;" onclick="openRoleModal('Company')"><i class="fa-solid fa-pen"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight:700;color:var(--text-dark);">Student</td>
+                <td>2,450</td>
+                <td><span class="co-badge" style="background:#f8fafc;color:#64748b;border-color:#e2e8f0;">End User</span></td>
+                <td>
+                  <button class="btn btn-ghost" style="padding:4px 8px;font-size:12px;" onclick="openRoleModal('Student')"><i class="fa-solid fa-pen"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+    <footer class="dashboard-footer"><p>&copy; 2026 SIMS. All rights reserved.</p></footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="roleModal">
+  <div class="modal-box" style="max-width:500px;">
+    <h3 class="modal-title" id="roleModalTitle">Add/Edit Role</h3>
+    <div class="co-form-group">
+      <label>Role Name</label>
+      <input type="text" class="co-input" id="roleNameInput" placeholder="e.g. Sub-Admin">
+    </div>
+    <div class="co-form-group">
+      <label>Assign Permissions</label>
+      <div class="perm-grid">
+        <label class="perm-check"><input type="checkbox" checked> View Dashboard</label>
+        <label class="perm-check"><input type="checkbox" checked> Add Records</label>
+        <label class="perm-check"><input type="checkbox"> Edit Records</label>
+        <label class="perm-check"><input type="checkbox"> Delete Records</label>
+        <label class="perm-check"><input type="checkbox"> Approve Items</label>
+        <label class="perm-check"><input type="checkbox"> Manage Reports</label>
+        <label class="perm-check"><input type="checkbox"> Manage Settings</label>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:20px;">
+      <button class="btn btn-ghost" onclick="document.getElementById('roleModal').classList.remove('open')" style="flex:1;justify-content:center;">Cancel</button>
+      <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="saveRole()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="login-toast" id="dashToast"><i class="fa-solid fa-circle-check"></i><span id="dashToastMsg">Done!</span></div>
+<script src="../js/global-store.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script>
+function openRoleModal(roleName = '') {
+  document.getElementById('roleModalTitle').textContent = roleName ? `Edit ${roleName} Permissions` : 'Add New Role';
+  document.getElementById('roleNameInput').value = roleName;
+  document.getElementById('roleModal').classList.add('open');
+}
+function saveRole() {
+  document.getElementById('roleModal').classList.remove('open');
+  if(window.simsShowToast) window.simsShowToast('Role permissions updated!','success');
+}
+</script>
+</body>
+</html>
