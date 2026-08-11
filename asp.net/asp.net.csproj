@@ -105,6 +105,7 @@
     <Content Include="assets\logo-techmahindra.svg" />
     <Content Include="assets\logo-wipro.svg" />
     <Content Include="assets\logo-zerodha.svg" />
+    <Content Include="certificates-documents.aspx" />
     <Content Include="companies.aspx" />
     <Content Include="Companydashboard.aspx" />
     <Content Include="contact.aspx" />
@@ -118,6 +119,9 @@
     <Content Include="css\resume-module.css" />
     <Content Include="css\settings-module.css" />
     <Content Include="css\style.css" />
+    <Content Include="delete.png" />
+    <Content Include="edit-profile.aspx" />
+    <Content Include="edit.png" />
     <Content Include="faq.aspx" />
     <Content Include="filter_button.png" />
     <Content Include="forgot_password.aspx" />
@@ -229,6 +233,7 @@
     <Content Include="internship-details.aspx" />
     <Content Include="internship.png" />
     <Content Include="internships.aspx" />
+    <Content Include="interview-schedule.aspx" />
     <Content Include="js\admin-dashboard.js" />
     <Content Include="js\admin-reports.js" />
     <Content Include="js\application-status.js" />
@@ -295,15 +300,25 @@
     <Content Include="login register.png" />
     <Content Include="login.aspx" />
     <Content Include="login.png" />
+    <Content Include="messages.aspx" />
+    <Content Include="my-applications.aspx" />
+    <Content Include="my-profile.aspx" />
+    <Content Include="notifications.aspx" />
     <Content Include="otp1.png" />
     <Content Include="otp2.png" />
     <Content Include="otp3.png" />
+    <Content Include="profile-completion.aspx" />
     <Content Include="register.aspx" />
     <Content Include="register.png" />
     <Content Include="reset_password.aspx" />
+    <Content Include="resume-dashboard.aspx" />
+    <Content Include="resume-preview.aspx" />
     <Content Include="search companies.png" />
+    <Content Include="skills-management.aspx" />
     <Content Include="stories.aspx" />
     <Content Include="student-dashboard.aspx" />
+    <Content Include="update.png" />
+    <Content Include="upload-resume.aspx" />
     <Content Include="verify_otp.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -328,6 +343,13 @@
     </Compile>
     <Compile Include="admin.Master.designer.cs">
       <DependentUpon>admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="certificates-documents.aspx.cs">
+      <DependentUpon>certificates-documents.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="certificates-documents.aspx.designer.cs">
+      <DependentUpon>certificates-documents.aspx</DependentUpon>
     </Compile>
     <Compile Include="companies.aspx.cs">
       <DependentUpon>companies.aspx</DependentUpon>
@@ -356,6 +378,13 @@
     </Compile>
     <Compile Include="contact.aspx.designer.cs">
       <DependentUpon>contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="edit-profile.aspx.cs">
+      <DependentUpon>edit-profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="edit-profile.aspx.designer.cs">
+      <DependentUpon>edit-profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="faq.aspx.cs">
       <DependentUpon>faq.aspx</DependentUpon>
@@ -392,12 +421,54 @@
     <Compile Include="internships.aspx.designer.cs">
       <DependentUpon>internships.aspx</DependentUpon>
     </Compile>
+    <Compile Include="interview-schedule.aspx.cs">
+      <DependentUpon>interview-schedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="interview-schedule.aspx.designer.cs">
+      <DependentUpon>interview-schedule.aspx</DependentUpon>
+    </Compile>
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="messages.aspx.cs">
+      <DependentUpon>messages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="messages.aspx.designer.cs">
+      <DependentUpon>messages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="my-applications.aspx.cs">
+      <DependentUpon>my-applications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="my-applications.aspx.designer.cs">
+      <DependentUpon>my-applications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="my-profile.aspx.cs">
+      <DependentUpon>my-profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="my-profile.aspx.designer.cs">
+      <DependentUpon>my-profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="notifications.aspx.cs">
+      <DependentUpon>notifications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="notifications.aspx.designer.cs">
+      <DependentUpon>notifications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="profile-completion.aspx.cs">
+      <DependentUpon>profile-completion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="profile-completion.aspx.designer.cs">
+      <DependentUpon>profile-completion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="public.Master.cs">
@@ -421,6 +492,27 @@
     <Compile Include="reset_password.aspx.designer.cs">
       <DependentUpon>reset_password.aspx</DependentUpon>
     </Compile>
+    <Compile Include="resume-dashboard.aspx.cs">
+      <DependentUpon>resume-dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="resume-dashboard.aspx.designer.cs">
+      <DependentUpon>resume-dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="resume-preview.aspx.cs">
+      <DependentUpon>resume-preview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="resume-preview.aspx.designer.cs">
+      <DependentUpon>resume-preview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="skills-management.aspx.cs">
+      <DependentUpon>skills-management.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="skills-management.aspx.designer.cs">
+      <DependentUpon>skills-management.aspx</DependentUpon>
+    </Compile>
     <Compile Include="stories.aspx.cs">
       <DependentUpon>stories.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -441,6 +533,13 @@
     </Compile>
     <Compile Include="student.Master.designer.cs">
       <DependentUpon>student.Master</DependentUpon>
+    </Compile>
+    <Compile Include="upload-resume.aspx.cs">
+      <DependentUpon>upload-resume.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="upload-resume.aspx.designer.cs">
+      <DependentUpon>upload-resume.aspx</DependentUpon>
     </Compile>
     <Compile Include="verify_otp.aspx.cs">
       <DependentUpon>verify_otp.aspx</DependentUpon>

@@ -1,12 +1,54 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\asp.net\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\DHRUVI PATEL\\OneDrive\\Desktop\\asp.net\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|c:\\users\\dhruvi patel\\onedrive\\desktop\\asp.net\\asp.net\\register.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\register.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|c:\\users\\dhruvi patel\\onedrive\\desktop\\asp.net\\asp.net\\register.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\register.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "register.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\DHRUVI PATEL\\OneDrive\\Desktop\\asp.net\\asp.net\\register.aspx.cs",
+              "RelativeDocumentMoniker": "asp.net\\register.aspx.cs",
+              "ToolTip": "C:\\Users\\DHRUVI PATEL\\OneDrive\\Desktop\\asp.net\\asp.net\\register.aspx.cs",
+              "RelativeToolTip": "asp.net\\register.aspx.cs",
+              "ViewState": "AgIAAM8AAAAAAAAAAADwv+AAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-11T11:41:29.747Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "register.aspx",
+              "DocumentMoniker": "C:\\Users\\DHRUVI PATEL\\OneDrive\\Desktop\\asp.net\\asp.net\\register.aspx",
+              "RelativeDocumentMoniker": "asp.net\\register.aspx",
+              "ToolTip": "C:\\Users\\DHRUVI PATEL\\OneDrive\\Desktop\\asp.net\\asp.net\\register.aspx*",
+              "RelativeToolTip": "asp.net\\register.aspx*",
+              "LogicalView": "7651a702-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-08-11T11:29:35.608Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
