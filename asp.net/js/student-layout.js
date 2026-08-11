@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (sidebarEl) {
     sidebarEl.innerHTML = `
       <div class="sidebar-shell">
-        <a href="student-dashboard.html" class="sidebar-brand">
+        <a href="student-dashboard.aspx" class="sidebar-brand">
           <span class="brand-group">
             <span class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></span>
             <span class="brand-text">
@@ -26,75 +26,75 @@ document.addEventListener('DOMContentLoaded', () => {
         <nav class="sidebar-nav">
           <ul>
             <li class="sidebar-item">
-              <a href="student-dashboard.html" class="sidebar-link" data-page="dashboard" data-tooltip="Dashboard">
+              <a href="student-dashboard.aspx" class="sidebar-link" data-page="dashboard" data-tooltip="Dashboard">
                 <span class="sidebar-link-icon"><i class="fa-solid fa-house"></i></span>
                 <span class="sidebar-link-label">Dashboard</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="my-profile.html" class="sidebar-link" data-page="profile" data-tooltip="My Profile">
+              <a href="my-profile.aspx" class="sidebar-link" data-page="profile" data-tooltip="My Profile">
                 <span class="sidebar-link-icon"><i class="fa-solid fa-user"></i></span>
                 <span class="sidebar-link-label">My Profile</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="resume-dashboard.html" class="sidebar-link" data-page="resume-dashboard" data-tooltip="Resume Dashboard">
+              <a href="resume-dashboard.aspx" class="sidebar-link" data-page="resume-dashboard" data-tooltip="Resume Dashboard">
                 <span class="sidebar-link-icon"><i class="fa-solid fa-folder-open"></i></span>
                 <span class="sidebar-link-label">Resume Dashboard</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="browse-internships.html" class="sidebar-link" data-page="browse" data-tooltip="Browse Internships">
+              <a href="browse-internships.aspx" class="sidebar-link" data-page="browse" data-tooltip="Browse Internships">
                 <span class="sidebar-link-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                 <span class="sidebar-link-label">Browse Internships</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="my-applications.html" class="sidebar-link" data-page="applications" data-tooltip="My Applications">
+              <a href="my-applications.aspx" class="sidebar-link" data-page="applications" data-tooltip="My Applications">
                 <span class="sidebar-link-icon"><i class="fa-solid fa-clipboard-list"></i></span>
                 <span class="sidebar-link-label">My Applications</span>
                 <span class="badge-count"></span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="interview-schedule.html" class="sidebar-link" data-page="interviews" data-tooltip="Interview Schedule">
+              <a href="interview-schedule.aspx" class="sidebar-link" data-page="interviews" data-tooltip="Interview Schedule">
                 <span class="sidebar-link-icon"><i class="fa-solid fa-calendar-check"></i></span>
                 <span class="sidebar-link-label">Interview Schedule</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="offer-letter.html" class="sidebar-link" data-page="offer-letter" data-tooltip="Offer Letter">
+              <a href="offer-letter.aspx" class="sidebar-link" data-page="offer-letter" data-tooltip="Offer Letter">
                 <span class="sidebar-link-icon"><i class="fa-solid fa-envelope-open-text"></i></span>
                 <span class="sidebar-link-label">Offer Letter</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="upcoming-deadlines.html" class="sidebar-link" data-page="upcoming-deadlines" data-tooltip="Upcoming Deadlines">
+              <a href="upcoming-deadlines.aspx" class="sidebar-link" data-page="upcoming-deadlines" data-tooltip="Upcoming Deadlines">
                 <span class="sidebar-link-icon"><i class="fa-solid fa-stopwatch"></i></span>
                 <span class="sidebar-link-label">Upcoming Deadlines</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="notifications.html" class="sidebar-link" data-page="notifications" data-tooltip="Notifications">
+              <a href="notifications.aspx" class="sidebar-link" data-page="notifications" data-tooltip="Notifications">
                 <span class="sidebar-link-icon"><i class="fa-solid fa-bell"></i></span>
                 <span class="sidebar-link-label">Notifications</span>
                 <span class="badge-count"></span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="messages.html" class="sidebar-link" data-page="messages" data-tooltip="Messages / Chat">
+              <a href="messages.aspx" class="sidebar-link" data-page="messages" data-tooltip="Messages / Chat">
                 <span class="sidebar-link-icon"><i class="fa-solid fa-comments"></i></span>
                 <span class="sidebar-link-label">Messages / Chat</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="feedback-rating.html" class="sidebar-link" data-page="feedback" data-tooltip="Feedback & Rating">
+              <a href="feedback-rating.aspx" class="sidebar-link" data-page="feedback" data-tooltip="Feedback & Rating">
                 <span class="sidebar-link-icon"><i class="fa-solid fa-star"></i></span>
                 <span class="sidebar-link-label">Feedback & Rating</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="help-support.html" class="sidebar-link" data-page="help" data-tooltip="Help & Support">
+              <a href="help-support.aspx" class="sidebar-link" data-page="help" data-tooltip="Help & Support">
                 <span class="sidebar-link-icon"><i class="fa-solid fa-circle-question"></i></span>
                 <span class="sidebar-link-label">Help & Support</span>
               </a>
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     // Active link highlight
-    const currentPath = window.location.pathname.split('/').pop() || 'student-dashboard.html';
+    const currentPath = window.location.pathname.split('/').pop() || 'student-dashboard.aspx';
     const links = sidebarEl.querySelectorAll('.sidebar-link');
     let foundActive = false;
     
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!foundActive) {
       if (currentPath.includes('internship')) {
-        const bl = sidebarEl.querySelector('[href="browse-internships.html"]');
+        const bl = sidebarEl.querySelector('[href="browse-internships.aspx"]');
         if (bl) bl.classList.add('active');
       }
     }
@@ -148,10 +148,10 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
 
       <div class="dashboard-topbar-right">
-        <button class="icon-btn dash-icon-btn" id="dashMessageBtn" aria-label="Messages" onclick="window.location.href='messages.html'">
+        <button class="icon-btn dash-icon-btn" id="dashMessageBtn" aria-label="Messages" onclick="window.location.href='messages.aspx'">
           <i class="fa-regular fa-comment"></i>
         </button>
-        <button class="icon-btn dash-icon-btn" id="dashNotifBtn" aria-label="Notifications" onclick="window.location.href='notifications.html'">
+        <button class="icon-btn dash-icon-btn" id="dashNotifBtn" aria-label="Notifications" onclick="window.location.href='notifications.aspx'">
           <i class="fa-regular fa-bell"></i>
           <span class="badge" id="topbarNotifBadge"></span>
         </button>
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
 
           <div class="profile-dropdown" id="profileDropdown">
-            <a href="my-profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+            <a href="my-profile.aspx"><i class="fa-solid fa-user"></i> My Profile</a>
             <a href="#" class="dropdown-danger" id="dropdownLogoutLink" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
           </div>
         </div>
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   if (!session || session.role !== 'student') {
-    window.location.href = 'login.html';
+    window.location.href = 'login.aspx';
     return;
   }
   
@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (logoutYesBtn) {
     logoutYesBtn.addEventListener('click', () => {
       localStorage.removeItem('simsSession');
-      window.location.href = 'index.html';
+      window.location.href = 'index.aspx';
     });
   }
 
