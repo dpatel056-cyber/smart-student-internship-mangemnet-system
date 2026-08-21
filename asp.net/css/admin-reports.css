@@ -1,0 +1,766 @@
+/* ============================================================
+   ReportsAnalytics.aspx — Complete Stylesheet
+   sims-analytics-* class names
+   ============================================================ */
+
+:root {
+    --ra-primary: #4F46E5;
+    --ra-primary-hover: #4338CA;
+    --ra-bg: #F8FAFC;
+    --ra-card: #FFFFFF;
+    --ra-text: #0F172A;
+    --ra-muted: #64748B;
+    --ra-border: #E2E8F0;
+    --ra-shadow-sm: 0 1px 2px 0 rgb(0 0 0/0.05);
+    --ra-shadow-md: 0 4px 6px -1px rgb(0 0 0/0.1), 0 2px 4px -2px rgb(0 0 0/0.1);
+    --ra-shadow-lg: 0 10px 15px -3px rgb(0 0 0/0.1), 0 4px 6px -4px rgb(0 0 0/0.1);
+    --ra-radius: 12px;
+    --ra-radius-lg: 16px;
+    --ra-green: #10B981;
+    --ra-orange: #F59E0B;
+    --ra-red: #EF4444;
+}
+
+/* ── Page wrapper ── */
+.sims-analytics-page {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--ra-bg);
+    padding: 24px;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    color: var(--ra-text);
+}
+
+/* ── Header ── */
+.sims-analytics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.sims-analytics-breadcrumb {
+    font-size: 12px;
+    color: var(--ra-muted);
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.sims-analytics-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ra-text);
+    margin: 0 0 4px 0;
+}
+
+.sims-analytics-subtitle {
+    font-size: 14px;
+    color: var(--ra-muted);
+    margin: 0;
+}
+
+.sims-analytics-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+/* ── Buttons ── */
+.sims-analytics-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+    font-family: inherit;
+}
+
+.sims-analytics-btn-primary {
+    background: var(--ra-primary);
+    color: white;
+}
+.sims-analytics-btn-primary:hover { background: var(--ra-primary-hover); }
+
+.sims-analytics-btn-secondary {
+    background: #EEF2FF;
+    color: var(--ra-primary);
+    border: 1px solid #C7D2FE;
+}
+.sims-analytics-btn-secondary:hover { background: #E0E7FF; }
+
+.sims-analytics-btn-outline {
+    background: white;
+    color: var(--ra-text);
+    border: 1px solid var(--ra-border);
+}
+.sims-analytics-btn-outline:hover { background: #F1F5F9; border-color: #CBD5E1; }
+
+.sims-analytics-btn-danger {
+    background: white;
+    color: var(--ra-red);
+    border: 1px solid #FEE2E2;
+}
+.sims-analytics-btn-danger:hover { background: #FEF2F2; }
+
+/* Export dropdown */
+.sims-analytics-export-wrap {
+    position: relative;
+}
+
+.sims-analytics-export-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    min-width: 210px;
+    background: white;
+    border: 1px solid var(--ra-border);
+    border-radius: 10px;
+    box-shadow: var(--ra-shadow-lg);
+    z-index: 100;
+    padding: 8px 0;
+}
+
+.sims-analytics-export-wrap:hover .sims-analytics-export-menu,
+.sims-analytics-export-menu.open { display: block; }
+
+.sims-analytics-export-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--ra-text);
+    text-decoration: none;
+    transition: background 0.15s;
+}
+.sims-analytics-export-item:hover { background: #F1F5F9; color: var(--ra-primary); }
+.sims-analytics-export-item i { width: 16px; text-align: center; color: var(--ra-muted); }
+
+.sims-analytics-caret { font-size: 11px; }
+
+/* ── Filter Bar ── */
+.sims-analytics-filters {
+    background: var(--ra-card);
+    border: 1px solid var(--ra-border);
+    border-radius: var(--ra-radius);
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+    box-shadow: var(--ra-shadow-sm);
+}
+
+.sims-analytics-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sims-analytics-filter-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ra-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sims-analytics-select,
+.sims-analytics-input {
+    padding: 9px 32px 9px 12px;
+    border: 1px solid var(--ra-border);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--ra-text);
+    background: #F8FAFC;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748B'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    min-width: 130px;
+}
+
+.sims-analytics-input {
+    padding: 9px 12px;
+    background: #F8FAFC;
+    background-image: none;
+}
+
+.sims-analytics-select:focus,
+.sims-analytics-input:focus { border-color: var(--ra-primary); background: white; box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
+
+.sims-analytics-filter-actions {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.sims-analytics-filter-meta {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--ra-muted);
+    align-self: flex-end;
+}
+.sims-analytics-filter-meta strong { color: var(--ra-text); }
+
+/* ── KPI Cards ── */
+.sims-analytics-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+.sims-analytics-kpi-card {
+    background: var(--ra-card);
+    border: 1px solid var(--ra-border);
+    border-radius: var(--ra-radius);
+    padding: 20px;
+    box-shadow: var(--ra-shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+}
+.sims-analytics-kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ra-shadow-md);
+}
+
+.sims-analytics-kpi-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.sims-icon-blue   { background: #EFF6FF; color: #3B82F6; }
+.sims-icon-purple { background: #EEF2FF; color: #4F46E5; }
+.sims-icon-green  { background: #DCFCE7; color: #16A34A; }
+.sims-icon-orange { background: #FFF7ED; color: #EA580C; }
+.sims-icon-red    { background: #FEF2F2; color: #DC2626; }
+.sims-icon-teal   { background: #F0FDFA; color: #0D9488; }
+
+.sims-analytics-kpi-body { flex: 1; }
+.sims-analytics-kpi-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ra-text);
+    line-height: 1;
+    margin-bottom: 4px;
+}
+.sims-analytics-kpi-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ra-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+}
+.sims-analytics-kpi-trend {
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.sims-analytics-kpi-trend span { color: var(--ra-muted); font-weight: 400; }
+.sims-trend-up   { color: var(--ra-green); }
+.sims-trend-down { color: var(--ra-red); }
+.sims-trend-flat { color: var(--ra-muted); }
+
+/* ── Report Tabs ── */
+.sims-analytics-tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 2px solid var(--ra-border);
+    overflow-x: auto;
+}
+
+.sims-analytics-tab {
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ra-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: inherit;
+}
+.sims-analytics-tab:hover { color: var(--ra-text); }
+.sims-analytics-tab.active {
+    color: var(--ra-primary);
+    border-bottom-color: var(--ra-primary);
+}
+
+/* ── Charts Grid ── */
+.sims-analytics-chart-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.sims-analytics-chart-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.sims-analytics-chart-card {
+    background: var(--ra-card);
+    border: 1px solid var(--ra-border);
+    border-radius: var(--ra-radius-lg);
+    padding: 24px;
+    box-shadow: var(--ra-shadow-md);
+}
+
+.sims-analytics-chart-card.span-2 {
+    grid-column: span 2;
+}
+
+.sims-analytics-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.sims-analytics-chart-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ra-text);
+    margin: 0 0 4px 0;
+}
+
+.sims-analytics-chart-subtitle {
+    font-size: 13px;
+    color: var(--ra-muted);
+    margin: 0;
+}
+
+.sims-analytics-chart-action {
+    background: none;
+    border: 1px solid var(--ra-border);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: var(--ra-muted);
+    cursor: pointer;
+    font-family: inherit;
+}
+.sims-analytics-chart-action:hover { color: var(--ra-primary); border-color: var(--ra-primary); }
+
+/* Chart canvas area */
+.sims-chart-canvas-wrap {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    padding-top: 10px;
+}
+
+/* ── Bar chart (pure CSS) ── */
+.ra-bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    width: 100%;
+    height: 200px;
+    padding: 0 8px;
+    position: relative;
+}
+
+.ra-bar-chart::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(to top, var(--ra-border) 0, var(--ra-border) 1px, transparent 1px, transparent 25%);
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.ra-bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.ra-bar {
+    width: 100%;
+    max-width: 36px;
+    border-radius: 6px 6px 0 0;
+    background: linear-gradient(to top, #4F46E5, #818CF8);
+    transition: opacity 0.2s;
+    cursor: pointer;
+    position: relative;
+}
+.ra-bar:hover { opacity: 0.85; }
+.ra-bar:hover::after {
+    content: attr(data-val);
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ra-text);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.ra-bar.green-bar { background: linear-gradient(to top, #10B981, #34D399); }
+.ra-bar.orange-bar { background: linear-gradient(to top, #F59E0B, #FCD34D); }
+.ra-bar.red-bar { background: linear-gradient(to top, #EF4444, #F87171); }
+
+.ra-bar-label {
+    font-size: 11px;
+    color: var(--ra-muted);
+    font-weight: 500;
+    text-align: center;
+}
+
+/* ── Donut chart (CSS-only) ── */
+.ra-donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 10px 0;
+}
+
+.ra-donut {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.ra-donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.ra-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.ra-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.ra-legend-label { color: var(--ra-muted); flex: 1; }
+.ra-legend-value { font-weight: 700; color: var(--ra-text); }
+.ra-legend-pct   { font-size: 11px; color: var(--ra-muted); }
+
+/* ── Line spark (CSS gradient trick) ── */
+.ra-sparkline {
+    width: 100%;
+    height: 200px;
+    background:
+        linear-gradient(135deg, transparent 20%, rgba(79,70,229,0.08) 20%, rgba(79,70,229,0.08) 100%);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+}
+
+.ra-spark-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+}
+
+.ra-spark-bar {
+    width: 60%;
+    border-radius: 3px 3px 0 0;
+    background: linear-gradient(to top, #4F46E5, #818CF8);
+    position: relative;
+    transition: opacity 0.2s;
+}
+.ra-spark-bar:hover { opacity: 0.8; }
+
+.ra-spark-label {
+    font-size: 10px;
+    color: var(--ra-muted);
+    padding-bottom: 4px;
+}
+
+/* ── Data Tables ── */
+.sims-analytics-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.sims-analytics-data-table thead th {
+    background: #F8FAFC;
+    padding: 11px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ra-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--ra-border);
+}
+
+.sims-analytics-data-table tbody td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--ra-border);
+    color: var(--ra-text);
+    vertical-align: middle;
+}
+
+.sims-analytics-data-table tbody tr:last-child td { border-bottom: none; }
+.sims-analytics-data-table tbody tr:hover td { background: #F8FAFC; }
+
+/* ── Progress bar ── */
+.ra-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ra-progress {
+    flex: 1;
+    height: 6px;
+    background: #F1F5F9;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.ra-progress-fill {
+    height: 100%;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #4F46E5, #818CF8);
+    transition: width 1s ease;
+}
+.ra-progress-fill.green { background: linear-gradient(90deg, #10B981, #34D399); }
+.ra-progress-fill.orange{ background: linear-gradient(90deg, #F59E0B, #FCD34D); }
+.ra-progress-fill.red   { background: linear-gradient(90deg, #EF4444, #F87171); }
+
+.ra-progress-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ra-text);
+    min-width: 36px;
+    text-align: right;
+}
+
+/* ── Status Badges ── */
+.ra-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.ra-badge-green    { background: #DCFCE7; color: #15803D; }
+.ra-badge-orange   { background: #FEF3C7; color: #B45309; }
+.ra-badge-red      { background: #FEE2E2; color: #B91C1C; }
+.ra-badge-blue     { background: #EFF6FF; color: #1D4ED8; }
+.ra-badge-purple   { background: #EDE9FE; color: #6D28D9; }
+.ra-badge-gray     { background: #F1F5F9; color: #475569; }
+
+/* ── Avatar cell ── */
+.ra-person-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.ra-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    color: white; display: flex; align-items: center;
+    justify-content: center; font-weight: 600; font-size: 12px; flex-shrink: 0;
+}
+.ra-person-name { font-weight: 600; }
+.ra-person-sub  { font-size: 11px; color: var(--ra-muted); }
+
+/* ── Section header ── */
+.sims-analytics-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.sims-analytics-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ra-text);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sims-analytics-section-title i {
+    color: var(--ra-primary);
+    font-size: 16px;
+}
+
+/* ── Pagination ── */
+.sims-analytics-pagination {
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--ra-border);
+}
+.sims-analytics-page-info { font-size: 13px; color: var(--ra-muted); }
+.sims-analytics-page-controls { display: flex; gap: 5px; }
+.sims-analytics-page-btn {
+    min-width: 32px; height: 32px; border: 1px solid var(--ra-border);
+    background: white; color: var(--ra-text); border-radius: 6px;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    padding: 0 10px; display: flex; align-items: center; justify-content: center;
+    font-family: inherit;
+}
+.sims-analytics-page-btn:hover:not(:disabled) { background: #F8FAFC; }
+.sims-analytics-page-btn.active { background: var(--ra-primary); color: white; border-color: var(--ra-primary); }
+.sims-analytics-page-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── Report Card Wrapper ── */
+.sims-analytics-report-card {
+    background: var(--ra-card);
+    border: 1px solid var(--ra-border);
+    border-radius: var(--ra-radius-lg);
+    box-shadow: var(--ra-shadow-md);
+    overflow: hidden;
+}
+
+.sims-analytics-report-card-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--ra-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+}
+
+.sims-analytics-report-card-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ra-text);
+}
+
+/* ── Trend mini badge ── */
+.ra-trend-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.ra-trend-chip.up   { background: #DCFCE7; color: #15803D; }
+.ra-trend-chip.down { background: #FEE2E2; color: #B91C1C; }
+
+/* ── Top performer list ── */
+.ra-top-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.ra-top-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ra-top-rank {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #F1F5F9;
+    color: var(--ra-muted);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ra-top-rank.gold   { background: #FEF3C7; color: #D97706; }
+.ra-top-rank.silver { background: #F1F5F9; color: #64748B; }
+.ra-top-rank.bronze { background: #FEF9F0; color: #B45309; }
+
+.ra-top-info { flex: 1; }
+.ra-top-name { font-size: 13px; font-weight: 600; color: var(--ra-text); }
+.ra-top-meta { font-size: 11px; color: var(--ra-muted); }
+
+.ra-top-score {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ra-primary);
+}
+
+/* ── Scrollable table container ── */
+.sims-analytics-table-scroll {
+    overflow-x: auto;
+}
+
+/* ── Tab Panels ── */
+.sims-analytics-tab-panel { display: none; }
+.sims-analytics-tab-panel.active { display: block; }
+
+/* ── Responsive Adjustments ── */
+@media (max-width: 1200px) {
+    .sims-analytics-kpi-grid { grid-template-columns: repeat(3, 1fr); }
+    .sims-analytics-chart-grid { grid-template-columns: 1fr; }
+    .sims-analytics-chart-card.span-2 { grid-column: span 1; }
+}

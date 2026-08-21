@@ -1,0 +1,1125 @@
+/* =========================================================
+   SIMS - Student Applications Management Page
+   Unique namespaced classes only (sims-application-*, sims-app-*)
+   Design language matches admin-dashboard.aspx / admin-students.aspx
+========================================================= */
+
+.sims-applications-page {
+    --sims-app-primary: #2563eb;
+    --sims-app-primary-dark: #1d4ed8;
+    --sims-app-navy: #101828;
+    --sims-app-muted: #667085;
+    --sims-app-border: #e4e7ec;
+    --sims-app-bg: #f7f8fa;
+    --sims-app-white: #ffffff;
+    --sims-app-green: #12b76a;
+    --sims-app-green-bg: #ecfdf3;
+    --sims-app-orange: #f79009;
+    --sims-app-orange-bg: #fffaeb;
+    --sims-app-red: #f04438;
+    --sims-app-red-bg: #fef3f2;
+    --sims-app-blue: #2563eb;
+    --sims-app-blue-bg: #eff4ff;
+    --sims-app-radius: 10px;
+    --sims-app-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+    --sims-app-shadow-md: 0 4px 14px rgba(16, 24, 40, 0.08);
+    font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--sims-app-navy);
+}
+
+.sims-applications-page * {
+    box-sizing: border-box;
+}
+
+/* ===================== HEADER ===================== */
+.sims-application-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.sims-application-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--sims-app-muted);
+    margin-bottom: 8px;
+}
+
+.sims-application-breadcrumb i {
+    font-size: 10px;
+    color: #c9ccd3;
+}
+
+.sims-application-breadcrumb-current {
+    color: var(--sims-app-primary);
+    font-weight: 600;
+}
+
+.sims-application-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--sims-app-navy);
+    margin: 0 0 6px 0;
+}
+
+.sims-application-subtitle {
+    font-size: 14px;
+    color: var(--sims-app-muted);
+    margin: 0;
+}
+
+.sims-application-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ===================== BUTTONS ===================== */
+.sims-app-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.sims-app-btn-sm {
+    padding: 7px 12px;
+    font-size: 12.5px;
+}
+
+.sims-app-btn-primary {
+    background: var(--sims-app-primary);
+    color: #fff;
+    border-color: var(--sims-app-primary);
+}
+
+.sims-app-btn-primary:hover {
+    background: var(--sims-app-primary-dark);
+}
+
+.sims-app-btn-outline {
+    background: var(--sims-app-white);
+    color: var(--sims-app-navy);
+    border-color: var(--sims-app-border);
+}
+
+.sims-app-btn-outline:hover {
+    background: #f2f4f7;
+    border-color: #d0d5dd;
+}
+
+.sims-app-btn-danger {
+    background: var(--sims-app-red);
+    color: #fff;
+    border-color: var(--sims-app-red);
+}
+
+.sims-app-btn-danger:hover {
+    background: #d92d20;
+}
+
+.sims-app-btn-danger-outline {
+    background: var(--sims-app-red-bg);
+    color: var(--sims-app-red);
+    border-color: #fda29b;
+}
+
+.sims-app-btn-danger-outline:hover {
+    background: #fee4e2;
+}
+
+/* ===================== STATISTICS ===================== */
+.sims-application-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.sims-application-stat-card {
+    background: var(--sims-app-white);
+    border: 1px solid var(--sims-app-border);
+    border-radius: var(--sims-app-radius);
+    padding: 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    box-shadow: var(--sims-app-shadow);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.sims-application-stat-card:hover {
+    box-shadow: var(--sims-app-shadow-md);
+    transform: translateY(-2px);
+}
+
+.sims-application-stat-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.sims-stat-icon-total { background: var(--sims-app-blue-bg); color: var(--sims-app-blue); }
+.sims-stat-icon-pending { background: var(--sims-app-orange-bg); color: var(--sims-app-orange); }
+.sims-stat-icon-shortlisted { background: var(--sims-app-blue-bg); color: var(--sims-app-blue); }
+.sims-stat-icon-selected { background: var(--sims-app-green-bg); color: var(--sims-app-green); }
+.sims-stat-icon-rejected { background: var(--sims-app-red-bg); color: var(--sims-app-red); }
+
+.sims-application-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sims-application-stat-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--sims-app-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.sims-application-stat-number {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--sims-app-navy);
+}
+
+.sims-application-stat-desc {
+    font-size: 12px;
+    color: var(--sims-app-muted);
+}
+
+/* ===================== FILTERS ===================== */
+.sims-application-filters {
+    background: var(--sims-app-white);
+    border: 1px solid var(--sims-app-border);
+    border-radius: var(--sims-app-radius);
+    padding: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 14px;
+    margin-bottom: 24px;
+    box-shadow: var(--sims-app-shadow);
+}
+
+.sims-application-search {
+    position: relative;
+    flex: 1 1 260px;
+    min-width: 220px;
+    display: flex;
+    align-items: center;
+}
+
+.sims-application-search i {
+    position: absolute;
+    left: 14px;
+    color: var(--sims-app-muted);
+    font-size: 13px;
+}
+
+.sims-application-search input {
+    width: 100%;
+    padding: 10px 12px 10px 36px;
+    border: 1px solid var(--sims-app-border);
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--sims-app-navy);
+    background: var(--sims-app-bg);
+}
+
+.sims-application-search input:focus {
+    outline: none;
+    border-color: var(--sims-app-primary);
+    background: var(--sims-app-white);
+}
+
+.sims-application-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 160px;
+}
+
+.sims-application-filter-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--sims-app-muted);
+}
+
+.sims-application-filter-group select {
+    padding: 10px 12px;
+    border: 1px solid var(--sims-app-border);
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--sims-app-navy);
+    background: var(--sims-app-white);
+    cursor: pointer;
+}
+
+.sims-application-filter-group select:focus {
+    outline: none;
+    border-color: var(--sims-app-primary);
+}
+
+.sims-application-filter-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* ===================== MAIN LAYOUT ===================== */
+.sims-application-main-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 20px;
+    align-items: start;
+}
+
+/* ===================== TABLE CARD ===================== */
+.sims-application-table-card {
+    background: var(--sims-app-white);
+    border: 1px solid var(--sims-app-border);
+    border-radius: var(--sims-app-radius);
+    box-shadow: var(--sims-app-shadow);
+    overflow: hidden;
+}
+
+.sims-application-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--sims-app-border);
+}
+
+.sims-application-table-title-group {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.sims-application-table-title-group h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--sims-app-navy);
+}
+
+.sims-application-table-count {
+    font-size: 12.5px;
+    color: var(--sims-app-muted);
+    background: var(--sims-app-bg);
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+/* Bulk toolbar */
+.sims-application-bulk-toolbar {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.sims-application-bulk-toolbar.active {
+    display: flex;
+}
+
+.sims-application-bulk-count {
+    font-size: 13px;
+    color: var(--sims-app-navy);
+    margin-right: 4px;
+}
+
+/* ===================== TABLE ===================== */
+.sims-application-table-scroll {
+    overflow-x: auto;
+}
+
+.sims-application-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 980px;
+}
+
+.sims-application-table thead th {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--sims-app-muted);
+    background: var(--sims-app-bg);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--sims-app-border);
+    white-space: nowrap;
+}
+
+.sims-application-table tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f0f1f3;
+    font-size: 13.5px;
+    color: var(--sims-app-navy);
+    vertical-align: middle;
+}
+
+.sims-application-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+.sims-app-col-checkbox {
+    width: 44px;
+}
+
+.sims-app-col-actions {
+    width: 60px;
+    text-align: right;
+}
+
+/* Student cell */
+.sims-application-student-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sims-application-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--sims-app-blue-bg);
+    color: var(--sims-app-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12.5px;
+    flex-shrink: 0;
+}
+
+.sims-application-avatar-lg {
+    width: 52px;
+    height: 52px;
+    font-size: 16px;
+}
+
+.sims-application-student-name {
+    font-weight: 600;
+    color: var(--sims-app-navy);
+}
+
+.sims-application-student-id {
+    font-size: 12px;
+    color: var(--sims-app-muted);
+}
+
+.sims-application-internship-name,
+.sims-application-company-name {
+    font-weight: 600;
+    color: var(--sims-app-navy);
+}
+
+.sims-application-internship-category,
+.sims-application-company-industry {
+    font-size: 12px;
+    color: var(--sims-app-muted);
+}
+
+.sims-application-date {
+    color: var(--sims-app-muted);
+    white-space: nowrap;
+}
+
+/* Status badges */
+.sims-application-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.sims-status-pending { background: var(--sims-app-orange-bg); color: var(--sims-app-orange); }
+.sims-status-shortlisted { background: var(--sims-app-blue-bg); color: var(--sims-app-blue); }
+.sims-status-selected { background: var(--sims-app-green-bg); color: var(--sims-app-green); }
+.sims-status-rejected { background: var(--sims-app-red-bg); color: var(--sims-app-red); }
+
+/* Interview column */
+.sims-application-interview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    white-space: nowrap;
+}
+
+.sims-interview-none { color: var(--sims-app-muted); }
+.sims-interview-scheduled { color: var(--sims-app-primary); }
+.sims-interview-completed { color: var(--sims-app-green); }
+.sims-interview-cancelled { color: var(--sims-app-red); }
+
+.sims-application-interview-time {
+    font-size: 11px;
+    color: var(--sims-app-muted);
+}
+
+/* Resume button */
+.sims-app-resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--sims-app-red-bg);
+    color: #d92d20;
+    border: 1px solid #fda29b;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.sims-app-resume-btn:hover {
+    background: #fee4e2;
+}
+
+/* Action dropdown */
+.sims-application-action-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.sims-app-action-trigger {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--sims-app-muted);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.sims-app-action-trigger:hover {
+    background: var(--sims-app-bg);
+    color: var(--sims-app-navy);
+}
+
+.sims-app-action-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 4px);
+    background: var(--sims-app-white);
+    border: 1px solid var(--sims-app-border);
+    border-radius: 8px;
+    box-shadow: var(--sims-app-shadow-md);
+    list-style: none;
+    margin: 0;
+    padding: 6px;
+    min-width: 200px;
+    z-index: 40;
+}
+
+.sims-application-action-menu.open .sims-app-action-dropdown {
+    display: block;
+}
+
+.sims-app-action-dropdown li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--sims-app-navy);
+    text-decoration: none;
+}
+
+.sims-app-action-dropdown li a:hover {
+    background: var(--sims-app-bg);
+}
+
+.sims-app-action-dropdown li a.sims-app-action-danger {
+    color: var(--sims-app-red);
+}
+
+.sims-app-action-dropdown li a.sims-app-action-danger:hover {
+    background: var(--sims-app-red-bg);
+}
+
+/* Empty state */
+.sims-application-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--sims-app-muted);
+}
+
+.sims-application-empty-state i {
+    font-size: 40px;
+    color: #d0d5dd;
+    margin-bottom: 14px;
+}
+
+.sims-application-empty-state h3 {
+    font-size: 16px;
+    color: var(--sims-app-navy);
+    margin: 0 0 6px 0;
+}
+
+.sims-application-empty-state p {
+    font-size: 13.5px;
+    margin: 0 0 16px 0;
+}
+
+/* Pagination */
+.sims-application-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--sims-app-border);
+}
+
+.sims-application-pagination-info {
+    font-size: 12.5px;
+    color: var(--sims-app-muted);
+}
+
+.sims-application-pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.sims-app-page-btn {
+    border: 1px solid var(--sims-app-border);
+    background: var(--sims-app-white);
+    color: var(--sims-app-navy);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 7px 11px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.sims-app-page-btn:hover:not(:disabled) {
+    background: var(--sims-app-bg);
+}
+
+.sims-app-page-btn.active {
+    background: var(--sims-app-primary);
+    border-color: var(--sims-app-primary);
+    color: #fff;
+}
+
+.sims-app-page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.sims-application-pagination-size {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    color: var(--sims-app-muted);
+}
+
+.sims-application-pagination-size select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--sims-app-border);
+    font-family: inherit;
+    font-size: 12.5px;
+}
+
+/* ===================== ACTIVITY SIDEBAR ===================== */
+.sims-application-activity-card {
+    background: var(--sims-app-white);
+    border: 1px solid var(--sims-app-border);
+    border-radius: var(--sims-app-radius);
+    box-shadow: var(--sims-app-shadow);
+    padding: 18px;
+}
+
+.sims-application-activity-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    margin: 0 0 14px 0;
+    color: var(--sims-app-navy);
+}
+
+.sims-application-activity-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sims-application-activity-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.sims-application-activity-icon {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.sims-activity-applied { background: var(--sims-app-blue-bg); color: var(--sims-app-blue); }
+.sims-activity-shortlisted { background: var(--sims-app-blue-bg); color: var(--sims-app-blue); }
+.sims-activity-selected { background: var(--sims-app-green-bg); color: var(--sims-app-green); }
+.sims-activity-rejected { background: var(--sims-app-red-bg); color: var(--sims-app-red); }
+.sims-activity-interview { background: var(--sims-app-orange-bg); color: var(--sims-app-orange); }
+
+.sims-application-activity-list p {
+    font-size: 13px;
+    margin: 0 0 3px 0;
+    color: var(--sims-app-navy);
+    line-height: 1.4;
+}
+
+.sims-application-activity-time {
+    font-size: 11.5px;
+    color: var(--sims-app-muted);
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
+.sims-application-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(16, 24, 40, 0.55);
+    z-index: 9998;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.sims-application-modal-overlay.active {
+    display: flex;
+}
+
+.sims-application-modal,
+.sims-interview-modal,
+.sims-rejection-modal {
+    position: relative;
+    background: var(--sims-app-white);
+    border-radius: 12px;
+    z-index: 9999;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(16, 24, 40, 0.3);
+    overflow: hidden;
+}
+
+.sims-application-modal-lg { max-width: 900px; }
+.sims-interview-modal { max-width: 620px; }
+.sims-rejection-modal { max-width: 480px; }
+
+.sims-application-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--sims-app-border);
+    flex-shrink: 0;
+}
+
+.sims-application-modal-header h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--sims-app-navy);
+}
+
+.sims-application-modal-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    background: var(--sims-app-bg);
+    color: var(--sims-app-muted);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.sims-application-modal-close:hover {
+    background: #e4e7ec;
+    color: var(--sims-app-navy);
+}
+
+.sims-application-modal-body {
+    padding: 22px;
+    overflow-y: auto;
+}
+
+.sims-application-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 22px;
+    border-top: 1px solid var(--sims-app-border);
+    flex-shrink: 0;
+}
+
+/* Modal profile */
+.sims-application-modal-profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.sims-application-modal-profile-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--sims-app-navy);
+}
+
+.sims-application-modal-profile-id {
+    font-size: 12.5px;
+    color: var(--sims-app-muted);
+}
+
+.sims-application-modal-status {
+    margin-left: auto;
+}
+
+.sims-application-modal-mini-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--sims-app-bg);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 20px;
+}
+
+/* Timeline */
+.sims-application-timeline {
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+    padding: 0 4px;
+}
+
+.sims-application-timeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.sims-application-timeline-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--sims-app-bg);
+    border: 2px solid var(--sims-app-border);
+    color: var(--sims-app-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+}
+
+.sims-application-timeline-step.completed .sims-application-timeline-dot {
+    background: var(--sims-app-green);
+    border-color: var(--sims-app-green);
+    color: #fff;
+}
+
+.sims-application-timeline-step.active .sims-application-timeline-dot {
+    background: var(--sims-app-primary);
+    border-color: var(--sims-app-primary);
+    color: #fff;
+}
+
+.sims-application-timeline-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--sims-app-muted);
+    white-space: nowrap;
+}
+
+.sims-application-timeline-step.completed .sims-application-timeline-label,
+.sims-application-timeline-step.active .sims-application-timeline-label {
+    color: var(--sims-app-navy);
+}
+
+.sims-application-timeline-line {
+    flex: 1;
+    height: 2px;
+    background: var(--sims-app-border);
+    margin: 0 -2px;
+    margin-bottom: 20px;
+}
+
+.sims-application-timeline-line.completed {
+    background: var(--sims-app-green);
+}
+
+/* Modal detail grid */
+.sims-application-modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.sims-application-modal-section-full {
+    grid-column: 1 / -1;
+}
+
+.sims-application-modal-section h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--sims-app-muted);
+    margin: 0 0 12px 0;
+}
+
+.sims-application-modal-detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px dashed #eef0f2;
+    font-size: 13px;
+}
+
+.sims-application-modal-detail-row span {
+    color: var(--sims-app-muted);
+}
+
+.sims-application-modal-detail-row strong {
+    color: var(--sims-app-navy);
+    font-weight: 600;
+    text-align: right;
+}
+
+.sims-application-skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sims-application-skill-tag {
+    background: var(--sims-app-blue-bg);
+    color: var(--sims-app-primary);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.sims-application-resume-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Interview form */
+.sims-interview-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.sims-interview-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sims-interview-form-field-full {
+    grid-column: 1 / -1;
+}
+
+.sims-interview-form-field label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--sims-app-navy);
+}
+
+.sims-optional-tag {
+    font-weight: 400;
+    color: var(--sims-app-muted);
+}
+
+.sims-interview-form-field input,
+.sims-interview-form-field select,
+.sims-interview-form-field textarea {
+    padding: 10px 12px;
+    border: 1px solid var(--sims-app-border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13.5px;
+    color: var(--sims-app-navy);
+}
+
+.sims-interview-form-field input:focus,
+.sims-interview-form-field select:focus,
+.sims-interview-form-field textarea:focus {
+    outline: none;
+    border-color: var(--sims-app-primary);
+}
+
+.sims-interview-form-field textarea {
+    resize: vertical;
+}
+
+/* Rejection modal */
+.sims-rejection-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--sims-app-red-bg);
+    border: 1px solid #fda29b;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 16px;
+}
+
+.sims-rejection-warning i {
+    color: var(--sims-app-red);
+    font-size: 18px;
+    margin-top: 2px;
+}
+
+.sims-rejection-warning p {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--sims-app-navy);
+    font-weight: 600;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 1200px) {
+    .sims-application-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .sims-application-main-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .sims-application-header {
+        flex-direction: column;
+    }
+
+    .sims-application-header-right {
+        width: 100%;
+    }
+
+    .sims-application-header-right .sims-app-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .sims-application-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sims-application-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sims-application-filter-group,
+    .sims-application-search {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .sims-application-filter-actions {
+        width: 100%;
+    }
+
+    .sims-application-filter-actions .sims-app-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .sims-application-modal-grid,
+    .sims-interview-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sims-application-pagination {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .sims-application-pagination-controls {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .sims-application-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .sims-application-title {
+        font-size: 21px;
+    }
+}
+
+/* Body scroll lock (applied on <body> by JS) */
+body.sims-modal-open {
+    overflow: hidden;
+}

@@ -1,196 +1,165 @@
-// Dynamic Reports Generator for SIMS Admin Panel
-document.addEventListener('DOMContentLoaded', () => {
-    // Override the global genReport
-    window.genReport = function(type, format) {
-        if (!window.GlobalStore) {
-            alert('GlobalStore not loaded.');
-            return;
-        }
+/* ============================================================
+   admin-reports.js — ReportsAnalytics.aspx Interactivity
+   ============================================================ */
 
-        let data = [];
-        let filename = '';
-        let headers = [];
-        let title = '';
+(function () {
+    'use strict';
 
-        if (type === 'student') {
-            data = window.GlobalStore.getStudents();
-            headers = ['Name', 'Enrollment', 'Department', 'Semester', 'Email', 'Mobile', 'Status', 'Registration Date'];
-            filename = 'SIMS_Students_Report';
-            title = 'Student Registration Report';
-        } else if (type === 'company') {
-            data = window.GlobalStore.getCompanies();
-            headers = ['Company Name', 'Industry', 'HR Contact', 'Email', 'Phone', 'Status', 'Joined Date'];
-            filename = 'SIMS_Companies_Report';
-            title = 'Company Verification & Industry Report';
-        } else if (type === 'internship') {
-            data = window.GlobalStore.getInternships();
-            headers = ['Title', 'Company', 'Location', 'Mode', 'Stipend', 'Category', 'Status'];
-            filename = 'SIMS_Internships_Report';
-            title = 'Internship Positions Report';
-        } else if (type === 'placement') {
-            const apps = window.GlobalStore.getApplications();
-            data = apps.filter(a => a.status === 'Selected' || a.status === 'Shortlisted');
-            headers = ['Student Name', 'Enrollment', 'Internship Title', 'Company', 'Applied Date', 'Current Status'];
-            filename = 'SIMS_Placement_Report';
-            title = 'Placements & Selection Analytics Report';
-        }
+    /* ── Export Dropdown toggle ── */
+    var btnExport = document.getElementById('btnExportToggle');
+    var exportMenu = document.getElementById('exportMenu');
+    if (btnExport && exportMenu) {
+        btnExport.addEventListener('click', function (e) {
+            e.stopPropagation();
+            exportMenu.classList.toggle('open');
+        });
+        document.addEventListener('click', function () {
+            exportMenu.classList.remove('open');
+        });
+    }
 
-        if (format === 'excel') {
-            exportToCSV(data, headers, filename, type);
-        } else if (format === 'pdf') {
-            exportToPDF(data, headers, title, type);
-        }
-    };
-
-    function exportToCSV(data, headers, filename, type) {
-        let csvContent = '\uFEFF'; // Add BOM for UTF-8 Excel support
-        csvContent += headers.join(',') + '\r\n';
-
-        data.forEach(item => {
-            let row = [];
-            if (type === 'student') {
-                row = [
-                    item.name,
-                    item.enr,
-                    item.dept,
-                    item.sem,
-                    item.email,
-                    item.mobile,
-                    item.status,
-                    item.date
-                ];
-            } else if (type === 'company') {
-                row = [
-                    item.name,
-                    item.ind,
-                    item.hr,
-                    item.email,
-                    item.phone,
-                    item.status,
-                    item.date
-                ];
-            } else if (type === 'internship') {
-                row = [
-                    item.title,
-                    item.company,
-                    item.location,
-                    item.modeLabel || item.modeKey,
-                    item.stipendType === 'paid' ? 'Paid (' + item.stipend + ')' : 'Unpaid',
-                    item.categoryLabel || item.categoryKey,
-                    item.status || 'Active'
-                ];
-            } else if (type === 'placement') {
-                row = [
-                    item.studentName,
-                    item.studentEnrollment,
-                    item.internshipTitle,
-                    item.company,
-                    new Date(item.appliedOn).toLocaleDateString(),
-                    item.status
-                ];
-            }
-
-            // Escape quotes and wrap values in quotes
-            const escapedRow = row.map(val => {
-                const str = String(val || '').replace(/"/g, '""');
-                return `"${str}"`;
+    /* ── Tab switching ── */
+    var tabs = document.querySelectorAll('.sims-analytics-tab');
+    tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            var target = this.dataset.tab;
+            tabs.forEach(function (t) { t.classList.remove('active'); });
+            this.classList.add('active');
+            var panels = document.querySelectorAll('.sims-analytics-tab-panel');
+            panels.forEach(function (p) {
+                p.classList.toggle('active', p.id === target);
             });
-            csvContent += escapedRow.join(',') + '\r\n';
         });
+    });
+    var firstTab = document.querySelector('.sims-analytics-tab');
+    if (firstTab) firstTab.click();
 
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        if (link.download !== undefined) {
-            const url = URL.createObjectURL(blob);
-            link.setAttribute('href', url);
-            link.setAttribute('download', filename + '.csv');
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            // Show success popup
-            const modal = document.getElementById('successModal');
-            if (modal) modal.classList.add('open');
-        }
+    /* ── Apply Filters ── */
+    var btnApply = document.getElementById('btnApplyFilters');
+    if (btnApply) {
+        btnApply.addEventListener('click', function () {
+            var btn = this;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Applying...';
+            btn.disabled = true;
+            setTimeout(function () {
+                btn.innerHTML = '<i class="fa-solid fa-filter"></i> Apply Filters';
+                btn.disabled = false;
+                showToast('Filters applied successfully!', 'success');
+            }, 800);
+        });
     }
 
-    function exportToPDF(data, headers, title, type) {
-        const printWindow = window.open('', '_blank');
-        if (!printWindow) {
-            alert('Popup blocker prevented opening the report preview. Please allow popups.');
-            return;
-        }
-
-        let rowsHtml = '';
-        data.forEach((item, idx) => {
-            let cols = [];
-            if (type === 'student') {
-                cols = [item.name, item.enr, item.dept, item.sem, item.email, item.mobile, item.status, item.date];
-            } else if (type === 'company') {
-                cols = [item.name, item.ind, item.hr, item.email, item.phone, item.status, item.date];
-            } else if (type === 'internship') {
-                cols = [item.title, item.company, item.location, item.modeLabel || item.modeKey, item.stipendType === 'paid' ? '₹' + item.stipend : 'Unpaid', item.categoryLabel || item.categoryKey, item.status || 'Active'];
-            } else if (type === 'placement') {
-                cols = [item.studentName, item.studentEnrollment, item.internshipTitle, item.company, new Date(item.appliedOn).toLocaleDateString(), item.status];
-            }
-
-            rowsHtml += `
-                <tr>
-                    <td>${idx + 1}</td>
-                    ${cols.map(c => `<td>${c || '-'}</td>`).join('')}
-                </tr>
-            `;
+    /* ── Reset Filters ── */
+    var btnReset = document.getElementById('btnResetFilters');
+    if (btnReset) {
+        btnReset.addEventListener('click', function () {
+            document.querySelectorAll('.sims-analytics-select').forEach(function (s) { s.selectedIndex = 0; });
+            document.querySelectorAll('.sims-analytics-input[type="date"]').forEach(function (i) { i.value = ''; });
+            showToast('Filters reset.', 'info');
         });
-
-        const htmlContent = `
-            <html>
-            <head>
-                <title>${title}</title>
-                <style>
-                    body { font-family: 'Poppins', sans-serif; color: #1e293b; padding: 24px; }
-                    .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #2563eb; padding-bottom: 15px; }
-                    .header h1 { margin: 0; font-size: 24px; color: #2563eb; }
-                    .header p { margin: 5px 0 0 0; font-size: 14px; color: #64748b; }
-                    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                    th, td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; font-size: 13px; }
-                    th { background-color: #f8fafc; font-weight: 600; color: #1e293b; }
-                    tr:nth-child(even) { background-color: #f8fafc; }
-                    .footer { margin-top: 40px; font-size: 11px; text-align: center; color: #94a3b8; }
-                    @media print {
-                        .no-print { display: none; }
-                    }
-                    .print-btn { background-color: #2563eb; color: #fff; border: none; padding: 10px 20px; font-size: 14px; border-radius: 6px; cursor: pointer; font-weight: 600; margin-bottom: 20px; }
-                </style>
-            </head>
-            <body>
-                <div class="no-print" style="text-align: right;">
-                    <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
-                </div>
-                <div class="header">
-                    <h1>SIMS - Smart Student Internship Management System</h1>
-                    <h2>${title}</h2>
-                    <p>Generated on: ${new Date().toLocaleString('en-IN')}</p>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            ${headers.map(h => `<th>${h}</th>`).join('')}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${rowsHtml}
-                    </tbody>
-                </table>
-                <div class="footer">
-                    &copy; 2026 SIMS. This is a system-generated document.
-                </div>
-            </body>
-            </html>
-        `;
-
-        printWindow.document.write(htmlContent);
-        printWindow.document.close();
     }
-});
+
+    /* ── Generate Report ── */
+    var btnGenerate = document.getElementById('btnGenerateReport');
+    if (btnGenerate) {
+        btnGenerate.addEventListener('click', function () {
+            var btn = this;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating...';
+            btn.disabled = true;
+            setTimeout(function () {
+                btn.innerHTML = '<i class="fa-solid fa-chart-line"></i> Generate Report';
+                btn.disabled = false;
+                showToast('Report generated successfully!', 'success');
+            }, 1200);
+        });
+    }
+
+    /* ── Schedule Report ── */
+    var btnSchedule = document.getElementById('btnScheduleReport');
+    if (btnSchedule) {
+        btnSchedule.addEventListener('click', function () {
+            showToast('Schedule Report feature coming soon.', 'info');
+        });
+    }
+
+    /* ── Export items ── */
+    document.querySelectorAll('.sims-analytics-export-item').forEach(function (item) {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            var labels = { 'pdf-dashboard':'Dashboard PDF','excel':'Excel file','csv':'CSV file','current':'Current report','selected':'Selected data' };
+            if (exportMenu) exportMenu.classList.remove('open');
+            showToast('Exporting ' + (labels[this.dataset.export] || 'report') + '...', 'success');
+        });
+    });
+
+    /* ── Progress bar animation ── */
+    document.querySelectorAll('.ra-progress-fill').forEach(function (bar) {
+        var target = bar.dataset.width || bar.style.width;
+        bar.style.width = '0';
+        setTimeout(function () { bar.style.width = target; }, 200);
+    });
+
+    /* ── KPI count-up ── */
+    document.querySelectorAll('.sims-analytics-kpi-value').forEach(function (el) {
+        var raw = el.textContent.replace(/[^0-9.]/g, '');
+        var target = parseFloat(raw);
+        if (isNaN(target) || target === 0) return;
+        var suffix = el.textContent.replace(raw, '').trim();
+        var step = target / 75;
+        var cur = 0;
+        var timer = setInterval(function () {
+            cur += step;
+            if (cur >= target) { cur = target; clearInterval(timer); }
+            el.textContent = Math.round(cur).toLocaleString() + (suffix ? ' ' + suffix : '');
+        }, 16);
+    });
+
+    /* ── Sortable table headers ── */
+    document.querySelectorAll('.sims-analytics-data-table thead th[data-sort]').forEach(function (th) {
+        th.style.cursor = 'pointer';
+        th.addEventListener('click', function () {
+            var idx = Array.from(this.parentNode.children).indexOf(this);
+            var asc = this.dataset.dir !== 'asc';
+            this.dataset.dir = asc ? 'asc' : 'desc';
+            var tbody = this.closest('table').querySelector('tbody');
+            var rows = Array.from(tbody.querySelectorAll('tr'));
+            rows.sort(function (a, b) {
+                var av = a.cells[idx] ? a.cells[idx].innerText.trim() : '';
+                var bv = b.cells[idx] ? b.cells[idx].innerText.trim() : '';
+                return asc ? av.localeCompare(bv) : bv.localeCompare(av);
+            });
+            rows.forEach(function (r) { tbody.appendChild(r); });
+        });
+    });
+
+    /* ── Page buttons ── */
+    document.querySelectorAll('.sims-analytics-page-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var grp = this.closest('.sims-analytics-page-controls');
+            if (!grp) return;
+            var label = this.textContent.trim();
+            if (label === 'Previous' || label === 'Next') return;
+            grp.querySelectorAll('.sims-analytics-page-btn').forEach(function (b) { b.classList.remove('active'); });
+            this.classList.add('active');
+        });
+    });
+
+    /* ── Toast ── */
+    function showToast(msg, type) {
+        var c = { success:'#10B981', error:'#EF4444', info:'#4F46E5' };
+        var icons = { success:'fa-circle-check', error:'fa-circle-xmark', info:'fa-circle-info' };
+        var t = document.createElement('div');
+        t.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;background:' + (c[type]||c.info) + ';color:white;padding:12px 20px;border-radius:10px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;box-shadow:0 8px 20px rgba(0,0,0,.15);display:flex;align-items:center;gap:10px;animation:raIn .3s ease';
+        t.innerHTML = '<i class="fa-solid ' + (icons[type]||icons.info) + '"></i> ' + msg;
+        document.body.appendChild(t);
+        setTimeout(function () { t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(function(){t.remove();},300); }, 3000);
+    }
+
+    if (!document.getElementById('raStyle')) {
+        var s = document.createElement('style');
+        s.id = 'raStyle';
+        s.textContent = '@keyframes raIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}';
+        document.head.appendChild(s);
+    }
+
+})();

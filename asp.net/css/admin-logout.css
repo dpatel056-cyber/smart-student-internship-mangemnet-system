@@ -1,0 +1,254 @@
+/* ==========================================================================
+   SIMS ADMIN LOGOUT PAGE — STYLES
+   Namespaced under .sims-logout-* to avoid conflicts with admin.Master
+   ========================================================================== */
+
+.sims-logout-page {
+    --sl-primary: #2954E6;
+    --sl-primary-dark: #1E3FB8;
+    --sl-navy: #16213E;
+    --sl-text: #1F2937;
+    --sl-muted: #6B7280;
+    --sl-border: #E5E7EB;
+    --sl-bg: #F5F7FB;
+    --sl-white: #FFFFFF;
+    --sl-green: #16A34A;
+    --sl-green-bg: #E8F8EE;
+    --sl-orange: #D97706;
+    --sl-orange-bg: #FEF3E2;
+    --sl-red: #DC2626;
+    --sl-red-bg: #FDECEC;
+    --sl-gray-bg: #F1F2F5;
+    --sl-radius: 10px;
+    --sl-shadow: 0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04);
+
+    font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--sl-text);
+    background: var(--sl-bg);
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.sims-logout-page * { box-sizing: border-box; }
+
+/* ---------- PAGE HEADER ---------- */
+.sims-logout-pageheader { margin-bottom: 20px; text-align: center; }
+.sims-logout-breadcrumb { font-size: 13px; color: var(--sl-muted); margin-bottom: 6px; }
+.sims-logout-title { font-size: 24px; font-weight: 700; color: var(--sl-navy); margin: 0 0 4px 0; }
+.sims-logout-subtitle { font-size: 14px; color: var(--sl-muted); margin: 0; }
+
+/* ---------- CONTAINER ---------- */
+.sims-logout-container { max-width: 760px; margin: 0 auto; }
+.sims-logout-container-narrow { max-width: 480px; }
+
+/* ---------- BUTTONS ---------- */
+.sims-logout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 18px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all .15s ease;
+    white-space: nowrap;
+    text-decoration: none;
+}
+.sims-logout-btn-primary { background: var(--sl-primary); color: #fff; }
+.sims-logout-btn-primary:hover { background: var(--sl-primary-dark); color: #fff; }
+.sims-logout-btn-outline { background: #fff; color: var(--sl-primary); border-color: var(--sl-primary); }
+.sims-logout-btn-outline:hover { background: #EEF2FF; }
+.sims-logout-btn-ghost { background: transparent; color: var(--sl-muted); border-color: var(--sl-border); }
+.sims-logout-btn-ghost:hover { background: var(--sl-gray-bg); color: var(--sl-text); }
+.sims-logout-btn-warning { background: var(--sl-orange); color: #fff; }
+.sims-logout-btn-warning:hover { background: #B45F04; }
+.sims-logout-btn-danger { background: var(--sl-red); color: #fff; }
+.sims-logout-btn-danger:hover { background: #B91C1C; }
+.sims-logout-btn-block { width: 100%; }
+.sims-logout-btn-link { background: none; border: none; color: var(--sl-primary); font-weight: 600; font-size: 12.5px; cursor: pointer; padding: 6px 10px; }
+.sims-logout-btn-link:hover { text-decoration: underline; }
+
+/* ---------- MAIN LOGOUT CARD ---------- */
+.sims-logout-card {
+    background: var(--sl-white);
+    border: 1px solid var(--sl-border);
+    border-radius: var(--sl-radius);
+    box-shadow: var(--sl-shadow);
+    padding: 32px 28px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.sims-logout-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--sl-red-bg); color: var(--sl-red);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; margin: 0 auto 18px;
+}
+.sims-logout-icon-success { background: var(--sl-green-bg); color: var(--sl-green); }
+.sims-logout-icon-neutral { background: var(--sl-gray-bg); color: var(--sl-muted); }
+.sims-logout-icon-warning { background: var(--sl-orange-bg); color: var(--sl-orange); }
+.sims-logout-heading { font-size: 19px; font-weight: 700; color: var(--sl-navy); margin: 0 0 8px; }
+.sims-logout-description { font-size: 13.5px; color: var(--sl-muted); margin: 0 0 20px; line-height: 1.6; }
+
+.sims-logout-user {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--sl-gray-bg); border-radius: 10px; padding: 14px 16px;
+    text-align: left; margin-bottom: 22px;
+}
+.sims-logout-user-avatar { width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; }
+.sims-logout-user-info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.sims-logout-user-name { font-size: 14px; font-weight: 700; color: var(--sl-navy); }
+.sims-logout-user-email { font-size: 12.5px; color: var(--sl-muted); }
+.sims-logout-user-role { font-size: 12px; color: var(--sl-primary); font-weight: 600; }
+
+.sims-logout-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.sims-logout-actions .sims-logout-btn { min-width: 140px; }
+
+/* ---------- BADGES ---------- */
+.sims-logout-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+    flex-shrink: 0;
+}
+.sims-logout-badge-success { background: var(--sl-green-bg); color: var(--sl-green); }
+.sims-logout-badge-warning { background: var(--sl-orange-bg); color: var(--sl-orange); }
+.sims-logout-badge-danger { background: var(--sl-red-bg); color: var(--sl-red); }
+
+/* ---------- SECURITY MESSAGE ---------- */
+.sims-logout-security {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: #EEF2FF; border: 1px solid #DCE4FF; border-radius: var(--sl-radius);
+    padding: 14px 16px; margin-bottom: 20px;
+}
+.sims-logout-security i { color: var(--sl-primary); font-size: 18px; margin-top: 2px; }
+.sims-logout-security strong { font-size: 13.5px; color: var(--sl-navy); display: block; margin-bottom: 2px; }
+.sims-logout-security p { font-size: 12.5px; color: var(--sl-muted); margin: 0; line-height: 1.5; }
+
+/* ---------- PANEL / GRID ---------- */
+.sims-logout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.sims-logout-panel {
+    background: var(--sl-white);
+    border: 1px solid var(--sl-border);
+    border-radius: var(--sl-radius);
+    box-shadow: var(--sl-shadow);
+    padding: 18px 20px;
+    margin-bottom: 16px;
+}
+.sims-logout-grid .sims-logout-panel { margin-bottom: 0; }
+.sims-logout-panel-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.sims-logout-panel-title { font-size: 15px; font-weight: 700; color: var(--sl-navy); margin: 0 0 14px; }
+.sims-logout-panel-head .sims-logout-panel-title { margin-bottom: 0; }
+
+/* ---------- SESSION INFO ---------- */
+.sims-logout-session-info { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; margin-bottom: 14px; }
+.sims-logout-info-item { display: flex; flex-direction: column; gap: 3px; }
+.sims-logout-info-full { grid-column: 1 / -1; }
+.sims-logout-info-label { font-size: 11.5px; color: var(--sl-muted); }
+.sims-logout-info-value { font-size: 13px; font-weight: 600; color: var(--sl-text); }
+
+/* ---------- OTHER ACTIVE SESSIONS ---------- */
+.sims-logout-session-card {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0; border-top: 1px solid var(--sl-border);
+}
+.sims-logout-active-sessions .sims-logout-session-card:first-of-type { border-top: none; }
+.sims-logout-session-card-icon {
+    width: 36px; height: 36px; border-radius: 8px; background: var(--sl-gray-bg); color: var(--sl-muted);
+    display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
+}
+.sims-logout-session-card-body { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.sims-logout-session-card-title { font-size: 13.5px; font-weight: 600; color: var(--sl-text); }
+.sims-logout-session-card-meta { font-size: 12px; color: var(--sl-muted); }
+.sims-logout-session-card-time { font-size: 12px; color: var(--sl-muted); white-space: nowrap; margin-right: 6px; }
+
+/* ---------- SECURITY TIPS ---------- */
+.sims-logout-tips-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.sims-logout-tips-list li { font-size: 13px; color: var(--sl-text); display: flex; align-items: center; gap: 8px; }
+.sims-logout-tips-list li i { color: var(--sl-green); font-size: 11px; }
+
+/* ---------- SUCCESS STATE ---------- */
+.sims-logout-success-meta {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    background: var(--sl-gray-bg); border-radius: 8px; padding: 10px 16px; margin-bottom: 14px;
+}
+.sims-logout-thankyou { font-size: 13px; color: var(--sl-muted); margin: 0 0 18px; }
+.sims-logout-countdown {
+    font-size: 13px; color: var(--sl-primary); font-weight: 600;
+    background: #EEF2FF; border-radius: 8px; padding: 10px 14px; margin-bottom: 18px;
+}
+
+/* ---------- MODALS ---------- */
+.sims-logout-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    z-index: 9998;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.sims-logout-modal-overlay.sims-logout-modal-open { display: flex; }
+.sims-logout-modal {
+    position: relative;
+    z-index: 9999;
+    background: #fff;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 440px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+.sims-logout-modal-sm { max-width: 440px; }
+.sims-logout-modal-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--sl-border); }
+.sims-logout-modal-head h3 { margin: 0; font-size: 16px; font-weight: 700; color: var(--sl-navy); }
+.sims-logout-modal-close { background: none; border: none; font-size: 15px; color: var(--sl-muted); cursor: pointer; }
+.sims-logout-modal-body { padding: 20px; overflow-y: auto; max-height: calc(90vh - 150px); }
+.sims-logout-modal-foot { display: flex; justify-content: flex-end; gap: 10px; padding: 16px 20px; border-top: 1px solid var(--sl-border); }
+.sims-logout-modal-warning { display: flex; gap: 10px; align-items: flex-start; background: var(--sl-orange-bg); color: #92400E; padding: 12px 14px; border-radius: 8px; margin-bottom: 12px; }
+.sims-logout-modal-warning i { margin-top: 2px; }
+.sims-logout-modal-warning-danger { background: var(--sl-red-bg); color: #991B1B; }
+.sims-logout-modal-warning p { margin: 0; font-size: 13.5px; font-weight: 600; }
+.sims-logout-modal-note { font-size: 13px; color: var(--sl-muted); margin: 0; }
+
+/* Body scroll lock while modal open */
+body.sims-logout-modal-open-body { overflow: hidden; }
+
+/* ---------- TOASTS ---------- */
+.sims-logout-toast-container {
+    position: fixed; top: 20px; right: 20px; z-index: 10000;
+    display: flex; flex-direction: column; gap: 10px;
+}
+.sims-logout-toast {
+    display: flex; align-items: center; gap: 10px;
+    background: #fff; border: 1px solid var(--sl-border); border-left: 4px solid var(--sl-green);
+    border-radius: 8px; padding: 12px 14px; box-shadow: var(--sl-shadow);
+    font-size: 13.5px; color: var(--sl-text); min-width: 260px;
+    animation: sims-logout-toast-in .2s ease;
+}
+.sims-logout-toast i.sims-logout-toast-icon { color: var(--sl-green); font-size: 15px; }
+.sims-logout-toast-close { margin-left: auto; background: none; border: none; color: var(--sl-muted); cursor: pointer; }
+@keyframes sims-logout-toast-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+    .sims-logout-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+    .sims-logout-card { padding: 24px 18px; }
+    .sims-logout-user { flex-wrap: wrap; }
+    .sims-logout-session-info { grid-template-columns: 1fr; }
+    .sims-logout-actions { flex-direction: column; }
+    .sims-logout-actions .sims-logout-btn { width: 100%; }
+    .sims-logout-session-card { flex-wrap: wrap; }
+    .sims-logout-panel-head { flex-direction: column; align-items: stretch; }
+    .sims-logout-panel-head .sims-logout-btn { width: 100%; }
+}

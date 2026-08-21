@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="verify_otp.aspx.cs" Inherits="asp.net.verify_otp" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="verify_otp.aspx.cs" Inherits="asp.net.verify_otp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content5" runat="server" contentplaceholderid="ContentPlaceHolder1">
@@ -267,6 +267,7 @@
 <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
 <script src="<%= ResolveUrl("~/js/fp-multi.js") %>"></script>
 </asp:Content>
+
 
 
 

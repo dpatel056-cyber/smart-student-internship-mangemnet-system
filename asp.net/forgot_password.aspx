@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="forgot_password.aspx.cs" Inherits="asp.net.forgot_password" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="forgot_password.aspx.cs" Inherits="asp.net.forgot_password" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" runat="server" contentplaceholderid="ContentPlaceHolder2">
@@ -289,4 +289,5 @@
                     </div>
     </header>
 </asp:Content>
+
 

@@ -1,0 +1,1477 @@
+/* =========================================================================
+   SIMS - INTERNSHIP MANAGEMENT PAGE STYLES
+   Scoped under .sims-internship-page to avoid conflicts with admin.Master
+========================================================================= */
+
+.sims-internship-page {
+    --sims-blue: #2563eb;
+    --sims-blue-dark: #1d4ed8;
+    --sims-blue-light: #eff6ff;
+    --sims-navy: #0f172a;
+    --sims-text: #1e293b;
+    --sims-text-muted: #64748b;
+    --sims-border: #e2e8f0;
+    --sims-bg: #f8fafc;
+    --sims-white: #ffffff;
+    --sims-green: #16a34a;
+    --sims-green-light: #f0fdf4;
+    --sims-orange: #ea580c;
+    --sims-orange-light: #fff7ed;
+    --sims-red: #dc2626;
+    --sims-red-light: #fef2f2;
+    --sims-gray: #64748b;
+    --sims-gray-light: #f1f5f9;
+    --sims-purple: #7c3aed;
+    --sims-radius: 10px;
+    --sims-radius-sm: 8px;
+    --sims-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.06);
+    --sims-shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+
+    font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--sims-text);
+    background: var(--sims-bg);
+    padding: 24px;
+}
+
+.sims-internship-page * {
+    box-sizing: border-box;
+}
+
+/* ============================= HEADER ============================= */
+.sims-internship-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.sims-internship-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--sims-text-muted);
+    margin-bottom: 8px;
+}
+
+.sims-internship-breadcrumb i {
+    font-size: 10px;
+}
+
+.sims-internship-breadcrumb-current {
+    color: var(--sims-blue);
+    font-weight: 600;
+}
+
+.sims-internship-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 0 0 6px 0;
+    letter-spacing: -0.02em;
+}
+
+.sims-internship-subtitle {
+    font-size: 14px;
+    color: var(--sims-text-muted);
+    margin: 0;
+    max-width: 560px;
+}
+
+.sims-internship-header-right {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+/* ============================= BUTTONS ============================= */
+.sims-internship-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: var(--sims-radius-sm);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+    white-space: nowrap;
+}
+
+.sims-internship-btn:active {
+    transform: translateY(1px);
+}
+
+.sims-internship-btn-primary {
+    background: var(--sims-blue);
+    color: #fff;
+}
+
+.sims-internship-btn-primary:hover {
+    background: var(--sims-blue-dark);
+}
+
+.sims-internship-btn-secondary {
+    background: var(--sims-white);
+    color: var(--sims-text);
+    border-color: var(--sims-border);
+}
+
+.sims-internship-btn-secondary:hover {
+    background: var(--sims-gray-light);
+}
+
+.sims-internship-btn-outline {
+    background: transparent;
+    color: var(--sims-text);
+    border-color: var(--sims-border);
+}
+
+.sims-internship-btn-outline:hover {
+    background: var(--sims-gray-light);
+}
+
+.sims-internship-btn-success {
+    background: var(--sims-green);
+    color: #fff;
+}
+
+.sims-internship-btn-success:hover {
+    background: #15803d;
+}
+
+.sims-internship-btn-danger {
+    background: var(--sims-red);
+    color: #fff;
+}
+
+.sims-internship-btn-danger:hover {
+    background: #b91c1c;
+}
+
+.sims-internship-btn-warn {
+    background: var(--sims-orange);
+    color: #fff;
+}
+
+.sims-internship-btn-warn:hover {
+    background: #c2410c;
+}
+
+/* ============================= STAT CARDS ============================= */
+.sims-internship-stats {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.sims-internship-stat-card {
+    position: relative;
+    background: var(--sims-white);
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius);
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    box-shadow: var(--sims-shadow);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+    overflow: hidden;
+}
+
+.sims-internship-stat-card:hover {
+    box-shadow: var(--sims-shadow-md);
+    transform: translateY(-2px);
+}
+
+.sims-internship-stat-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+.sims-internship-stat-icon-total { background: var(--sims-blue-light); color: var(--sims-blue); }
+.sims-internship-stat-icon-active { background: var(--sims-green-light); color: var(--sims-green); }
+.sims-internship-stat-icon-pending { background: var(--sims-orange-light); color: var(--sims-orange); }
+.sims-internship-stat-icon-closed { background: var(--sims-gray-light); color: var(--sims-gray); }
+.sims-internship-stat-icon-rejected { background: var(--sims-red-light); color: var(--sims-red); }
+.sims-internship-stat-icon-applications { background: #f3e8ff; color: var(--sims-purple); }
+
+.sims-internship-stat-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.sims-internship-stat-number {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    line-height: 1.25;
+}
+
+.sims-internship-stat-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--sims-text);
+}
+
+.sims-internship-stat-desc {
+    font-size: 11.5px;
+    color: var(--sims-text-muted);
+}
+
+.sims-internship-stat-dot {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.sims-internship-stat-dot-total { background: var(--sims-blue); }
+.sims-internship-stat-dot-active { background: var(--sims-green); }
+.sims-internship-stat-dot-pending { background: var(--sims-orange); }
+.sims-internship-stat-dot-closed { background: var(--sims-gray); }
+.sims-internship-stat-dot-rejected { background: var(--sims-red); }
+.sims-internship-stat-dot-applications { background: var(--sims-purple); }
+
+/* ============================= FILTERS ============================= */
+.sims-internship-filters {
+    background: var(--sims-white);
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius);
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: var(--sims-shadow);
+}
+
+.sims-internship-filters-search {
+    position: relative;
+    margin-bottom: 14px;
+}
+
+.sims-internship-filters-search i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--sims-text-muted);
+    font-size: 13px;
+}
+
+.sims-internship-filters-search input {
+    width: 100%;
+    padding: 10px 14px 10px 38px;
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+    font-size: 13.5px;
+    font-family: inherit;
+    background: var(--sims-bg);
+}
+
+.sims-internship-filters-search input:focus {
+    outline: none;
+    border-color: var(--sims-blue);
+    background: var(--sims-white);
+}
+
+.sims-internship-filters-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.sims-internship-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1 1 150px;
+    min-width: 140px;
+}
+
+.sims-internship-filter-group label {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--sims-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.sims-internship-filter-group select {
+    padding: 9px 10px;
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+    font-size: 13px;
+    font-family: inherit;
+    background: var(--sims-white);
+    color: var(--sims-text);
+}
+
+.sims-internship-filter-group select:focus {
+    outline: none;
+    border-color: var(--sims-blue);
+}
+
+.sims-internship-filter-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+/* ============================= BULK TOOLBAR ============================= */
+.sims-internship-bulk-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--sims-blue-light);
+    border: 1px solid #bfdbfe;
+    border-radius: var(--sims-radius-sm);
+    padding: 10px 16px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.sims-internship-bulk-count {
+    font-size: 13.5px;
+    color: var(--sims-blue-dark);
+}
+
+.sims-internship-bulk-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.sims-internship-bulk-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 7px 12px;
+    border: 1px solid #bfdbfe;
+    border-radius: 7px;
+    background: var(--sims-white);
+    color: var(--sims-blue-dark);
+    cursor: pointer;
+}
+
+.sims-internship-bulk-btn:hover {
+    background: var(--sims-blue);
+    color: #fff;
+    border-color: var(--sims-blue);
+}
+
+.sims-internship-bulk-btn-danger {
+    color: var(--sims-red);
+    border-color: #fecaca;
+}
+
+.sims-internship-bulk-btn-danger:hover {
+    background: var(--sims-red);
+    border-color: var(--sims-red);
+    color: #fff;
+}
+
+/* ============================= TABLE CARD ============================= */
+.sims-internship-table-card {
+    background: var(--sims-white);
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius);
+    box-shadow: var(--sims-shadow);
+    overflow: hidden;
+}
+
+.sims-internship-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--sims-border);
+}
+
+.sims-internship-table-header h2 {
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 0;
+}
+
+.sims-internship-table-count {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--sims-text-muted);
+    background: var(--sims-gray-light);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.sims-internship-table-scroll {
+    overflow-x: auto;
+}
+
+.sims-internship-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1180px;
+}
+
+.sims-internship-table thead th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--sims-text-muted);
+    background: var(--sims-bg);
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--sims-border);
+    white-space: nowrap;
+}
+
+.sims-internship-th-check,
+.sims-internship-th-actions {
+    width: 44px;
+}
+
+.sims-internship-table tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--sims-border);
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.sims-internship-row:hover {
+    background: #fafcff;
+}
+
+.sims-internship-row:last-child td {
+    border-bottom: none;
+}
+
+.sims-internship-cell-main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sims-internship-cell-title {
+    display: block;
+    font-weight: 600;
+    color: var(--sims-navy);
+    font-size: 13px;
+}
+
+.sims-internship-cell-sub {
+    display: block;
+    font-size: 11.5px;
+    color: var(--sims-text-muted);
+}
+
+.sims-internship-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    color: #fff;
+}
+
+.sims-internship-avatar-blue { background: #3b82f6; }
+.sims-internship-avatar-purple { background: #8b5cf6; }
+.sims-internship-avatar-pink { background: #ec4899; }
+.sims-internship-avatar-teal { background: #14b8a6; }
+.sims-internship-avatar-gray { background: #64748b; }
+.sims-internship-avatar-orange { background: #f97316; }
+
+.sims-internship-company-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--sims-blue-light);
+    color: var(--sims-blue-dark);
+    font-size: 11.5px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sims-internship-company-avatar-lg {
+    width: 52px;
+    height: 52px;
+    font-size: 16px;
+}
+
+.sims-internship-company-link {
+    font-weight: 600;
+    color: var(--sims-navy);
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.sims-internship-company-link:hover {
+    color: var(--sims-blue);
+    text-decoration: underline;
+}
+
+/* category badges */
+.sims-internship-badge {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.sims-internship-badge-webdev { background: #eff6ff; color: #2563eb; }
+.sims-internship-badge-softdev { background: #f5f3ff; color: #7c3aed; }
+.sims-internship-badge-uiux { background: #fdf2f8; color: #db2777; }
+.sims-internship-badge-analytics { background: #ecfeff; color: #0891b2; }
+.sims-internship-badge-datascience { background: #f0fdfa; color: #0d9488; }
+.sims-internship-badge-mobile { background: #fff7ed; color: #ea580c; }
+.sims-internship-badge-marketing { background: #fefce8; color: #ca8a04; }
+
+.sims-internship-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    color: var(--sims-text);
+}
+
+.sims-internship-location i {
+    color: var(--sims-text-muted);
+    font-size: 11px;
+}
+
+.sims-internship-mode {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.sims-internship-mode-remote { background: #f0fdf4; color: #16a34a; }
+.sims-internship-mode-onsite { background: #f1f5f9; color: #475569; }
+.sims-internship-mode-hybrid { background: #eff6ff; color: #2563eb; }
+
+.sims-internship-applications {
+    display: block;
+    text-decoration: none;
+    color: var(--sims-text);
+    font-size: 12.5px;
+    font-weight: 500;
+    min-width: 90px;
+}
+
+.sims-internship-app-count {
+    font-weight: 700;
+    color: var(--sims-navy);
+}
+
+.sims-internship-app-bar {
+    margin-top: 5px;
+    height: 5px;
+    border-radius: 4px;
+    background: var(--sims-gray-light);
+    overflow: hidden;
+}
+
+.sims-internship-app-bar span {
+    display: block;
+    height: 100%;
+    background: var(--sims-blue);
+    border-radius: 4px;
+}
+
+.sims-internship-deadline {
+    display: flex;
+    flex-direction: column;
+    font-size: 12.5px;
+    gap: 2px;
+}
+
+.sims-internship-deadline-sub {
+    font-size: 11px;
+    color: var(--sims-text-muted);
+}
+
+.sims-internship-deadline-soon {
+    color: var(--sims-orange);
+    font-weight: 600;
+}
+
+.sims-internship-deadline-expired {
+    color: var(--sims-red);
+    font-weight: 600;
+}
+
+/* status badges */
+.sims-internship-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.sims-internship-status i {
+    font-size: 10px;
+}
+
+.sims-internship-status-pending { background: var(--sims-orange-light); color: var(--sims-orange); }
+.sims-internship-status-approved { background: #eff6ff; color: var(--sims-blue); }
+.sims-internship-status-active { background: var(--sims-green-light); color: var(--sims-green); }
+.sims-internship-status-closed { background: var(--sims-gray-light); color: var(--sims-gray); }
+.sims-internship-status-rejected { background: var(--sims-red-light); color: var(--sims-red); }
+.sims-internship-status-draft { background: #f8fafc; color: var(--sims-text-muted); border: 1px dashed var(--sims-border); }
+
+/* ============================= ACTION MENU ============================= */
+.sims-internship-td-actions {
+    position: relative;
+    text-align: center;
+}
+
+.sims-internship-action-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.sims-internship-action-trigger {
+    background: transparent;
+    border: 1px solid transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    color: var(--sims-text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sims-internship-action-trigger:hover {
+    background: var(--sims-gray-light);
+    color: var(--sims-text);
+}
+
+.sims-internship-action-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 4px);
+    background: var(--sims-white);
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+    box-shadow: var(--sims-shadow-md);
+    min-width: 200px;
+    padding: 6px;
+    z-index: 40;
+    text-align: left;
+}
+
+.sims-internship-action-dropdown.sims-internship-open {
+    display: block;
+}
+
+.sims-internship-action-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    font-size: 13px;
+    color: var(--sims-text);
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.sims-internship-action-dropdown a i {
+    width: 14px;
+    text-align: center;
+    color: var(--sims-text-muted);
+}
+
+.sims-internship-action-dropdown a:hover {
+    background: var(--sims-gray-light);
+}
+
+.sims-internship-action-divider {
+    height: 1px;
+    background: var(--sims-border);
+    margin: 5px 2px;
+}
+
+.sims-internship-action-success { color: var(--sims-green) !important; }
+.sims-internship-action-success i { color: var(--sims-green) !important; }
+.sims-internship-action-danger { color: var(--sims-red) !important; }
+.sims-internship-action-danger i { color: var(--sims-red) !important; }
+.sims-internship-action-warn { color: var(--sims-orange) !important; }
+.sims-internship-action-warn i { color: var(--sims-orange) !important; }
+
+/* ============================= EMPTY STATE ============================= */
+.sims-internship-empty {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.sims-internship-empty-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--sims-gray-light);
+    color: var(--sims-text-muted);
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+}
+
+.sims-internship-empty h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 0 0 6px;
+}
+
+.sims-internship-empty p {
+    font-size: 13px;
+    color: var(--sims-text-muted);
+    margin: 0 0 16px;
+}
+
+/* ============================= PAGINATION ============================= */
+.sims-internship-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 18px;
+    border-top: 1px solid var(--sims-border);
+}
+
+.sims-internship-pagination-info {
+    font-size: 12.5px;
+    color: var(--sims-text-muted);
+}
+
+.sims-internship-pagination-controls {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.sims-internship-page-btn {
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 7px 11px;
+    border-radius: 7px;
+    border: 1px solid var(--sims-border);
+    background: var(--sims-white);
+    color: var(--sims-text);
+    cursor: pointer;
+}
+
+.sims-internship-page-btn:hover:not(:disabled) {
+    background: var(--sims-gray-light);
+}
+
+.sims-internship-page-btn:disabled {
+    color: #cbd5e1;
+    cursor: not-allowed;
+}
+
+.sims-internship-page-btn-active {
+    background: var(--sims-blue);
+    border-color: var(--sims-blue);
+    color: #fff;
+}
+
+.sims-internship-pagination-size {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    color: var(--sims-text-muted);
+}
+
+.sims-internship-pagination-size select {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--sims-border);
+    font-family: inherit;
+    font-size: 12.5px;
+}
+
+/* ============================= ACTIVITY + STATUS OVERVIEW ============================= */
+.sims-internship-bottom-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.sims-internship-activity,
+.sims-internship-status-overview {
+    background: var(--sims-white);
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius);
+    box-shadow: var(--sims-shadow);
+    padding: 18px;
+}
+
+.sims-internship-activity h3,
+.sims-internship-status-overview h3 {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 0 0 14px;
+}
+
+.sims-internship-activity-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.sims-internship-activity-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.sims-internship-activity-list p {
+    margin: 0 0 2px;
+    font-size: 13px;
+    color: var(--sims-text);
+}
+
+.sims-internship-activity-list span {
+    font-size: 11.5px;
+    color: var(--sims-text-muted);
+}
+
+.sims-internship-activity-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.sims-internship-activity-icon-post { background: var(--sims-blue-light); color: var(--sims-blue); }
+.sims-internship-activity-icon-approve { background: var(--sims-green-light); color: var(--sims-green); }
+.sims-internship-activity-icon-reject { background: var(--sims-red-light); color: var(--sims-red); }
+.sims-internship-activity-icon-close { background: var(--sims-gray-light); color: var(--sims-gray); }
+.sims-internship-activity-icon-app { background: #f3e8ff; color: var(--sims-purple); }
+
+.sims-internship-status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.sims-internship-status-row-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--sims-text);
+}
+
+.sims-internship-status-row-label i {
+    font-size: 8px;
+}
+
+.sims-internship-status-row-value {
+    font-weight: 700;
+    color: var(--sims-navy);
+}
+
+.sims-internship-dot-active { color: var(--sims-green); }
+.sims-internship-dot-pending { color: var(--sims-orange); }
+.sims-internship-dot-closed { color: var(--sims-gray); }
+.sims-internship-dot-rejected { color: var(--sims-red); }
+
+.sims-internship-progress {
+    height: 6px;
+    border-radius: 4px;
+    background: var(--sims-gray-light);
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+
+.sims-internship-progress-fill {
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+}
+
+.sims-internship-progress-active { background: var(--sims-green); }
+.sims-internship-progress-pending { background: var(--sims-orange); }
+.sims-internship-progress-closed { background: var(--sims-gray); }
+.sims-internship-progress-rejected { background: var(--sims-red); }
+
+/* =========================================================================
+   MODALS
+========================================================================= */
+.sims-internship-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.sims-internship-modal-overlay[hidden] {
+    display: none;
+}
+
+.sims-internship-modal {
+    position: relative;
+    z-index: 9999;
+    background: var(--sims-white);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 620px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35);
+    font-family: inherit;
+    color: var(--sims-text);
+}
+
+.sims-internship-profile-modal,
+.sims-internship-form-modal {
+    max-width: 960px;
+}
+
+.sims-internship-applications-modal,
+.sims-internship-company-modal {
+    max-width: 560px;
+}
+
+.sims-internship-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--sims-border);
+    gap: 12px;
+}
+
+.sims-internship-modal-header h2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 0 0 6px;
+}
+
+.sims-internship-modal-subhead {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+
+.sims-internship-modal-subtitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--sims-text);
+}
+
+.sims-internship-modal-company {
+    font-size: 12.5px;
+    color: var(--sims-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sims-internship-modal-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--sims-border);
+    background: var(--sims-white);
+    color: var(--sims-text-muted);
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sims-internship-modal-close:hover {
+    background: var(--sims-gray-light);
+    color: var(--sims-text);
+}
+
+.sims-internship-modal-body {
+    padding: 22px 24px;
+    overflow-y: auto;
+    max-height: calc(90vh - 150px);
+}
+
+.sims-internship-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 24px;
+    border-top: 1px solid var(--sims-border);
+    flex-wrap: wrap;
+}
+
+/* detail sections (view modal) */
+.sims-internship-detail-section {
+    margin-bottom: 22px;
+}
+
+.sims-internship-detail-section:last-child {
+    margin-bottom: 0;
+}
+
+.sims-internship-detail-section h4 {
+    font-size: 12.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--sims-text-muted);
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--sims-border);
+}
+
+.sims-internship-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px 18px;
+}
+
+.sims-internship-detail-grid div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sims-internship-detail-grid label {
+    font-size: 11px;
+    color: var(--sims-text-muted);
+}
+
+.sims-internship-detail-grid span {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--sims-navy);
+}
+
+.sims-internship-detail-text {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--sims-text);
+    margin: 0;
+}
+
+.sims-internship-detail-list {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 13.5px;
+    color: var(--sims-text);
+    line-height: 1.8;
+}
+
+.sims-internship-skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sims-internship-skill-tags span {
+    background: var(--sims-blue-light);
+    color: var(--sims-blue-dark);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+
+.sims-internship-app-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.sims-internship-app-summary-wide {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.sims-internship-app-summary > div {
+    background: var(--sims-bg);
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+    padding: 14px 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sims-internship-app-summary-num {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--sims-navy);
+}
+
+.sims-internship-app-summary > div span:last-child {
+    font-size: 11.5px;
+    color: var(--sims-text-muted);
+}
+
+.sims-internship-app-summary-pending { color: var(--sims-orange); }
+.sims-internship-app-summary-shortlisted { color: var(--sims-blue); }
+.sims-internship-app-summary-selected { color: var(--sims-green); }
+.sims-internship-app-summary-rejected { color: var(--sims-red); }
+
+/* ============================= FORMS (Add/Edit) ============================= */
+.sims-internship-form-section {
+    margin-bottom: 22px;
+}
+
+.sims-internship-form-section:last-child {
+    margin-bottom: 0;
+}
+
+.sims-internship-form-section h4 {
+    font-size: 12.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--sims-text-muted);
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--sims-border);
+}
+
+.sims-internship-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 18px;
+}
+
+.sims-internship-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sims-internship-form-field label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--sims-text);
+}
+
+.sims-internship-required {
+    color: var(--sims-red);
+}
+
+.sims-internship-form-field input,
+.sims-internship-form-field select,
+.sims-internship-form-field textarea,
+.sims-internship-form-section > textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--sims-text);
+    background: var(--sims-white);
+}
+
+.sims-internship-form-field input:focus,
+.sims-internship-form-field select:focus,
+.sims-internship-form-field textarea:focus,
+.sims-internship-form-section > textarea:focus {
+    outline: none;
+    border-color: var(--sims-blue);
+}
+
+.sims-internship-form-section > textarea {
+    resize: vertical;
+}
+
+.sims-internship-skill-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sims-internship-skill-chip {
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 7px 13px;
+    border-radius: 20px;
+    border: 1px solid var(--sims-border);
+    background: var(--sims-white);
+    color: var(--sims-text-muted);
+    cursor: pointer;
+    user-select: none;
+}
+
+.sims-internship-skill-chip-active {
+    background: var(--sims-blue-light);
+    border-color: #bfdbfe;
+    color: var(--sims-blue-dark);
+}
+
+/* ============================= CONFIRM MODALS ============================= */
+.sims-internship-confirm-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    background: var(--sims-bg);
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+    padding: 14px;
+    margin-bottom: 16px;
+}
+
+.sims-internship-confirm-summary div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sims-internship-confirm-summary label {
+    font-size: 11px;
+    color: var(--sims-text-muted);
+}
+
+.sims-internship-confirm-summary span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sims-navy);
+}
+
+.sims-internship-confirm-message {
+    font-size: 14px;
+    color: var(--sims-text);
+    margin: 0 0 16px;
+}
+
+.sims-internship-alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 12px 14px;
+    border-radius: var(--sims-radius-sm);
+    margin-top: 14px;
+}
+
+.sims-internship-alert-warn {
+    background: var(--sims-orange-light);
+    color: var(--sims-orange);
+}
+
+.sims-internship-alert-danger {
+    background: var(--sims-red-light);
+    color: var(--sims-red);
+}
+
+.sims-internship-icon-success { color: var(--sims-green); }
+.sims-internship-icon-danger { color: var(--sims-red); }
+.sims-internship-icon-warn { color: var(--sims-orange); }
+
+.sims-internship-company-profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.sims-internship-company-profile h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 0 0 2px;
+}
+
+/* ============================= TOASTS ============================= */
+.sims-internship-toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10050;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sims-internship-toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--sims-navy);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 16px;
+    border-radius: 9px;
+    box-shadow: var(--sims-shadow-md);
+    min-width: 260px;
+    animation: sims-internship-toast-in 0.2s ease;
+}
+
+.sims-internship-toast i {
+    font-size: 14px;
+}
+
+.sims-internship-toast-success { background: #15803d; }
+.sims-internship-toast-error { background: #b91c1c; }
+
+@keyframes sims-internship-toast-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================= BODY SCROLL LOCK ============================= */
+body.sims-internship-modal-open {
+    overflow: hidden;
+}
+
+/* =========================================================================
+   RESPONSIVE
+========================================================================= */
+@media (max-width: 1280px) {
+    .sims-internship-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1100px) {
+    .sims-internship-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .sims-internship-form-grid,
+    .sims-internship-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sims-internship-confirm-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .sims-internship-app-summary,
+    .sims-internship-app-summary-wide {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .sims-internship-page {
+        padding: 16px;
+    }
+
+    .sims-internship-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sims-internship-header {
+        flex-direction: column;
+    }
+
+    .sims-internship-header-right {
+        width: 100%;
+    }
+
+    .sims-internship-header-right .sims-internship-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .sims-internship-filters-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sims-internship-filter-group {
+        width: 100%;
+    }
+
+    .sims-internship-filter-actions {
+        width: 100%;
+    }
+
+    .sims-internship-filter-actions .sims-internship-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .sims-internship-pagination {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .sims-internship-pagination-controls {
+        justify-content: center;
+    }
+
+    .sims-internship-modal {
+        max-height: 95vh;
+    }
+
+    .sims-internship-modal-body {
+        max-height: calc(95vh - 140px);
+    }
+}
+
+@media (max-width: 480px) {
+    .sims-internship-stats {
+        grid-template-columns: 1fr;
+    }
+}

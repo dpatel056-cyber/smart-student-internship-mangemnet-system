@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+//namesppace for database connection    
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
@@ -18,6 +19,7 @@ namespace asp.net
         DataSet ds;
         SqlCommand cmd;
 
+        //connection string from web.config file
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -30,11 +32,14 @@ namespace asp.net
             }
         }
 
+        //getcon method
         void getcon()
         {
             con = new SqlConnection(s);
             con.Open();
         }
+
+        //student fill grid method
         void studentfillgrid()
         {
             getcon();
@@ -44,6 +49,8 @@ namespace asp.net
             GridView1.DataSource = ds;
             GridView1.DataBind();
         }
+
+        //company fill grid method
         void companyfillgrid()
         {
             getcon();
@@ -54,6 +61,7 @@ namespace asp.net
             GridView2.DataBind();
         }
 
+        //student clear method
         void studentclear()
         {
             s_fullname.Text = "";
@@ -69,6 +77,7 @@ namespace asp.net
             s_location.Text = "";
         }
 
+        //company clear method  
         void companyclear()
         {
             c_company.Text = "";
@@ -82,6 +91,8 @@ namespace asp.net
             c_size.SelectedIndex = -1;
             c_location.Text = "";
         }
+
+        //student fill data method
         void studentfilldata()
         {
             getcon();
@@ -90,25 +101,22 @@ namespace asp.net
             ds = new DataSet();
             da.Fill(ds);
 
-            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                s_fullname.Text =ds.Tables[0].Rows[0]["s_fullname"].ToString();
-                s_dob.Text =ds.Tables[0].Rows[0]["s_dob"].ToString();
-                s_email.Text =ds.Tables[0].Rows[0]["s_email"].ToString();
-                s_mobile.Text =ds.Tables[0].Rows[0]["s_mobile"].ToString();
-                s_enrollment.Text =ds.Tables[0].Rows[0]["s_enrollment"].ToString();
-                s_password.Text =ds.Tables[0].Rows[0]["s_password"].ToString();
-                s_confirm.Text =ds.Tables[0].Rows[0]["s_confirm"].ToString();
-                s_college.Text =ds.Tables[0].Rows[0]["s_college"].ToString();
-                s_course.SelectedValue = ds.Tables[0].Rows[0]["s_course"].ToString();
-                s_gradeyear.SelectedValue = ds.Tables[0].Rows[0]["s_gradeyear"].ToString();
-                s_location.Text = ds.Tables[0].Rows[0]["s_location"].ToString();
-            }
-            else
-            {
-                Label1.Text = "Student record not found!";
-            }
+            //paring
+            s_fullname.Text =ds.Tables[0].Rows[0]["s_fullname"].ToString();
+            s_dob.Text =ds.Tables[0].Rows[0]["s_dob"].ToString();
+            s_email.Text =ds.Tables[0].Rows[0]["s_email"].ToString();
+            s_mobile.Text =ds.Tables[0].Rows[0]["s_mobile"].ToString();
+            s_enrollment.Text =ds.Tables[0].Rows[0]["s_enrollment"].ToString();
+            s_password.Text =ds.Tables[0].Rows[0]["s_password"].ToString();
+            s_confirm.Text =ds.Tables[0].Rows[0]["s_confirm"].ToString();
+            s_college.Text =ds.Tables[0].Rows[0]["s_college"].ToString();
+            s_course.SelectedValue = ds.Tables[0].Rows[0]["s_course"].ToString();
+            s_gradeyear.SelectedValue = ds.Tables[0].Rows[0]["s_gradeyear"].ToString();
+            s_location.Text = ds.Tables[0].Rows[0]["s_location"].ToString();
+           
         }
+
+        //company fill data method
         void companyfilldata()
         {
             getcon();
@@ -117,24 +125,21 @@ namespace asp.net
             ds = new DataSet();
             da.Fill(ds);
 
-            if (ds.Tables.Count > 0 &&ds.Tables[0].Rows.Count > 0)
-            {
-                c_company.Text =ds.Tables[0].Rows[0]["c_company"].ToString();
-                c_contact.Text =ds.Tables[0].Rows[0]["c_contact"].ToString();
-                c_email.Text =ds.Tables[0].Rows[0]["c_email"].ToString();
-                c_mobile.Text =ds.Tables[0].Rows[0]["c_mobile"].ToString();
-                c_password.Text =ds.Tables[0].Rows[0]["c_password"].ToString();
-                c_confirm.Text =ds.Tables[0].Rows[0]["c_confirm"].ToString();
-                c_website.Text =ds.Tables[0].Rows[0]["c_website"].ToString();
-                c_industry.SelectedValue = ds.Tables[0].Rows[0]["c_industry"].ToString();
-                c_size.SelectedValue = ds.Tables[0].Rows[0]["c_size"].ToString();
-                c_location.Text = ds.Tables[0].Rows[0]["c_location"].ToString();
-            }
-            else
-            {
-                Label1.Text = "Company record not found!";
-            }
+            //paring
+            c_company.Text =ds.Tables[0].Rows[0]["c_company"].ToString();
+            c_contact.Text =ds.Tables[0].Rows[0]["c_contact"].ToString();
+            c_email.Text =ds.Tables[0].Rows[0]["c_email"].ToString();
+            c_mobile.Text =ds.Tables[0].Rows[0]["c_mobile"].ToString();
+            c_password.Text =ds.Tables[0].Rows[0]["c_password"].ToString();
+            c_confirm.Text =ds.Tables[0].Rows[0]["c_confirm"].ToString();
+            c_website.Text =ds.Tables[0].Rows[0]["c_website"].ToString();
+            c_industry.SelectedValue = ds.Tables[0].Rows[0]["c_industry"].ToString();
+            c_size.SelectedValue = ds.Tables[0].Rows[0]["c_size"].ToString();
+            c_location.Text = ds.Tables[0].Rows[0]["c_location"].ToString();
+           
         }
+
+        //insert update for company and student
         protected void ImageButton2_Click(object sender,ImageClickEventArgs e)
         {
             string role = hfSelectedRole.Value;
@@ -192,6 +197,7 @@ namespace asp.net
             }
         }
 
+        //gridview for student data
         protected void GridView1_RowCommand(object sender,GridViewCommandEventArgs e)
         {
             if (e.CommandName == "cmd_edt_s")
@@ -215,6 +221,7 @@ namespace asp.net
             }
         }
 
+        //gridview for company data
         protected void GridView2_RowCommand(object sender,GridViewCommandEventArgs e)
         {
             if (e.CommandName == "cmd_edt_c")
