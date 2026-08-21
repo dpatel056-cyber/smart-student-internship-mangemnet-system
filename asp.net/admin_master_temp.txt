@@ -1,0 +1,408 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="admin.master.cs" Inherits="asp.net.admin" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - SIMS | Smart Student Internship Management System</title>
+    <meta name="description" content="SIMS Admin Dashboard - Full platform monitoring and management.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<%= ResolveUrl("~/css/style.css") %>">
+    <link rel="stylesheet" href="<%= ResolveUrl("~/css/company-module.css") %>">
+    <style>
+        .adm-stat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(185px,1fr)); gap:16px; margin-bottom:26px; }
+        .adm-stat-card { background:#fff; border:1px solid var(--border-light, #e2e8f0); border-radius:12px; padding:18px 16px; display:flex; align-items:center; gap:14px; transition:box-shadow .2s,transform .2s; cursor:pointer; text-decoration:none; }
+        .adm-stat-card:hover { box-shadow:0 8px 24px rgba(0,0,0,.07); transform:translateY(-2px); }
+        .adm-stat-icon { width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0; }
+        .adm-stat-num  { font-size:24px;font-weight:800;color:var(--text-dark, #0f172a);line-height:1; }
+        .adm-stat-lbl  { font-size:12px;color:var(--text-muted, #64748b);margin-top:3px; }
+        .adm-stat-chg  { font-size:11px;margin-top:3px; }
+        .chg-up   { color:#16a34a; } .chg-down { color:#ef4444; } .chg-warn { color:#f59e0b; }
+
+        .adm-qa-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;margin-bottom:26px; }
+        .adm-qa-card { background:#fff;border:1px solid var(--border-light, #e2e8f0);border-radius:12px;padding:18px 12px;text-align:center;text-decoration:none;color:inherit;transition:all .2s; }
+        .adm-qa-card:hover { border-color:var(--primary, #2563eb);box-shadow:0 4px 16px rgba(37,99,235,.1);transform:translateY(-2px); }
+        .adm-qa-icon { width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin:0 auto 10px; }
+        .adm-qa-card h4 { font-size:12.5px;font-weight:600;color:var(--text-dark, #0f172a);margin:0; }
+
+        .adm-bar-chart  { display:flex;align-items:flex-end;gap:8px;height:160px;padding-top:12px; }
+        .adm-bar-col    { flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end; }
+        .adm-bar        { width:100%;border-radius:5px 5px 0 0;min-height:4px;transition:height .5s; }
+        .adm-bar-lbl    { font-size:10.5px;color:var(--text-muted, #64748b); }
+        .adm-bar-val    { font-size:10.5px;font-weight:700;color:var(--text-dark, #0f172a); }
+
+        .donut-ring  { position:relative;width:140px;height:140px;margin:0 auto 16px; }
+        .donut-svg   { transform:rotate(-90deg); }
+        .donut-label { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center; }
+        .donut-label .num { font-size:24px;font-weight:800;color:var(--text-dark, #0f172a); }
+        .donut-label .sub { font-size:11px;color:var(--text-muted, #64748b); }
+
+        .activity-item { display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border-light, #e2e8f0); }
+        .activity-item:last-child { border-bottom:none; }
+        .act-dot { width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0; }
+
+        /* ===================================================================
+           ADMIN SIDEBAR (self-contained — scoped to admin.Master only)
+           Accordion submenus are pure Vanilla JS (see the script block at the
+           bottom of this page): closed by default, one open at a time, with
+           a smooth CSS max-height/opacity transition on .asb-submenu.
+        =================================================================== */
+        #dashboardSidebar{ display:flex; flex-direction:column; padding:0; overflow:visible; }
+        .asb-shell{ display:flex; flex-direction:column; height:100%; min-height:0; }
+
+        /* ---- Brand ---- */
+        .asb-brand{
+            display:flex; align-items:center; justify-content:space-between; gap:10px;
+            padding:20px 16px; border-bottom:1px solid rgba(255,255,255,.08); flex-shrink:0;
+        }
+        .asb-brand-link{ display:flex; align-items:center; gap:12px; min-width:0; }
+        .asb-brand-icon{
+            width:42px; height:42px; border-radius:12px; flex-shrink:0;
+            background:linear-gradient(135deg,var(--blue-600),var(--blue-700));
+            display:flex; align-items:center; justify-content:center; font-size:18px; color:#fff;
+            box-shadow:0 8px 20px rgba(37,99,235,.28);
+        }
+        .asb-brand-text{ display:flex; flex-direction:column; line-height:1.25; white-space:nowrap; overflow:hidden; }
+        .asb-brand-name{ font-size:16.5px; font-weight:700; color:#fff; }
+        .asb-brand-sub{ font-size:10.5px; color:#9aa5c8; }
+
+        /* ---- Nav scroll area ---- */
+        .asb-nav{ flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; padding:14px 12px 10px; display:flex; flex-direction:column; gap:5px; }
+        .asb-nav::-webkit-scrollbar{ width:5px; }
+        .asb-nav::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.16); border-radius:999px; }
+
+        /* ---- Top-level link (Dashboard) & group header buttons share this look ---- */
+        .asb-link, .asb-group-btn{
+            position:relative; width:100%; display:flex; align-items:center; gap:12px;
+            padding:10px 12px; border-radius:12px; font-size:13.8px; font-weight:500;
+            color:#c3cbe6; transition:all .2s ease; text-align:left;
+        }
+        .asb-link::before, .asb-group-btn::before{
+            content:""; position:absolute; left:0; top:50%; transform:translateY(-50%);
+            width:3px; height:0; border-radius:0 10px 10px 0; background:#fff; transition:height .2s ease;
+        }
+        .asb-link:hover, .asb-group-btn:hover{ background:rgba(255,255,255,.07); color:#fff; }
+        .asb-link.active{ background:linear-gradient(135deg,var(--blue-600),var(--blue-700)); color:#fff; box-shadow:0 8px 22px rgba(37,99,235,.26); }
+        .asb-link.active::before{ height:60%; }
+        .asb-group-btn.active-parent{ color:#fff; background:rgba(255,255,255,.05); }
+        .asb-group-btn.active-parent::before{ height:60%; }
+
+        .asb-link-icon{
+            width:34px; min-width:34px; height:34px; border-radius:10px; display:flex;
+            align-items:center; justify-content:center; background:rgba(255,255,255,.07);
+            color:#dbe3ff; font-size:13.5px; flex-shrink:0;
+        }
+        .asb-link.active .asb-link-icon, .asb-group-btn.active-parent .asb-link-icon{ background:rgba(255,255,255,.22); color:#fff; }
+        .asb-link-label{ flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .asb-chevron{ font-size:11px; color:#8da0d6; transition:transform .28s ease; flex-shrink:0; }
+        .asb-group-btn[aria-expanded="true"] .asb-chevron{ transform:rotate(180deg); }
+
+        /* ---- Submenu — closed by default; JS sets an inline max-height to open it,
+               this max-height + opacity transition gives the smooth accordion animation. ---- */
+        .asb-submenu{
+            list-style:none; margin-left:17px; padding-left:16px; border-left:1px solid rgba(255,255,255,.09);
+            max-height:0; opacity:0; overflow:hidden;
+            transition:max-height .3s ease, opacity .25s ease, margin .3s ease;
+        }
+        .asb-submenu.open{ opacity:1; margin:2px 0 4px; }
+        .asb-sublink{
+            display:flex; align-items:center; gap:10px; padding:8px 10px; margin:2px 0;
+            border-radius:9px; font-size:13px; color:#c3cbe6; transition:all .18s ease; white-space:nowrap;
+        }
+        .asb-sublink i{ width:16px; text-align:center; font-size:12px; color:#8da0d6; flex-shrink:0; }
+        .asb-sublink:hover{ background:rgba(255,255,255,.08); color:#fff; }
+        .asb-sublink:hover i{ color:#fff; }
+        .asb-sublink.active{ background:rgba(37,99,235,.22); color:#fff; font-weight:600; }
+        .asb-sublink.active i{ color:#fff; }
+
+        /* ---- Logout (pinned to bottom) ---- */
+        .asb-logout{ padding:10px 12px 16px; border-top:1px solid rgba(255,255,255,.08); flex-shrink:0; }
+        .asb-logout .asb-link{ color:#fca5a5; }
+        .asb-logout .asb-link:hover{ background:rgba(239,68,68,.14); color:#fecaca; }
+        .asb-logout .asb-link:hover .asb-link-icon{ background:rgba(239,68,68,.22); color:#fecaca; }
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="dashboard-body">
+    <form id="form1" runat="server">
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="dashboard-shell">
+            <!-- Sidebar (rendered once here — automatically shared by every page that uses admin.Master) -->
+            <aside class="dashboard-sidebar" id="dashboardSidebar">
+                <div class="asb-shell">
+                    <div class="asb-brand">
+                        <a href="admin-dashboard.aspx" class="asb-brand-link" data-tooltip="SIMS Admin">
+                            <span class="asb-brand-icon"><i class="fa-solid fa-shield-halved"></i></span>
+                            <span class="asb-brand-text">
+                                <span class="asb-brand-name">SIMS</span>
+                                <span class="asb-brand-sub">Admin Panel</span>
+                            </span>
+                        </a>
+                    </div>
+
+                    <nav class="asb-nav" id="adminSidebarNav">
+                        <a href="admin-dashboard.aspx" class="asb-link" data-page="admin-dashboard.aspx" data-tooltip="Dashboard">
+                            <span class="asb-link-icon"><i class="fa-solid fa-gauge-high"></i></span>
+                            <span class="asb-link-label">Dashboard</span>
+                        </a>
+
+                        <!-- USER MANAGEMENT -->
+                        <div class="asb-group">
+                            <button type="button" class="asb-group-btn" data-target="grpUserMgmt" aria-expanded="false" aria-controls="grpUserMgmt" data-tooltip="User Management">
+                                <span class="asb-link-icon"><i class="fa-solid fa-users-gear"></i></span>
+                                <span class="asb-link-label">User Management</span>
+                                <i class="fa-solid fa-chevron-down asb-chevron"></i>
+                            </button>
+                            <ul class="asb-submenu" id="grpUserMgmt">
+                                <li><a href="admin-students.aspx" class="asb-sublink" data-page="admin-students.aspx"><i class="fa-solid fa-user-graduate"></i><span>Students</span></a></li>
+                                <li><a href="admin-student-applications.aspx" class="asb-sublink" data-page="admin-student-applications.aspx"><i class="fa-solid fa-file-lines"></i><span>Student Applications</span></a></li>
+                                <li><a href="admin-companies.aspx" class="asb-sublink" data-page="admin-companies.aspx"><i class="fa-solid fa-building"></i><span>Companies</span></a></li>
+                                <li><a href="admin-company-verification.aspx" class="asb-sublink" data-page="admin-company-verification.aspx"><i class="fa-solid fa-stamp"></i><span>Company &amp; Internship Approval</span></a></li>
+                            </ul>
+                        </div>
+
+                        <!-- INTERNSHIP MANAGEMENT -->
+                        <div class="asb-group">
+                            <button type="button" class="asb-group-btn" data-target="grpInternshipMgmt" aria-expanded="false" aria-controls="grpInternshipMgmt" data-tooltip="Internship Management">
+                                <span class="asb-link-icon"><i class="fa-solid fa-briefcase"></i></span>
+                                <span class="asb-link-label">Internship Management</span>
+                                <i class="fa-solid fa-chevron-down asb-chevron"></i>
+                            </button>
+                            <ul class="asb-submenu" id="grpInternshipMgmt">
+                                <li><a href="admin-internships.aspx" class="asb-sublink" data-page="admin-internships.aspx"><i class="fa-solid fa-layer-group"></i><span>Internships</span></a></li>
+                                <li><a href="admin-categories-skills.aspx" class="asb-sublink" data-page="admin-categories-skills.aspx"><i class="fa-solid fa-tags"></i><span>Categories &amp; Skills</span></a></li>
+                            </ul>
+                        </div>
+
+                        <!-- INTERVIEW & PLACEMENT -->
+                        <div class="asb-group">
+                            <button type="button" class="asb-group-btn" data-target="grpInterviewMgmt" aria-expanded="false" aria-controls="grpInterviewMgmt" data-tooltip="Interview & Placement">
+                                <span class="asb-link-icon"><i class="fa-solid fa-calendar-check"></i></span>
+                                <span class="asb-link-label">Interview &amp; Placement</span>
+                                <i class="fa-solid fa-chevron-down asb-chevron"></i>
+                            </button>
+                            <ul class="asb-submenu" id="grpInterviewMgmt">
+                                <li><a href="admin-interviews.aspx" class="asb-sublink" data-page="admin-interviews.aspx"><i class="fa-solid fa-comments"></i><span>Interviews</span></a></li>
+                                <li><a href="admin-certificates.aspx" class="asb-sublink" data-page="admin-certificates.aspx"><i class="fa-solid fa-award"></i><span>Placement &amp; Certificates</span></a></li>
+                            </ul>
+                        </div>
+
+                        <!-- COMMUNICATION -->
+                        <div class="asb-group">
+                            <button type="button" class="asb-group-btn" data-target="grpCommunication" aria-expanded="false" aria-controls="grpCommunication" data-tooltip="Communication">
+                                <span class="asb-link-icon"><i class="fa-solid fa-bullhorn"></i></span>
+                                <span class="asb-link-label">Communication</span>
+                                <i class="fa-solid fa-chevron-down asb-chevron"></i>
+                            </button>
+                            <ul class="asb-submenu" id="grpCommunication">
+                                <li><a href="admin-notifications.aspx" class="asb-sublink" data-page="admin-notifications.aspx"><i class="fa-solid fa-bell"></i><span>Notifications</span></a></li>
+                                <li><a href="admin-messages.aspx" class="asb-sublink" data-page="admin-messages.aspx"><i class="fa-solid fa-envelope"></i><span>Messages &amp; Contact</span></a></li>
+                            </ul>
+                        </div>
+
+                        <!-- REPORTS -->
+                        <div class="asb-group">
+                            <button type="button" class="asb-group-btn" data-target="grpReports" aria-expanded="false" aria-controls="grpReports" data-tooltip="Reports">
+                                <span class="asb-link-icon"><i class="fa-solid fa-chart-line"></i></span>
+                                <span class="asb-link-label">Reports</span>
+                                <i class="fa-solid fa-chevron-down asb-chevron"></i>
+                            </button>
+                            <ul class="asb-submenu" id="grpReports">
+                                <li><a href="ReportsAnalytics.aspx" class="asb-sublink" data-page="ReportsAnalytics.aspx"><i class="fa-solid fa-file-invoice"></i><span>Reports &amp; Analytics</span></a></li>
+                            </ul>
+                        </div>
+
+                        <!-- SETTINGS -->
+                        <div class="asb-group">
+                            <button type="button" class="asb-group-btn" data-target="grpSettings" aria-expanded="false" aria-controls="grpSettings" data-tooltip="Settings">
+                                <span class="asb-link-icon"><i class="fa-solid fa-gear"></i></span>
+                                <span class="asb-link-label">Settings</span>
+                                <i class="fa-solid fa-chevron-down asb-chevron"></i>
+                            </button>
+                            <ul class="asb-submenu" id="grpSettings">
+                                <li><a href="admin-change-password.aspx" class="asb-sublink" data-page="admin-change-password.aspx"><i class="fa-solid fa-key"></i><span>Change Password</span></a></li>
+                                <li><a href="admin-activity-logs.aspx" class="asb-sublink" data-page="admin-activity-logs.aspx"><i class="fa-solid fa-clipboard-list"></i><span>Audit Logs</span></a></li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <div class="asb-logout">
+                        <asp:LinkButton ID="lbSidebarLogout" runat="server" OnClick="lbLogout_Click" CssClass="asb-link" ToolTip="Logout">
+                            <span class="asb-link-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                            <span class="asb-link-label">Logout</span>
+                        </asp:LinkButton>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Column -->
+            <div class="dashboard-main-col">
+                <!-- Topbar -->
+                <header class="dashboard-topbar">
+                    <div class="dashboard-topbar-left">
+                        <button type="button" class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle menu">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <div class="dashboard-page-title">
+                            Admin Dashboard<span>Complete platform overview &amp; management</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-topbar-right">
+                        <button type="button" class="icon-btn dash-icon-btn" id="dashNotifBtn" aria-label="Notifications">
+                            <i class="fa-regular fa-bell"></i><span class="badge">3</span>
+                        </button>
+                        <div class="dash-profile-trigger" id="dashProfileTrigger">
+                            <span class="dash-avatar-sm" id="dashAvatarSm" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">SA</span>
+                            <span class="dash-name" id="dashNameTop">
+                                <asp:Literal ID="litAdminName" runat="server" Text="System Administrator" />
+                                <span>Administrator</span>
+                            </span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:11px;color:#94a3b8;"></i>
+                            <div class="profile-dropdown" id="profileDropdown">
+                                <a href="admin-profile.aspx"><i class="fa-solid fa-user-shield"></i> Admin Profile</a>
+                                <a href="admin-settings.aspx"><i class="fa-solid fa-gear"></i> Settings</a>
+                                <hr>
+                                <asp:LinkButton ID="lbDropdownLogout" runat="server" OnClick="lbLogout_Click" CssClass="dropdown-danger">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                                </asp:LinkButton>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Dashboard Content Area -->
+                <main class="dashboard-content">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </main>
+
+                <!-- Footer -->
+                <footer class="dashboard-footer">
+                    <p>&copy; 2026 SIMS - Smart Student Internship Management System. All rights reserved.</p>
+                </footer>
+            </div>
+        </div>
+    </form>
+
+    <!-- Sync Session with localStorage for client-side JS -->
+    <script>
+        try {
+            localStorage.setItem('simsSession', JSON.stringify({
+                role: 'admin',
+                name: '<%= Session["UserName"] != null ? Session["UserName"].ToString().Replace("'", "\\'") : "System Administrator" %>',
+                email: '<%= Session["UserEmail"] != null ? Session["UserEmail"].ToString().Replace("'", "\\'") : "admin@sims.com" %>'
+            }));
+        } catch (e) { }
+    </script>
+    <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
+    <script src="<%= ResolveUrl("~/js/script.js") %>"></script>
+
+    <!-- Admin Sidebar behaviour: mobile toggle, active-page highlighting, tooltips, accordion submenus.
+         Sidebar is always fully expanded (no collapse/icon-only mode). -->
+    <script>
+        (function () {
+            var sidebar = document.getElementById('dashboardSidebar');
+            var toggleBtn = document.getElementById('sidebarToggleBtn');
+            var backdrop = document.getElementById('sidebarBackdrop');
+            if (!sidebar) return;
+
+            /* ---- Mobile hamburger open / close ---- */
+            function openMobileSidebar() {
+                sidebar.classList.add('open');
+                if (backdrop) backdrop.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeMobileSidebar() {
+                sidebar.classList.remove('open');
+                if (backdrop) backdrop.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function () {
+                    sidebar.classList.contains('open') ? closeMobileSidebar() : openMobileSidebar();
+                });
+            }
+            if (backdrop) backdrop.addEventListener('click', closeMobileSidebar);
+
+            /* Close the mobile sidebar automatically after a nav link is tapped */
+            sidebar.querySelectorAll('.asb-link[href], .asb-sublink[href]').forEach(function (a) {
+                a.addEventListener('click', function () {
+                    if (window.innerWidth <= 992) closeMobileSidebar();
+                });
+            });
+
+            /* ---- Active page highlighting (link only — submenus stay CLOSED on load) ---- */
+            var currentPage = (window.location.pathname.split('/').pop() || 'admin-dashboard.aspx').toLowerCase();
+            if (!currentPage) currentPage = 'admin-dashboard.aspx';
+
+            sidebar.querySelectorAll('.asb-link[data-page]').forEach(function (a) {
+                if (a.getAttribute('data-page').toLowerCase() === currentPage) a.classList.add('active');
+            });
+
+            sidebar.querySelectorAll('.asb-sublink[data-page]').forEach(function (a) {
+                if (a.getAttribute('data-page').toLowerCase() === currentPage) a.classList.add('active');
+            });
+
+            /* =========================================================
+               ACCORDION (pure vanilla JS)
+               - Every submenu starts CLOSED (no .open class in the markup).
+               - Clicking a group button opens ONLY that submenu.
+               - Opening one submenu closes any other submenu that was open.
+               - Clicking the currently-open group's button again closes it.
+               - Smooth animation via the CSS max-height/opacity transition
+                 on .asb-submenu, driven by setting an inline max-height.
+            ========================================================= */
+            var groupButtons = Array.prototype.slice.call(sidebar.querySelectorAll('.asb-group-btn'));
+
+            function closeGroup(btn) {
+                var submenu = document.getElementById(btn.getAttribute('data-target'));
+                if (!submenu) return;
+                submenu.style.maxHeight = '0px';
+                submenu.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                btn.classList.remove('active-parent');
+            }
+
+            function openGroup(btn) {
+                var submenu = document.getElementById(btn.getAttribute('data-target'));
+                if (!submenu) return;
+                submenu.classList.add('open');
+                submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                btn.setAttribute('aria-expanded', 'true');
+                btn.classList.add('active-parent');
+            }
+
+            groupButtons.forEach(function (btn) {
+                // Ensure a clean closed starting state regardless of any markup leftovers
+                closeGroup(btn);
+
+                btn.addEventListener('click', function () {
+                    var submenu = document.getElementById(btn.getAttribute('data-target'));
+                    var isOpen = submenu && submenu.classList.contains('open');
+
+                    // Close every group first (max one open at a time)
+                    groupButtons.forEach(closeGroup);
+
+                    // If it wasn't already open, open it now (this also makes
+                    // clicking an already-open group simply close it, since we
+                    // just closed everything above and skip re-opening here).
+                    if (!isOpen) openGroup(btn);
+                });
+            });
+
+            /* Keep open submenu's height correct if the window is resized
+               (e.g. rotating a tablet) while it's expanded. */
+            window.addEventListener('resize', function () {
+                var openBtn = groupButtons.filter(function (b) { return b.classList.contains('active-parent'); })[0];
+                if (!openBtn) return;
+                var submenu = document.getElementById(openBtn.getAttribute('data-target'));
+                if (submenu) submenu.style.maxHeight = submenu.scrollHeight + 'px';
+            });
+        })();
+    </script>
+</body>
+</html>

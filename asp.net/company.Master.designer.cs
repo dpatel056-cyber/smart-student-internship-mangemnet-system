@@ -69,3 +69,4 @@ namespace asp.net
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
     }
 }
+

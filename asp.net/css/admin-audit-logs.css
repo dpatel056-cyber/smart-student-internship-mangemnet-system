@@ -1,0 +1,621 @@
+﻿/* ==========================================================================
+   SIMS Admin Audit Logs Stylesheet (Matching exact UI Mockup)
+   ========================================================================== */
+
+:root {
+    --audit-primary: #2563eb;
+    --audit-primary-light: #eff6ff;
+    --audit-bg: #f8fafc;
+    --audit-card-bg: #ffffff;
+    --audit-border: #e2e8f0;
+    --audit-border-light: #f1f5f9;
+    --audit-text-main: #0f172a;
+    --audit-text-muted: #64748b;
+    --audit-text-sub: #94a3b8;
+    
+    /* Role colors */
+    --role-admin-bg: #f3e8ff;
+    --role-admin-text: #9333ea;
+    --role-company-bg: #ffedd5;
+    --role-company-text: #ea580c;
+    --role-student-bg: #dbeafe;
+    --role-student-text: #2563eb;
+
+    /* Status colors */
+    --status-active-bg: #e6f9ed;
+    --status-active-text: #16a34a;
+    --status-loggedout-bg: #f1f5f9;
+    --status-loggedout-text: #475569;
+    --status-failed-bg: #fee2e2;
+    --status-failed-text: #dc2626;
+}
+
+.sims-audit-page-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 8px 4px 30px 4px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--audit-text-main);
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   1. STATS GRID (4 Top Cards)
+   ========================================================================== */
+.audit-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.audit-stat-card {
+    background: var(--audit-card-bg);
+    border: 1px solid var(--audit-border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.audit-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+
+.audit-stat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.audit-stat-icon.icon-users {
+    background: #e0edff;
+    color: #2563eb;
+}
+
+.audit-stat-icon.icon-active {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.audit-stat-icon.icon-logout {
+    background: #ffedd5;
+    color: #f97316;
+}
+
+.audit-stat-icon.icon-failed {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.audit-stat-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.audit-stat-title {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--audit-text-muted);
+    margin-bottom: 4px;
+}
+
+.audit-stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--audit-text-main);
+    line-height: 1.1;
+    margin: 0 0 4px 0;
+    letter-spacing: -0.5px;
+}
+
+.audit-stat-sub {
+    font-size: 12px;
+    color: var(--audit-text-sub);
+    font-weight: 400;
+}
+
+/* ==========================================================================
+   2. FILTER BAR CARD
+   ========================================================================== */
+.audit-filter-card {
+    background: var(--audit-card-bg);
+    border: 1px solid var(--audit-border);
+    border-radius: 16px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    flex-wrap: wrap;
+}
+
+.audit-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.audit-filter-group.search-group {
+    flex: 1.4;
+    min-width: 220px;
+}
+
+.audit-filter-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #334155;
+    margin: 0;
+}
+
+.audit-search-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.audit-search-wrapper .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.audit-input {
+    width: 100%;
+    height: 42px;
+    border: 1px solid var(--audit-border);
+    border-radius: 10px;
+    padding: 0 14px 0 38px;
+    font-size: 13.5px;
+    color: var(--audit-text-main);
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.audit-input:focus {
+    border-color: var(--audit-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.audit-input::placeholder {
+    color: #94a3b8;
+}
+
+.audit-select-wrapper {
+    position: relative;
+    min-width: 130px;
+}
+
+.audit-select {
+    width: 100%;
+    height: 42px;
+    border: 1px solid var(--audit-border);
+    border-radius: 10px;
+    padding: 0 32px 0 14px;
+    font-size: 13.5px;
+    color: #334155;
+    background: #fff;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.audit-select:focus {
+    border-color: var(--audit-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.select-chevron {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    font-size: 11px;
+    pointer-events: none;
+}
+
+/* Custom Date Inputs */
+.audit-custom-dates-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.custom-date-input {
+    padding: 0 10px !important;
+    font-size: 13px !important;
+    width: 135px !important;
+}
+
+.custom-date-sep {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.audit-filter-group.action-group {
+    margin-left: auto;
+}
+
+.audit-btn-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.audit-btn-search {
+    height: 42px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.audit-btn-search:hover {
+    background: #1d4ed8;
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+}
+
+.audit-btn-reset {
+    height: 42px;
+    padding: 0 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f1f5f9;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.audit-btn-reset:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+/* ==========================================================================
+   3. TABLE CARD & DATA (NO HORIZONTAL SCROLLBAR ON DESKTOP)
+   ========================================================================== */
+.audit-table-card {
+    background: var(--audit-card-bg);
+    border: 1px solid var(--audit-border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    width: 100%;
+}
+
+.audit-table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.audit-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.audit-data-table thead th {
+    padding: 14px 14px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #0f172a;
+    background: #fff;
+    border-bottom: 1px solid var(--audit-border);
+    white-space: nowrap;
+}
+
+.audit-data-table tbody tr {
+    border-bottom: 1px solid var(--audit-border-light);
+    transition: background-color 0.15s ease;
+}
+
+.audit-data-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.audit-data-table tbody tr:hover {
+    background-color: #fbfcfe;
+}
+
+.audit-data-table tbody td {
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #334155;
+    vertical-align: middle;
+}
+
+/* User Column */
+.audit-user-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.audit-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #e2e8f0;
+    flex-shrink: 0;
+}
+
+.audit-username {
+    font-weight: 600;
+    color: var(--audit-text-main);
+    font-size: 13px;
+}
+
+.audit-email {
+    color: #475569;
+    font-size: 13px;
+    word-break: break-word;
+}
+
+/* Role Badges */
+.role-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.role-badge.role-admin {
+    background: var(--role-admin-bg);
+    color: var(--role-admin-text);
+}
+
+.role-badge.role-company {
+    background: var(--role-company-bg);
+    color: var(--role-company-text);
+}
+
+.role-badge.role-student {
+    background: var(--role-student-bg);
+    color: var(--role-student-text);
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.status-badge.status-active {
+    background: var(--status-active-bg);
+    color: var(--status-active-text);
+}
+.status-badge.status-active .status-dot {
+    background: var(--status-active-text);
+}
+
+.status-badge.status-loggedout {
+    background: var(--status-loggedout-bg);
+    color: var(--status-loggedout-text);
+}
+.status-badge.status-loggedout .status-dot {
+    background: var(--status-loggedout-text);
+}
+
+.status-badge.status-failed {
+    background: var(--status-failed-bg);
+    color: var(--status-failed-text);
+}
+.status-badge.status-failed .status-dot {
+    background: var(--status-failed-text);
+}
+
+/* Duration Column */
+.audit-duration {
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.duration-ongoing {
+    display: block;
+    color: #16a34a;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.audit-ip {
+    color: #475569;
+    font-size: 12.5px;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   4. PAGINATION BAR
+   ========================================================================== */
+.audit-pagination-bar {
+    padding: 14px 20px;
+    border-top: 1px solid var(--audit-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    background: #fff;
+}
+
+.audit-entries-info {
+    font-size: 13px;
+    color: var(--audit-text-muted);
+    font-weight: 500;
+}
+
+.audit-pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.audit-rows-per-page {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--audit-text-muted);
+}
+
+.audit-select-mini-wrap {
+    position: relative;
+}
+
+.audit-select-mini {
+    height: 32px;
+    border: 1px solid var(--audit-border);
+    border-radius: 8px;
+    padding: 0 26px 0 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #334155;
+    background: #fff;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.select-mini-chevron {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 9px;
+    color: #64748b;
+    pointer-events: none;
+}
+
+.audit-pagination-nav {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.page-btn {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 6px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.page-btn:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.page-btn.active {
+    background: var(--audit-primary);
+    color: #fff;
+}
+
+.page-btn.page-nav-btn {
+    color: #64748b;
+    font-size: 11px;
+}
+
+.page-ellipsis {
+    color: #94a3b8;
+    font-size: 13px;
+    padding: 0 2px;
+    user-select: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE QUERIES
+   ========================================================================== */
+@media (max-width: 1200px) {
+    .audit-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .audit-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .audit-filter-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .audit-filter-group.action-group {
+        margin-left: 0;
+    }
+
+    .audit-btn-actions {
+        width: 100%;
+    }
+
+    .audit-btn-search,
+    .audit-btn-reset {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .audit-pagination-bar {
+        flex-direction: column;
+        align-items: center;
+    }
+}

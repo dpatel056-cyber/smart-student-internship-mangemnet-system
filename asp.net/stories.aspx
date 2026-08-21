@@ -304,7 +304,7 @@
                                 <li><a href="company-post-internship.aspx"><i class="fa-solid fa-angle-right"></i>Post Internship</a></li>
                                 <li><a href="company-manage-internships.aspx"><i class="fa-solid fa-angle-right"></i>Manage Internships</a></li>
                                 <li><a href="company-applications.aspx"><i class="fa-solid fa-angle-right"></i>View Applications</a></li>
-                                <li><a href="admin-students.aspx"><i class="fa-solid fa-angle-right"></i>Find Talents</a></li>
+                                <li><a href="AdminPanel/admin-students.aspx"><i class="fa-solid fa-angle-right"></i>Find Talents</a></li>
                                 <li><a href="company-dashboard.aspx"><i class="fa-solid fa-angle-right"></i>Company Dashboard</a></li>
                                 <li><a href="company-reports.aspx"><i class="fa-solid fa-angle-right"></i>Reports</a></li>
                                 <li><a href="company-profile.aspx"><i class="fa-solid fa-angle-right"></i>Company Profile</a></li>
@@ -451,4 +451,6 @@
                     </div>
                 </header>
 </asp:Content>
+
+
 

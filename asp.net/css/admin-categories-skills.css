@@ -1,0 +1,1297 @@
+/* =====================================================================
+   SIMS – CATEGORIES & SKILLS MANAGEMENT PAGE STYLES
+   All selectors are namespaced with "sims-category-skill" / "sims-category"
+   / "sims-skill" to avoid conflicts with admin.Master.
+===================================================================== */
+
+.sims-category-skill-page {
+    --sims-primary: #2563eb;
+    --sims-primary-dark: #1d4ed8;
+    --sims-primary-light: #eff6ff;
+    --sims-navy: #0f172a;
+    --sims-text: #1e293b;
+    --sims-text-muted: #64748b;
+    --sims-border: #e2e8f0;
+    --sims-bg: #f8fafc;
+    --sims-white: #ffffff;
+    --sims-green: #16a34a;
+    --sims-green-light: #ecfdf5;
+    --sims-orange: #ea580c;
+    --sims-orange-light: #fff7ed;
+    --sims-red: #dc2626;
+    --sims-red-light: #fef2f2;
+    --sims-gray: #64748b;
+    --sims-gray-light: #f1f5f9;
+    --sims-purple: #7c3aed;
+    --sims-purple-light: #f5f3ff;
+    --sims-radius: 10px;
+    --sims-radius-sm: 8px;
+    --sims-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.06);
+    --sims-shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+
+    font-family: "Inter", "Poppins", -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--sims-text);
+    max-width: 100%;
+}
+
+.sims-category-skill-page * {
+    box-sizing: border-box;
+}
+
+/* ================= HEADER ================= */
+.sims-category-skill-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.sims-category-skill-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--sims-text-muted);
+    margin-bottom: 8px;
+}
+
+.sims-category-skill-breadcrumb i {
+    font-size: 10px;
+    color: #cbd5e1;
+}
+
+.sims-category-skill-breadcrumb-current {
+    color: var(--sims-primary);
+    font-weight: 600;
+}
+
+.sims-category-skill-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 0 0 6px 0;
+    letter-spacing: -0.01em;
+}
+
+.sims-category-skill-subtitle {
+    font-size: 14px;
+    color: var(--sims-text-muted);
+    margin: 0;
+    max-width: 560px;
+}
+
+.sims-category-skill-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ================= BUTTONS ================= */
+.sims-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: var(--sims-radius-sm);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    line-height: 1.2;
+}
+
+.sims-btn i {
+    font-size: 12.5px;
+}
+
+.sims-btn-sm {
+    padding: 7px 12px;
+    font-size: 12.5px;
+}
+
+.sims-btn-primary {
+    background: var(--sims-primary);
+    color: #fff;
+    box-shadow: 0 1px 2px rgba(37, 99, 235, 0.25);
+}
+.sims-btn-primary:hover {
+    background: var(--sims-primary-dark);
+}
+
+.sims-btn-secondary {
+    background: var(--sims-navy);
+    color: #fff;
+}
+.sims-btn-secondary:hover {
+    background: #1e293b;
+}
+
+.sims-btn-outline {
+    background: #fff;
+    color: var(--sims-text);
+    border-color: var(--sims-border);
+}
+.sims-btn-outline:hover {
+    background: var(--sims-gray-light);
+    border-color: #cbd5e1;
+}
+
+.sims-btn-ghost {
+    background: transparent;
+    color: var(--sims-text-muted);
+    border-color: transparent;
+}
+.sims-btn-ghost:hover {
+    background: var(--sims-gray-light);
+    color: var(--sims-text);
+}
+
+.sims-btn-danger {
+    background: var(--sims-red);
+    color: #fff;
+}
+.sims-btn-danger:hover {
+    background: #b91c1c;
+}
+
+.sims-btn-warning {
+    background: var(--sims-orange);
+    color: #fff;
+}
+.sims-btn-warning:hover {
+    background: #c2410c;
+}
+
+.sims-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.sims-text-danger {
+    color: var(--sims-red) !important;
+}
+
+/* ================= STATISTICS CARDS ================= */
+.sims-category-skill-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.sims-category-skill-stat-card {
+    background: var(--sims-white);
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius);
+    padding: 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    box-shadow: var(--sims-shadow);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sims-category-skill-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sims-shadow-md);
+}
+
+.sims-stat-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: var(--sims-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.sims-stat-icon-blue { background: var(--sims-primary-light); color: var(--sims-primary); }
+.sims-stat-icon-green { background: var(--sims-green-light); color: var(--sims-green); }
+.sims-stat-icon-purple { background: var(--sims-purple-light); color: var(--sims-purple); }
+.sims-stat-icon-orange { background: var(--sims-orange-light); color: var(--sims-orange); }
+
+.sims-stat-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 0 0 2px 0;
+    line-height: 1.2;
+}
+
+.sims-stat-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sims-text);
+    margin: 0 0 2px 0;
+}
+
+.sims-stat-desc {
+    font-size: 12px;
+    color: var(--sims-text-muted);
+}
+
+/* ================= MAIN LAYOUT ================= */
+.sims-category-skill-main-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.sims-category-section,
+.sims-skill-section {
+    background: var(--sims-white);
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius);
+    box-shadow: var(--sims-shadow);
+    padding: 20px;
+}
+
+.sims-section-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.sims-section-title {
+    font-size: 16.5px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 0 0 4px 0;
+}
+
+.sims-section-subtitle {
+    font-size: 12.5px;
+    color: var(--sims-text-muted);
+    margin: 0;
+}
+
+/* ================= TOOLBAR ================= */
+.sims-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.sims-search-box {
+    position: relative;
+    flex: 1;
+    min-width: 180px;
+}
+
+.sims-search-box i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.sims-search-box input {
+    width: 100%;
+    padding: 9px 12px 9px 34px;
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+    font-size: 13px;
+    font-family: inherit;
+    background: var(--sims-bg);
+    color: var(--sims-text);
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+.sims-search-box input:focus {
+    border-color: var(--sims-primary);
+    background: #fff;
+}
+
+.sims-filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.sims-select {
+    padding: 9px 30px 9px 12px;
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+    font-size: 12.5px;
+    font-family: inherit;
+    color: var(--sims-text);
+    background: #fff;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2364748b'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+.sims-select:focus {
+    border-color: var(--sims-primary);
+}
+
+/* ================= BULK TOOLBAR ================= */
+.sims-bulk-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: var(--sims-primary-light);
+    border: 1px solid #bfdbfe;
+    border-radius: var(--sims-radius-sm);
+    padding: 10px 14px;
+    margin-bottom: 14px;
+}
+
+.sims-bulk-count {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--sims-primary-dark);
+}
+
+.sims-bulk-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* ================= TABLE ================= */
+.sims-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+}
+
+.sims-category-table,
+.sims-skill-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 620px;
+    font-size: 12.75px;
+}
+
+.sims-category-table thead th,
+.sims-skill-table thead th {
+    background: var(--sims-bg);
+    text-align: left;
+    padding: 11px 12px;
+    font-weight: 700;
+    color: var(--sims-text-muted);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid var(--sims-border);
+    white-space: nowrap;
+}
+
+.sims-category-table tbody td,
+.sims-skill-table tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+    color: var(--sims-text);
+}
+
+.sims-category-table tbody tr:last-child td,
+.sims-skill-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.sims-category-table tbody tr:hover,
+.sims-skill-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+.sims-col-check {
+    width: 36px;
+}
+
+.sims-col-actions {
+    width: 56px;
+    text-align: right;
+}
+
+.sims-desc-cell {
+    max-width: 220px;
+    color: var(--sims-text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sims-category-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sims-category-icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 8px;
+    background: var(--sims-primary-light);
+    color: var(--sims-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+}
+
+.sims-category-code {
+    display: block;
+    font-size: 11px;
+    color: var(--sims-text-muted);
+    margin-top: 1px;
+}
+
+input[type="checkbox"].sims-row-check,
+#categorySelectAll,
+#skillSelectAll {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--sims-primary);
+    cursor: pointer;
+}
+
+/* ================= STATUS BADGES ================= */
+.sims-category-status,
+.sims-skill-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+}
+
+.sims-category-status i,
+.sims-skill-status i {
+    font-size: 6px;
+}
+
+.sims-status-active {
+    background: var(--sims-green-light);
+    color: var(--sims-green);
+}
+
+.sims-status-inactive {
+    background: var(--sims-gray-light);
+    color: var(--sims-gray);
+}
+
+/* ================= SKILL TYPE BADGES ================= */
+.sims-skill-type {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+}
+
+.sims-type-technical { background: var(--sims-primary-light); color: var(--sims-primary); }
+.sims-type-framework { background: var(--sims-purple-light); color: var(--sims-purple); }
+.sims-type-database { background: var(--sims-orange-light); color: var(--sims-orange); }
+.sims-type-soft-skill { background: var(--sims-green-light); color: var(--sims-green); }
+.sims-type-tool { background: #fdf4ff; color: #a21caf; }
+.sims-type-other { background: var(--sims-gray-light); color: var(--sims-gray); }
+
+/* ================= ACTION DROPDOWN ================= */
+.sims-category-action-menu,
+.sims-skill-action-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.sims-action-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--sims-text-muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.sims-action-btn:hover {
+    background: var(--sims-gray-light);
+    color: var(--sims-text);
+}
+
+.sims-action-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 4px);
+    min-width: 190px;
+    background: #fff;
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+    box-shadow: var(--sims-shadow-md);
+    z-index: 500;
+    padding: 6px;
+    overflow: visible;
+}
+
+.sims-action-dropdown.sims-open-up {
+    top: auto;
+    bottom: calc(100% + 4px);
+}
+
+.sims-category-action-menu.sims-menu-active .sims-action-dropdown,
+.sims-skill-action-menu.sims-menu-active .sims-action-dropdown {
+    display: block;
+}
+
+.sims-action-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 12.75px;
+    color: var(--sims-text);
+    text-decoration: none;
+    transition: background 0.12s ease;
+}
+
+.sims-action-item i {
+    width: 14px;
+    font-size: 12px;
+    color: var(--sims-text-muted);
+}
+
+.sims-action-item:hover {
+    background: var(--sims-gray-light);
+}
+
+.sims-action-item.sims-text-danger i {
+    color: var(--sims-red);
+}
+
+/* Ensure the last few rows' dropdown isn't clipped by table scroll */
+.sims-table-wrapper {
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+/* ================= EMPTY STATE ================= */
+.sims-empty-state {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+    text-align: center;
+}
+
+.sims-empty-state i {
+    font-size: 34px;
+    color: #cbd5e1;
+    margin-bottom: 12px;
+}
+
+.sims-empty-state h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 0 0 4px 0;
+}
+
+.sims-empty-state p {
+    font-size: 12.75px;
+    color: var(--sims-text-muted);
+    margin: 0 0 14px 0;
+}
+
+/* ================= PAGINATION ================= */
+.sims-category-skill-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.sims-pagination-info {
+    font-size: 12px;
+    color: var(--sims-text-muted);
+}
+
+.sims-pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sims-page-btn {
+    padding: 7px 11px;
+    border: 1px solid var(--sims-border);
+    background: #fff;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--sims-text);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.sims-page-btn:hover:not(:disabled) {
+    background: var(--sims-gray-light);
+}
+
+.sims-page-active {
+    background: var(--sims-primary);
+    color: #fff;
+    border-color: var(--sims-primary);
+}
+
+.sims-page-size {
+    padding: 7px 26px 7px 10px;
+}
+
+/* ================= WIDGETS (Most Used Skills / Distribution / Activity) ================= */
+.sims-most-used-skills,
+.sims-category-distribution,
+.sims-category-skill-activity {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--sims-border);
+}
+
+.sims-widget-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 0 0 14px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sims-widget-title i {
+    color: var(--sims-primary);
+    font-size: 13px;
+}
+
+.sims-progress-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 40px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.sims-progress-label {
+    font-size: 12.5px;
+    color: var(--sims-text);
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sims-progress-track {
+    height: 8px;
+    background: var(--sims-gray-light);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.sims-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--sims-orange), #f97316);
+    border-radius: 999px;
+}
+
+.sims-progress-fill.sims-fill-blue {
+    background: linear-gradient(90deg, var(--sims-primary), #60a5fa);
+}
+
+.sims-progress-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--sims-text-muted);
+    text-align: right;
+}
+
+/* ================= SECONDARY WIDGETS ROW ================= */
+.sims-category-skill-widgets-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.sims-category-distribution,
+.sims-category-skill-activity {
+    background: var(--sims-white);
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius);
+    box-shadow: var(--sims-shadow);
+    padding: 20px;
+    margin-top: 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--sims-border);
+}
+
+/* ================= RECENT ACTIVITY ================= */
+.sims-activity-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.sims-activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.sims-activity-icon {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.sims-activity-icon-add { background: var(--sims-green-light); color: var(--sims-green); }
+.sims-activity-icon-update { background: var(--sims-primary-light); color: var(--sims-primary); }
+.sims-activity-icon-warning { background: var(--sims-orange-light); color: var(--sims-orange); }
+.sims-activity-icon-delete { background: var(--sims-red-light); color: var(--sims-red); }
+
+.sims-activity-text p {
+    margin: 0 0 2px 0;
+    font-size: 12.75px;
+    color: var(--sims-text);
+}
+
+.sims-activity-time {
+    font-size: 11.5px;
+    color: var(--sims-text-muted);
+}
+
+/* =====================================================================
+   MODALS
+===================================================================== */
+.sims-category-skill-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    z-index: 9998;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.sims-category-skill-modal-overlay.sims-modal-visible {
+    display: flex;
+}
+
+.sims-category-skill-modal {
+    position: relative;
+    z-index: 9999;
+    background: #fff;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.35);
+    animation: simsModalPop 0.18s ease;
+}
+
+.sims-category-skill-modal.sims-modal-sm {
+    max-width: 440px;
+}
+
+@keyframes simsModalPop {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.sims-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--sims-border);
+}
+
+.sims-modal-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 0;
+}
+
+.sims-modal-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background: var(--sims-gray-light);
+    color: var(--sims-text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.sims-modal-close:hover {
+    background: #e2e8f0;
+    color: var(--sims-text);
+}
+
+.sims-category-skill-modal-body {
+    padding: 22px;
+    overflow-y: auto;
+    max-height: calc(90vh - 150px);
+}
+
+.sims-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 22px;
+    border-top: 1px solid var(--sims-border);
+    flex-wrap: wrap;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+/* ================= FORMS ================= */
+.sims-category-skill-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sims-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.sims-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sims-form-group label {
+    font-size: 12.75px;
+    font-weight: 600;
+    color: var(--sims-text);
+}
+
+.sims-required {
+    color: var(--sims-red);
+}
+
+.sims-form-group input[type="text"],
+.sims-form-group textarea,
+.sims-form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--sims-text);
+    outline: none;
+    background: #fff;
+    transition: border-color 0.15s ease;
+    min-height: 42px;
+}
+
+.sims-form-group textarea {
+    min-height: 78px;
+    resize: vertical;
+}
+
+.sims-form-group input:focus,
+.sims-form-group textarea:focus,
+.sims-form-group select:focus {
+    border-color: var(--sims-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* ================= INFO CARDS (View modals) ================= */
+.sims-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.sims-info-card {
+    background: var(--sims-bg);
+    border: 1px solid var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sims-info-card-wide {
+    grid-column: 1 / -1;
+}
+
+.sims-info-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--sims-text-muted);
+    font-weight: 700;
+}
+
+.sims-info-value {
+    font-size: 13.5px;
+    color: var(--sims-navy);
+    font-weight: 600;
+}
+
+.sims-modal-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--sims-navy);
+    margin: 4px 0 12px 0;
+}
+
+.sims-stat-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.sims-stat-mini {
+    background: var(--sims-primary-light);
+    border-radius: var(--sims-radius-sm);
+    padding: 12px;
+    text-align: center;
+}
+
+.sims-stat-mini-value {
+    display: block;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--sims-primary-dark);
+}
+
+.sims-stat-mini-label {
+    font-size: 10.5px;
+    color: var(--sims-text-muted);
+    font-weight: 600;
+}
+
+/* ================= RELATIONSHIP FLOW ================= */
+.sims-relationship-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: var(--sims-bg);
+    border: 1px dashed var(--sims-border);
+    border-radius: var(--sims-radius-sm);
+    padding: 18px;
+}
+
+.sims-flow-node {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid var(--sims-border);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 12.75px;
+    font-weight: 600;
+    color: var(--sims-text);
+    box-shadow: var(--sims-shadow);
+}
+
+.sims-flow-node i {
+    color: var(--sims-primary);
+}
+
+.sims-flow-node-tags {
+    border-radius: var(--sims-radius-sm);
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 14px;
+}
+
+.sims-flow-tag {
+    background: var(--sims-primary-light);
+    color: var(--sims-primary);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+}
+
+.sims-flow-arrow {
+    color: #cbd5e1;
+    font-size: 13px;
+}
+
+/* ================= DELETE / DANGER MODAL ================= */
+.sims-danger-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--sims-red-light);
+    color: var(--sims-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin: 0 auto 14px auto;
+}
+
+.sims-modal-message {
+    text-align: center;
+    font-size: 13.5px;
+    color: var(--sims-text);
+    margin: 0 0 14px 0;
+}
+
+.sims-modal-target-name {
+    text-align: center;
+    font-size: 13px;
+    color: var(--sims-text-muted);
+    background: var(--sims-bg);
+    border-radius: var(--sims-radius-sm);
+    padding: 10px;
+    margin-bottom: 14px;
+}
+
+.sims-modal-target-name strong {
+    color: var(--sims-navy);
+}
+
+.sims-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: var(--sims-radius-sm);
+    font-size: 12.5px;
+    line-height: 1.5;
+}
+
+.sims-alert i {
+    margin-top: 1px;
+}
+
+.sims-alert-danger {
+    background: var(--sims-red-light);
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.sims-alert-warning {
+    background: var(--sims-orange-light);
+    color: #9a3412;
+    border: 1px solid #fed7aa;
+}
+
+/* ================= TOAST NOTIFICATIONS ================= */
+.sims-toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sims-toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid var(--sims-border);
+    border-left: 4px solid var(--sims-primary);
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: var(--sims-shadow-md);
+    font-size: 13px;
+    color: var(--sims-text);
+    min-width: 260px;
+    max-width: 340px;
+    animation: simsToastIn 0.2s ease;
+}
+
+.sims-toast.sims-toast-success { border-left-color: var(--sims-green); }
+.sims-toast.sims-toast-warning { border-left-color: var(--sims-orange); }
+.sims-toast.sims-toast-danger { border-left-color: var(--sims-red); }
+
+.sims-toast i {
+    font-size: 15px;
+}
+
+.sims-toast.sims-toast-success i { color: var(--sims-green); }
+.sims-toast.sims-toast-warning i { color: var(--sims-orange); }
+.sims-toast.sims-toast-danger i { color: var(--sims-red); }
+.sims-toast.sims-toast-info i { color: var(--sims-primary); }
+
+@keyframes simsToastIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* =====================================================================
+   RESPONSIVE
+===================================================================== */
+
+/* Tablet */
+@media (max-width: 1100px) {
+    .sims-category-skill-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sims-category-skill-main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sims-category-skill-widgets-row {
+        grid-template-columns: 1fr;
+    }
+
+    .sims-form-row {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .sims-category-skill-page {
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+
+    .sims-category-skill-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sims-category-skill-header-right {
+        justify-content: flex-start;
+    }
+
+    .sims-category-skill-header-right .sims-btn span {
+        display: inline;
+    }
+
+    .sims-category-skill-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .sims-section-head {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sims-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sims-filter-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sims-select {
+        width: 100%;
+    }
+
+    .sims-category-skill-pagination {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .sims-pagination-controls {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .sims-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .sims-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sims-stat-mini-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sims-progress-row {
+        grid-template-columns: 90px 1fr 34px;
+    }
+
+    .sims-category-skill-modal {
+        max-height: 92vh;
+    }
+
+    .sims-category-skill-modal-body {
+        max-height: calc(92vh - 140px);
+    }
+
+    .sims-modal-footer {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .sims-modal-footer .sims-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

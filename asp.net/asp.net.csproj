@@ -1,4 +1,4 @@
-﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -68,7 +68,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="about.aspx" />
-    <Content Include="admin-dashboard.aspx" />
+    <Content Include="AdminPanel\admin-audit-logs.aspx" />
+    <Content Include="AdminPanel\Admin-Contact-Messages.aspx" />
+    <Content Include="AdminPanel\Admin-Categories-Skills.aspx" />
+    <Content Include="AdminPanel\admin-certificates.aspx" />
+    <Content Include="AdminPanel\admin-change-password.aspx" />
+    <Content Include="AdminPanel\admin-companies.aspx" />
+    <Content Include="AdminPanel\Admin-Company-Verification.aspx" />
+    <Content Include="AdminPanel\admin-dashboard.aspx" />
+    <Content Include="AdminPanel\admin-feedback-ratings.aspx" />
+    <Content Include="AdminPanel\Admin-Internships.aspx" />
+    <Content Include="AdminPanel\Admin-Interviews.aspx" />
+    <Content Include="AdminPanel\admin-logout.aspx" />
+    <Content Include="AdminPanel\admin-messages.aspx" />
+    <Content Include="AdminPanel\Admin-Notifications.aspx" />
+    <Content Include="AdminPanel\admin-profile.aspx" />
+
+    <Content Include="AdminPanel\Admin-Student-Applications.aspx" />
+    <Content Include="AdminPanel\admin-students.aspx" />
     <Content Include="apply now.png" />
     <Content Include="App_Data\sims.mdf" />
     <Content Include="App_Data\sims_log.ldf">
@@ -105,17 +122,37 @@
     <Content Include="assets\logo-techmahindra.svg" />
     <Content Include="assets\logo-wipro.svg" />
     <Content Include="assets\logo-zerodha.svg" />
+    <Content Include="AdminPanel\AuditLogs.aspx" />
     <Content Include="certificates-documents.aspx" />
     <Content Include="companies.aspx" />
     <Content Include="Companydashboard.aspx" />
     <Content Include="contact.aspx" />
     <Content Include="contact.png" />
+    <Content Include="css\admin-audit-logs.css" />
+    <Content Include="css\admin-categories-skills.css" />
+    <Content Include="css\admin-certificates.css" />
+    <Content Include="css\admin-change-password.css" />
+    <Content Include="css\admin-companies.css" />
+    <Content Include="css\admin-company-verification.css" />
+    <Content Include="css\admin-feedback-ratings.css" />
+    <Content Include="css\admin-internships.css" />
+    <Content Include="css\admin-interviews.css" />
+    <Content Include="css\admin-logout.css" />
+    <Content Include="css\admin-master.css" />
+    <Content Include="css\admin-messages.css" />
+    <Content Include="css\admin-notifications.css" />
+    <Content Include="css\admin-profile.css" />
+    <Content Include="css\admin-settings.css" />
+    <Content Include="css\admin-student-applications.css" />
+    <Content Include="css\admin-students.css" />
     <Content Include="css\communication-module.css" />
     <Content Include="css\company-module.css" />
+    <Content Include="css\dashboard-content.css" />
     <Content Include="css\internship-module.css" />
     <Content Include="css\interview-module.css" />
     <Content Include="css\offers-module.css" />
     <Content Include="css\profile-module.css" />
+    <Content Include="css\ReportsAnalytics.css" />
     <Content Include="css\resume-module.css" />
     <Content Include="css\settings-module.css" />
     <Content Include="css\style.css" />
@@ -234,8 +271,26 @@
     <Content Include="internship.png" />
     <Content Include="internships.aspx" />
     <Content Include="interview-schedule.aspx" />
+    <Content Include="js\admin-audit-logs.js" />
+    <Content Include="js\admin-categories-skills.js" />
+    <Content Include="js\admin-certificates.js" />
+    <Content Include="js\admin-change-password.js" />
+    <Content Include="js\admin-companies.js" />
+    <Content Include="js\admin-company-verification.js" />
+    <Content Include="js\admin-dashboard-charts.js" />
     <Content Include="js\admin-dashboard.js" />
+    <Content Include="js\admin-feedback-ratings.js" />
+    <Content Include="js\admin-internships.js" />
+    <Content Include="js\admin-interviews.js" />
+    <Content Include="js\admin-logout.js" />
+    <Content Include="js\admin-master.js" />
+    <Content Include="js\admin-messages.js" />
+    <Content Include="js\admin-notifications.js" />
+    <Content Include="js\admin-profile.js" />
     <Content Include="js\admin-reports.js" />
+    <Content Include="js\admin-settings.js" />
+    <Content Include="js\admin-student-applications.js" />
+    <Content Include="js\admin-students.js" />
     <Content Include="js\application-status.js" />
     <Content Include="js\applications.js" />
     <Content Include="js\apply-internship.js" />
@@ -253,6 +308,7 @@
     <Content Include="js\company-post-internship.js" />
     <Content Include="js\company-profile.js" />
     <Content Include="js\company-reports.js" />
+    <Content Include="js\dashboard-content.js" />
     <Content Include="js\dashboard.js" />
     <Content Include="js\dynamic-renderer.js" />
     <Content Include="js\edit-profile.js" />
@@ -282,6 +338,7 @@
     <Content Include="js\profile-completion.js" />
     <Content Include="js\profile-shared.js" />
     <Content Include="js\register.js" />
+    <Content Include="js\ReportsAnalytics.js" />
     <Content Include="js\resume-dashboard.js" />
     <Content Include="js\resume-preview.js" />
     <Content Include="js\resume-shared.js" />
@@ -310,6 +367,7 @@
     <Content Include="profile-completion.aspx" />
     <Content Include="register.aspx" />
     <Content Include="register.png" />
+    <Content Include="AdminPanel\ReportsAnalytics.aspx" />
     <Content Include="reset_password.aspx" />
     <Content Include="resume-dashboard.aspx" />
     <Content Include="resume-preview.aspx" />
@@ -330,19 +388,131 @@
     <Compile Include="about.aspx.designer.cs">
       <DependentUpon>about.aspx</DependentUpon>
     </Compile>
-    <Compile Include="admin-dashboard.aspx.cs">
-      <DependentUpon>admin-dashboard.aspx</DependentUpon>
+    <Compile Include="AdminPanel\admin-audit-logs.aspx.cs">
+      <DependentUpon>AdminPanel\admin-audit-logs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="admin-dashboard.aspx.designer.cs">
-      <DependentUpon>admin-dashboard.aspx</DependentUpon>
+    <Compile Include="AdminPanel\admin-audit-logs.aspx.designer.cs">
+      <DependentUpon>AdminPanel\admin-audit-logs.aspx</DependentUpon>
     </Compile>
-    <Compile Include="admin.Master.cs">
-      <DependentUpon>admin.Master</DependentUpon>
+    <Compile Include="AdminPanel\Admin-Contact-Messages.aspx.cs">
+      <DependentUpon>AdminPanel\Admin-Contact-Messages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="admin.Master.designer.cs">
-      <DependentUpon>admin.Master</DependentUpon>
+    <Compile Include="AdminPanel\Admin-Contact-Messages.aspx.designer.cs">
+      <DependentUpon>AdminPanel\Admin-Contact-Messages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-categories-skills.aspx.cs">
+      <DependentUpon>AdminPanel\Admin-Categories-Skills.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-categories-skills.aspx.designer.cs">
+      <DependentUpon>AdminPanel\Admin-Categories-Skills.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-certificates.aspx.cs">
+      <DependentUpon>AdminPanel\admin-certificates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-certificates.aspx.designer.cs">
+      <DependentUpon>AdminPanel\admin-certificates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-change-password.aspx.cs">
+      <DependentUpon>AdminPanel\admin-change-password.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-change-password.aspx.designer.cs">
+      <DependentUpon>AdminPanel\admin-change-password.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-companies.aspx.cs">
+      <DependentUpon>AdminPanel\admin-companies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-companies.aspx.designer.cs">
+      <DependentUpon>AdminPanel\admin-companies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-company-verification.aspx.cs">
+      <DependentUpon>AdminPanel\Admin-Company-Verification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-company-verification.aspx.designer.cs">
+      <DependentUpon>AdminPanel\Admin-Company-Verification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-dashboard.aspx.cs">
+      <DependentUpon>AdminPanel\admin-dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-dashboard.aspx.designer.cs">
+      <DependentUpon>AdminPanel\admin-dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-feedback-ratings.aspx.cs">
+      <DependentUpon>AdminPanel\admin-feedback-ratings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-feedback-ratings.aspx.designer.cs">
+      <DependentUpon>AdminPanel\admin-feedback-ratings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-internships.aspx.cs">
+      <DependentUpon>AdminPanel\Admin-Internships.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-internships.aspx.designer.cs">
+      <DependentUpon>AdminPanel\Admin-Internships.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-interviews.aspx.cs">
+      <DependentUpon>AdminPanel\Admin-Interviews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-interviews.aspx.designer.cs">
+      <DependentUpon>AdminPanel\Admin-Interviews.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-logout.aspx.cs">
+      <DependentUpon>AdminPanel\admin-logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-logout.aspx.designer.cs">
+      <DependentUpon>AdminPanel\admin-logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-messages.aspx.cs">
+      <DependentUpon>AdminPanel\admin-messages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-messages.aspx.designer.cs">
+      <DependentUpon>AdminPanel\admin-messages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-notifications.aspx.cs">
+      <DependentUpon>AdminPanel\Admin-Notifications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-notifications.aspx.designer.cs">
+      <DependentUpon>AdminPanel\Admin-Notifications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-profile.aspx.cs">
+      <DependentUpon>AdminPanel\admin-profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-profile.aspx.designer.cs">
+      <DependentUpon>AdminPanel\admin-profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-student-applications.aspx.cs">
+      <DependentUpon>AdminPanel\Admin-Student-Applications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-student-applications.aspx.designer.cs">
+      <DependentUpon>AdminPanel\Admin-Student-Applications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin-students.aspx.cs">
+      <DependentUpon>AdminPanel\admin-students.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin-students.aspx.designer.cs">
+      <DependentUpon>AdminPanel\admin-students.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\admin.Master.cs">
+      <DependentUpon>AdminPanel\admin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\admin.Master.designer.cs">
+      <DependentUpon>AdminPanel\admin.Master</DependentUpon>
     </Compile>
     <Compile Include="certificates-documents.aspx.cs">
       <DependentUpon>certificates-documents.aspx</DependentUpon>
@@ -485,6 +655,13 @@
     <Compile Include="register.aspx.designer.cs">
       <DependentUpon>register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminPanel\ReportsAnalytics.aspx.cs">
+      <DependentUpon>AdminPanel\ReportsAnalytics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\ReportsAnalytics.aspx.designer.cs">
+      <DependentUpon>AdminPanel\ReportsAnalytics.aspx</DependentUpon>
+    </Compile>
     <Compile Include="reset_password.aspx.cs">
       <DependentUpon>reset_password.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -551,7 +728,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="company.Master" />
-    <Content Include="admin.Master" />
+    <Content Include="AdminPanel\admin.Master" />
     <None Include="packages.config" />
     <Content Include="public.Master" />
     <Content Include="student.Master" />
@@ -603,3 +780,5 @@
   </Target>
   -->
 </Project>
+
+
