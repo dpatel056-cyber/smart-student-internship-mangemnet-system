@@ -1,0 +1,687 @@
+/* ==================================================
+   SIMS - Student Master Page Stylesheet
+   ================================================== */
+
+:root {
+    --sims-navy: #0F1B33;
+    --sims-navy-light: #16233F;
+    --sims-blue: #2F6FED;
+    --sims-blue-dark: #2559C7;
+    --sims-bg: #F5F7FB;
+    --sims-white: #FFFFFF;
+    --sims-text: #17233D;
+    --sims-text-secondary: #718096;
+    --sims-border: #E2E8F0;
+    --sims-success: #16A34A;
+    --sims-warning: #F59E0B;
+    --sims-danger: #EF4444;
+
+    --sidebar-width: 293px;
+    --sidebar-collapsed-width: 78px;
+    --header-height: 78px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--sims-bg);
+    color: var(--sims-text);
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* ==================================================
+   LAYOUT
+   ================================================== */
+
+.student-layout {
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ==================================================
+   SIDEBAR
+   ================================================== */
+
+.student-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--sidebar-width);
+    background-color: var(--sims-navy);
+    color: #C9D2E3;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    transition: width 0.25s ease;
+    overflow: hidden;
+}
+
+.student-layout.is-collapsed .student-sidebar {
+    width: var(--sidebar-collapsed-width);
+}
+
+.student-sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 22px;
+    height: var(--header-height);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.student-sidebar-logo {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    background-color: var(--sims-blue);
+    color: var(--sims-white);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.student-sidebar-brand-text {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--sims-white);
+    letter-spacing: 0.5px;
+    transition: opacity 0.15s ease;
+}
+
+.student-layout.is-collapsed .student-sidebar-brand-text {
+    opacity: 0;
+    width: 0;
+    display: none;
+}
+
+.student-sidebar-menu {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px 14px 20px 14px;
+}
+
+.student-sidebar-menu::-webkit-scrollbar {
+    width: 5px;
+}
+
+.student-sidebar-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+.student-sidebar-section {
+    margin-bottom: 6px;
+}
+
+.student-sidebar-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: rgba(255, 255, 255, 0.35);
+    padding: 14px 12px 6px 12px;
+    white-space: nowrap;
+}
+
+.student-layout.is-collapsed .student-sidebar-section-title {
+    display: none;
+}
+
+.student-sidebar-link,
+.student-sidebar-parent {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 12px;
+    border-radius: 8px;
+    color: #C9D2E3;
+    font-size: 14.5px;
+    font-weight: 500;
+    margin-bottom: 2px;
+    position: relative;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.student-sidebar-link:hover,
+.student-sidebar-parent:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: var(--sims-white);
+}
+
+.student-sidebar-icon {
+    width: 20px;
+    min-width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.student-sidebar-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.student-layout.is-collapsed .student-sidebar-label,
+.student-layout.is-collapsed .student-sidebar-caret {
+    display: none;
+}
+
+.student-sidebar-caret {
+    font-size: 11px;
+    transition: transform 0.2s ease;
+}
+
+.student-sidebar-parent.is-open .student-sidebar-caret {
+    transform: rotate(180deg);
+}
+
+/* Active state */
+.student-sidebar-link.student-sidebar-active,
+.student-sidebar-parent.student-sidebar-active {
+    background-color: var(--sims-blue);
+    color: var(--sims-white);
+}
+
+.student-sidebar-link.student-sidebar-active .student-sidebar-icon,
+.student-sidebar-parent.student-sidebar-active .student-sidebar-icon {
+    color: var(--sims-white);
+}
+
+.student-sidebar-link.student-sidebar-active::before,
+.student-sidebar-parent.student-sidebar-active::before {
+    content: "";
+    position: absolute;
+    left: -14px;
+    top: 8px;
+    bottom: 8px;
+    width: 4px;
+    background-color: var(--sims-white);
+    border-radius: 0 4px 4px 0;
+}
+
+/* Submenu */
+.student-sidebar-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.28s ease;
+    padding-left: 14px;
+}
+
+.student-sidebar-parent.is-open + .student-sidebar-submenu {
+    max-height: 600px;
+}
+
+.student-sidebar-submenu .student-sidebar-link {
+    font-size: 13.8px;
+    padding: 9px 12px;
+}
+
+.student-layout.is-collapsed .student-sidebar-submenu {
+    display: none;
+}
+
+/* Tooltip for collapsed state */
+.student-sidebar-tooltip {
+    position: absolute;
+    left: calc(var(--sidebar-collapsed-width) + 8px);
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--sims-navy);
+    color: var(--sims-white);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    z-index: 1200;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.student-layout.is-collapsed .student-sidebar-link:hover .student-sidebar-tooltip,
+.student-layout.is-collapsed .student-sidebar-parent:hover .student-sidebar-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==================================================
+   HEADER
+   ================================================== */
+
+.student-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: var(--sidebar-width);
+    height: var(--header-height);
+    background-color: var(--sims-white);
+    border-bottom: 1px solid var(--sims-border);
+    box-shadow: 0 1px 3px rgba(15, 27, 51, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    z-index: 900;
+    transition: left 0.25s ease;
+}
+
+.student-layout.is-collapsed .student-header {
+    left: var(--sidebar-collapsed-width);
+}
+
+.student-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.student-header-toggle {
+    background: none;
+    border: none;
+    font-size: 19px;
+    color: var(--sims-text);
+    padding: 8px 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease;
+}
+
+.student-header-toggle:hover,
+.student-header-toggle:focus-visible {
+    background-color: var(--sims-bg);
+}
+
+.student-header-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--sims-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.student-header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Search */
+.student-header-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--sims-bg);
+    border: 1px solid var(--sims-border);
+    border-radius: 8px;
+    padding: 9px 14px;
+    width: 300px;
+    transition: border-color 0.15s ease, width 0.2s ease;
+}
+
+.student-header-search:focus-within {
+    border-color: var(--sims-blue);
+}
+
+.student-header-search i {
+    color: var(--sims-text-secondary);
+    font-size: 14px;
+}
+
+.student-header-search input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 13.8px;
+    color: var(--sims-text);
+    width: 100%;
+    font-family: inherit;
+}
+
+.student-header-search input::placeholder {
+    color: var(--sims-text-secondary);
+}
+
+/* Notification */
+.student-header-notification {
+    position: relative;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: var(--sims-text);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease;
+}
+
+.student-header-notification:hover,
+.student-header-notification:focus-visible {
+    background-color: var(--sims-bg);
+}
+
+.student-header-notification-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    background-color: var(--sims-danger);
+    color: var(--sims-white);
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* Profile */
+.student-header-profile-wrap {
+    position: relative;
+}
+
+.student-header-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    padding: 6px 10px 6px 6px;
+    border-radius: 999px;
+    transition: background-color 0.15s ease;
+}
+
+.student-header-profile:hover,
+.student-header-profile:focus-visible {
+    background-color: var(--sims-bg);
+}
+
+.student-header-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: var(--sims-blue);
+    color: var(--sims-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13.5px;
+    flex-shrink: 0;
+}
+
+.student-header-profile-info {
+    text-align: left;
+    line-height: 1.25;
+}
+
+.student-header-profile-name {
+    font-size: 13.8px;
+    font-weight: 600;
+    color: var(--sims-text);
+    white-space: nowrap;
+}
+
+.student-header-profile-role {
+    font-size: 12px;
+    color: var(--sims-text-secondary);
+}
+
+.student-header-profile-caret {
+    font-size: 11px;
+    color: var(--sims-text-secondary);
+}
+
+/* Profile dropdown */
+.student-profile-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 220px;
+    background-color: var(--sims-white);
+    border: 1px solid var(--sims-border);
+    border-radius: 10px;
+    box-shadow: 0 12px 32px rgba(15, 27, 51, 0.12);
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    z-index: 950;
+}
+
+.student-profile-dropdown.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.student-profile-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 7px;
+    font-size: 13.8px;
+    font-weight: 500;
+    color: var(--sims-text);
+    transition: background-color 0.15s ease;
+}
+
+.student-profile-dropdown-item i {
+    width: 16px;
+    color: var(--sims-text-secondary);
+}
+
+.student-profile-dropdown-item:hover {
+    background-color: var(--sims-bg);
+}
+
+.student-profile-dropdown-divider {
+    height: 1px;
+    background-color: var(--sims-border);
+    margin: 6px 4px;
+}
+
+.student-profile-dropdown-item.is-danger {
+    color: var(--sims-danger);
+}
+
+.student-profile-dropdown-item.is-danger i {
+    color: var(--sims-danger);
+}
+
+/* ==================================================
+   MAIN CONTENT
+   ================================================== */
+
+.student-main {
+    margin-left: var(--sidebar-width);
+    padding-top: var(--header-height);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.25s ease;
+}
+
+.student-layout.is-collapsed .student-main {
+    margin-left: var(--sidebar-collapsed-width);
+}
+
+.student-content {
+    flex: 1;
+    padding: 28px;
+    background-color: var(--sims-bg);
+}
+
+/* ==================================================
+   FOOTER
+   ================================================== */
+
+.student-footer {
+    background-color: var(--sims-white);
+    border-top: 1px solid var(--sims-border);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--sims-text-secondary);
+}
+
+.student-footer-left {
+    font-weight: 500;
+}
+
+.student-footer-center {
+    font-weight: 500;
+}
+
+.student-footer-links {
+    display: flex;
+    gap: 16px;
+}
+
+.student-footer-links a {
+    color: var(--sims-text-secondary);
+    transition: color 0.15s ease;
+}
+
+.student-footer-links a:hover {
+    color: var(--sims-blue);
+}
+
+/* ==================================================
+   OVERLAY (mobile)
+   ================================================== */
+
+.student-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(15, 27, 51, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.student-sidebar-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==================================================
+   RESPONSIVE
+   ================================================== */
+
+@media (max-width: 1200px) {
+    .student-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 991px) {
+    .student-sidebar {
+        left: calc(-1 * var(--sidebar-width));
+        width: var(--sidebar-width) !important;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .student-layout.is-mobile-open .student-sidebar {
+        left: 0;
+    }
+
+    .student-header,
+    .student-main {
+        left: 0;
+        margin-left: 0 !important;
+    }
+
+    .student-header-search {
+        width: 220px;
+    }
+
+    .student-layout.is-collapsed .student-sidebar-brand-text,
+    .student-layout.is-mobile-open .student-sidebar-brand-text {
+        display: block;
+        opacity: 1;
+        width: auto;
+    }
+
+    .student-layout.is-mobile-open .student-sidebar-section-title,
+    .student-layout.is-mobile-open .student-sidebar-label,
+    .student-layout.is-mobile-open .student-sidebar-caret {
+        display: block;
+    }
+}
+
+@media (max-width: 767px) {
+    .student-header {
+        padding: 0 16px;
+    }
+
+    .student-header-search {
+        width: 42px;
+        padding: 9px;
+        overflow: hidden;
+    }
+
+    .student-header-search input {
+        display: none;
+    }
+
+    .student-header-profile-info {
+        display: none;
+    }
+
+    .student-header-profile-caret {
+        display: none;
+    }
+
+    .student-content {
+        padding: 15px;
+    }
+
+    .student-footer {
+        padding: 14px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

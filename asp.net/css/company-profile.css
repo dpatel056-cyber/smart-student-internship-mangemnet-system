@@ -1,0 +1,451 @@
+/* =========================================================
+   company-profile.css
+   Page-specific styles for company-profile.aspx (SIMS)
+   Scoped under .company-profile-page to avoid conflicts
+   with company.Master (header/sidebar/footer).
+========================================================= */
+
+:root{
+  --sims-navy:#0F1B33;
+  --sims-blue:#2F6FED;
+  --sims-blue-dark:#254fc4;
+  --sims-bg:#F5F7FB;
+  --sims-white:#FFFFFF;
+  --sims-text:#17233D;
+  --sims-text-secondary:#718096;
+  --sims-border:#E2E8F0;
+  --sims-success:#16A34A;
+  --sims-warning:#F59E0B;
+  --sims-danger:#EF4444;
+}
+
+.company-profile-page{
+  font-family:"Inter","Poppins",-apple-system,BlinkMacSystemFont,sans-serif;
+  color:var(--sims-text);
+  background:var(--sims-bg);
+  padding:24px;
+  max-width:1280px;
+  margin:0 auto;
+}
+
+/* ---------- Page Header ---------- */
+.company-profile-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  gap:16px;
+  margin-bottom:24px;
+}
+.company-profile-title{
+  font-size:28px;
+  font-weight:700;
+  color:var(--sims-navy);
+  margin:0 0 4px 0;
+}
+.company-profile-subtitle{
+  font-size:14px;
+  color:var(--sims-text-secondary);
+  margin:0;
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary-sims{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--sims-blue);
+  color:var(--sims-white) !important;
+  font-size:14px;
+  font-weight:600;
+  padding:10px 18px;
+  border-radius:8px;
+  text-decoration:none;
+  border:none;
+  cursor:pointer;
+  transition:background .2s ease, transform .1s ease;
+}
+.btn-primary-sims:hover{
+  background:var(--sims-blue-dark);
+}
+.btn-primary-sims:active{
+  transform:translateY(1px);
+}
+.btn-outline-sims{
+  background:transparent;
+  color:var(--sims-blue) !important;
+  border:1px solid var(--sims-blue);
+}
+.btn-outline-sims:hover{
+  background:rgba(47,111,237,0.08);
+}
+
+/* ---------- Hero Card ---------- */
+.company-profile-hero{
+  display:flex;
+  align-items:center;
+  gap:24px;
+  background:var(--sims-white);
+  border:1px solid var(--sims-border);
+  border-radius:12px;
+  box-shadow:0 1px 3px rgba(15,27,51,0.06);
+  padding:28px;
+  margin-bottom:24px;
+  flex-wrap:wrap;
+}
+.company-profile-logo-wrap{
+  flex-shrink:0;
+}
+.company-profile-logo{
+  width:96px;
+  height:96px;
+  border-radius:20px;
+  object-fit:cover;
+  background:var(--sims-bg);
+  border:1px solid var(--sims-border);
+}
+.company-profile-logo-initials{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#2F6FED,#254fc4);
+  background:var(--sims-blue);
+  color:var(--sims-white);
+  font-size:28px;
+  font-weight:700;
+}
+.company-profile-info{
+  flex:1;
+  min-width:220px;
+}
+.company-profile-name-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.company-profile-name{
+  font-size:22px;
+  font-weight:700;
+  color:var(--sims-navy);
+}
+.company-profile-industry{
+  display:block;
+  font-size:14px;
+  color:var(--sims-text-secondary);
+  margin-top:2px;
+}
+.company-profile-meta{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-top:12px;
+  font-size:14px;
+  color:var(--sims-text-secondary);
+}
+.company-profile-location,
+.company-profile-website{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  text-decoration:none;
+  color:var(--sims-text-secondary) !important;
+}
+.company-profile-website:hover{
+  color:var(--sims-blue) !important;
+}
+.company-profile-hero-action{
+  margin-left:auto;
+}
+
+/* ---------- Verification Badge ---------- */
+.badge-verification{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:600;
+  padding:4px 10px;
+  border-radius:20px;
+}
+.badge-verified{
+  background:rgba(22,163,74,0.1);
+  color:var(--sims-success);
+}
+.badge-pending{
+  background:rgba(245,158,11,0.1);
+  color:var(--sims-warning);
+}
+.badge-rejected{
+  background:rgba(239,68,68,0.1);
+  color:var(--sims-danger);
+}
+
+/* ---------- Statistics ---------- */
+.company-profile-stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:24px;
+}
+.company-profile-stat-card{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:var(--sims-white);
+  border:1px solid var(--sims-border);
+  border-radius:12px;
+  padding:18px;
+  box-shadow:0 1px 3px rgba(15,27,51,0.05);
+}
+.stat-icon{
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  flex-shrink:0;
+}
+.stat-icon-blue{background:rgba(47,111,237,0.1);color:var(--sims-blue);}
+.stat-icon-green{background:rgba(22,163,74,0.1);color:var(--sims-success);}
+.stat-icon-purple{background:rgba(124,58,237,0.1);color:#7C3AED;}
+.stat-icon-orange{background:rgba(245,158,11,0.1);color:var(--sims-warning);}
+.stat-text{
+  display:flex;
+  flex-direction:column;
+}
+.stat-value{
+  font-size:22px;
+  font-weight:700;
+  color:var(--sims-navy);
+  line-height:1.2;
+}
+.stat-label{
+  font-size:13px;
+  color:var(--sims-text-secondary);
+}
+
+/* ---------- Section / Card ---------- */
+.company-profile-section{
+  background:var(--sims-white);
+  border:1px solid var(--sims-border);
+  border-radius:12px;
+  box-shadow:0 1px 3px rgba(15,27,51,0.05);
+  padding:24px;
+  margin-bottom:24px;
+}
+.section-title{
+  font-size:18px;
+  font-weight:600;
+  color:var(--sims-navy);
+  margin:0 0 18px 0;
+}
+
+.company-profile-grid-2col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  margin-bottom:0;
+}
+.company-profile-grid-2col .company-profile-section{
+  margin-bottom:24px;
+}
+
+.company-profile-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px 24px;
+}
+.company-profile-field{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.field-full{
+  grid-column:1 / -1;
+}
+.company-profile-label{
+  font-size:13px;
+  font-weight:500;
+  color:var(--sims-text-secondary);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.company-profile-value{
+  font-size:15px;
+  font-weight:600;
+  color:var(--sims-text);
+}
+
+/* ---------- About Company ---------- */
+.about-text{
+  display:block;
+  font-size:15px;
+  line-height:1.6;
+  color:var(--sims-text);
+}
+
+/* ---------- Verification Status Box ---------- */
+.verification-box{
+  border-radius:10px;
+  padding:18px 20px;
+}
+.verification-heading{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:17px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+.verification-message{
+  font-size:14px;
+  line-height:1.5;
+  margin:0 0 8px 0;
+}
+.verification-date{
+  font-size:13px;
+  font-weight:600;
+  margin:0;
+}
+.verification-verified{
+  background:rgba(22,163,74,0.06);
+  border:1px solid rgba(22,163,74,0.25);
+  color:var(--sims-success);
+}
+.verification-verified .verification-message,
+.verification-verified .verification-date{
+  color:var(--sims-text);
+}
+.verification-pending{
+  background:rgba(245,158,11,0.06);
+  border:1px solid rgba(245,158,11,0.25);
+  color:var(--sims-warning);
+}
+.verification-pending .verification-message{
+  color:var(--sims-text);
+}
+.verification-rejected{
+  background:rgba(239,68,68,0.06);
+  border:1px solid rgba(239,68,68,0.25);
+  color:var(--sims-danger);
+}
+.verification-rejected .verification-message{
+  color:var(--sims-text);
+}
+
+/* ---------- Profile Completion ---------- */
+.completion-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.completion-percent{
+  font-size:18px;
+  font-weight:700;
+  color:var(--sims-blue);
+}
+.completion-bar-track{
+  width:100%;
+  height:10px;
+  background:var(--sims-bg);
+  border:1px solid var(--sims-border);
+  border-radius:20px;
+  overflow:hidden;
+  margin:12px 0;
+}
+.completion-bar-fill{
+  height:100%;
+  background:var(--sims-blue);
+  border-radius:20px;
+  transition:width .4s ease;
+}
+.completion-subtext{
+  font-size:14px;
+  color:var(--sims-text-secondary);
+  margin:0 0 12px 0;
+}
+.completion-missing{
+  margin-bottom:16px;
+}
+.completion-missing-label{
+  font-size:13px;
+  font-weight:600;
+  color:var(--sims-text-secondary);
+  display:block;
+  margin-bottom:6px;
+}
+.completion-missing-list{
+  margin:0;
+  padding-left:20px;
+  font-size:14px;
+  color:var(--sims-text);
+}
+.completion-missing-list li{
+  margin-bottom:4px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+/* Tablet */
+@media (max-width: 1024px){
+  .company-profile-stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .company-profile-grid-2col{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+/* Small tablet / large mobile */
+@media (max-width: 860px){
+  .company-profile-grid-2col{
+    grid-template-columns:1fr;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px){
+  .company-profile-page{
+    padding:16px;
+  }
+  .company-profile-header{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .company-profile-header .btn-primary-sims{
+    width:100%;
+    justify-content:center;
+  }
+  .company-profile-hero{
+    flex-direction:column;
+    text-align:center;
+    padding:20px;
+  }
+  .company-profile-name-row{
+    justify-content:center;
+  }
+  .company-profile-meta{
+    justify-content:center;
+  }
+  .company-profile-hero-action{
+    margin-left:0;
+    width:100%;
+  }
+  .company-profile-hero-action .btn-primary-sims{
+    width:100%;
+    justify-content:center;
+  }
+  .company-profile-stats{
+    grid-template-columns:1fr;
+  }
+  .company-profile-grid{
+    grid-template-columns:1fr;
+  }
+}
