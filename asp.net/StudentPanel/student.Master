@@ -1,0 +1,384 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="student.master.cs" Inherits="asp.net.student" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIMS - Student Panel</title>
+
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Student Master Stylesheet -->
+    <link rel="stylesheet" href="<%= ResolveUrl("~/css/student-master.css") %>" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <div class="student-layout" id="studentLayout">
+
+            <!-- ================= MOBILE OVERLAY ================= -->
+            <div class="student-sidebar-overlay" id="studentSidebarOverlay"></div>
+
+            <!-- ================= SIDEBAR ================= -->
+            <aside class="student-sidebar" id="studentSidebar" aria-label="Student sidebar navigation">
+
+                <div class="student-sidebar-brand">
+                    <div class="student-sidebar-logo">S</div>
+                    <span class="student-sidebar-brand-text">SIMS</span>
+                </div>
+
+                <nav class="student-sidebar-menu" aria-label="Student main menu">
+
+                    <!-- MAIN -->
+                    <div class="student-sidebar-section">
+                        <div class="student-sidebar-section-title">Main</div>
+
+                        <a href="<%= ResolveUrl("~/StudentPanel/student-dashboard.aspx") %>" class="student-sidebar-link">
+                            <i class="fa-solid fa-gauge-high student-sidebar-icon"></i>
+                            <span class="student-sidebar-label">Dashboard</span>
+                            <span class="student-sidebar-tooltip">Dashboard</span>
+                        </a>
+                    </div>
+
+                    <!-- PROFILE -->
+                    <div class="student-sidebar-section">
+                        <div class="student-sidebar-section-title">Profile</div>
+
+                        <div class="student-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuProfile">
+                            <i class="fa-solid fa-user student-sidebar-icon"></i>
+                            <span class="student-sidebar-label">Profile</span>
+                            <i class="fa-solid fa-chevron-down student-sidebar-caret"></i>
+                            <span class="student-sidebar-tooltip">Profile</span>
+                        </div>
+                        <div class="student-sidebar-submenu" id="submenuProfile">
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-profile.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-user student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">My Profile</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-edit-profile.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-user-pen student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Edit Profile</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-profile-completion.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-chart-pie student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Profile Completion</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-skills.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-code student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Skills</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-education.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-graduation-cap student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Education</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-resume.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-file-pdf student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Resume</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- INTERNSHIPS -->
+                    <div class="student-sidebar-section">
+                        <div class="student-sidebar-section-title">Internships</div>
+
+                        <div class="student-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuInternships">
+                            <i class="fa-solid fa-briefcase student-sidebar-icon"></i>
+                            <span class="student-sidebar-label">Internships</span>
+                            <i class="fa-solid fa-chevron-down student-sidebar-caret"></i>
+                            <span class="student-sidebar-tooltip">Internships</span>
+                        </div>
+                        <div class="student-sidebar-submenu" id="submenuInternships">
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-internships.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-briefcase student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Browse Internships</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-saved-internships.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-bookmark student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Saved Internships</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-my-applications.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-file-lines student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">My Applications</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-application-status.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-clock student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Application Status</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- INTERVIEWS -->
+                    <div class="student-sidebar-section">
+                        <div class="student-sidebar-section-title">Interviews</div>
+
+                        <div class="student-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuInterviews">
+                            <i class="fa-solid fa-calendar-check student-sidebar-icon"></i>
+                            <span class="student-sidebar-label">Interviews</span>
+                            <i class="fa-solid fa-chevron-down student-sidebar-caret"></i>
+                            <span class="student-sidebar-tooltip">Interviews</span>
+                        </div>
+                        <div class="student-sidebar-submenu" id="submenuInterviews">
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-interviews.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-calendar-check student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Interview Schedule</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-interview-details.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-calendar-days student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Interview Details</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- PLACEMENTS -->
+                    <div class="student-sidebar-section">
+                        <div class="student-sidebar-section-title">Placements</div>
+
+                        <div class="student-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuPlacements">
+                            <i class="fa-solid fa-trophy student-sidebar-icon"></i>
+                            <span class="student-sidebar-label">Placements</span>
+                            <i class="fa-solid fa-chevron-down student-sidebar-caret"></i>
+                            <span class="student-sidebar-tooltip">Placements</span>
+                        </div>
+                        <div class="student-sidebar-submenu" id="submenuPlacements">
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-placement.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-trophy student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">My Placement</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-offer-letter.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-file-signature student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Offer Letter</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-internship-certificate.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-certificate student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Internship Certificate</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- COMMUNICATION -->
+                    <div class="student-sidebar-section">
+                        <div class="student-sidebar-section-title">Communication</div>
+
+                        <div class="student-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuCommunication">
+                            <i class="fa-solid fa-comments student-sidebar-icon"></i>
+                            <span class="student-sidebar-label">Communication</span>
+                            <i class="fa-solid fa-chevron-down student-sidebar-caret"></i>
+                            <span class="student-sidebar-tooltip">Communication</span>
+                        </div>
+                        <div class="student-sidebar-submenu" id="submenuCommunication">
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-notifications.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-bell student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Notifications</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-messages.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-envelope student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Messages</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-contact.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-comments student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Contact Us</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-help-support.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-circle-question student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Help &amp; Support</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-feedback.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-star student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Feedback &amp; Ratings</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- REPORTS & ANALYTICS -->
+                    <div class="student-sidebar-section">
+                        <div class="student-sidebar-section-title">Reports &amp; Analytics</div>
+
+                        <a href="<%= ResolveUrl("~/StudentPanel/student-analytics.aspx") %>" class="student-sidebar-link">
+                            <i class="fa-solid fa-chart-line student-sidebar-icon"></i>
+                            <span class="student-sidebar-label">My Analytics</span>
+                            <span class="student-sidebar-tooltip">My Analytics</span>
+                        </a>
+                    </div>
+
+                    <!-- ACCOUNT -->
+                    <div class="student-sidebar-section">
+                        <div class="student-sidebar-section-title">Account</div>
+
+                        <div class="student-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuAccount">
+                            <i class="fa-solid fa-gear student-sidebar-icon"></i>
+                            <span class="student-sidebar-label">Account</span>
+                            <i class="fa-solid fa-chevron-down student-sidebar-caret"></i>
+                            <span class="student-sidebar-tooltip">Account</span>
+                        </div>
+                        <div class="student-sidebar-submenu" id="submenuAccount">
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-settings.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-gear student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Settings</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-change-password.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-lock student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Change Password</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-activity-history.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-clock-rotate-left student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Activity History</span>
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-login-history.aspx") %>" class="student-sidebar-link">
+                                <i class="fa-solid fa-right-to-bracket student-sidebar-icon"></i>
+                                <span class="student-sidebar-label">Login History</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- LOGOUT -->
+                    <div class="student-sidebar-section">
+                        <a href="javascript:void(0);" onclick="return showLogoutModal(event);" class="student-sidebar-link">
+                            <i class="fa-solid fa-right-from-bracket student-sidebar-icon"></i>
+                            <span class="student-sidebar-label">Logout</span>
+                            <span class="student-sidebar-tooltip">Logout</span>
+                        </a>
+                    </div>
+
+                </nav>
+            </aside>
+
+            <!-- ================= HEADER ================= -->
+            <header class="student-header" id="studentHeader">
+
+                <div class="student-header-left">
+                    <button type="button" class="student-header-toggle" id="studentSidebarToggle"
+                        aria-label="Toggle sidebar" aria-expanded="true" aria-controls="studentSidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <span class="student-header-title">Student Panel</span>
+                </div>
+
+                <div class="student-header-right">
+
+                    <div class="student-header-search" role="search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search internships, companies..." aria-label="Search internships, companies" />
+                    </div>
+
+                    <a href="<%= ResolveUrl("~/StudentPanel/student-notifications.aspx") %>" class="student-header-notification" aria-label="Notifications">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="student-header-notification-badge" id="studentNotificationBadge">5</span>
+                    </a>
+
+                    <div class="student-header-profile-wrap">
+                        <button type="button" class="student-header-profile" id="studentProfileBtn"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="studentProfileDropdown">
+                            <span class="student-header-avatar" id="studentAvatarInitials">DP</span>
+                            <span class="student-header-profile-info">
+                                <span class="student-header-profile-name" id="studentProfileName">Dhruvi Patel</span><br />
+                                <span class="student-header-profile-role">Student</span>
+                            </span>
+                            <i class="fa-solid fa-chevron-down student-header-profile-caret"></i>
+                        </button>
+
+                        <div class="student-profile-dropdown" id="studentProfileDropdown" role="menu">
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-profile.aspx") %>" class="student-profile-dropdown-item" role="menuitem">
+                                <i class="fa-solid fa-user"></i> My Profile
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-edit-profile.aspx") %>" class="student-profile-dropdown-item" role="menuitem">
+                                <i class="fa-solid fa-user-pen"></i> Edit Profile
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-settings.aspx") %>" class="student-profile-dropdown-item" role="menuitem">
+                                <i class="fa-solid fa-gear"></i> Settings
+                            </a>
+                            <a href="<%= ResolveUrl("~/StudentPanel/student-change-password.aspx") %>" class="student-profile-dropdown-item" role="menuitem">
+                                <i class="fa-solid fa-lock"></i> Change Password
+                            </a>
+                            <div class="student-profile-dropdown-divider"></div>
+                            <a href="javascript:void(0);" onclick="return showLogoutModal(event);" class="student-profile-dropdown-item is-danger" role="menuitem">
+                                <i class="fa-solid fa-right-from-bracket"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </header>
+
+            <!-- ================= MAIN CONTENT ================= -->
+            <main class="student-main">
+                <div class="student-content">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+
+                <!-- ================= FOOTER ================= -->
+                <footer class="student-footer">
+                    <div class="student-footer-left">&copy; 2026 SIMS</div>
+                    <div class="student-footer-center">Student Internship Management System</div>
+                    <div class="student-footer-links">
+                        <a href="student-privacy-policy.aspx">Privacy Policy</a>
+                        <a href="student-terms.aspx">Terms &amp; Conditions</a>
+                        <a href="student-contact.aspx">Contact Us</a>
+                    </div>
+                </footer>
+            </main>
+
+        </div>
+
+        <!-- ================= LOGOUT CONFIRMATION MODAL ================= -->
+        <div id="modalLogoutOverlay" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.45); z-index:10000; align-items:center; justify-content:center;">
+            <div style="background:#fff; width:100%; max-width:440px; border-radius:24px; padding:36px 32px 30px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.15); position:relative; margin:16px;">
+                
+                <!-- Icon -->
+                <div style="width:72px; height:72px; background:#fde8e8; border-radius:20px; display:flex; align-items:center; justify-content:center; margin:0 auto 24px auto;">
+                    <i class="fa-solid fa-arrow-right-from-bracket" style="font-size:30px; color:#ef4444;"></i>
+                </div>
+                
+                <!-- Title -->
+                <h2 style="margin:0 0 10px 0; font-size:22px; color:#0f172a; font-weight:700; letter-spacing:-0.2px;">Logout Confirmation</h2>
+                
+                <!-- Subtitle -->
+                <p style="margin:0 0 28px 0; color:#64748b; font-size:15px; line-height:1.5;">Are you sure you want to logout from SIMS<br />Student Panel?</p>
+                
+                <!-- Buttons -->
+                <div style="display:flex; gap:12px;">
+                    <button type="button" onclick="closeLogoutModal()" style="flex:1; padding:13px 0; border-radius:12px; border:none; background:#eff6ff; color:#2563eb; font-weight:700; font-size:15px; cursor:pointer;">No, Stay</button>
+                    <a href="<%= ResolveUrl("~/logout.aspx") %>" style="flex:1; padding:13px 0; border-radius:12px; border:none; background:#2563eb; color:#fff; font-weight:700; font-size:15px; text-decoration:none; display:flex; align-items:center; justify-content:center; cursor:pointer;">Yes, Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function showLogoutModal(e) {
+                if (e && e.preventDefault) e.preventDefault();
+                var overlay = document.getElementById('modalLogoutOverlay');
+                if (overlay) overlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                return false;
+            }
+            function closeLogoutModal() {
+                var overlay = document.getElementById('modalLogoutOverlay');
+                if (overlay) overlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                var overlay = document.getElementById('modalLogoutOverlay');
+                if (overlay) {
+                    overlay.addEventListener('click', function (e) {
+                        if (e.target === overlay) closeLogoutModal();
+                    });
+                }
+            });
+        </script>
+
+        <script src="<%= ResolveUrl("~/js/student-master.js") %>"></script>
+
+        <asp:ContentPlaceHolder ID="ScriptContent" runat="server">
+        </asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>

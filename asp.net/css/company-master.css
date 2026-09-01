@@ -1,0 +1,772 @@
+/* ==================================================
+   SIMS - Company Master Page Stylesheet
+   ================================================== */
+
+:root {
+    --sims-navy: #0F1B33;
+    --sims-navy-light: #16233F;
+    --sims-blue: #2F6FED;
+    --sims-blue-dark: #2559C7;
+    --sims-bg: #F5F7FB;
+    --sims-white: #FFFFFF;
+    --sims-text: #17233D;
+    --sims-text-secondary: #718096;
+    --sims-border: #E2E8F0;
+    --sims-success: #16A34A;
+    --sims-warning: #F59E0B;
+    --sims-danger: #EF4444;
+
+    --sidebar-width: 293px;
+    --sidebar-collapsed-width: 78px;
+    --header-height: 78px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--sims-bg);
+    color: var(--sims-text);
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* ==================================================
+   LAYOUT
+   ================================================== */
+
+.company-layout {
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ==================================================
+   SIDEBAR
+   ================================================== */
+
+.company-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--sidebar-width);
+    background-color: var(--sims-navy);
+    color: #C9D2E3;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    transition: width 0.25s ease;
+    overflow: hidden;
+}
+
+.company-layout.is-collapsed .company-sidebar {
+    width: var(--sidebar-collapsed-width);
+}
+
+.company-sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 22px;
+    height: var(--header-height);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.company-sidebar-logo {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    background-color: var(--sims-blue);
+    color: var(--sims-white);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.company-sidebar-brand-text {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--sims-white);
+    letter-spacing: 0.5px;
+    transition: opacity 0.15s ease;
+}
+
+.company-layout.is-collapsed .company-sidebar-brand-text {
+    opacity: 0;
+    width: 0;
+    display: none;
+}
+
+.company-sidebar-menu {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px 14px 20px 14px;
+}
+
+.company-sidebar-menu::-webkit-scrollbar {
+    width: 5px;
+}
+
+.company-sidebar-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+.company-sidebar-section {
+    margin-bottom: 6px;
+}
+
+.company-sidebar-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: rgba(255, 255, 255, 0.35);
+    padding: 14px 12px 6px 12px;
+    white-space: nowrap;
+}
+
+.company-layout.is-collapsed .company-sidebar-section-title {
+    display: none;
+}
+
+.company-sidebar-link,
+.company-sidebar-parent {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 12px;
+    border-radius: 8px;
+    color: #C9D2E3;
+    font-size: 14.5px;
+    font-weight: 500;
+    margin-bottom: 2px;
+    position: relative;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.company-sidebar-link:hover,
+.company-sidebar-parent:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: var(--sims-white);
+}
+
+.company-sidebar-icon {
+    width: 20px;
+    min-width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.company-sidebar-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.company-layout.is-collapsed .company-sidebar-label,
+.company-layout.is-collapsed .company-sidebar-caret {
+    display: none;
+}
+
+.company-sidebar-caret {
+    font-size: 11px;
+    transition: transform 0.2s ease;
+}
+
+.company-sidebar-parent.is-open .company-sidebar-caret {
+    transform: rotate(180deg);
+}
+
+/* Active state */
+.company-sidebar-link.company-sidebar-active,
+.company-sidebar-parent.company-sidebar-active {
+    background-color: var(--sims-blue);
+    color: var(--sims-white);
+}
+
+.company-sidebar-link.company-sidebar-active .company-sidebar-icon,
+.company-sidebar-parent.company-sidebar-active .company-sidebar-icon {
+    color: var(--sims-white);
+}
+
+.company-sidebar-link.company-sidebar-active::before,
+.company-sidebar-parent.company-sidebar-active::before {
+    content: "";
+    position: absolute;
+    left: -14px;
+    top: 8px;
+    bottom: 8px;
+    width: 4px;
+    background-color: var(--sims-white);
+    border-radius: 0 4px 4px 0;
+}
+
+/* Submenu */
+.company-sidebar-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.28s ease;
+    padding-left: 14px;
+}
+
+.company-sidebar-parent.is-open + .company-sidebar-submenu {
+    max-height: 600px;
+}
+
+.company-sidebar-submenu .company-sidebar-link {
+    font-size: 13.8px;
+    padding: 9px 12px;
+}
+
+.company-layout.is-collapsed .company-sidebar-submenu {
+    display: none;
+}
+
+/* Tooltip for collapsed state */
+.company-sidebar-tooltip {
+    position: absolute;
+    left: calc(var(--sidebar-collapsed-width) + 8px);
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--sims-navy);
+    color: var(--sims-white);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    z-index: 1200;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.company-layout.is-collapsed .company-sidebar-link:hover .company-sidebar-tooltip,
+.company-layout.is-collapsed .company-sidebar-parent:hover .company-sidebar-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==================================================
+   SIDEBAR BOTTOM PROFILE
+   ================================================== */
+
+.company-sidebar-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 16px 18px;
+    flex-shrink: 0;
+}
+
+.company-sidebar-bottom-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+}
+
+.company-sidebar-bottom-avatar {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 8px;
+    background-color: var(--sims-blue);
+    color: var(--sims-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.company-sidebar-bottom-info {
+    overflow: hidden;
+    line-height: 1.3;
+}
+
+.company-sidebar-bottom-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--sims-white);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.company-sidebar-bottom-role {
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.company-layout.is-collapsed .company-sidebar-bottom-info {
+    display: none;
+}
+
+.company-sidebar-bottom-logout {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 8px;
+    color: #C9D2E3;
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+}
+
+.company-sidebar-bottom-logout:hover {
+    background-color: rgba(239, 68, 68, 0.12);
+    color: #FCA5A5;
+}
+
+.company-layout.is-collapsed .company-sidebar-bottom-logout span {
+    display: none;
+}
+
+/* ==================================================
+   HEADER
+   ================================================== */
+
+.company-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: var(--sidebar-width);
+    height: var(--header-height);
+    background-color: var(--sims-white);
+    border-bottom: 1px solid var(--sims-border);
+    box-shadow: 0 1px 3px rgba(15, 27, 51, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    z-index: 900;
+    transition: left 0.25s ease;
+}
+
+.company-layout.is-collapsed .company-header {
+    left: var(--sidebar-collapsed-width);
+}
+
+.company-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.company-header-toggle {
+    background: none;
+    border: none;
+    font-size: 19px;
+    color: var(--sims-text);
+    padding: 8px 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease;
+}
+
+.company-header-toggle:hover,
+.company-header-toggle:focus-visible {
+    background-color: var(--sims-bg);
+}
+
+.company-header-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--sims-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.company-header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Search */
+.company-header-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--sims-bg);
+    border: 1px solid var(--sims-border);
+    border-radius: 8px;
+    padding: 9px 14px;
+    width: 300px;
+    transition: border-color 0.15s ease, width 0.2s ease;
+}
+
+.company-header-search:focus-within {
+    border-color: var(--sims-blue);
+}
+
+.company-header-search i {
+    color: var(--sims-text-secondary);
+    font-size: 14px;
+}
+
+.company-header-search input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 13.8px;
+    color: var(--sims-text);
+    width: 100%;
+    font-family: inherit;
+}
+
+.company-header-search input::placeholder {
+    color: var(--sims-text-secondary);
+}
+
+/* Notification */
+.company-header-notification {
+    position: relative;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: var(--sims-text);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease;
+}
+
+.company-header-notification:hover,
+.company-header-notification:focus-visible {
+    background-color: var(--sims-bg);
+}
+
+.company-header-notification-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    background-color: var(--sims-danger);
+    color: var(--sims-white);
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* Profile */
+.company-header-profile-wrap {
+    position: relative;
+}
+
+.company-header-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    padding: 6px 10px 6px 6px;
+    border-radius: 999px;
+    transition: background-color 0.15s ease;
+}
+
+.company-header-profile:hover,
+.company-header-profile:focus-visible {
+    background-color: var(--sims-bg);
+}
+
+.company-header-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: var(--sims-blue);
+    color: var(--sims-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13.5px;
+    flex-shrink: 0;
+}
+
+.company-header-profile-info {
+    text-align: left;
+    line-height: 1.25;
+}
+
+.company-header-profile-name {
+    font-size: 13.8px;
+    font-weight: 600;
+    color: var(--sims-text);
+    white-space: nowrap;
+}
+
+.company-header-profile-role {
+    font-size: 12px;
+    color: var(--sims-text-secondary);
+}
+
+.company-header-profile-caret {
+    font-size: 11px;
+    color: var(--sims-text-secondary);
+}
+
+/* Profile dropdown */
+.company-profile-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 230px;
+    background-color: var(--sims-white);
+    border: 1px solid var(--sims-border);
+    border-radius: 10px;
+    box-shadow: 0 12px 32px rgba(15, 27, 51, 0.12);
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    z-index: 950;
+}
+
+.company-profile-dropdown.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.company-profile-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 7px;
+    font-size: 13.8px;
+    font-weight: 500;
+    color: var(--sims-text);
+    transition: background-color 0.15s ease;
+}
+
+.company-profile-dropdown-item i {
+    width: 16px;
+    color: var(--sims-text-secondary);
+}
+
+.company-profile-dropdown-item:hover {
+    background-color: var(--sims-bg);
+}
+
+.company-profile-dropdown-divider {
+    height: 1px;
+    background-color: var(--sims-border);
+    margin: 6px 4px;
+}
+
+.company-profile-dropdown-item.is-danger {
+    color: var(--sims-danger);
+}
+
+.company-profile-dropdown-item.is-danger i {
+    color: var(--sims-danger);
+}
+
+/* ==================================================
+   MAIN CONTENT
+   ================================================== */
+
+.company-main {
+    margin-left: var(--sidebar-width);
+    padding-top: var(--header-height);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.25s ease;
+}
+
+.company-layout.is-collapsed .company-main {
+    margin-left: var(--sidebar-collapsed-width);
+}
+
+.company-content {
+    flex: 1;
+    padding: 28px;
+    background-color: var(--sims-bg);
+}
+
+/* ==================================================
+   FOOTER
+   ================================================== */
+
+.company-footer {
+    background-color: var(--sims-white);
+    border-top: 1px solid var(--sims-border);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--sims-text-secondary);
+}
+
+.company-footer-left {
+    font-weight: 500;
+}
+
+.company-footer-center {
+    font-weight: 500;
+}
+
+.company-footer-links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.company-footer-links a {
+    color: var(--sims-text-secondary);
+    transition: color 0.15s ease;
+}
+
+.company-footer-links a:hover {
+    color: var(--sims-blue);
+}
+
+/* ==================================================
+   OVERLAY (mobile)
+   ================================================== */
+
+.company-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(15, 27, 51, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.company-sidebar-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==================================================
+   RESPONSIVE
+   ================================================== */
+
+@media (max-width: 1200px) {
+    .company-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 991px) {
+    .company-sidebar {
+        left: calc(-1 * var(--sidebar-width));
+        width: var(--sidebar-width) !important;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .company-layout.is-mobile-open .company-sidebar {
+        left: 0;
+    }
+
+    .company-header,
+    .company-main {
+        left: 0;
+        margin-left: 0 !important;
+    }
+
+    .company-header-search {
+        width: 220px;
+    }
+
+    .company-layout.is-collapsed .company-sidebar-brand-text,
+    .company-layout.is-mobile-open .company-sidebar-brand-text {
+        display: block;
+        opacity: 1;
+        width: auto;
+    }
+
+    .company-layout.is-mobile-open .company-sidebar-section-title,
+    .company-layout.is-mobile-open .company-sidebar-label,
+    .company-layout.is-mobile-open .company-sidebar-caret {
+        display: block;
+    }
+
+    .company-layout.is-mobile-open .company-sidebar-bottom-info {
+        display: block;
+    }
+
+    .company-layout.is-mobile-open .company-sidebar-bottom-logout span {
+        display: inline;
+    }
+}
+
+@media (max-width: 767px) {
+    .company-header {
+        padding: 0 16px;
+    }
+
+    .company-header-search {
+        width: 42px;
+        padding: 9px;
+        overflow: hidden;
+    }
+
+    .company-header-search input {
+        display: none;
+    }
+
+    .company-header-profile-info {
+        display: none;
+    }
+
+    .company-header-profile-caret {
+        display: none;
+    }
+
+    .company-content {
+        padding: 15px;
+    }
+
+    .company-footer {
+        padding: 14px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
