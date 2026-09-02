@@ -1,5 +1,5 @@
 /* ============================================================
-   admin-reports.js — ReportsAnalytics.aspx Interactivity
+   admin-reports.js — admin-reports-analytics.aspx Interactivity
    ============================================================ */
 
 (function () {

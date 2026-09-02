@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="companies.aspx.cs" Inherits="asp.net.companies" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="companies.aspx.cs" Inherits="asp.net.companies" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
@@ -44,7 +44,7 @@
                                     <i class="fa-regular fa-bell"></i><span class="badge">1</span>
                                 </button>
 <%--                                <a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/login register.png" PostBackUrl="~/login.aspx" Width="150px" />                              
+                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />                              
                                 <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>
@@ -161,7 +161,7 @@
        <%-- <button type="button" class="btn btn-primary btn-search-companies" id="companySearchBtn">
           <i class="fa-solid fa-magnifying-glass"></i> Search Companies
         </button>--%>
-          <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/search companies.png" Width="200px" />
+          <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/assets/search companies.png" Width="200px" />
       </div>
 
       <div class="companies-layout" id="companiesResultsTop">

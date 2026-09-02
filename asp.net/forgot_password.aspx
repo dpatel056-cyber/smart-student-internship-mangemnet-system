@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="forgot_password.aspx.cs" Inherits="asp.net.forgot_password" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="forgot_password.aspx.cs" Inherits="asp.net.forgot_password" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" runat="server" contentplaceholderid="ContentPlaceHolder2">
@@ -178,7 +178,7 @@
         <span class="field-error" id="fpEmailError">Please enter a valid registered email or enrollment number.</span>
       </div>
 
-      <asp:ImageButton ID="fpSendOtpBtn" ClientIDMode="Static" runat="server" ImageUrl="~/otp1.png" AlternateText="Send OTP" OnClientClick="return false;" style="margin-top: 15px; width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
+      <asp:ImageButton ID="fpSendOtpBtn" ClientIDMode="Static" runat="server" ImageUrl="~/assets/otp1.png" AlternateText="Send OTP" OnClientClick="return false;" style="margin-top: 15px; width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
       
       <div style="text-align: center; margin-top: 25px;">
         <a href="login.aspx" class="forgot-link-btn"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
@@ -237,7 +237,7 @@
                                     <i class="fa-regular fa-bell"></i><span class="badge">1</span>
                                 </button>
 <%--                                <a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/login register.png" PostBackUrl="~/login.aspx" Width="150px" />        
+                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />        
                                 <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>

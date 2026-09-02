@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -155,7 +155,7 @@ namespace asp.net
                     studentclear();
                     studentfillgrid();
                     ImageButton2.ToolTip = "Save";
-                    ImageButton2.ImageUrl = "~/register.png";
+                    ImageButton2.ImageUrl = "~/assets/register.png";
                     Label1.Text ="Student Updated Successfully!";
                 }
 
@@ -181,7 +181,7 @@ namespace asp.net
                     companyclear();
                     companyfillgrid();
                     ImageButton2.ToolTip = "Save";
-                    ImageButton2.ImageUrl = "~/register.png";
+                    ImageButton2.ImageUrl = "~/assets/register.png";
                     Label1.Text = "Company Updated Successfully!";
                 }
                 else
@@ -205,7 +205,7 @@ namespace asp.net
                 string id = e.CommandArgument.ToString();
                 ViewState["id"] = id;
                 ImageButton2.ToolTip = "Update";
-                ImageButton2.ImageUrl = "~/update.png";
+                ImageButton2.ImageUrl = "~/assets/update.png";
                 studentfilldata();
             }
             else if (e.CommandName == "cmd_del_s")
@@ -216,7 +216,7 @@ namespace asp.net
                 studentfillgrid();
                 studentclear();
                 ImageButton2.ToolTip = "Save";
-                ImageButton2.ImageUrl = "~/register.png";
+                ImageButton2.ImageUrl = "~/assets/register.png";
                 Label1.Text = "Student Deleted Successfully!";
             }
         }
@@ -229,7 +229,7 @@ namespace asp.net
                 string id = e.CommandArgument.ToString();
                 ViewState["id"] = id;
                 ImageButton2.ToolTip = "Update";
-                ImageButton2.ImageUrl = "~/update.png";
+                ImageButton2.ImageUrl = "~/assets/update.png";
                 companyfilldata();
             }
             else if (e.CommandName == "cmd_dlt_c")
@@ -240,7 +240,7 @@ namespace asp.net
                 companyfillgrid();
                 companyclear();
                 ImageButton2.ToolTip = "Save";
-                ImageButton2.ImageUrl = "~/register.png";
+                ImageButton2.ImageUrl = "~/assets/register.png";
                 Label1.Text = "Company Deleted Successfully!";
             }
         }

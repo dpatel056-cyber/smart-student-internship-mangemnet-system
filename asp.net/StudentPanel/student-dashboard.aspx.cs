@@ -1,44 +1,50 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 namespace asp.net
 {
     public partial class student_dashboard : System.Web.UI.Page
     {
+        SqlConnection con;
+        SqlDataAdapter da;
+        DataSet ds;
+        SqlCommand cmd;
+        string nm;
+
+        string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
+
+        void getcon()
+        {
+            con = new SqlConnection(s);
+            con.Open();
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Security check: ensure student is authenticated
-            if (Session["UserRole"] == null || Session["UserRole"].ToString() != "student")
+            if (Session["student"] != null)
             {
-                Response.Redirect("login.aspx");
-                return;
+                getcon();
+                da = new SqlDataAdapter("select * from s_registration where s_email='" +Session["student"] + "' or s_enrollment='" +Session["student"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    nm = ds.Tables[0].Rows[0]["s_fullname"].ToString();
+                    Label1.Text = nm;
+                }
             }
-
-            if (!IsPostBack)
+            else
             {
-                LoadStudentDashboardData();
+                Response.Redirect("../login.aspx");
             }
         }
 
-        private void LoadStudentDashboardData()
-        {
-            // Set dynamic student name from session if available
-            if (Session["UserName"] != null && !string.IsNullOrEmpty(Session["UserName"].ToString()))
-            {
-                litStudentName.Text = Session["UserName"].ToString();
-            }
-
-            // Ready for dynamic database integration:
-            // e.g. Fetch metrics from DB using Session["UserId"]
-            // litProfileCompletion.Text = GetProfileCompletionPercentage(userId).ToString();
-            // litAppliedCount.Text = GetTotalApplications(userId).ToString();
-            // litSelectedCount.Text = GetSelectedApplications(userId).ToString();
-            // litInterviewsCount.Text = GetScheduledInterviews(userId).ToString();
-            // litPendingCount.Text = GetPendingApplications(userId).ToString();
-        }
+       
     }
 }

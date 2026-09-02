@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="internships.aspx.cs" Inherits="asp.net.internships" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="internships.aspx.cs" Inherits="asp.net.internships" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
@@ -63,7 +63,7 @@
                             <i class="fa-regular fa-bell"></i><span class="badge">1</span>
                         </button>
 <%--                        <a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                        <asp:ImageButton ID="ImageButton3" runat="server" PostBackUrl="~/login.aspx" ImageUrl="~/login register.png" Width="150px" />
+                        <asp:ImageButton ID="ImageButton3" runat="server" PostBackUrl="~/login.aspx" ImageUrl="~/assets/login register.png" Width="150px" />
 
                         <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                             <i class="fa-solid fa-bars"></i>
@@ -174,7 +174,7 @@
                     <%--<button type="button" class="btn btn-primary btn-search-companies" id="topSearchBtn">
                         <i class="fa-solid fa-magnifying-glass"></i>Search Internships
                     </button>--%>
-                    <asp:ImageButton ID="ImageButton1" Height="40" Width="200" runat="server" ImageUrl="~/internship.png" />
+                    <asp:ImageButton ID="ImageButton1" Height="40" Width="200" runat="server" ImageUrl="~/assets/internship.png" />
                 </div>
             </div>
         </section>
@@ -239,7 +239,7 @@
                             <%--<button type="button" class="btn btn-primary btn-apply-filters" id="applyFiltersBtn">
                                 <i class="fa-solid fa-filter"></i>Apply Filters
                             </button>--%>
-                            <asp:ImageButton ID="ImageButton2" runat="server" Height="40" Width="220" ImageUrl="~/filter_button.png"  />
+                            <asp:ImageButton ID="ImageButton2" runat="server" Height="40" Width="220" ImageUrl="~/assets/filter_button.png"  />
                         </div>
                     </aside>
 

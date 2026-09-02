@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="verify_otp.aspx.cs" Inherits="asp.net.verify_otp" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="verify_otp.aspx.cs" Inherits="asp.net.verify_otp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content5" runat="server" contentplaceholderid="ContentPlaceHolder1">
@@ -43,7 +43,7 @@
                                     <i class="fa-regular fa-bell"></i><span class="badge">1</span>
                                 </button>
 <%--                                <a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/login register.png" PostBackUrl="~/login.aspx" Width="150px" />                    
+                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />                    
                                 <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>
@@ -255,7 +255,7 @@
         <strong>Demo OTP:</strong> <span id="demoOtpValue">123456</span>
       </div>
 
-            <asp:ImageButton ID="fpVerifyOtpBtn" ClientIDMode="Static" runat="server" ImageUrl="~/otp2.png" AlternateText="Verify OTP" OnClientClick="return false;" style="width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
+            <asp:ImageButton ID="fpVerifyOtpBtn" ClientIDMode="Static" runat="server" ImageUrl="~/assets/otp2.png" AlternateText="Verify OTP" OnClientClick="return false;" style="width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
       <div style="text-align: center; margin-top: 20px;">
         <a href="forgot_password.aspx" class="forgot-link-btn">
           <i class="fa-solid fa-arrow-left"></i> Change Email Address

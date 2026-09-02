@@ -7,7 +7,7 @@
 
 <asp:Content ID="ContentMain" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="student-dashboard">
-
+      
         <!-- ===================== 1. PAGE HEADER ===================== -->
         <div class="student-dashboard-header">
             <div>
@@ -26,7 +26,7 @@
             <div class="student-welcome-top">
                 <div>
                     <h2 class="student-welcome-greeting">
-                        👋 Welcome back, <asp:Literal ID="litStudentName" runat="server" Text="Dhruvi Patel" />!
+                        👋 Welcome back,<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>!
                     </h2>
                     <p class="student-welcome-desc">
                         Keep your profile updated to improve your internship opportunities and AI recommendations.

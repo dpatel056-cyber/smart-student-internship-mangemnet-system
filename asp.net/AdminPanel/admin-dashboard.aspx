@@ -381,7 +381,7 @@
                 <a href="admin-student-applications.aspx" class="sims-quick-btn">
                     <i class="fa-solid fa-file-lines"></i> View Applications
                 </a>
-                <a href="ReportsAnalytics.aspx" class="sims-quick-btn">
+                <a href="admin-reports-analytics.aspx" class="sims-quick-btn">
                     <i class="fa-solid fa-chart-column"></i> Generate Report
                 </a>
             </div>

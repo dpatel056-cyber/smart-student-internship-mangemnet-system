@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="internship-details.aspx.cs" Inherits="asp.net.internship_details" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="internship-details.aspx.cs" Inherits="asp.net.internship_details" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
@@ -45,7 +45,7 @@
                                     <i class="fa-regular fa-bell"></i><span class="badge">1</span>
                                 </button>
 <%--                                <a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                                <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/login register.png" PostBackUrl="~/login.aspx" Width="150px" />      
+                                <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />      
                                 <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>
@@ -180,7 +180,7 @@
             <h3 class="imd-side-title">Quick Actions</h3>
             <div class="imd-actions">
              <%-- <a href="#" class="btn btn-primary imd-btn-apply" id="applyBtn"><i class="fa-solid fa-paper-plane"></i> Apply Now</a>--%>
-                <asp:ImageButton ID="ImageButton1" runat="server" Height="50px" ImageUrl="~/apply now.png" Width="300px" />             
+                <asp:ImageButton ID="ImageButton1" runat="server" Height="50px" ImageUrl="~/assets/apply now.png" Width="300px" />             
                 <button class="btn imd-btn-save" id="saveBtn"><i class="fa-regular fa-bookmark"></i> Save Internship</button>
             </div>
           </div>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="asp.net.index" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="asp.net.index" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
@@ -18,7 +18,7 @@
                 <%--<div class="hero-btns">
                     <a href="internships.aspx" class="btn btn-primary btn-lg">Explore Internships <i class="fa-solid fa-arrow-right"></i></a>
                 </div>--%>
-                <asp:ImageButton ID="homeimagebtn" runat="server" ImageUrl="~/home.png" PostBackUrl="~/internships.aspx" />
+                <asp:ImageButton ID="homeimagebtn" runat="server" ImageUrl="~/assets/home.png" PostBackUrl="~/internships.aspx" />
                 <div class="hero-trusted">
                     <span>Trusted by Students &amp; Top Companies</span>
                     <div class="trusted-logos">
@@ -142,7 +142,7 @@
                                     <i class="fa-regular fa-bell"></i><span class="badge">1</span>
                                 </button>
                                 <%-- <a href="login.aspx" class="btn btn-primary">Login / Register</a> --%>
-                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/login register.png" PostBackUrl="~/login.aspx" Width="150px" />           
+                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />           
                                 <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="register.aspx.cs" Inherits="asp.net.register" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="register.aspx.cs" Inherits="asp.net.register" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -354,7 +354,7 @@
 
                             <div style="margin-top: 15px; margin-bottom: 20px;">
                                 <%--            <asp:Button ID="btnRegister" ClientIDMode="Static" runat="server" Text="Register Now" CssClass="btn btn-primary btn-login" OnClick="btnRegister_Click" />--%>
-                                <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/register.png" Width="650px" OnClick="ImageButton2_Click" />
+                                <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/assets/register.png" Width="650px" OnClick="ImageButton2_Click" />
                                 <asp:Label ID="Label1" runat="server" Style="display: block; margin-top: 10px; font-weight: 600;"></asp:Label>
                             </div>
                         </div>
@@ -451,13 +451,13 @@
                             <asp:TemplateField HeaderText="Edit">
                                 <ItemTemplate>
                                     <%-- <asp:LinkButton ID="LinkButton3" runat="server" CommandName="cmd_edt_s"  CommandArgument='<%# Eval("Id") %>'>Edit</asp:LinkButton>--%>
-                                    <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/edit.png" Width="100px" Height="45px" CommandName="cmd_edt_s" CommandArgument='<%# Eval("Id") %>' ToolTip="Edit" />
+                                    <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/assets/edit.png" Width="100px" Height="45px" CommandName="cmd_edt_s" CommandArgument='<%# Eval("Id") %>' ToolTip="Edit" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Delete">
                                 <ItemTemplate>
                                     <%-- <asp:LinkButton ID="LinkButton4" runat="server" CommandName="cmd_del_s" CommandArgument='<%# Eval("Id") %>' OnClientClick="return confirm('Are you sure you want to delete this student?');"> Delete</asp:LinkButton>--%>
-                                    <asp:ImageButton ID="ImageButton4" runat="server" ImageUrl="~/delete.png" Width="100px" Height="42px" CommandName="cmd_del_s" CommandArgument='<%# Eval("Id") %>' ToolTip="Delete" />
+                                    <asp:ImageButton ID="ImageButton4" runat="server" ImageUrl="~/assets/delete.png" Width="100px" Height="42px" CommandName="cmd_del_s" CommandArgument='<%# Eval("Id") %>' ToolTip="Delete" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -533,13 +533,13 @@
                         <asp:TemplateField HeaderText="Edit">
                             <ItemTemplate>
                                 <%--  <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Eval("id") %>' CommandName="cmd_edt_c">Edit</asp:LinkButton>--%>
-                                <asp:ImageButton ID="ImageButton5" runat="server" ImageUrl="~/edit.png" Width="100px" Height="45px" CommandName="cmd_edt_c" CommandArgument='<%# Eval("Id") %>' ToolTip="Edit" />
+                                <asp:ImageButton ID="ImageButton5" runat="server" ImageUrl="~/assets/edit.png" Width="100px" Height="45px" CommandName="cmd_edt_c" CommandArgument='<%# Eval("Id") %>' ToolTip="Edit" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Delete">
                             <ItemTemplate>
                                 <%--    <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Eval("id") %>' CommandName="cmd_dlt_c">Delete</asp:LinkButton>--%>
-                                <asp:ImageButton ID="ImageButton6" runat="server" ImageUrl="~/delete.png" Width="100px" Height="42px" CommandName="cmd_dlt_c" CommandArgument='<%# Eval("Id") %>' ToolTip="Delete"/>
+                                <asp:ImageButton ID="ImageButton6" runat="server" ImageUrl="~/assets/delete.png" Width="100px" Height="42px" CommandName="cmd_dlt_c" CommandArgument='<%# Eval("Id") %>' ToolTip="Delete"/>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
@@ -608,7 +608,7 @@
                         <i class="fa-regular fa-bell"></i><span class="badge">1</span>
                     </button>
                     <%--                                <a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                    <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/login register.png" PostBackUrl="~/login.aspx" Width="150px" />
+                    <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />
                     <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                         <i class="fa-solid fa-bars"></i>
                     </button>
