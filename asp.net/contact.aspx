@@ -99,7 +99,7 @@
               <%--<asp:LinkButton ID="btnSubmit" runat="server" CssClass="btn btn-primary btn-lg">
               Send Message <i class="fa-solid fa-paper-plane"></i>
             </asp:LinkButton>--%>
-              <asp:ImageButton ID="ImageButton2" runat="server" Height="40px" ImageUrl="~/contact.png" OnClick="ImageButton2_Click" Width="590px" />
+              <asp:ImageButton ID="ImageButton2" runat="server" Height="40px" ImageUrl="~/assets/contact.png" OnClick="ImageButton2_Click" Width="590px" />
           </div>
         </div>
 
@@ -257,7 +257,7 @@
                                 <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>
-                                   <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/login register.png" Width="150px" PostBackUrl="~/login.aspx" />
+                                   <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" Width="150px" PostBackUrl="~/login.aspx" />
                             </div>
                         </div>
 

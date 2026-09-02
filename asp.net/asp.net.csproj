@@ -69,24 +69,22 @@
   <ItemGroup>
     <Content Include="about.aspx" />
     <Content Include="AdminPanel\admin-audit-logs.aspx" />
-    <Content Include="AdminPanel\Admin-Contact-Messages.aspx" />
-    <Content Include="AdminPanel\Admin-Categories-Skills.aspx" />
+    <Content Include="AdminPanel\admin-contact-messages.aspx" />
+    <Content Include="AdminPanel\admin-categories-skills.aspx" />
     <Content Include="AdminPanel\admin-certificates.aspx" />
     <Content Include="AdminPanel\admin-change-password.aspx" />
     <Content Include="AdminPanel\admin-companies.aspx" />
-    <Content Include="AdminPanel\Admin-Company-Verification.aspx" />
+    <Content Include="AdminPanel\admin-company-verification.aspx" />
     <Content Include="AdminPanel\admin-dashboard.aspx" />
     <Content Include="AdminPanel\admin-feedback-ratings.aspx" />
-    <Content Include="AdminPanel\Admin-Internships.aspx" />
-    <Content Include="AdminPanel\Admin-Interviews.aspx" />
-    <Content Include="AdminPanel\admin-logout.aspx" />
+    <Content Include="AdminPanel\admin-internships.aspx" />
+    <Content Include="AdminPanel\admin-interviews.aspx" />
     <Content Include="AdminPanel\admin-messages.aspx" />
-    <Content Include="AdminPanel\Admin-Notifications.aspx" />
+    <Content Include="AdminPanel\admin-notifications.aspx" />
     <Content Include="AdminPanel\admin-profile.aspx" />
-
-    <Content Include="AdminPanel\Admin-Student-Applications.aspx" />
+    <Content Include="AdminPanel\admin-student-applications.aspx" />
     <Content Include="AdminPanel\admin-students.aspx" />
-    <Content Include="apply now.png" />
+    <Content Include="assets\apply now.png" />
     <Content Include="App_Data\sims.mdf" />
     <Content Include="App_Data\sims_log.ldf">
       <DependentUpon>sims.mdf</DependentUpon>
@@ -122,12 +120,12 @@
     <Content Include="assets\logo-techmahindra.svg" />
     <Content Include="assets\logo-wipro.svg" />
     <Content Include="assets\logo-zerodha.svg" />
-    <Content Include="AdminPanel\AuditLogs.aspx" />
-    <Content Include="certificates-documents.aspx" />
+    <Content Include="StudentPanel\certificates-documents.aspx" />
     <Content Include="companies.aspx" />
-    <Content Include="Companydashboard.aspx" />
+    <Content Include="CompanyPanel\company-dashboard.aspx" />
+    <Content Include="CompanyPanel\company-profile.aspx" />
     <Content Include="contact.aspx" />
-    <Content Include="contact.png" />
+    <Content Include="assets\contact.png" />
     <Content Include="css\admin-audit-logs.css" />
     <Content Include="css\admin-categories-skills.css" />
     <Content Include="css\admin-certificates.css" />
@@ -137,7 +135,6 @@
     <Content Include="css\admin-feedback-ratings.css" />
     <Content Include="css\admin-internships.css" />
     <Content Include="css\admin-interviews.css" />
-    <Content Include="css\admin-logout.css" />
     <Content Include="css\admin-master.css" />
     <Content Include="css\admin-messages.css" />
     <Content Include="css\admin-notifications.css" />
@@ -146,7 +143,9 @@
     <Content Include="css\admin-student-applications.css" />
     <Content Include="css\admin-students.css" />
     <Content Include="css\communication-module.css" />
+    <Content Include="css\company-master.css" />
     <Content Include="css\company-module.css" />
+    <Content Include="css\company-profile.css" />
     <Content Include="css\dashboard-content.css" />
     <Content Include="css\internship-module.css" />
     <Content Include="css\interview-module.css" />
@@ -155,14 +154,16 @@
     <Content Include="css\ReportsAnalytics.css" />
     <Content Include="css\resume-module.css" />
     <Content Include="css\settings-module.css" />
+    <Content Include="css\student-master.css" />
+    <Content Include="css\student-profile.css" />
     <Content Include="css\style.css" />
-    <Content Include="delete.png" />
-    <Content Include="edit-profile.aspx" />
-    <Content Include="edit.png" />
+    <Content Include="assets\delete.png" />
+    <Content Include="StudentPanel\edit-profile.aspx" />
+    <Content Include="assets\edit.png" />
     <Content Include="faq.aspx" />
-    <Content Include="filter_button.png" />
+    <Content Include="assets\filter_button.png" />
     <Content Include="forgot_password.aspx" />
-    <Content Include="home.png" />
+    <Content Include="assets\home.png" />
     <Content Include="html\about.html" />
     <Content Include="html\admin-activity-logs.html" />
     <Content Include="html\admin-analytics.html" />
@@ -268,9 +269,9 @@
     <Content Include="html\upload-resume.html" />
     <Content Include="index.aspx" />
     <Content Include="internship-details.aspx" />
-    <Content Include="internship.png" />
+    <Content Include="assets\internship.png" />
     <Content Include="internships.aspx" />
-    <Content Include="interview-schedule.aspx" />
+    <Content Include="StudentPanel\interview-schedule.aspx" />
     <Content Include="js\admin-audit-logs.js" />
     <Content Include="js\admin-categories-skills.js" />
     <Content Include="js\admin-certificates.js" />
@@ -282,7 +283,6 @@
     <Content Include="js\admin-feedback-ratings.js" />
     <Content Include="js\admin-internships.js" />
     <Content Include="js\admin-interviews.js" />
-    <Content Include="js\admin-logout.js" />
     <Content Include="js\admin-master.js" />
     <Content Include="js\admin-messages.js" />
     <Content Include="js\admin-notifications.js" />
@@ -305,6 +305,7 @@
     <Content Include="js\company-edit-profile.js" />
     <Content Include="js\company-internship-details.js" />
     <Content Include="js\company-interview-schedule.js" />
+    <Content Include="js\company-master.js" />
     <Content Include="js\company-post-internship.js" />
     <Content Include="js\company-profile.js" />
     <Content Include="js\company-reports.js" />
@@ -350,33 +351,36 @@
     <Content Include="js\store-extensions.js" />
     <Content Include="js\stories.js" />
     <Content Include="js\student-layout.js" />
+    <Content Include="js\student-master.js" />
+    <Content Include="js\student-profile.js" />
     <Content Include="js\theme-settings.js" />
     <Content Include="js\ui-utils.js" />
     <Content Include="js\upcoming-deadlines.js" />
     <Content Include="js\upload-resume.js" />
-    <Content Include="login register.png" />
+    <Content Include="assets\login register.png" />
     <Content Include="login.aspx" />
-    <Content Include="login.png" />
-    <Content Include="messages.aspx" />
-    <Content Include="my-applications.aspx" />
-    <Content Include="my-profile.aspx" />
-    <Content Include="notifications.aspx" />
-    <Content Include="otp1.png" />
-    <Content Include="otp2.png" />
-    <Content Include="otp3.png" />
-    <Content Include="profile-completion.aspx" />
+    <Content Include="assets\login.png" />
+    <Content Include="StudentPanel\messages.aspx" />
+    <Content Include="StudentPanel\my-applications.aspx" />
+    <Content Include="StudentPanel\my-profile.aspx" />
+    <Content Include="StudentPanel\notifications.aspx" />
+    <Content Include="assets\otp1.png" />
+    <Content Include="assets\otp2.png" />
+    <Content Include="assets\otp3.png" />
+    <Content Include="StudentPanel\profile-completion.aspx" />
     <Content Include="register.aspx" />
-    <Content Include="register.png" />
-    <Content Include="AdminPanel\ReportsAnalytics.aspx" />
+    <Content Include="assets\register.png" />
+    <Content Include="AdminPanel\admin-reports-analytics.aspx" />
     <Content Include="reset_password.aspx" />
-    <Content Include="resume-dashboard.aspx" />
-    <Content Include="resume-preview.aspx" />
-    <Content Include="search companies.png" />
-    <Content Include="skills-management.aspx" />
+    <Content Include="StudentPanel\resume-dashboard.aspx" />
+    <Content Include="StudentPanel\resume-preview.aspx" />
+    <Content Include="assets\search companies.png" />
+    <Content Include="StudentPanel\skills-management.aspx" />
     <Content Include="stories.aspx" />
-    <Content Include="student-dashboard.aspx" />
-    <Content Include="update.png" />
-    <Content Include="upload-resume.aspx" />
+    <Content Include="StudentPanel\student-dashboard.aspx" />
+    <Content Include="StudentPanel\student-profile.aspx" />
+    <Content Include="assets\update.png" />
+    <Content Include="StudentPanel\upload-resume.aspx" />
     <Content Include="verify_otp.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -389,136 +393,129 @@
       <DependentUpon>about.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-audit-logs.aspx.cs">
-      <DependentUpon>AdminPanel\admin-audit-logs.aspx</DependentUpon>
+      <DependentUpon>admin-audit-logs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-audit-logs.aspx.designer.cs">
-      <DependentUpon>AdminPanel\admin-audit-logs.aspx</DependentUpon>
+      <DependentUpon>admin-audit-logs.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminPanel\Admin-Contact-Messages.aspx.cs">
-      <DependentUpon>AdminPanel\Admin-Contact-Messages.aspx</DependentUpon>
+    <Compile Include="AdminPanel\admin-contact-messages.aspx.cs">
+      <DependentUpon>admin-contact-messages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminPanel\Admin-Contact-Messages.aspx.designer.cs">
-      <DependentUpon>AdminPanel\Admin-Contact-Messages.aspx</DependentUpon>
+    <Compile Include="AdminPanel\admin-contact-messages.aspx.designer.cs">
+      <DependentUpon>admin-contact-messages.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-categories-skills.aspx.cs">
-      <DependentUpon>AdminPanel\Admin-Categories-Skills.aspx</DependentUpon>
+      <DependentUpon>admin-categories-skills.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-categories-skills.aspx.designer.cs">
-      <DependentUpon>AdminPanel\Admin-Categories-Skills.aspx</DependentUpon>
+      <DependentUpon>admin-categories-skills.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-certificates.aspx.cs">
-      <DependentUpon>AdminPanel\admin-certificates.aspx</DependentUpon>
+      <DependentUpon>admin-certificates.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-certificates.aspx.designer.cs">
-      <DependentUpon>AdminPanel\admin-certificates.aspx</DependentUpon>
+      <DependentUpon>admin-certificates.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-change-password.aspx.cs">
-      <DependentUpon>AdminPanel\admin-change-password.aspx</DependentUpon>
+      <DependentUpon>admin-change-password.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-change-password.aspx.designer.cs">
-      <DependentUpon>AdminPanel\admin-change-password.aspx</DependentUpon>
+      <DependentUpon>admin-change-password.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-companies.aspx.cs">
-      <DependentUpon>AdminPanel\admin-companies.aspx</DependentUpon>
+      <DependentUpon>admin-companies.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-companies.aspx.designer.cs">
-      <DependentUpon>AdminPanel\admin-companies.aspx</DependentUpon>
+      <DependentUpon>admin-companies.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-company-verification.aspx.cs">
-      <DependentUpon>AdminPanel\Admin-Company-Verification.aspx</DependentUpon>
+      <DependentUpon>admin-company-verification.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-company-verification.aspx.designer.cs">
-      <DependentUpon>AdminPanel\Admin-Company-Verification.aspx</DependentUpon>
+      <DependentUpon>admin-company-verification.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-dashboard.aspx.cs">
-      <DependentUpon>AdminPanel\admin-dashboard.aspx</DependentUpon>
+      <DependentUpon>admin-dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-dashboard.aspx.designer.cs">
-      <DependentUpon>AdminPanel\admin-dashboard.aspx</DependentUpon>
+      <DependentUpon>admin-dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-feedback-ratings.aspx.cs">
-      <DependentUpon>AdminPanel\admin-feedback-ratings.aspx</DependentUpon>
+      <DependentUpon>admin-feedback-ratings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-feedback-ratings.aspx.designer.cs">
-      <DependentUpon>AdminPanel\admin-feedback-ratings.aspx</DependentUpon>
+      <DependentUpon>admin-feedback-ratings.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-internships.aspx.cs">
-      <DependentUpon>AdminPanel\Admin-Internships.aspx</DependentUpon>
+      <DependentUpon>admin-internships.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-internships.aspx.designer.cs">
-      <DependentUpon>AdminPanel\Admin-Internships.aspx</DependentUpon>
+      <DependentUpon>admin-internships.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-interviews.aspx.cs">
-      <DependentUpon>AdminPanel\Admin-Interviews.aspx</DependentUpon>
+      <DependentUpon>admin-interviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-interviews.aspx.designer.cs">
-      <DependentUpon>AdminPanel\Admin-Interviews.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AdminPanel\admin-logout.aspx.cs">
-      <DependentUpon>AdminPanel\admin-logout.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AdminPanel\admin-logout.aspx.designer.cs">
-      <DependentUpon>AdminPanel\admin-logout.aspx</DependentUpon>
+      <DependentUpon>admin-interviews.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-messages.aspx.cs">
-      <DependentUpon>AdminPanel\admin-messages.aspx</DependentUpon>
+      <DependentUpon>admin-messages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-messages.aspx.designer.cs">
-      <DependentUpon>AdminPanel\admin-messages.aspx</DependentUpon>
+      <DependentUpon>admin-messages.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-notifications.aspx.cs">
-      <DependentUpon>AdminPanel\Admin-Notifications.aspx</DependentUpon>
+      <DependentUpon>admin-notifications.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-notifications.aspx.designer.cs">
-      <DependentUpon>AdminPanel\Admin-Notifications.aspx</DependentUpon>
+      <DependentUpon>admin-notifications.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-profile.aspx.cs">
-      <DependentUpon>AdminPanel\admin-profile.aspx</DependentUpon>
+      <DependentUpon>admin-profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-profile.aspx.designer.cs">
-      <DependentUpon>AdminPanel\admin-profile.aspx</DependentUpon>
+      <DependentUpon>admin-profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-student-applications.aspx.cs">
-      <DependentUpon>AdminPanel\Admin-Student-Applications.aspx</DependentUpon>
+      <DependentUpon>admin-student-applications.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-student-applications.aspx.designer.cs">
-      <DependentUpon>AdminPanel\Admin-Student-Applications.aspx</DependentUpon>
+      <DependentUpon>admin-student-applications.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin-students.aspx.cs">
-      <DependentUpon>AdminPanel\admin-students.aspx</DependentUpon>
+      <DependentUpon>admin-students.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin-students.aspx.designer.cs">
-      <DependentUpon>AdminPanel\admin-students.aspx</DependentUpon>
+      <DependentUpon>admin-students.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\admin.Master.cs">
-      <DependentUpon>AdminPanel\admin.Master</DependentUpon>
+      <DependentUpon>admin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPanel\admin.Master.designer.cs">
-      <DependentUpon>AdminPanel\admin.Master</DependentUpon>
+      <DependentUpon>admin.Master</DependentUpon>
     </Compile>
-    <Compile Include="certificates-documents.aspx.cs">
+    <Compile Include="StudentPanel\certificates-documents.aspx.cs">
       <DependentUpon>certificates-documents.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="certificates-documents.aspx.designer.cs">
+    <Compile Include="StudentPanel\certificates-documents.aspx.designer.cs">
       <DependentUpon>certificates-documents.aspx</DependentUpon>
     </Compile>
     <Compile Include="companies.aspx.cs">
@@ -528,19 +525,26 @@
     <Compile Include="companies.aspx.designer.cs">
       <DependentUpon>companies.aspx</DependentUpon>
     </Compile>
-    <Compile Include="company.Master.cs">
+    <Compile Include="CompanyPanel\company.Master.cs">
       <DependentUpon>company.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="company.Master.designer.cs">
+    <Compile Include="CompanyPanel\company.Master.designer.cs">
       <DependentUpon>company.Master</DependentUpon>
     </Compile>
-    <Compile Include="Companydashboard.aspx.cs">
-      <DependentUpon>Companydashboard.aspx</DependentUpon>
+    <Compile Include="CompanyPanel\company-dashboard.aspx.cs">
+      <DependentUpon>company-dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Companydashboard.aspx.designer.cs">
-      <DependentUpon>Companydashboard.aspx</DependentUpon>
+    <Compile Include="CompanyPanel\company-dashboard.aspx.designer.cs">
+      <DependentUpon>company-dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyPanel\company-profile.aspx.cs">
+      <DependentUpon>company-profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyPanel\company-profile.aspx.designer.cs">
+      <DependentUpon>company-profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="contact.aspx.cs">
       <DependentUpon>contact.aspx</DependentUpon>
@@ -549,11 +553,11 @@
     <Compile Include="contact.aspx.designer.cs">
       <DependentUpon>contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="edit-profile.aspx.cs">
+    <Compile Include="StudentPanel\edit-profile.aspx.cs">
       <DependentUpon>edit-profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="edit-profile.aspx.designer.cs">
+    <Compile Include="StudentPanel\edit-profile.aspx.designer.cs">
       <DependentUpon>edit-profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="faq.aspx.cs">
@@ -591,11 +595,11 @@
     <Compile Include="internships.aspx.designer.cs">
       <DependentUpon>internships.aspx</DependentUpon>
     </Compile>
-    <Compile Include="interview-schedule.aspx.cs">
+    <Compile Include="StudentPanel\interview-schedule.aspx.cs">
       <DependentUpon>interview-schedule.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="interview-schedule.aspx.designer.cs">
+    <Compile Include="StudentPanel\interview-schedule.aspx.designer.cs">
       <DependentUpon>interview-schedule.aspx</DependentUpon>
     </Compile>
     <Compile Include="login.aspx.cs">
@@ -605,39 +609,39 @@
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="messages.aspx.cs">
+    <Compile Include="StudentPanel\messages.aspx.cs">
       <DependentUpon>messages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="messages.aspx.designer.cs">
+    <Compile Include="StudentPanel\messages.aspx.designer.cs">
       <DependentUpon>messages.aspx</DependentUpon>
     </Compile>
-    <Compile Include="my-applications.aspx.cs">
+    <Compile Include="StudentPanel\my-applications.aspx.cs">
       <DependentUpon>my-applications.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="my-applications.aspx.designer.cs">
+    <Compile Include="StudentPanel\my-applications.aspx.designer.cs">
       <DependentUpon>my-applications.aspx</DependentUpon>
     </Compile>
-    <Compile Include="my-profile.aspx.cs">
+    <Compile Include="StudentPanel\my-profile.aspx.cs">
       <DependentUpon>my-profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="my-profile.aspx.designer.cs">
+    <Compile Include="StudentPanel\my-profile.aspx.designer.cs">
       <DependentUpon>my-profile.aspx</DependentUpon>
     </Compile>
-    <Compile Include="notifications.aspx.cs">
+    <Compile Include="StudentPanel\notifications.aspx.cs">
       <DependentUpon>notifications.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="notifications.aspx.designer.cs">
+    <Compile Include="StudentPanel\notifications.aspx.designer.cs">
       <DependentUpon>notifications.aspx</DependentUpon>
     </Compile>
-    <Compile Include="profile-completion.aspx.cs">
+    <Compile Include="StudentPanel\profile-completion.aspx.cs">
       <DependentUpon>profile-completion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="profile-completion.aspx.designer.cs">
+    <Compile Include="StudentPanel\profile-completion.aspx.designer.cs">
       <DependentUpon>profile-completion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -655,12 +659,12 @@
     <Compile Include="register.aspx.designer.cs">
       <DependentUpon>register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminPanel\ReportsAnalytics.aspx.cs">
-      <DependentUpon>AdminPanel\ReportsAnalytics.aspx</DependentUpon>
+    <Compile Include="AdminPanel\admin-reports-analytics.aspx.cs">
+      <DependentUpon>admin-reports-analytics.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminPanel\ReportsAnalytics.aspx.designer.cs">
-      <DependentUpon>AdminPanel\ReportsAnalytics.aspx</DependentUpon>
+    <Compile Include="AdminPanel\admin-reports-analytics.aspx.designer.cs">
+      <DependentUpon>admin-reports-analytics.aspx</DependentUpon>
     </Compile>
     <Compile Include="reset_password.aspx.cs">
       <DependentUpon>reset_password.aspx</DependentUpon>
@@ -669,25 +673,25 @@
     <Compile Include="reset_password.aspx.designer.cs">
       <DependentUpon>reset_password.aspx</DependentUpon>
     </Compile>
-    <Compile Include="resume-dashboard.aspx.cs">
+    <Compile Include="StudentPanel\resume-dashboard.aspx.cs">
       <DependentUpon>resume-dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="resume-dashboard.aspx.designer.cs">
+    <Compile Include="StudentPanel\resume-dashboard.aspx.designer.cs">
       <DependentUpon>resume-dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="resume-preview.aspx.cs">
+    <Compile Include="StudentPanel\resume-preview.aspx.cs">
       <DependentUpon>resume-preview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="resume-preview.aspx.designer.cs">
+    <Compile Include="StudentPanel\resume-preview.aspx.designer.cs">
       <DependentUpon>resume-preview.aspx</DependentUpon>
     </Compile>
-    <Compile Include="skills-management.aspx.cs">
+    <Compile Include="StudentPanel\skills-management.aspx.cs">
       <DependentUpon>skills-management.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="skills-management.aspx.designer.cs">
+    <Compile Include="StudentPanel\skills-management.aspx.designer.cs">
       <DependentUpon>skills-management.aspx</DependentUpon>
     </Compile>
     <Compile Include="stories.aspx.cs">
@@ -697,25 +701,32 @@
     <Compile Include="stories.aspx.designer.cs">
       <DependentUpon>stories.aspx</DependentUpon>
     </Compile>
-    <Compile Include="student-dashboard.aspx.cs">
+    <Compile Include="StudentPanel\student-dashboard.aspx.cs">
       <DependentUpon>student-dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="student-dashboard.aspx.designer.cs">
+    <Compile Include="StudentPanel\student-dashboard.aspx.designer.cs">
       <DependentUpon>student-dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="student.Master.cs">
+    <Compile Include="StudentPanel\student-profile.aspx.cs">
+      <DependentUpon>student-profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentPanel\student-profile.aspx.designer.cs">
+      <DependentUpon>student-profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StudentPanel\student.Master.cs">
       <DependentUpon>student.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="student.Master.designer.cs">
+    <Compile Include="StudentPanel\student.Master.designer.cs">
       <DependentUpon>student.Master</DependentUpon>
     </Compile>
-    <Compile Include="upload-resume.aspx.cs">
+    <Compile Include="StudentPanel\upload-resume.aspx.cs">
       <DependentUpon>upload-resume.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="upload-resume.aspx.designer.cs">
+    <Compile Include="StudentPanel\upload-resume.aspx.designer.cs">
       <DependentUpon>upload-resume.aspx</DependentUpon>
     </Compile>
     <Compile Include="verify_otp.aspx.cs">
@@ -727,11 +738,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="company.Master" />
+    <Content Include="CompanyPanel\company.Master" />
     <Content Include="AdminPanel\admin.Master" />
     <None Include="packages.config" />
     <Content Include="public.Master" />
-    <Content Include="student.Master" />
+    <Content Include="StudentPanel\student.Master" />
     <Content Include="SendOTP.ashx" />
     <Content Include="VerifyOTP.ashx" />
     <None Include="Web.Debug.config">
@@ -780,5 +791,3 @@
   </Target>
   -->
 </Project>
-
-

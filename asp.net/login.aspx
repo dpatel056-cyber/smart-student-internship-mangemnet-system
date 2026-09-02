@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="asp.net.login" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="asp.net.login" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content5" runat="server" contentplaceholderid="ContentPlaceHolder2">
@@ -110,7 +110,7 @@
             <span class="btn-spinner" id="loginSpinner"></span>
             <span class="btn-text">Login</span> <i class="fa-solid fa-arrow-right btn-arrow-icon"></i>
           </asp:LinkButton>--%>
-            <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/login.png" Width="450px" OnClick="ImageButton2_Click" />
+            <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/assets/login.png" Width="450px" OnClick="ImageButton2_Click" />
           <asp:Label ID="lblMsg" runat="server" Style="display:block; margin-top:12px; font-weight:600;"></asp:Label>
         </div>
 
@@ -195,7 +195,7 @@
                                     <i class="fa-regular fa-bell"></i><span class="badge">1</span>
                                 </button>
                                 <%--                                <a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/login register.png" PostBackUrl="~/login.aspx" Width="150px" />      
+                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />      
                                 <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>

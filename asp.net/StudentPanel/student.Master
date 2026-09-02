@@ -279,7 +279,7 @@
                             aria-haspopup="true" aria-expanded="false" aria-controls="studentProfileDropdown">
                             <span class="student-header-avatar" id="studentAvatarInitials">DP</span>
                             <span class="student-header-profile-info">
-                                <span class="student-header-profile-name" id="studentProfileName">Dhruvi Patel</span><br />
+                               <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                                 <span class="student-header-profile-role">Student</span>
                             </span>
                             <i class="fa-solid fa-chevron-down student-header-profile-caret"></i>

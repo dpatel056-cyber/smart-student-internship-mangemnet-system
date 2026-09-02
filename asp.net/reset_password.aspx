@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="reset_password.aspx.cs" Inherits="asp.net.reset_password" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/public.Master" AutoEventWireup="true" CodeBehind="reset_password.aspx.cs" Inherits="asp.net.reset_password" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content5" runat="server" contentplaceholderid="ContentPlaceHolder2">
@@ -154,7 +154,7 @@
         <span class="field-error" id="fpConfirmPasswordError" style="display:none; color:#ef4444;">Passwords do not match.</span>
       </div>
 
-            <asp:ImageButton ID="fpResetPasswordBtn" ClientIDMode="Static" runat="server" ImageUrl="~/otp3.png" AlternateText="Reset Password" OnClientClick="return false;" style="margin-top: 20px; width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
+            <asp:ImageButton ID="fpResetPasswordBtn" ClientIDMode="Static" runat="server" ImageUrl="~/assets/otp3.png" AlternateText="Reset Password" OnClientClick="return false;" style="margin-top: 20px; width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
     </div>
 
     <!-- ===== STEP 4: Success ===== -->
@@ -163,7 +163,7 @@
       <h3 class="modal-title" style="text-align: center;">Reset Successful!</h3>
       <p class="modal-sub" style="text-align: center;">Your password has been changed successfully. You can now login with your new credentials.</p>
       
-            <asp:ImageButton ID="btnLoginSuccess" runat="server" ImageUrl="~/login.png" PostBackUrl="~/login.aspx" AlternateText="Login Now" style="margin-top: 30px; width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
+            <asp:ImageButton ID="btnLoginSuccess" runat="server" ImageUrl="~/assets/login.png" PostBackUrl="~/login.aspx" AlternateText="Login Now" style="margin-top: 30px; width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
     </div>
 
   </div>
@@ -213,7 +213,7 @@
                                     <i class="fa-regular fa-bell"></i><span class="badge">1</span>
                                 </button>
 <%--                                <a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/login register.png" PostBackUrl="~/login.aspx" Width="150px" />                               
+                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />                               
                                 <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>

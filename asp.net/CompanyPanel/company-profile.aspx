@@ -1,4 +1,4 @@
-<%@ Page Title="Company Profile" Language="C#" MasterPageFile="~/company.Master" AutoEventWireup="true" CodeFile="company-profile.aspx.cs" Inherits="asp.net.company_profile" %>
+<%@ Page Title="Company Profile" Language="C#" MasterPageFile="~/CompanyPanel/company.Master" AutoEventWireup="true" CodeBehind="company-profile.aspx.cs" Inherits="asp.net.company_profile" %>
 
 <asp:Content ID="Content0" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="css/company-profile.css" />

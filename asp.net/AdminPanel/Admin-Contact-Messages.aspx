@@ -1,4 +1,4 @@
-<%@ Page Title="Contact Messages" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="Admin-Contact-Messages.aspx.cs" Inherits="asp.net.AdminPanel.Admin_Contact_Messages" %>
+<%@ Page Title="Contact Messages" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="admin-contact-messages.aspx.cs" Inherits="asp.net.AdminPanel.Admin_Contact_Messages" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>

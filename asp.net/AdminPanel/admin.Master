@@ -54,7 +54,7 @@
                         </a>
                         <ul class="sims-submenu">
                             <li class="sims-submenu-item"><a href="admin-students.aspx" class="sims-submenu-link">Students</a></li>
-                            <li class="sims-submenu-item"><a href="Admin-Student-Applications.aspx" class="sims-submenu-link">Student Applications</a></li>
+                            <li class="sims-submenu-item"><a href="admin-student-applications.aspx" class="sims-submenu-link">Student Applications</a></li>
                         </ul>
                     </li>
                     <li class="sims-nav-item has-submenu">
@@ -64,7 +64,7 @@
                         </a>
                         <ul class="sims-submenu">
                             <li class="sims-submenu-item"><a href="admin-companies.aspx" class="sims-submenu-link">Companies</a></li>
-                            <li class="sims-submenu-item"><a href="Admin-Company-Verification.aspx" class="sims-submenu-link">Company Verification</a></li>
+                            <li class="sims-submenu-item"><a href="admin-company-verification.aspx" class="sims-submenu-link">Company Verification</a></li>
                         </ul>
                     </li>
                     <li class="sims-nav-item has-submenu">
@@ -73,15 +73,15 @@
                             <span class="sims-nav-label">Placements</span>
                         </a>
                         <ul class="sims-submenu">
-                            <li class="sims-submenu-item"><a href="Admin-Internships.aspx" class="sims-submenu-link">Internships</a></li>
-                            <li class="sims-submenu-item"><a href="Admin-Categories-Skills.aspx" class="sims-submenu-link">Categories &amp; Skills</a></li>
+                            <li class="sims-submenu-item"><a href="admin-internships.aspx" class="sims-submenu-link">Internships</a></li>
+                            <li class="sims-submenu-item"><a href="admin-categories-skills.aspx" class="sims-submenu-link">Categories &amp; Skills</a></li>
                         </ul>
                     </li>
                 </ul>
                 <div class="sims-nav-section-label">Processes</div>
                 <ul>
                     <li class="sims-nav-item">
-                        <a href="Admin-Interviews.aspx" class="sims-nav-link">
+                        <a href="admin-interviews.aspx" class="sims-nav-link">
                             <span class="sims-nav-icon"><i class="fa-solid fa-calendar-check"></i></span>
                             <span class="sims-nav-label">Interviews</span>
                         </a>
@@ -96,13 +96,13 @@
                 <div class="sims-nav-section-label">Communication</div>
                 <ul>
                     <li class="sims-nav-item">
-                        <a href="Admin-Contact-Messages.aspx" class="sims-nav-link">
+                        <a href="admin-contact-messages.aspx" class="sims-nav-link">
                             <span class="sims-nav-icon"><i class="fa-solid fa-message"></i></span>
                             <span class="sims-nav-label">Contact Messages</span>
                         </a>
                     </li>
                     <li class="sims-nav-item">
-                        <a href="Admin-Notifications.aspx" class="sims-nav-link" style="display: flex; align-items: center;">
+                        <a href="admin-notifications.aspx" class="sims-nav-link" style="display: flex; align-items: center;">
                             <span class="sims-nav-icon"><i class="fa-solid fa-bell"></i></span>
                             <span class="sims-nav-label" style="flex: 1;">Notifications</span>
                             <span style="background: #EF4444; color: white; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 9999px;">24</span>
@@ -124,7 +124,7 @@
                 <div class="sims-nav-section-label">Reports &amp; Security</div>
                 <ul>
                     <li class="sims-nav-item">
-                        <a href="ReportsAnalytics.aspx" class="sims-nav-link">
+                        <a href="admin-reports-analytics.aspx" class="sims-nav-link">
                             <span class="sims-nav-icon"><i class="fa-solid fa-chart-column"></i></span>
                             <span class="sims-nav-label">Reports &amp; Analytics</span>
                         </a>
@@ -175,7 +175,7 @@
                     <button type="button" class="sims-search-icon-btn" id="searchIconBtn" aria-label="Search">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
-                    <a href="Admin-Notifications.aspx" class="sims-icon-btn" aria-label="Notifications" style="text-decoration: none;">
+                    <a href="admin-notifications.aspx" class="sims-icon-btn" aria-label="Notifications" style="text-decoration: none;">
                         <i class="fa-solid fa-bell"></i>
                         <span class="sims-badge-dot">5</span>
                     </a>
@@ -219,23 +219,23 @@
 
     <!-- ===================== LOGOUT MODAL ===================== -->
     <div id="modalLogoutOverlay" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.45); z-index:10000; align-items:center; justify-content:center;">
-        <div style="background:#fff; width:100%; max-width:460px; border-radius:20px; padding:40px 36px 32px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.15); position:relative;">
+        <div style="background:#fff; width:100%; max-width:440px; border-radius:24px; padding:36px 32px 30px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.15); position:relative; margin:16px;">
             
             <!-- Icon -->
-            <div style="width:76px; height:76px; background:#fee2e2; border-radius:20px; display:flex; align-items:center; justify-content:center; margin:0 auto 28px auto;">
-                <i class="fa-solid fa-arrow-right-from-bracket" style="font-size:34px; color:#ef4444;"></i>
+            <div style="width:72px; height:72px; background:#fde8e8; border-radius:20px; display:flex; align-items:center; justify-content:center; margin:0 auto 24px auto;">
+                <i class="fa-solid fa-arrow-right-from-bracket" style="font-size:30px; color:#ef4444;"></i>
             </div>
             
             <!-- Title -->
-            <h2 style="margin:0 0 12px 0; font-size:22px; color:#0f172a; font-weight:800; letter-spacing:-0.3px;">Logout Confirmation</h2>
+            <h2 style="margin:0 0 10px 0; font-size:22px; color:#0f172a; font-weight:700; letter-spacing:-0.2px;">Logout Confirmation</h2>
             
             <!-- Subtitle -->
-            <p style="margin:0 0 32px 0; color:#64748b; font-size:15px; line-height:1.6;">Are you sure you want to logout from SIMS<br>Admin Panel?</p>
+            <p style="margin:0 0 28px 0; color:#64748b; font-size:15px; line-height:1.5;">Are you sure you want to logout from SIMS<br>Admin Panel?</p>
             
             <!-- Buttons -->
-            <div style="display:flex; gap:14px;">
-                <button type="button" onclick="closeLogoutModal()" style="flex:1; padding:14px 0; border-radius:10px; border:none; background:#eff6ff; color:#2563eb; font-weight:700; font-size:15px; cursor:pointer;">No, Stay</button>
-                <a href="../login.aspx" style="flex:1; padding:14px 0; border-radius:10px; border:none; background:#2563eb; color:#fff; font-weight:700; font-size:15px; text-decoration:none; display:flex; align-items:center; justify-content:center; cursor:pointer;">Yes, Logout</a>
+            <div style="display:flex; gap:12px;">
+                <button type="button" onclick="closeLogoutModal()" style="flex:1; padding:13px 0; border-radius:12px; border:none; background:#eff6ff; color:#2563eb; font-weight:700; font-size:15px; cursor:pointer;">No, Stay</button>
+                <a href="../login.aspx" style="flex:1; padding:13px 0; border-radius:12px; border:none; background:#2563eb; color:#fff; font-weight:700; font-size:15px; text-decoration:none; display:flex; align-items:center; justify-content:center; cursor:pointer;">Yes, Logout</a>
             </div>
         </div>
     </div>
