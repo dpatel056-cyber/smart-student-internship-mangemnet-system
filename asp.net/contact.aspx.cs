@@ -21,7 +21,6 @@ namespace asp.net
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            getcon();
         }
         void getcon() {
             con = new SqlConnection(s);
@@ -36,8 +35,17 @@ namespace asp.net
         protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
         {
             getcon();
-            cmd = new SqlCommand("insert into Contact(c_name,c_email,c_subject,c_message) values('" + txtname.Text + "','" + txtemail.Text + "','" + txtsubject.Text + "','" + txtMessage.Text + "')", con);
+            cmd = new SqlCommand(
+                "insert into cont(c_name,c_email,c_subject,c_message,c_date,c_status) " +
+                "values(@name,@email,@subject,@message,GETDATE(),@status)", con);
+            cmd.Parameters.AddWithValue("@name", txtname.Text.Trim());
+            cmd.Parameters.AddWithValue("@email", txtemail.Text.Trim());
+            cmd.Parameters.AddWithValue("@subject", txtsubject.Text.Trim());
+            cmd.Parameters.AddWithValue("@message", txtMessage.Text.Trim());
+            cmd.Parameters.AddWithValue("@status", "New");
+
             cmd.ExecuteNonQuery();
+            con.Close();
             clear();
         }
     }
