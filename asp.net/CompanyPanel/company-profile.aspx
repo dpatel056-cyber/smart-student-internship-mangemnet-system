@@ -1,7 +1,7 @@
 <%@ Page Title="Company Profile" Language="C#" MasterPageFile="~/CompanyPanel/company.Master" AutoEventWireup="true" CodeBehind="company-profile.aspx.cs" Inherits="asp.net.company_profile" %>
 
 <asp:Content ID="Content0" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="css/company-profile.css" />
+    <link rel="stylesheet" href="<%= ResolveUrl("~/css/company-profile.css") %>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </asp:Content>
 
@@ -9,254 +9,398 @@
 
 <div class="company-profile-page">
 
-    <!-- ===================== PAGE HEADER ===================== -->
-    <div class="company-profile-header">
-        <div>
-            <h1 class="company-profile-title">Company Profile</h1>
-            <p class="company-profile-subtitle">View and manage your company information and profile details.</p>
-        </div>
-        <div class="company-profile-actions">
-            <asp:HyperLink ID="hlEditProfile" runat="server" CssClass="btn-primary-sims" NavigateUrl="~/company-edit-profile.aspx">
-                <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
-                <span>Edit Profile</span>
-            </asp:HyperLink>
-        </div>
-    </div>
-
-    <!-- ===================== COMPANY HERO CARD ===================== -->
-    <asp:Panel ID="pnlHero" runat="server" CssClass="company-profile-hero">
-        <div class="company-profile-logo-wrap">
-            <asp:Image ID="imgCompanyLogo" runat="server" CssClass="company-profile-logo" Visible="false" AlternateText="Company Logo" />
-            <asp:Panel ID="pnlLogoInitials" runat="server" CssClass="company-profile-logo company-profile-logo-initials">
-                <asp:Label ID="lblCompanyInitials" runat="server" Text="TC" />
-            </asp:Panel>
-        </div>
-
-        <div class="company-profile-info">
-            <div class="company-profile-name-row">
-                <asp:Label ID="lblCompanyName" runat="server" CssClass="company-profile-name" Text="TechCorp Ltd" />
-                <asp:Label ID="lblVerifiedBadge" runat="server" CssClass="badge-verification badge-verified">
-                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Verified
-                </asp:Label>
+    <!-- ===================== HEADER CARD ===================== -->
+    <asp:Panel ID="pnlHero" runat="server" CssClass="profile-header-card">
+        <div class="profile-header-top">
+            <div class="profile-main-info">
+                <div class="profile-photo" aria-label="Company logo" style="border-radius: 50% !important; overflow: hidden !important;">
+                    <asp:Image ID="imgCompanyLogo" runat="server" CssClass="company-profile-logo" Visible="false" AlternateText="Company Logo" Style="width:100%; height:100%; border-radius:50% !important; object-fit:cover; display:block;" />
+                    <asp:Panel ID="pnlLogoInitials" runat="server" Style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border-radius: 50%;">
+                        <asp:Label ID="lblCompanyInitials" runat="server" />
+                    </asp:Panel>
+                </div>
+                <div class="profile-info-2x2">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-building"></i></div>
+                        <div class="contact-text">
+                            <span class="contact-label">Company Name</span>
+                            <asp:Label ID="lblCompanyName" runat="server" CssClass="contact-value" />
+                            <asp:Label ID="lblVerifiedBadge" runat="server" Visible="false" />
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                        <div class="contact-text">
+                            <span class="contact-label">Industry</span>
+                            <asp:Label ID="lblIndustry" runat="server" CssClass="contact-value" />
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="contact-text">
+                            <span class="contact-label">Location</span>
+                            <asp:Label ID="lblLocation" runat="server" CssClass="contact-value" />
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-globe"></i></div>
+                        <div class="contact-text">
+                            <span class="contact-label">Website</span>
+                            <asp:HyperLink ID="hlWebsite" runat="server" CssClass="contact-value" Target="_blank" />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <asp:Label ID="lblIndustry" runat="server" CssClass="company-profile-industry" Text="Information Technology" />
-
-            <div class="company-profile-meta">
-                <span class="company-profile-location">
-                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                    <asp:Label ID="lblLocation" runat="server" Text="Ahmedabad, Gujarat" />
-                </span>
-                <asp:HyperLink ID="hlWebsite" runat="server" CssClass="company-profile-website" NavigateUrl="https://www.techcorp.com" Target="_blank">
-                    <i class="fa-solid fa-globe" aria-hidden="true"></i> www.techcorp.com
-                </asp:HyperLink>
-            </div>
-        </div>
-
-        <div class="company-profile-hero-action">
-            <asp:HyperLink ID="hlEditProfileHero" runat="server" CssClass="btn-primary-sims btn-outline-sims" NavigateUrl="~/company-edit-profile.aspx">
+            <asp:HyperLink ID="hlEditProfile" runat="server" CssClass="edit-profile-btn" NavigateUrl="~/CompanyPanel/company-edit-profile.aspx">
                 <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> Edit Profile
+            </asp:HyperLink>
+            <asp:HyperLink ID="hlEditProfileHero" runat="server" Visible="false" NavigateUrl="~/CompanyPanel/company-edit-profile.aspx"></asp:HyperLink>
+        </div>
+
+        <div class="profile-contact-row">
+            <div class="contact-item">
+                <div class="contact-icon"><i class="fa-solid fa-user"></i></div>
+                <div class="contact-text">
+                    <span class="contact-label">Contact Person</span>
+                    <asp:Label ID="lblHeroContactPerson" runat="server" CssClass="contact-value" />
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div class="contact-text">
+                    <span class="contact-label">Official Email</span>
+                    <asp:Label ID="lblHeroEmail" runat="server" CssClass="contact-value" />
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                <div class="contact-text">
+                    <span class="contact-label">Phone Number</span>
+                    <asp:Label ID="lblHeroPhone" runat="server" CssClass="contact-value" />
+                </div>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <asp:HyperLink ID="hlWebsiteSocial" runat="server" Target="_blank" Rel="noopener" CssClass="social-link" NavigateUrl="#">
+                <i class="fa-solid fa-globe"></i> Website
+            </asp:HyperLink>
+            <asp:HyperLink ID="hlEmailSocial" runat="server" CssClass="social-link" NavigateUrl="#">
+                <i class="fa-solid fa-envelope"></i> Email Us
+            </asp:HyperLink>
+            <asp:HyperLink ID="hlCallSocial" runat="server" CssClass="social-link" NavigateUrl="#">
+                <i class="fa-solid fa-phone"></i> Call Us
             </asp:HyperLink>
         </div>
     </asp:Panel>
 
-    <!-- ===================== STATISTICS ===================== -->
-    <div class="company-profile-stats">
-        <div class="company-profile-stat-card">
+    <!-- ===================== STATISTICS CARDS ===================== -->
+    <div class="profile-stats-grid">
+        <div class="profile-stat-card">
             <div class="stat-icon stat-icon-blue"><i class="fa-solid fa-briefcase" aria-hidden="true"></i></div>
             <div class="stat-text">
-                <asp:Label ID="lblTotalInternships" runat="server" CssClass="stat-value" Text="12" />
+                <asp:Label ID="lblTotalInternships" runat="server" CssClass="stat-value" />
                 <span class="stat-label">Total Internships</span>
             </div>
         </div>
-        <div class="company-profile-stat-card">
+        <div class="profile-stat-card">
             <div class="stat-icon stat-icon-green"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></div>
             <div class="stat-text">
-                <asp:Label ID="lblActiveInternships" runat="server" CssClass="stat-value" Text="5" />
+                <asp:Label ID="lblActiveInternships" runat="server" CssClass="stat-value" />
                 <span class="stat-label">Active Internships</span>
             </div>
         </div>
-        <div class="company-profile-stat-card">
+        <div class="profile-stat-card">
             <div class="stat-icon stat-icon-purple"><i class="fa-solid fa-file-lines" aria-hidden="true"></i></div>
             <div class="stat-text">
-                <asp:Label ID="lblTotalApplications" runat="server" CssClass="stat-value" Text="148" />
+                <asp:Label ID="lblTotalApplications" runat="server" CssClass="stat-value" />
                 <span class="stat-label">Total Applications</span>
             </div>
         </div>
-        <div class="company-profile-stat-card">
+        <div class="profile-stat-card">
             <div class="stat-icon stat-icon-orange"><i class="fa-solid fa-user-check" aria-hidden="true"></i></div>
             <div class="stat-text">
-                <asp:Label ID="lblStudentsSelected" runat="server" CssClass="stat-value" Text="18" />
+                <asp:Label ID="lblStudentsSelected" runat="server" CssClass="stat-value" />
                 <span class="stat-label">Students Selected</span>
             </div>
         </div>
     </div>
 
-    <!-- ===================== INFO + CONTACT (2 COLUMN) ===================== -->
-    <div class="company-profile-grid-2col">
+    <!-- ===================== TABS NAVIGATION ===================== -->
+    <section class="profile-tabs-card" aria-label="Company Profile sections">
+        <div class="profile-tabs" role="tablist">
+            <button type="button" class="profile-tab active" onclick="openCompanyTab('company-info', this)"><i class="fa-solid fa-gauge-high"></i><span>Overview</span></button>
+            <button type="button" class="profile-tab" onclick="openCompanyTab('about-company', this)"><i class="fa-solid fa-building"></i><span>Company Information</span></button>
+            <button type="button" class="profile-tab" onclick="openCompanyTab('contact-info', this)"><i class="fa-solid fa-address-book"></i><span>Contact</span></button>
+            <button type="button" class="profile-tab" onclick="openCompanyTab('verification-status', this)"><i class="fa-solid fa-briefcase"></i><span>Internship Preferences</span></button>
+            <button type="button" class="profile-tab" onclick="openCompanyTab('profile-completion', this)"><i class="fa-solid fa-chart-line"></i><span>Activity</span></button>
+        </div>
+    </section>
 
-        <!-- COMPANY INFORMATION -->
-        <div class="company-profile-section">
-            <h2 class="section-title">Company Information</h2>
-            <div class="company-profile-grid">
-                <div class="company-profile-field">
-                    <span class="company-profile-label">Company Name</span>
-                    <asp:Label ID="lblFieldCompanyName" runat="server" CssClass="company-profile-value" Text="TechCorp Ltd" />
-                </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label">Industry</span>
-                    <asp:Label ID="lblFieldIndustry" runat="server" CssClass="company-profile-value" Text="Information Technology" />
-                </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label">Company Type</span>
-                    <asp:Label ID="lblCompanyType" runat="server" CssClass="company-profile-value" Text="Private Limited" />
-                </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label">Company Size</span>
-                    <asp:Label ID="lblCompanySize" runat="server" CssClass="company-profile-value" Text="51-200 Employees" />
-                </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label">Founded Year</span>
-                    <asp:Label ID="lblFoundedYear" runat="server" CssClass="company-profile-value" Text="2018" />
-                </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label">Registration Number</span>
-                    <asp:Label ID="lblRegistrationNumber" runat="server" CssClass="company-profile-value" Text="REG-123456" />
+    <!-- ===================== TAB 1: OVERVIEW ===================== -->
+    <section id="company-info" class="profile-tab-content active">
+        <div class="profile-section-card">
+            <div class="section-header">
+                <div>
+                    <h2><i class="fa-solid fa-gauge-high"></i>Overview</h2>
+                    <p>View key organizational overview and company specs</p>
                 </div>
             </div>
-        </div>
 
-        <!-- CONTACT INFORMATION -->
-        <div class="company-profile-section">
-            <h2 class="section-title">Contact Information</h2>
-            <div class="company-profile-grid">
-                <div class="company-profile-field">
-                    <span class="company-profile-label"><i class="fa-solid fa-user" aria-hidden="true"></i> Contact Person</span>
-                    <asp:Label ID="lblContactPerson" runat="server" CssClass="company-profile-value" Text="Dhruvi Patel" />
+            <div class="profile-subtitle"><i class="fa-solid fa-id-card"></i>Company Overview</div>
+            <div class="profile-info-grid">
+                <div class="info-field">
+                    <span class="info-label">Company Name</span>
+                    <asp:Label ID="lblFieldCompanyName" runat="server" CssClass="info-value" />
                 </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Official Email</span>
-                    <asp:Label ID="lblEmail" runat="server" CssClass="company-profile-value" Text="hr@techcorp.com" />
+                <div class="info-field">
+                    <span class="info-label">Industry</span>
+                    <asp:Label ID="lblFieldIndustry" runat="server" CssClass="info-value" />
                 </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label"><i class="fa-solid fa-phone" aria-hidden="true"></i> Phone Number</span>
-                    <asp:Label ID="lblPhone" runat="server" CssClass="company-profile-value" Text="+91 XXXXX XXXXX" />
+                <div class="info-field">
+                    <span class="info-label">Company Type</span>
+                    <asp:Label ID="lblCompanyType" runat="server" CssClass="info-value" />
                 </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Alternate Email</span>
-                    <asp:Label ID="lblAlternateEmail" runat="server" CssClass="company-profile-value" Text="info@techcorp.com" />
+                <div class="info-field">
+                    <span class="info-label">Company Size</span>
+                    <asp:Label ID="lblCompanySize" runat="server" CssClass="info-value" />
                 </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label"><i class="fa-solid fa-globe" aria-hidden="true"></i> Website</span>
-                    <asp:Label ID="lblWebsiteField" runat="server" CssClass="company-profile-value" Text="www.techcorp.com" />
+                <div class="info-field">
+                    <span class="info-label">Founded Year</span>
+                    <asp:Label ID="lblFoundedYear" runat="server" CssClass="info-value" />
                 </div>
+                <div class="info-field">
+                    <span class="info-label">About Company</span>
+                    <asp:Label ID="lblDescription" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Headquarters</span>
+                    <asp:Label ID="lblHeadquarters" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Website</span>
+                    <asp:Label ID="lblWebsiteField" runat="server" CssClass="info-value" />
+                </div>
+                <asp:Label ID="lblRegistrationNumber" runat="server" Visible="false" />
             </div>
         </div>
+    </section>
 
-    </div>
-
-    <!-- ===================== ABOUT COMPANY ===================== -->
-    <div class="company-profile-section company-profile-about">
-        <h2 class="section-title">About Company</h2>
-        <asp:Label ID="lblDescription" runat="server" CssClass="about-text"
-            Text="TechCorp Ltd is a technology company providing innovative software solutions and internship opportunities for students." />
-    </div>
-
-    <!-- ===================== ADDRESS + VERIFICATION (2 COLUMN) ===================== -->
-    <div class="company-profile-grid-2col">
-
-        <!-- COMPANY ADDRESS -->
-        <div class="company-profile-section company-profile-address">
-            <h2 class="section-title">Company Address</h2>
-            <div class="company-profile-grid">
-                <div class="company-profile-field field-full">
-                    <span class="company-profile-label"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Address</span>
-                    <asp:Label ID="lblAddress" runat="server" CssClass="company-profile-value" Text="123, Technology Park" />
-                </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label">City</span>
-                    <asp:Label ID="lblCity" runat="server" CssClass="company-profile-value" Text="Ahmedabad" />
-                </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label">State</span>
-                    <asp:Label ID="lblState" runat="server" CssClass="company-profile-value" Text="Gujarat" />
-                </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label">Country</span>
-                    <asp:Label ID="lblCountry" runat="server" CssClass="company-profile-value" Text="India" />
-                </div>
-                <div class="company-profile-field">
-                    <span class="company-profile-label">Pincode</span>
-                    <asp:Label ID="lblPincode" runat="server" CssClass="company-profile-value" Text="380001" />
+    <!-- ===================== TAB 2: COMPANY INFORMATION ===================== -->
+    <section id="about-company" class="profile-tab-content">
+        <div class="profile-section-card">
+            <div class="section-header">
+                <div>
+                    <h2><i class="fa-solid fa-building"></i>Company Information</h2>
+                    <p>Overview, specialization, mission, and vision of your company</p>
                 </div>
             </div>
-        </div>
 
-        <!-- VERIFICATION STATUS -->
-        <div class="company-profile-section company-profile-verification">
-            <h2 class="section-title">Verification Status</h2>
-
-            <asp:Panel ID="pnlStatusVerified" runat="server" CssClass="verification-box verification-verified">
-                <div class="verification-heading">
-                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-                    <span>Verified</span>
+            <div class="profile-subtitle"><i class="fa-solid fa-bullseye"></i>Company Specialization &amp; Vision</div>
+            <div class="profile-info-grid">
+                <div class="info-field">
+                    <span class="info-label">Business Domain / Specialization</span>
+                    <asp:Label ID="lblBusinessDomain" runat="server" CssClass="info-value" />
                 </div>
-                <p class="verification-message">Your company profile is verified by the administrator.</p>
-                <p class="verification-date">Verified On: <asp:Label ID="lblVerifiedDate" runat="server" Text="15 Aug 2026" /></p>
-            </asp:Panel>
-
-            <asp:Panel ID="pnlStatusPending" runat="server" CssClass="verification-box verification-pending" Visible="false">
-                <div class="verification-heading">
-                    <i class="fa-solid fa-hourglass-half" aria-hidden="true"></i>
-                    <span>Pending Verification</span>
+                <div class="info-field">
+                    <span class="info-label">Products / Services</span>
+                    <asp:Label ID="lblProductsServices" runat="server" CssClass="info-value" />
                 </div>
-                <p class="verification-message">Your company profile is currently waiting for administrator approval.</p>
-            </asp:Panel>
-
-            <asp:Panel ID="pnlStatusRejected" runat="server" CssClass="verification-box verification-rejected" Visible="false">
-                <div class="verification-heading">
-                    <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
-                    <span>Verification Rejected</span>
+                <div class="info-field">
+                    <span class="info-label">Mission</span>
+                    <asp:Label ID="lblMission" runat="server" CssClass="info-value" />
                 </div>
-                <p class="verification-message">Your company verification was rejected. Please update your company information.</p>
-            </asp:Panel>
+                <div class="info-field">
+                    <span class="info-label">Vision</span>
+                    <asp:Label ID="lblVision" runat="server" CssClass="info-value" />
+                </div>
+                <asp:Label ID="lblFullDescription" runat="server" Visible="false" />
+            </div>
         </div>
+    </section>
 
-    </div>
+    <!-- ===================== TAB 3: CONTACT ===================== -->
+    <section id="contact-info" class="profile-tab-content">
+        <div class="profile-section-card">
+            <div class="section-header">
+                <div>
+                    <h2><i class="fa-solid fa-address-book"></i>Contact Details</h2>
+                    <p>Company contact information, HR details, and online presence</p>
+                </div>
+            </div>
 
-    <!-- ===================== PROFILE COMPLETION ===================== -->
-    <div class="company-profile-section company-profile-completion">
-        <div class="completion-header">
-            <h2 class="section-title">Profile Completion</h2>
-            <asp:Label ID="lblCompletionPercent" runat="server" CssClass="completion-percent" Text="85%" />
+            <!-- SECTION 1: COMPANY CONTACT (3 ROW x 2 COL) -->
+            <div class="profile-subtitle"><i class="fa-solid fa-building"></i>Company Contact</div>
+            <div class="profile-info-grid">
+                <div class="info-field">
+                    <span class="info-label">Official Email</span>
+                    <asp:Label ID="lblEmail" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Official Contact Number</span>
+                    <asp:Label ID="lblPhone" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Address</span>
+                    <asp:Label ID="lblAddress" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">City</span>
+                    <asp:Label ID="lblCity" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">State</span>
+                    <asp:Label ID="lblState" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Pincode</span>
+                    <asp:Label ID="lblPincode" runat="server" CssClass="info-value" />
+                </div>
+                <asp:Label ID="lblCountry" runat="server" Visible="false" />
+            </div>
+
+            <!-- SECTION 2: HR / RECRUITER (2 ROW x 2 COL) -->
+            <div class="profile-subtitle"><i class="fa-solid fa-user-tie"></i>HR / Recruiter</div>
+            <div class="profile-info-grid">
+                <div class="info-field">
+                    <span class="info-label">HR / Recruiter Name</span>
+                    <asp:Label ID="lblContactPerson" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">HR Designation</span>
+                    <asp:Label ID="lblHRDesignation" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">HR Email</span>
+                    <asp:Label ID="lblAlternateEmail" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">HR Contact Number</span>
+                    <asp:Label ID="lblHRContactNumber" runat="server" CssClass="info-value" />
+                </div>
+            </div>
+
+            <!-- SECTION 3: ONLINE PRESENCE (1 ROW x 1 COL) -->
+            <div class="profile-subtitle"><i class="fa-solid fa-globe"></i>Online Presence</div>
+            <div class="profile-info-grid" style="grid-template-columns: 1fr;">
+                <div class="info-field">
+                    <span class="info-label">LinkedIn</span>
+                    <asp:HyperLink ID="hlLinkedIn" runat="server" CssClass="info-value" Target="_blank" />
+                </div>
+                <asp:Label ID="lblContactWebsite" runat="server" Visible="false" />
+            </div>
         </div>
-        <div class="completion-bar-track">
-            <asp:Panel ID="pnlCompletionBar" runat="server" CssClass="completion-bar-fill" Style="width:85%;"></asp:Panel>
-        </div>
-        <p class="completion-subtext">Complete your company profile to improve visibility to students.</p>
+    </section>
 
-        <div class="completion-missing">
-            <span class="completion-missing-label">Missing information:</span>
-            <ul class="completion-missing-list">
-                <asp:Repeater ID="rptMissingFields" runat="server">
-                    <ItemTemplate>
-                        <li><%# Eval("FieldName") %></li>
-                    </ItemTemplate>
-                </asp:Repeater>
-                <%-- Sample static fallback for UI preview --%>
-                <li>Company Logo</li>
-                <li>Alternate Email</li>
-            </ul>
-        </div>
+    <!-- ===================== TAB 4: INTERNSHIP PREFERENCES ===================== -->
+    <section id="verification-status" class="profile-tab-content">
+        <div class="profile-section-card">
+            <div class="section-header">
+                <div>
+                    <h2><i class="fa-solid fa-briefcase"></i>Internship Preferences</h2>
+                    <p>Hiring criteria, preferred domains, qualifications, and work modes</p>
+                </div>
+            </div>
 
-        <asp:HyperLink ID="hlCompleteProfile" runat="server" CssClass="btn-primary-sims" NavigateUrl="~/company-edit-profile.aspx">
-            Complete Profile
-        </asp:HyperLink>
-    </div>
+            <div class="profile-subtitle"><i class="fa-solid fa-sliders"></i>Preferences &amp; Eligibility Criteria</div>
+            <div class="profile-info-grid">
+                <div class="info-field">
+                    <span class="info-label">Internship Domains</span>
+                    <asp:Label ID="lblInternshipDomains" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Internship Type</span>
+                    <asp:Label ID="lblInternshipType" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Preferred Work Mode</span>
+                    <asp:Label ID="lblPreferredWorkMode" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Preferred Duration</span>
+                    <asp:Label ID="lblPreferredDuration" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Required Skills / Technologies</span>
+                    <asp:Label ID="lblRequiredSkills" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Preferred Courses</span>
+                    <asp:Label ID="lblPreferredCourses" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Preferred Semester</span>
+                    <asp:Label ID="lblPreferredSemester" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Minimum CGPA</span>
+                    <asp:Label ID="lblMinimumCGPA" runat="server" CssClass="info-value" />
+                </div>
+            </div>
+
+            <!-- Hidden Control Placeholders for Backend Compatibility -->
+            <asp:Panel ID="pnlStatusVerified" runat="server" Visible="false"><asp:Label ID="lblVerifiedDate" runat="server" Visible="false" /></asp:Panel>
+            <asp:Panel ID="pnlStatusPending" runat="server" Visible="false" />
+            <asp:Panel ID="pnlStatusRejected" runat="server" Visible="false" />
+        </div>
+    </section>
+
+    <!-- ===================== TAB 5: ACTIVITY ===================== -->
+    <section id="profile-completion" class="profile-tab-content">
+        <div class="profile-section-card">
+            <div class="section-header">
+                <div>
+                    <h2><i class="fa-solid fa-chart-line"></i>Activity Overview</h2>
+                    <p>Summary of internship postings, student applications, and placement metrics</p>
+                </div>
+            </div>
+
+            <div class="profile-subtitle"><i class="fa-solid fa-chart-pie"></i>Activity Metrics &amp; Engagement</div>
+            <div class="profile-info-grid">
+                <div class="info-field">
+                    <span class="info-label">Total Internship Posts</span>
+                    <asp:Label ID="lblActivityTotalPosts" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Active Internships</span>
+                    <asp:Label ID="lblActivityActiveInternships" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Total Applications</span>
+                    <asp:Label ID="lblActivityTotalApplications" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Students Selected</span>
+                    <asp:Label ID="lblActivityStudentsSelected" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Current Interns</span>
+                    <asp:Label ID="lblActivityCurrentInterns" runat="server" CssClass="info-value" />
+                </div>
+                <div class="info-field">
+                    <span class="info-label">Completed Internships</span>
+                    <asp:Label ID="lblActivityCompletedInternships" runat="server" CssClass="info-value" />
+                </div>
+            </div>
+
+            <!-- Hidden Control Placeholders for Backend Compatibility -->
+            <asp:Label ID="lblCompletionPercent" runat="server" Visible="false" />
+            <asp:Panel ID="pnlCompletionBar" runat="server" Visible="false" />
+            <asp:Repeater ID="rptMissingFields" runat="server" Visible="false" />
+            <asp:HyperLink ID="hlCompleteProfile" runat="server" Visible="false" />
+        </div>
+    </section>
 
 </div>
 
-</asp:Content>
+<script>
+    function openCompanyTab(id, button) {
+        document.querySelectorAll('.profile-tab-content').forEach(function (x) { x.classList.remove('active'); });
+        document.querySelectorAll('.profile-tab').forEach(function (x) { x.classList.remove('active'); });
+        var section = document.getElementById(id);
+        if (section) section.classList.add('active');
+        if (button) button.classList.add('active');
+    }
+</script>
 
-<asp:Content ID="ContentScript" ContentPlaceHolderID="ScriptContent" runat="server">
-    <script src="js/company-profile.js"></script>
 </asp:Content>

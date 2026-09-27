@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     // 1. DATASET WITH REALISTIC DATES FOR DATE FILTERING
     const feedbackList = [
         { id: "FB-1024", name: "Dhruvi Patel", email: "dhruvi@gmail.com", rating: 5, feedback: "Very easy to use, responsive and smooth navigation throughout the internship application process.", rawDate: "2026-08-21", date: "21 Aug 2026", time: "10:30 AM", status: "Reviewed", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" },
@@ -102,6 +102,34 @@
         }
     }
 
+    function getDateBounds(dateVal) {
+        if (dateVal === "All") return null;
+
+        const recordDates = allFeedback.map(item => item.rawDate).sort();
+        const referenceDate = recordDates.length ? recordDates[recordDates.length - 1] : "2026-08-21";
+        const reference = new Date(referenceDate + "T00:00:00");
+        const formatDate = date => date.toISOString().slice(0, 10);
+
+        if (dateVal === "Custom") {
+            let start = customStartDate && customStartDate.value ? customStartDate.value : "";
+            let end = customEndDate && customEndDate.value ? customEndDate.value : "";
+            if (!start && !end) return null;
+            if (start && end && start > end) {
+                const temp = start;
+                start = end;
+                end = temp;
+            }
+            return { start, end };
+        }
+
+        const end = formatDate(reference);
+        const startDate = new Date(reference);
+        const days = dateVal === "Yesterday" ? 1 : dateVal === "Last 7 Days" ? 6 : dateVal === "Last 30 Days" ? 29 : 0;
+        startDate.setDate(startDate.getDate() - days);
+        const start = formatDate(startDate);
+        return dateVal === "Yesterday" ? { start, end: start } : { start, end };
+    }
+
     // Comprehensive Filtering Logic
     function applyFilters() {
         const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
@@ -109,8 +137,7 @@
         const statusVal = filterStatus ? filterStatus.value : "All";
         const dateVal = filterDate ? filterDate.value : "All";
 
-        const todayStr = "2026-08-21";
-        const yesterdayStr = "2026-08-20";
+        const dateBounds = getDateBounds(dateVal);
 
         filteredData = allFeedback.filter(item => {
             // Text Search
@@ -123,26 +150,9 @@
             const matchesStatus = (statusVal === "All" || item.status === statusVal);
 
             // Date Filter
-            let matchesDate = true;
-            if (dateVal === "Today") {
-                matchesDate = (item.rawDate === todayStr);
-            } else if (dateVal === "Yesterday") {
-                matchesDate = (item.rawDate === yesterdayStr);
-            } else if (dateVal === "Last 7 Days") {
-                matchesDate = (item.rawDate >= "2026-08-15" && item.rawDate <= todayStr);
-            } else if (dateVal === "Last 30 Days") {
-                matchesDate = (item.rawDate >= "2026-07-22" && item.rawDate <= todayStr);
-            } else if (dateVal === "Custom") {
-                const sDate = customStartDate ? customStartDate.value : "";
-                const eDate = customEndDate ? customEndDate.value : "";
-                if (sDate && eDate) {
-                    matchesDate = (item.rawDate >= sDate && item.rawDate <= eDate);
-                } else if (sDate) {
-                    matchesDate = (item.rawDate >= sDate);
-                } else if (eDate) {
-                    matchesDate = (item.rawDate <= eDate);
-                }
-            }
+            const matchesDate = !dateBounds ||
+                ((!dateBounds.start || item.rawDate >= dateBounds.start) &&
+                 (!dateBounds.end || item.rawDate <= dateBounds.end));
 
             return matchesQuery && matchesRating && matchesStatus && matchesDate;
         });
@@ -347,16 +357,25 @@
         btnSendResponse.addEventListener("click", function () {
             const resp = drawerAdminResponse ? drawerAdminResponse.value.trim() : "";
             if (!resp) {
-                alert("Please enter a response message before sending.");
+                simsAlert("Please enter a response message before sending.", {
+                    type: "warning",
+                    title: "Response Required",
+                    btnText: "Got it"
+                });
                 return;
             }
             if (selectedItem) {
                 selectedItem.status = "Responded";
                 if (drawerStatusSelect) drawerStatusSelect.value = "Responded";
             }
-            alert("Response sent successfully to " + selectedItem.name + "!");
             closeDrawer();
             renderTable();
+            simsToast(
+                "Response sent successfully to " + selectedItem.name + "!",
+                "success",
+                "Response Sent",
+                4000
+            );
         });
     }
 

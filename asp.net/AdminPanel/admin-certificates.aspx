@@ -15,7 +15,6 @@
             --cert-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
             --cert-radius: 12px;
             --cert-radius-lg: 16px;
-            
             --cert-issued: #10B981;
             --cert-pending: #F59E0B;
             --cert-revoked: #EF4444;
@@ -133,6 +132,9 @@
             align-items: center;
             gap: 16px;
         }
+        .cert-stat-card.cert-stat-clickable { cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .cert-stat-card.cert-stat-clickable:hover,
+        .cert-stat-card.cert-stat-clickable.active { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12); border-color: var(--cert-primary); }
 
         .cert-stat-icon {
             width: 48px;
@@ -292,8 +294,8 @@
 
         /* Left Table (70%) */
         .cert-col-table {
-            flex: 0 0 70%;
-            max-width: 70%;
+            flex: 1 1 100%;
+            max-width: 100%;
         }
 
         .cert-filters-bar {
@@ -458,7 +460,8 @@
             border-top: 1px solid var(--cert-border);
         }
         .cert-page-info { font-size: 14px; color: var(--cert-text-muted); }
-        .cert-page-controls { display: flex; align-items: center; gap: 6px; }
+        .cert-page-controls { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; white-space: nowrap; }
+        .cert-page-numbers { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; }
         .cert-page-btn {
             min-width: 32px;
             height: 32px;
@@ -606,6 +609,20 @@
             font-family: inherit;
         }
         .cert-form-input:disabled { background: #F1F5F9; color: #94A3B8; }
+        .cert-form-input:focus, .cert-select:focus { border-color: var(--cert-primary); box-shadow: 0 0 0 3px #EEF2FF; }
+        .cert-template-picker { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .cert-template-option { border: 1px solid var(--cert-border); border-radius: 10px; padding: 10px; background: #fff; cursor: pointer; transition: .2s; }
+        .cert-template-option:hover, .cert-template-option.selected { border-color: var(--cert-primary); box-shadow: 0 0 0 2px #E0E7FF; }
+        .cert-template-option.selected { background: #F8FAFF; }
+        .cert-template-mini { height: 54px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; letter-spacing: .08em; margin-bottom: 7px; }
+        .cert-template-option strong { font-size: 12px; color: var(--cert-text-main); }
+        .cert-template-option small { display: block; color: var(--cert-text-muted); font-size: 10px; margin-top: 2px; }
+        .cert-form-warning { display: none; padding: 9px 10px; border-radius: 8px; background: #FFF7ED; color: #C2410C; font-size: 12px; margin-top: 8px; }
+        .cert-preview-wrapper.template-modern .cert-preview-inner { border: 0; background: linear-gradient(135deg, #EFF6FF, #fff 52%); box-shadow: inset 8px 0 #2563EB; }
+        .cert-preview-wrapper.template-gold .cert-preview-inner { border-color: #C99732; }
+        .cert-preview-wrapper.template-gold .cert-preview-title, .cert-preview-wrapper.template-gold .cert-preview-name { color: #A16207; }
+        .cert-preview-wrapper.template-academic .cert-preview-inner { border: 5px solid #0F172A; outline: 2px solid #C99732; outline-offset: -10px; }
+        .cert-preview-wrapper.template-minimal .cert-preview-inner { border: 1px solid #2563EB; border-left: 10px solid #2563EB; }
         
         .cert-modal-footer {
             padding: 16px 24px;
@@ -792,81 +809,37 @@
                 <button type="button" class="cert-btn-primary" onclick="openGenerateModal()">
                     <i class="fa-solid fa-plus"></i> Generate Certificate
                 </button>
-                <button type="button" class="cert-btn-outline"><i class="fa-solid fa-file-export"></i> Export</button>
-                <button type="button" class="cert-btn-icon" onclick="location.reload();"><i class="fa-solid fa-rotate-right"></i></button>
-                <div class="cert-admin-profile">A</div>
             </div>
         </div>
 
         <!-- Summary Cards -->
         <div class="cert-stats-grid">
-            <div class="cert-stat-card">
+            <div class="cert-stat-card cert-stat-clickable active" data-cert-status="">
                 <div class="cert-stat-icon icon-indigo"><i class="fa-solid fa-certificate"></i></div>
                 <div class="cert-stat-details">
                     <div class="cert-stat-title">Total Certificates</div>
                     <div class="cert-stat-value">1,248</div>
                 </div>
             </div>
-            <div class="cert-stat-card">
+            <div class="cert-stat-card cert-stat-clickable" data-cert-status="Issued">
                 <div class="cert-stat-icon icon-green"><i class="fa-solid fa-check-circle"></i></div>
                 <div class="cert-stat-details">
                     <div class="cert-stat-title">Issued</div>
                     <div class="cert-stat-value">1,120</div>
                 </div>
             </div>
-            <div class="cert-stat-card">
+            <div class="cert-stat-card cert-stat-clickable" data-cert-status="Pending">
                 <div class="cert-stat-icon icon-orange"><i class="fa-solid fa-clock-rotate-left"></i></div>
                 <div class="cert-stat-details">
                     <div class="cert-stat-title">Pending</div>
                     <div class="cert-stat-value">84</div>
                 </div>
             </div>
-            <div class="cert-stat-card">
+            <div class="cert-stat-card cert-stat-clickable" data-cert-status="Revoked">
                 <div class="cert-stat-icon icon-red"><i class="fa-solid fa-ban"></i></div>
                 <div class="cert-stat-details">
                     <div class="cert-stat-title">Revoked</div>
                     <div class="cert-stat-value">44</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Certificate Templates -->
-        <div>
-            <h2 class="cert-section-title"><i class="fa-solid fa-layer-group"></i> Certificate Templates</h2>
-            <div class="cert-templates-grid">
-                <div class="cert-template-card">
-                    <div class="cert-template-preview"><i class="fa-solid fa-award"></i></div>
-                    <div class="cert-template-info">
-                        <span class="cert-template-name">Template 01<br><small style="color:var(--cert-text-muted); font-weight:500;">Classic Certificate</small></span>
-                        <div class="cert-template-actions">
-                            <button type="button" title="Preview"><i class="fa-solid fa-eye"></i></button>
-                            <button type="button" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="cert-template-card">
-                    <div class="cert-template-preview"><i class="fa-solid fa-medal"></i></div>
-                    <div class="cert-template-info">
-                        <span class="cert-template-name">Template 02<br><small style="color:var(--cert-text-muted); font-weight:500;">Modern Certificate</small></span>
-                        <div class="cert-template-actions">
-                            <button type="button" title="Preview"><i class="fa-solid fa-eye"></i></button>
-                            <button type="button" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="cert-template-card">
-                    <div class="cert-template-preview"><i class="fa-solid fa-trophy"></i></div>
-                    <div class="cert-template-info">
-                        <span class="cert-template-name">Template 03<br><small style="color:var(--cert-text-muted); font-weight:500;">Professional Certificate</small></span>
-                        <div class="cert-template-actions">
-                            <button type="button" title="Preview"><i class="fa-solid fa-eye"></i></button>
-                            <button type="button" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="cert-template-create">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Create Template</span>
                 </div>
             </div>
         </div>
@@ -993,57 +966,25 @@
                 
                 <!-- Pagination -->
                 <div class="cert-pagination">
-                    <div class="cert-page-info">Showing 1–10 of 1,248 certificates</div>
+                    <div class="cert-page-info">Showing 0-0 of 0 certificates</div>
                     <div style="display:flex; align-items:center; gap: 20px;">
                         <div style="display:flex; align-items:center; gap: 8px; font-size:14px; color:var(--cert-text-muted);">
                             Rows per page:
-                            <select class="cert-select" style="padding: 4px 24px 4px 10px; background-position: right 8px center;">
-                                <option>10</option>
+                            <select class="cert-select cert-page-size" style="padding: 4px 24px 4px 10px; background-position: right 8px center;">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
                             </select>
                         </div>
                         <div class="cert-page-controls">
-                            <button class="cert-page-btn" disabled>Previous</button>
-                            <button class="cert-page-btn active">1</button>
-                            <button class="cert-page-btn">2</button>
-                            <button class="cert-page-btn">3</button>
-                            <button class="cert-page-btn">4</button>
-                            <button class="cert-page-btn">5</button>
-                            <button class="cert-page-btn">Next</button>
+                            <button type="button" class="cert-page-btn cert-prev">Previous</button>
+                            <div class="cert-page-numbers"></div>
+                            <button type="button" class="cert-page-btn cert-next">Next</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column: Recent Activity -->
-            <div class="cert-card cert-col-recent">
-                <div class="cert-recent-header">Recent Certificates</div>
-                <div class="cert-recent-list">
-                    <div class="cert-recent-item">
-                        <div class="cert-recent-icon icon-gen"><i class="fa-solid fa-plus"></i></div>
-                        <div class="cert-recent-content">
-                            <span class="cert-recent-title">Certificate Generated</span>
-                            <span class="cert-recent-desc">Dhruvi Patel — CERT001</span>
-                            <span class="cert-recent-time">Today, 10:30 AM</span>
-                        </div>
-                    </div>
-                    <div class="cert-recent-item">
-                        <div class="cert-recent-icon icon-dl"><i class="fa-solid fa-download"></i></div>
-                        <div class="cert-recent-content">
-                            <span class="cert-recent-title">Certificate Downloaded</span>
-                            <span class="cert-recent-desc">Rahul Shah — CERT002</span>
-                            <span class="cert-recent-time">Today, 09:45 AM</span>
-                        </div>
-                    </div>
-                    <div class="cert-recent-item">
-                        <div class="cert-recent-icon icon-rev"><i class="fa-solid fa-ban"></i></div>
-                        <div class="cert-recent-content">
-                            <span class="cert-recent-title">Certificate Revoked</span>
-                            <span class="cert-recent-desc">Priya Patel — CERT003</span>
-                            <span class="cert-recent-time">Yesterday, 05:20 PM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -1058,72 +999,87 @@
                 <!-- Form Area -->
                 <div class="cert-modal-form">
                     <div class="cert-form-section">
-                        <h3 class="cert-form-title">Student Information</h3>
+                        <h3 class="cert-form-title">Step 1 · Student Information</h3>
                         <div class="cert-form-group">
-                            <label class="cert-form-label">Select Student</label>
-                            <select class="cert-select" style="width:100%;"><option>Dhruvi Patel</option></select>
+                            <label class="cert-form-label">Select Student *</label>
+                            <select id="certStudentSelect" class="cert-select" style="width:100%;">
+                                <option value="Dhruvi Patel">Dhruvi Patel</option><option value="Rahul Shah">Rahul Shah</option><option value="Priya Patel">Priya Patel</option>
+                            </select>
                         </div>
                         <div class="cert-form-group">
-                            <label class="cert-form-label">Student ID</label>
-                            <input type="text" class="cert-form-input" value="STU001" disabled />
+                            <label class="cert-form-label">Enrollment No.</label>
+                            <input id="certStudentId" type="text" class="cert-form-input" value="STU001" readonly />
                         </div>
                         <div class="cert-form-group">
-                            <label class="cert-form-label">Course</label>
-                            <input type="text" class="cert-form-input" value="BCA" disabled />
+                            <label class="cert-form-label">Course / College</label>
+                            <input id="certStudentCourse" type="text" class="cert-form-input" value="BCA · SIMS College" readonly />
                         </div>
                     </div>
                     <div class="cert-form-section">
-                        <h3 class="cert-form-title">Certificate Details</h3>
+                        <h3 class="cert-form-title">Step 2 · Internship</h3>
+                        <div class="cert-form-group">
+                            <label class="cert-form-label">Select Internship *</label>
+                            <select id="certInternshipSelect" class="cert-select" style="width:100%;"><option value="completed">Web Development Internship - ABC Technologies</option><option value="ongoing">UI/UX Internship - XYZ Solutions (Ongoing)</option></select>
+                            <div id="certCompletionWarning" class="cert-form-warning">Certificate can only be generated after internship completion.</div>
+                        </div>
+                        <div class="cert-form-group" style="display:flex; gap:10px;"><input id="certCompany" class="cert-form-input" value="ABC Technologies" readonly /><input id="certRole" class="cert-form-input" value="ASP.NET Developer Intern" readonly /></div>
+                    </div>
+                    <div class="cert-form-section">
+                        <h3 class="cert-form-title">Step 3 · Template</h3>
+                        <div class="cert-template-picker">
+                            <div class="cert-template-option selected" data-template="classic"><div class="cert-template-mini" style="background:#EFF6FF;color:#1D4ED8;border:2px double #2563EB;">SIMS CERTIFICATE</div><strong>Classic Professional</strong><small>Navy and blue</small></div>
+                            <div class="cert-template-option" data-template="modern"><div class="cert-template-mini" style="background:#DBEAFE;color:#1E40AF;">MODERN CORPORATE</div><strong>Modern Corporate</strong><small>Geometric layout</small></div>
+                            <div class="cert-template-option" data-template="gold"><div class="cert-template-mini" style="background:#FFFBEB;color:#A16207;border:1px solid #C99732;">ELEGANT GOLD</div><strong>Elegant Gold</strong><small>Premium accent</small></div>
+                            <div class="cert-template-option" data-template="academic"><div class="cert-template-mini" style="background:#F8FAFC;color:#0F172A;border:2px solid #0F172A;">ACADEMIC</div><strong>Academic Excellence</strong><small>Formal achievement</small></div>
+                            <div class="cert-template-option" data-template="minimal"><div class="cert-template-mini" style="background:#fff;color:#2563EB;border-left:5px solid #2563EB;">MINIMAL BLUE</div><strong>Minimal Blue</strong><small>Clean and modern</small></div>
+                        </div>
+                    </div>
+                    <div class="cert-form-section">
+                        <h3 class="cert-form-title">Step 4 · Certificate Details</h3>
                         <div class="cert-form-group">
                             <label class="cert-form-label">Certificate Type</label>
-                            <select class="cert-select" style="width:100%;"><option>Course Completion</option></select>
+                            <select id="certType" class="cert-select" style="width:100%;"><option>Internship Completion</option><option>Internship Participation</option></select>
                         </div>
                         <div class="cert-form-group" style="display:flex; gap:16px;">
                             <div style="flex:1;">
-                                <label class="cert-form-label">Completion Date</label>
-                                <input type="date" class="cert-form-input" value="2026-08-21" />
+                                <label class="cert-form-label">Start Date</label><input id="certStartDate" type="date" class="cert-form-input" value="2026-06-01" />
                             </div>
                             <div style="flex:1;">
-                                <label class="cert-form-label">Issue Date</label>
-                                <input type="date" class="cert-form-input" value="2026-08-21" />
+                                <label class="cert-form-label">Issue Date</label><input id="certIssueDate" type="date" class="cert-form-input" value="2026-08-21" />
                             </div>
                         </div>
                         <div class="cert-form-group">
-                            <label class="cert-form-label">Certificate Template</label>
-                            <select class="cert-select" style="width:100%;"><option>Template 01 - Classic</option></select>
+                            <label class="cert-form-label">Remarks</label><textarea id="certRemarks" class="cert-form-input" rows="2" placeholder="Optional performance remarks..."></textarea>
                         </div>
                         <div class="cert-form-group" style="display:flex; gap:16px;">
                             <div style="flex:1;">
-                                <label class="cert-form-label">Certificate ID (Auto)</label>
-                                <input type="text" class="cert-form-input" value="CERT001" disabled />
+                                <label class="cert-form-label">Certificate ID</label><input id="certId" type="text" class="cert-form-input" value="SIMS-CERT-2026-00125" readonly />
                             </div>
                             <div style="flex:1;">
-                                <label class="cert-form-label">Verification Code (Auto)</label>
-                                <input type="text" class="cert-form-input" value="8FJ29K" disabled />
+                                <label class="cert-form-label">Authorized By</label><input id="certAuthorizedBy" type="text" class="cert-form-input" value="Admin" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Preview Area -->
                 <div class="cert-modal-preview">
-                    <div class="cert-preview-wrapper">
+                    <div id="certPreview" class="cert-preview-wrapper">
                         <div class="cert-preview-inner">
                             <div class="cert-preview-logo"><i class="fa-solid fa-graduation-cap"></i></div>
                             <div class="cert-preview-title">CERTIFICATE<br><span style="font-size:12px;">OF COMPLETION</span></div>
                             <div class="cert-preview-text">This is to certify that</div>
-                            <div class="cert-preview-name">Dhruvi Patel</div>
+                            <div id="certPreviewName" class="cert-preview-name">Dhruvi Patel</div>
                             <div class="cert-preview-text">has successfully completed</div>
-                            <div class="cert-preview-course">BCA Course</div>
+                            <div id="certPreviewCourse" class="cert-preview-course">Web Development Internship</div>
                             
                             <div class="cert-preview-bottom">
-                                <div class="cert-preview-sign">Director Signature</div>
+                                <div id="certPreviewAuthorized" class="cert-preview-sign">Admin</div>
                                 <div class="cert-preview-qr"><i class="fa-solid fa-qrcode"></i></div>
                                 <div class="cert-preview-sign">Instructor Signature</div>
                             </div>
                             <div class="cert-preview-meta">
-                                Completion Date: 21 August 2026<br>
-                                Certificate ID: CERT001<br>
-                                Verification Code: 8FJ29K
+                                <span id="certPreviewDates">01 Jun 2026 - 31 Aug 2026</span><br>
+                                <span id="certPreviewId">SIMS-CERT-2026-00125</span>
                             </div>
                         </div>
                     </div>
@@ -1131,8 +1087,8 @@
             </div>
             <div class="cert-modal-footer">
                 <button type="button" class="cert-btn-outline" onclick="closeGenerateModal()">Cancel</button>
-                <button type="button" class="cert-btn-outline"><i class="fa-solid fa-eye"></i> Preview Certificate</button>
-                <button type="button" class="cert-btn-primary" onclick="closeGenerateModal()">Generate Certificate</button>
+                <button type="button" class="cert-btn-outline" onclick="updateCertificatePreview()"><i class="fa-solid fa-eye"></i> Preview Certificate</button>
+                <button type="button" class="cert-btn-primary" onclick="generateCertificate()">Generate Certificate</button>
             </div>
         </div>
     </div>
@@ -1246,5 +1202,173 @@
             document.getElementById('revokeModal').style.display = 'flex'; 
         }
         function closeRevokeModal() { document.getElementById('revokeModal').style.display = 'none'; }
+
+        function formatCertificateDate(value) {
+            if (!value) return '--';
+            return new Date(value + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+        function updateCertificatePreview() {
+            var student = document.getElementById('certStudentSelect');
+            var internship = document.getElementById('certInternshipSelect');
+            var course = document.getElementById('certStudentCourse');
+            var preview = document.getElementById('certPreview');
+            document.getElementById('certPreviewName').textContent = student.value;
+            document.getElementById('certPreviewCourse').textContent = internship.options[internship.selectedIndex].text.split(' - ')[0];
+            document.getElementById('certPreviewAuthorized').textContent = document.getElementById('certAuthorizedBy').value || 'Admin';
+            document.getElementById('certPreviewDates').textContent = formatCertificateDate(document.getElementById('certStartDate').value) + ' - 31 Aug 2026';
+            document.getElementById('certPreviewId').textContent = document.getElementById('certId').value;
+            var selectedTemplate = document.querySelector('.cert-template-option.selected');
+            preview.className = 'cert-preview-wrapper template-' + (selectedTemplate ? selectedTemplate.getAttribute('data-template') : 'classic');
+        }
+        function generateCertificate() {
+            if (document.getElementById('certInternshipSelect').value !== 'completed') {
+                document.getElementById('certCompletionWarning').style.display = 'block';
+                return;
+            }
+            updateCertificatePreview();
+            alert('Certificate generated successfully. ID: ' + document.getElementById('certId').value);
+            closeGenerateModal();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var formFields = ['certStudentSelect', 'certInternshipSelect', 'certType', 'certStartDate', 'certIssueDate', 'certRemarks', 'certAuthorizedBy'];
+            formFields.forEach(function (id) { var element = document.getElementById(id); if (element) element.addEventListener('input', updateCertificatePreview); });
+            document.querySelectorAll('.cert-template-option').forEach(function (option) {
+                option.addEventListener('click', function () {
+                    document.querySelectorAll('.cert-template-option').forEach(function (item) { item.classList.remove('selected'); });
+                    option.classList.add('selected'); updateCertificatePreview();
+                });
+            });
+            document.getElementById('certInternshipSelect').addEventListener('change', function () {
+                document.getElementById('certCompletionWarning').style.display = this.value === 'completed' ? 'none' : 'block';
+                updateCertificatePreview();
+            });
+            document.getElementById('certStudentSelect').addEventListener('change', function () {
+                var details = { 'Dhruvi Patel': 'STU001', 'Rahul Shah': 'STU002', 'Priya Patel': 'STU003' };
+                document.getElementById('certStudentId').value = details[this.value] || 'STU000';
+                document.getElementById('certStudentCourse').value = this.value === 'Rahul Shah' ? 'BCA - SIMS College' : this.value === 'Priya Patel' ? 'MCA - SIMS College' : 'BCA - SIMS College';
+                updateCertificatePreview();
+            });
+            updateCertificatePreview();
+
+            const tableBody = document.querySelector('.cert-table tbody');
+            const searchInput = document.querySelector('.cert-search-input');
+            const filterSelects = Array.from(document.querySelectorAll('.cert-filters-bar .cert-select'));
+            const clearButton = document.querySelector('.cert-btn-clear');
+            const pageInfo = document.querySelector('.cert-page-info');
+            const pageSizeSelect = document.querySelector('.cert-page-size');
+            const pageNumbers = document.querySelector('.cert-page-numbers');
+            const previousButton = document.querySelector('.cert-prev');
+            const nextButton = document.querySelector('.cert-next');
+            const statCards = Array.from(document.querySelectorAll('.cert-stat-clickable'));
+            if (!tableBody || !pageInfo || !pageNumbers) return;
+
+            const students = [
+                ['Dhruvi Patel', 'DP', '#4F46E5', 'CERT001', 'BCA', '21 Aug 2026', 'Course Completion', 'Issued'],
+                ['Rahul Shah', 'RS', '#10B981', 'CERT002', 'Web Development', '20 Aug 2026', 'Course Completion', 'Issued'],
+                ['Priya Patel', 'PP', '#F59E0B', 'CERT003', 'Python Programming', '-', 'Course Completion', 'Pending'],
+                ['Amit Shah', 'AS', '#EF4444', 'CERT004', 'Data Analytics', '18 Aug 2026', 'Course Completion', 'Revoked'],
+                ['Karan Mehta', 'KM', '#8B5CF6', 'CERT005', 'UI/UX Design', '17 Aug 2026', 'Achievement', 'Issued'],
+                ['Neha Joshi', 'NJ', '#EC4899', 'CERT006', 'Digital Marketing', '16 Aug 2026', 'Course Completion', 'Issued'],
+                ['Jay Patel', 'JP', '#06B6D4', 'CERT007', 'ASP.NET Development', '15 Aug 2026', 'Course Completion', 'Pending'],
+                ['Meet Shah', 'MS', '#14B8A6', 'CERT008', 'React Development', '14 Aug 2026', 'Achievement', 'Issued'],
+                ['Riya Desai', 'RD', '#F97316', 'CERT009', 'Data Science', '13 Aug 2026', 'Course Completion', 'Issued'],
+                ['Harsh Parmar', 'HP', '#64748B', 'CERT010', 'BCA', '12 Aug 2026', 'Course Completion', 'Revoked'],
+                ['Mihir Joshi', 'MJ', '#0EA5E9', 'CERT011', 'Web Development', '11 Aug 2026', 'Achievement', 'Issued'],
+                ['Isha Mehta', 'IM', '#A855F7', 'CERT012', 'Python Programming', '10 Aug 2026', 'Course Completion', 'Issued'],
+                ['Aarav Shah', 'AS', '#22C55E', 'CERT013', 'Data Analytics', '09 Aug 2026', 'Course Completion', 'Pending'],
+                ['Pooja Patel', 'PP', '#E11D48', 'CERT014', 'UI/UX Design', '08 Aug 2026', 'Achievement', 'Issued'],
+                ['Vraj Desai', 'VD', '#0891B2', 'CERT015', 'Digital Marketing', '07 Aug 2026', 'Course Completion', 'Issued'],
+                ['Kavya Shah', 'KS', '#D97706', 'CERT016', 'React Development', '06 Aug 2026', 'Course Completion', 'Revoked'],
+                ['Dev Patel', 'DP', '#4F46E5', 'CERT017', 'BCA', '05 Aug 2026', 'Course Completion', 'Issued'],
+                ['Mansi Joshi', 'MJ', '#10B981', 'CERT018', 'Data Science', '04 Aug 2026', 'Achievement', 'Issued'],
+                ['Yash Mehta', 'YM', '#F59E0B', 'CERT019', 'ASP.NET Development', '03 Aug 2026', 'Course Completion', 'Pending'],
+                ['Anjali Shah', 'AS', '#EF4444', 'CERT020', 'Web Development', '02 Aug 2026', 'Course Completion', 'Issued'],
+                ['Rohan Patel', 'RP', '#8B5CF6', 'CERT021', 'Python Programming', '01 Aug 2026', 'Achievement', 'Issued'],
+                ['Hetvi Desai', 'HD', '#EC4899', 'CERT022', 'Data Analytics', '31 Jul 2026', 'Course Completion', 'Revoked'],
+                ['Nirav Shah', 'NS', '#06B6D4', 'CERT023', 'UI/UX Design', '30 Jul 2026', 'Course Completion', 'Issued'],
+                ['Aditi Patel', 'AP', '#14B8A6', 'CERT024', 'Digital Marketing', '29 Jul 2026', 'Achievement', 'Pending']
+            ];
+            let currentPage = 1;
+
+            function badgeClass(status) {
+                return status === 'Issued' ? 'badge-issued' : status === 'Pending' ? 'badge-pending' : 'badge-revoked';
+            }
+
+            function renderRows(rows) {
+                tableBody.innerHTML = rows.map(function (item) {
+                    const [name, initials, color, id, course, date, type, status] = item;
+                    const safeId = id.replace(/'/g, '');
+                    return '<tr><td><div class="cert-student-cell"><div class="cert-avatar" style="background:' + color + ';">' + initials + '</div><strong>' + name + '</strong></div></td>' +
+                        '<td style="font-family: monospace;">' + id + '</td><td>' + course + '</td><td' + (date === '-' ? ' style="color:var(--cert-text-muted);"' : '') + '>' + date + '</td><td>' + type + '</td>' +
+                        '<td><span class="cert-badge ' + badgeClass(status) + '">' + status + '</span></td><td><div class="cert-dropdown"><button type="button" class="cert-action-btn" onclick="openDrawer(\'' + safeId + '\')"><i class="fa-solid fa-ellipsis-vertical"></i></button></div></td></tr>';
+                }).join('');
+            }
+
+            function populateFilters() {
+                const values = [
+                    ['Certificate Type', 6],
+                    ['Course', 4],
+                    ['Status', 7],
+                    ['Issue Date', 5]
+                ];
+                const unique = function (index) { return [...new Set(students.map(function (item) { return item[index]; }))]; };
+                values.forEach(function (item, index) {
+                    filterSelects[index].innerHTML = '<option value="">' + item[0] + '</option>' + unique(item[1]).map(function (value) { return '<option value="' + value + '">' + value + '</option>'; }).join('');
+                });
+            }
+
+            function filteredRows() {
+                const query = (searchInput.value || '').trim().toLowerCase();
+                const type = filterSelects[0].value;
+                const course = filterSelects[1].value;
+                const status = filterSelects[2].value;
+                const date = filterSelects[3].value;
+                return students.filter(function (item) {
+                    return (!query || item[0].toLowerCase().includes(query) || item[3].toLowerCase().includes(query)) &&
+                        (!type || item[6] === type) && (!course || item[4] === course) && (!status || item[7] === status) && (!date || item[5] === date);
+                });
+            }
+
+            function render() {
+                const rows = filteredRows();
+                const pageSize = Number(pageSizeSelect.value) || 10;
+                const totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
+                currentPage = Math.min(currentPage, totalPages);
+                const start = (currentPage - 1) * pageSize;
+                const visible = rows.slice(start, start + pageSize);
+                renderRows(visible);
+                pageInfo.textContent = rows.length ? 'Showing ' + (start + 1) + '-' + Math.min(start + pageSize, rows.length) + ' of ' + rows.length + ' certificates' : 'Showing 0-0 of 0 certificates';
+                previousButton.disabled = currentPage === 1;
+                nextButton.disabled = currentPage === totalPages;
+                pageNumbers.innerHTML = '';
+                for (let page = 1; page <= totalPages; page += 1) {
+                    const button = document.createElement('button');
+                    button.type = 'button'; button.className = 'cert-page-btn' + (page === currentPage ? ' active' : ''); button.textContent = page;
+                    button.addEventListener('click', function () { currentPage = page; render(); });
+                    pageNumbers.appendChild(button);
+                }
+            }
+
+            populateFilters();
+            searchInput.addEventListener('input', function () { currentPage = 1; render(); });
+            filterSelects.forEach(function (select) { select.addEventListener('change', function () { currentPage = 1; render(); }); });
+            pageSizeSelect.addEventListener('change', function () { currentPage = 1; render(); });
+            previousButton.addEventListener('click', function () { if (currentPage > 1) { currentPage -= 1; render(); } });
+            nextButton.addEventListener('click', function () { if (currentPage < Math.ceil(filteredRows().length / Number(pageSizeSelect.value))) { currentPage += 1; render(); } });
+            clearButton.addEventListener('click', function () { searchInput.value = ''; filterSelects.forEach(function (select) { select.value = ''; }); statCards.forEach(function (card, index) { card.classList.toggle('active', index === 0); }); currentPage = 1; render(); });
+            statCards.forEach(function (card) {
+                card.addEventListener('click', function () {
+                    const status = card.dataset.certStatus || '';
+                    searchInput.value = '';
+                    filterSelects.forEach(function (select, index) { select.value = index === 2 ? status : ''; });
+                    statCards.forEach(function (item) { item.classList.toggle('active', item === card); });
+                    currentPage = 1;
+                    render();
+                    document.querySelector('.cert-col-table').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+            render();
+        });
     </script>
 </asp:Content>

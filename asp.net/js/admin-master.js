@@ -10,8 +10,6 @@
     var sidebarOverlay = document.getElementById("sidebarOverlay");
     var profileMenu = document.getElementById("profileMenu");
     var profileTrigger = document.getElementById("profileTrigger");
-    var searchIconBtn = document.getElementById("searchIconBtn");
-    var searchBox = document.getElementById("headerSearchBox");
 
     if (!wrapper) return;
 
@@ -93,38 +91,7 @@
       });
     }
 
-    /* ---------- Mobile compact search toggle ---------- */
-    if (searchIconBtn && searchBox) {
-      searchIconBtn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        searchBox.classList.toggle("sims-search-mobile-active");
-        if (searchBox.classList.contains("sims-search-mobile-active")) {
-          searchBox.style.display = "flex";
-          searchBox.style.position = "absolute";
-          searchBox.style.left = "14px";
-          searchBox.style.right = "14px";
-          searchBox.style.top = "calc(var(--sims-header-height) + 8px)";
-          searchBox.style.width = "auto";
-          searchBox.style.zIndex = "1025";
-          searchBox.style.boxShadow = "var(--sims-shadow-lg)";
-          var input = searchBox.querySelector("input");
-          if (input) input.focus();
-        } else {
-          searchBox.removeAttribute("style");
-        }
-      });
 
-      document.addEventListener("click", function (e) {
-        if (
-          searchBox.classList.contains("sims-search-mobile-active") &&
-          !searchBox.contains(e.target) &&
-          e.target !== searchIconBtn
-        ) {
-          searchBox.classList.remove("sims-search-mobile-active");
-          searchBox.removeAttribute("style");
-        }
-      });
-    }
 
     /* ---------- Persist sidebar collapsed state (optional, session-based) ---------- */
     try {

@@ -53,26 +53,11 @@
                     <div class="company-sidebar-section">
                         <div class="company-sidebar-section-title">Company Profile</div>
 
-                        <div class="company-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuCompanyProfile">
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-profile.aspx") %>" class="company-sidebar-link">
                             <i class="fa-solid fa-building company-sidebar-icon"></i>
                             <span class="company-sidebar-label">Company Profile</span>
-                            <i class="fa-solid fa-chevron-down company-sidebar-caret"></i>
                             <span class="company-sidebar-tooltip">Company Profile</span>
-                        </div>
-                        <div class="company-sidebar-submenu" id="submenuCompanyProfile">
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-profile.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-building company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Company Profile</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-edit-profile.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-pen-to-square company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Edit Company Profile</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-verification.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-circle-check company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Verification Status</span>
-                            </a>
-                        </div>
+                        </a>
                     </div>
 
                     <!-- INTERNSHIPS -->
@@ -92,15 +77,7 @@
                             </a>
                             <a href="<%= ResolveUrl("~/CompanyPanel/company-post-internship.aspx") %>" class="company-sidebar-link">
                                 <i class="fa-solid fa-plus company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Post Internship</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-applications.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-file-lines company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Applications</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-internship-analytics.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-chart-column company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Internship Analytics</span>
+                                <span class="company-sidebar-label">Add New Internship</span>
                             </a>
                         </div>
                     </div>
@@ -302,9 +279,9 @@
                     <div class="company-header-profile-wrap">
                         <button type="button" class="company-header-profile" id="companyProfileBtn"
                             aria-haspopup="true" aria-expanded="false" aria-controls="companyProfileDropdown">
-                            <span class="company-header-avatar" id="companyAvatarInitials">TC</span>
+                            <asp:Label ID="lblAvatarInitials" runat="server" CssClass="company-header-avatar" Text="C"></asp:Label>
                             <span class="company-header-profile-info">
-                                <span class="company-header-profile-name" id="companyProfileName">TechCorp Ltd</span><br />
+                                <asp:Label ID="lblProfileName" runat="server" CssClass="company-header-profile-name" Text="Company"></asp:Label><br />
                                 <span class="company-header-profile-role">Company</span>
                             </span>
                             <i class="fa-solid fa-chevron-down company-header-profile-caret"></i>
@@ -376,7 +353,7 @@
                 <!-- Buttons -->
                 <div style="display:flex; gap:12px;">
                     <button type="button" onclick="closeLogoutModal()" style="flex:1; padding:13px 0; border-radius:12px; border:none; background:#eff6ff; color:#2563eb; font-weight:700; font-size:15px; cursor:pointer;">No, Stay</button>
-                    <a href="<%= ResolveUrl("~/logout.aspx") %>" style="flex:1; padding:13px 0; border-radius:12px; border:none; background:#2563eb; color:#fff; font-weight:700; font-size:15px; text-decoration:none; display:flex; align-items:center; justify-content:center; cursor:pointer;">Yes, Logout</a>
+                    <a href="<%= ResolveUrl("~/PublicPanel/logout.aspx") %>" style="flex:1; padding:13px 0; border-radius:12px; border:none; background:#2563eb; color:#fff; font-weight:700; font-size:15px; text-decoration:none; display:flex; align-items:center; justify-content:center; cursor:pointer;">Yes, Logout</a>
                 </div>
             </div>
         </div>

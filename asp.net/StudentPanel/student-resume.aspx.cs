@@ -13,9 +13,9 @@ namespace asp.net
             UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
 
             // Security Check
-            if (Session["UserRole"] == null || Session["UserRole"].ToString() != "student")
+            if (Session["student"] == null)
             {
-                Response.Redirect("login.aspx");
+                Response.Redirect("~/PublicPanel/login.aspx");
                 return;
             }
 

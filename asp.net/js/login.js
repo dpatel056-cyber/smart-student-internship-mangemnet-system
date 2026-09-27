@@ -31,13 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Switch demo hint per role
-            const hintStudent = document.getElementById('demoHintStudent');
-            const hintCompany = document.getElementById('demoHintCompany');
-            const hintAdmin = document.getElementById('demoHintAdmin');
-            if (hintStudent) hintStudent.style.display = currentRole === 'student' ? '' : 'none';
-            if (hintCompany) hintCompany.style.display = currentRole === 'company' ? '' : 'none';
-            if (hintAdmin) hintAdmin.style.display = currentRole === 'admin' ? '' : 'none';
         });
     });
 

@@ -78,7 +78,9 @@
             background: var(--iv-card); border-radius: var(--iv-radius);
             border: 1px solid var(--iv-border); padding: 18px 20px;
             box-shadow: var(--iv-shadow-sm); display: flex; align-items: center; gap: 14px;
+            cursor: pointer; transition: transform .2s, box-shadow .2s, border-color .2s;
         }
+        .iv-stat-card:hover, .iv-stat-card.active { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(15,23,42,.12); border-color: #4F46E5; }
         .iv-stat-icon {
             width: 44px; height: 44px; border-radius: 10px;
             display: flex; align-items: center; justify-content: center; font-size: 18px;
@@ -388,22 +390,16 @@
     <div><h1>Interview Management</h1><p>Monitor and manage student-company interviews across the internship platform.</p></div>
     <div class="iv-header-actions">
       <button class="iv-btn-primary" onclick="openSchedule()"><i class="fa-solid fa-plus"></i> Schedule Interview</button>
-      <button class="iv-btn-outline"><i class="fa-solid fa-file-export"></i> Export</button>
-      <button class="iv-btn-icon" onclick="location.reload()"><i class="fa-solid fa-rotate-right"></i></button>
-      <div class="iv-admin-pill">
-        <div class="iv-admin-info"><span class="iv-admin-name">Admin</span><span class="iv-admin-role">Super Admin</span></div>
-        <div class="iv-admin-avatar">A</div>
-      </div>
     </div>
   </div>
 
   <!-- Stats -->
   <div class="iv-stats">
-    <div class="iv-stat-card"><div class="iv-stat-icon ic-indigo"><i class="fa-solid fa-calendar-days"></i></div><div><div class="iv-stat-label">Total</div><div class="iv-stat-value">248</div></div></div>
-    <div class="iv-stat-card"><div class="iv-stat-icon ic-orange"><i class="fa-solid fa-clock"></i></div><div><div class="iv-stat-label">Upcoming</div><div class="iv-stat-value">32</div></div></div>
-    <div class="iv-stat-card"><div class="iv-stat-icon ic-blue"><i class="fa-solid fa-calendar-day"></i></div><div><div class="iv-stat-label">Today</div><div class="iv-stat-value">8</div></div></div>
-    <div class="iv-stat-card"><div class="iv-stat-icon ic-green"><i class="fa-solid fa-circle-check"></i></div><div><div class="iv-stat-label">Completed</div><div class="iv-stat-value">190</div></div></div>
-    <div class="iv-stat-card"><div class="iv-stat-icon ic-red"><i class="fa-solid fa-ban"></i></div><div><div class="iv-stat-label">Cancelled</div><div class="iv-stat-value">18</div></div></div>
+    <div class="iv-stat-card active" data-interview-filter="all"><div class="iv-stat-icon ic-indigo"><i class="fa-solid fa-calendar-days"></i></div><div><div class="iv-stat-label">Total</div><div class="iv-stat-value">248</div></div></div>
+    <div class="iv-stat-card" data-interview-filter="upcoming"><div class="iv-stat-icon ic-orange"><i class="fa-solid fa-clock"></i></div><div><div class="iv-stat-label">Upcoming</div><div class="iv-stat-value">32</div></div></div>
+    <div class="iv-stat-card" data-interview-filter="today"><div class="iv-stat-icon ic-blue"><i class="fa-solid fa-calendar-day"></i></div><div><div class="iv-stat-label">Today</div><div class="iv-stat-value">8</div></div></div>
+    <div class="iv-stat-card" data-interview-filter="completed"><div class="iv-stat-icon ic-green"><i class="fa-solid fa-circle-check"></i></div><div><div class="iv-stat-label">Completed</div><div class="iv-stat-value">190</div></div></div>
+    <div class="iv-stat-card" data-interview-filter="cancelled"><div class="iv-stat-icon ic-red"><i class="fa-solid fa-ban"></i></div><div><div class="iv-stat-label">Cancelled</div><div class="iv-stat-value">18</div></div></div>
   </div>
 
   <!-- Table Card -->
@@ -416,10 +412,6 @@
       <select class="iv-select"><option>Round</option><option>HR Round</option><option>Technical Round</option><option>Managerial Round</option><option>Final Round</option></select>
       <select class="iv-select"><option>Date Range</option><option>Today</option><option>This Week</option><option>This Month</option></select>
       <button class="iv-btn-clear">Clear Filters</button>
-      <div class="iv-view-toggle">
-        <button class="iv-toggle-btn active" id="btnList" onclick="showList()"><i class="fa-solid fa-list"></i> List</button>
-        <button class="iv-toggle-btn" id="btnCal" onclick="showCal()"><i class="fa-regular fa-calendar"></i> Calendar</button>
-      </div>
     </div>
 
     <!-- List View -->
@@ -494,39 +486,16 @@
       <div class="iv-pagination">
         <div class="iv-page-info">Showing 1-10 of 248 interviews</div>
         <div style="display:flex;align-items:center;gap:20px;">
-          <span style="font-size:13px;color:var(--iv-muted);">Rows per page: <select class="iv-select" style="padding:4px 24px 4px 10px;"><option>10</option><option>20</option><option>50</option></select></span>
+          <span style="font-size:13px;color:var(--iv-muted);">Rows per page: <select class="iv-select iv-page-size" style="padding:4px 24px 4px 10px;"><option value="10">10</option><option value="20">20</option><option value="50">50</option></select></span>
           <div class="iv-page-controls">
-            <button class="iv-page-btn" disabled>Previous</button>
-            <button class="iv-page-btn active">1</button><button class="iv-page-btn">2</button><button class="iv-page-btn">3</button><button class="iv-page-btn">4</button><button class="iv-page-btn">5</button>
-            <button class="iv-page-btn">Next</button>
+            <button type="button" class="iv-page-btn iv-prev">Previous</button>
+            <div class="iv-page-numbers" style="display:flex;gap:6px;"></div>
+            <button type="button" class="iv-page-btn iv-next">Next</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Calendar View -->
-    <div id="calView" style="display:none;">
-      <div class="iv-cal-header">
-        <span class="iv-cal-title">August 2026</span>
-        <div style="display:flex;gap:8px;">
-          <button class="iv-btn-icon"><i class="fa-solid fa-chevron-left"></i></button>
-          <button class="iv-btn-icon"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
-      </div>
-      <div class="iv-cal-grid">
-        <div class="iv-cal-day-header">Monday</div><div class="iv-cal-day-header">Tuesday</div><div class="iv-cal-day-header">Wednesday</div><div class="iv-cal-day-header">Thursday</div><div class="iv-cal-day-header">Friday</div>
-        <div class="iv-cal-cell"><div class="iv-cal-date">25</div>
-          <div class="iv-cal-event ev-scheduled"><div class="iv-cal-event-time">10:00 AM</div><div class="iv-cal-event-name">Dhruvi Patel</div><div class="iv-cal-event-company">ABC Technologies &middot; Technical</div></div>
-          <div class="iv-cal-event ev-scheduled"><div class="iv-cal-event-time">02:00 PM</div><div class="iv-cal-event-name">Rahul Shah</div><div class="iv-cal-event-company">XYZ Solutions &middot; HR</div></div>
-        </div>
-        <div class="iv-cal-cell"><div class="iv-cal-date">26</div>
-          <div class="iv-cal-event ev-scheduled"><div class="iv-cal-event-time">11:00 AM</div><div class="iv-cal-event-name">Priya Patel</div><div class="iv-cal-event-company">TechNova &middot; Technical</div></div>
-        </div>
-        <div class="iv-cal-cell"><div class="iv-cal-date">27</div></div>
-        <div class="iv-cal-cell"><div class="iv-cal-date">28</div></div>
-        <div class="iv-cal-cell"><div class="iv-cal-date">29</div></div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -642,7 +611,86 @@
   function closeReschedule(){ document.getElementById('rescheduleModal').style.display='none'; }
   function openCancel()    { document.getElementById('cancelModal').style.display='flex'; }
   function closeCancel()   { document.getElementById('cancelModal').style.display='none'; }
-  function showList() { document.getElementById('listView').style.display='block'; document.getElementById('calView').style.display='none'; document.getElementById('btnList').classList.add('active'); document.getElementById('btnCal').classList.remove('active'); }
-  function showCal()  { document.getElementById('listView').style.display='none'; document.getElementById('calView').style.display='block'; document.getElementById('btnCal').classList.add('active'); document.getElementById('btnList').classList.remove('active'); }
+  document.addEventListener('DOMContentLoaded', function () {
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.iv-stat-card[data-interview-filter]'));
+    var body = document.querySelector('.iv-table tbody');
+    var info = document.querySelector('.iv-page-info');
+    if (!body || !cards.length) return;
+    var rows = Array.prototype.slice.call(body.querySelectorAll('tr'));
+    var cancelledRow = rows[3] ? rows[3].cloneNode(true) : null;
+    if (cancelledRow) {
+      cancelledRow.querySelector('td:nth-child(1) .iv-person-name').textContent = 'Meera Joshi';
+      cancelledRow.querySelector('td:nth-child(3)').textContent = 'INT005';
+      cancelledRow.querySelector('td:nth-child(7)').innerHTML = '<span class="iv-badge b-cancelled">Cancelled</span>';
+      body.appendChild(cancelledRow);
+      rows.push(cancelledRow);
+    }
+    rows.forEach(function (row, index) {
+      row.dataset.interviewCategory = index < 2 ? 'upcoming' : 'completed';
+      if (index === 0) row.dataset.interviewCategory += ' today';
+      if (row.querySelector('.b-cancelled')) row.dataset.interviewCategory = 'cancelled';
+    });
+    var search = document.querySelector('.iv-search-input');
+    var filters = Array.prototype.slice.call(document.querySelectorAll('.iv-filters > .iv-select'));
+    var activeCategory = 'all';
+    var companies = rows.map(function (row) { return row.cells[1].textContent.trim(); }).filter(function (value, index, list) { return list.indexOf(value) === index; });
+    filters[1].innerHTML = '<option>Company</option>' + companies.map(function (company) { return '<option>' + company + '</option>'; }).join('');
+    var pageSizeSelect = document.querySelector('.iv-page-size');
+    var pageNumbers = document.querySelector('.iv-page-numbers');
+    var previousButton = document.querySelector('.iv-prev');
+    var nextButton = document.querySelector('.iv-next');
+    var currentPage = 1;
+    var matchingRows = [];
+    var applyFilters = function () {
+      var query = (search.value || '').toLowerCase().trim();
+      var status = filters[0].value === 'All Status' ? '' : filters[0].value.toLowerCase();
+      var company = filters[1].value === 'Company' ? '' : filters[1].value.toLowerCase();
+      var type = filters[2].value === 'Interview Type' ? '' : filters[2].value.toLowerCase();
+      var round = filters[3].value === 'Round' ? '' : filters[3].value.toLowerCase();
+      var dateRange = filters[4].value === 'Date Range' ? '' : filters[4].value.toLowerCase();
+      var visible = rows.filter(function (row) {
+        var text = row.textContent.toLowerCase();
+        return (activeCategory === 'all' || row.dataset.interviewCategory.indexOf(activeCategory) !== -1) &&
+          (!query || text.indexOf(query) !== -1) && (!status || text.indexOf(status) !== -1) &&
+          (!company || text.indexOf(company) !== -1) && (!type || text.indexOf(type) !== -1) &&
+          (!round || text.indexOf(round.replace(' round', '')) !== -1) &&
+          (!dateRange || (dateRange === 'today' ? row.dataset.interviewCategory.indexOf('today') !== -1 : dateRange === 'this week' ? row.dataset.interviewCategory.indexOf('upcoming') !== -1 : true));
+      });
+      matchingRows = visible;
+      var pageSize = Number(pageSizeSelect.value) || 10;
+      var totalPages = Math.max(1, Math.ceil(matchingRows.length / pageSize));
+      currentPage = Math.min(currentPage, totalPages);
+      var start = (currentPage - 1) * pageSize;
+      var pageRows = matchingRows.slice(start, start + pageSize);
+      rows.forEach(function (row) { row.style.display = pageRows.indexOf(row) === -1 ? 'none' : ''; });
+      info.textContent = matchingRows.length ? 'Showing ' + (start + 1) + '-' + Math.min(start + pageSize, matchingRows.length) + ' of ' + matchingRows.length + ' interviews' : 'No interviews found';
+      previousButton.disabled = currentPage === 1;
+      nextButton.disabled = currentPage === totalPages;
+      pageNumbers.innerHTML = '';
+      for (var page = 1; page <= totalPages; page += 1) {
+        var button = document.createElement('button');
+        button.type = 'button'; button.className = 'iv-page-btn' + (page === currentPage ? ' active' : ''); button.textContent = page;
+        button.addEventListener('click', (function (selectedPage) { return function () { currentPage = selectedPage; applyFilters(); }; })(page));
+        pageNumbers.appendChild(button);
+      }
+    };
+    search.addEventListener('input', function () { currentPage = 1; applyFilters(); });
+    filters.forEach(function (filter) { filter.addEventListener('change', function () { currentPage = 1; applyFilters(); }); });
+    pageSizeSelect.addEventListener('change', function () { currentPage = 1; applyFilters(); });
+    previousButton.addEventListener('click', function () { if (currentPage > 1) { currentPage -= 1; applyFilters(); } });
+    nextButton.addEventListener('click', function () { if (currentPage < Math.ceil(matchingRows.length / Number(pageSizeSelect.value))) { currentPage += 1; applyFilters(); } });
+    document.querySelector('.iv-btn-clear').addEventListener('click', function () {
+      search.value = ''; filters.forEach(function (filter) { filter.selectedIndex = 0; }); activeCategory = 'all'; currentPage = 1;
+      cards.forEach(function (card, index) { card.classList.toggle('active', index === 0); }); applyFilters();
+    });
+    cards.forEach(function (card) {
+      card.addEventListener('click', function () {
+        activeCategory = card.dataset.interviewFilter;
+        cards.forEach(function (item) { item.classList.toggle('active', item === card); });
+        applyFilters();
+        document.getElementById('listView').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  });
 </script>
 </asp:Content>

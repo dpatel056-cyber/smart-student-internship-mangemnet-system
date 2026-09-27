@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -31,15 +31,15 @@ namespace asp.net
             if (Session["student"] != null)
             {
                 getcon();
-                da = new SqlDataAdapter("select * from s_registration where s_email='" + Session["student"] + "' or s_enrollment='" + Session["student"] + "'", con);
+                da = new SqlDataAdapter("select * from Students where Email='" + Session["student"] + "' or EnrollmentNo='" + Session["student"] + "'", con);
                 ds = new DataSet();
                 da.Fill(ds);
-                nm = ds.Tables[0].Rows[0]["s_fullname"].ToString();
+                nm = ds.Tables[0].Rows[0]["FullName"].ToString();
                 Label1.Text = "Welcome " + nm;
             }
             else
             {
-                Response.Redirect("../login.aspx");
+                Response.Redirect("~/PublicPanel/login.aspx");
             }
         }
 
@@ -47,7 +47,7 @@ namespace asp.net
         {
             Session.Clear();
             Session.Abandon();
-            Response.Redirect("login.aspx");
+            Response.Redirect("~/PublicPanel/login.aspx");
         }
     }
 }

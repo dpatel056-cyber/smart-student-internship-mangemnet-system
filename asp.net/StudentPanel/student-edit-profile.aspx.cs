@@ -1,108 +1,154 @@
 using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 
-namespace asp.net
+namespace asp.net.js
 {
     public partial class student_edit_profile : System.Web.UI.Page
     {
+        SqlConnection con;
+        SqlDataAdapter da;
+        DataSet ds;
+        SqlCommand cmd;
+        string fnm;
+        string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Disable unobtrusive validation mode requirement for jQuery
-            UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None;
-
-            // Security Check
-            if (Session["UserRole"] == null || Session["UserRole"].ToString() != "student")
-            {
-                Response.Redirect("login.aspx");
-                return;
-            }
-
+            getcon();
             if (!IsPostBack)
             {
-                LoadStudentProfileData();
+                filldata();
             }
         }
 
-        private void LoadStudentProfileData()
+        void getcon()
         {
-            // Populate student fields if Session data exists
-            if (Session["UserName"] != null)
-            {
-                string fullName = Session["UserName"].ToString();
-                string[] nameParts = fullName.Split(' ');
-                if (nameParts.Length > 0) txtFirstName.Text = nameParts[0];
-                if (nameParts.Length > 1) txtLastName.Text = string.Join(" ", nameParts, 1, nameParts.Length - 1);
-            }
-
-            if (Session["UserEmail"] != null)
-            {
-                txtEmail.Text = Session["UserEmail"].ToString();
-            }
-
-            // Ready for real Database Binding:
-            // e.g. DataTable dt = GetStudentProfileFromDB(Session["UserId"].ToString());
-            // Populate all fields from database record...
+            con = new SqlConnection(s);
+            con.Open();
         }
 
-        protected void btnSaveProfile_Click(object sender, EventArgs e)
+        void imgupload()
         {
-            if (!Page.IsValid)
+            if (fileProfilePhoto.HasFile)
             {
-                return;
-            }
+                string path = Server.MapPath("~/StudentUploads/");
 
-            try
-            {
-                // Handle Profile Photo Upload
-                if (fuProfilePhoto.HasFile)
+                if (!Directory.Exists(path))
                 {
-                    string photoExt = Path.GetExtension(fuProfilePhoto.FileName).ToLower();
-                    if (photoExt == ".jpg" || photoExt == ".jpeg" || photoExt == ".png")
-                    {
-                        string photoFileName = "student_" + Session["UserId"] + photoExt;
-                        string photoSavePath = Server.MapPath("~/images/profiles/") + photoFileName;
-                        
-                        // Ensure directory exists
-                        string dir = Server.MapPath("~/images/profiles/");
-                        if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-
-                        fuProfilePhoto.SaveAs(photoSavePath);
-                    }
+                    Directory.CreateDirectory(path);
                 }
 
-                // Handle Resume Upload
-                if (fuResume.HasFile)
-                {
-                    string resumeExt = Path.GetExtension(fuResume.FileName).ToLower();
-                    if (resumeExt == ".pdf")
-                    {
-                        string resumeFileName = "resume_" + Session["UserId"] + ".pdf";
-                        string resumeSavePath = Server.MapPath("~/uploads/resumes/") + resumeFileName;
+                fnm = "~/StudentUploads/" + fileProfilePhoto.FileName;
 
-                        string dir = Server.MapPath("~/uploads/resumes/");
-                        if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-
-                        fuResume.SaveAs(resumeSavePath);
-                    }
-                }
-
-                // Save profile details to database
-                // UpdateStudentProfileInDB(...);
-
-                // Show success feedback
-                pnlAlert.Visible = true;
-                lblAlertMessage.Text = "Profile updated successfully!";
+                fileProfilePhoto.SaveAs(Server.MapPath(fnm));
             }
-            catch (Exception ex)
+            else
             {
-                pnlAlert.Visible = true;
-                pnlAlert.CssClass = "student-edit-card";
-                pnlAlert.Attributes["style"] = "border-left: 4px solid #EF4444; background:#FEF2F2;";
-                lblAlertMessage.Text = "An error occurred while saving profile: " + ex.Message;
+                fnm = null;
             }
+        }
+
+        void filldata()
+        {
+            getcon();
+            da = new SqlDataAdapter("select * from Students where Email='" + Session["student"] + "'", con);
+            ds = new DataSet();
+            da.Fill(ds);
+
+            //paring
+            txtFullName.Text = ds.Tables[0].Rows[0]["FullName"].ToString();
+            txtDateOfBirth.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"]).ToString("yyyy-MM-dd");
+            if (ds.Tables[0].Rows[0]["Gender"].ToString() == "Male")
+            {
+                ddlGender.SelectedValue = "Male";
+            }
+            else if (ds.Tables[0].Rows[0]["Gender"].ToString() == "Female")
+            {
+                ddlGender.SelectedValue = "Female";
+            }
+            else if (ds.Tables[0].Rows[0]["Gender"].ToString() == "Other")
+            {
+                ddlGender.SelectedValue = "Other";
+            }
+            txtEmailAddress.Text = ds.Tables[0].Rows[0]["Email"].ToString();
+            txtContactNumber.Text = ds.Tables[0].Rows[0]["ContactNo"].ToString();
+
+
+            txtAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
+            txtCity.Text = ds.Tables[0].Rows[0]["City"].ToString();
+            txtState.Text = ds.Tables[0].Rows[0]["State"].ToString();
+            txtPincode.Text = ds.Tables[0].Rows[0]["Pincode"].ToString();
+
+
+            txtAboutMe.Text = ds.Tables[0].Rows[0]["AboutMe"].ToString();
+
+
+            txtPreferredDomain.Text = ds.Tables[0].Rows[0]["PreferredDomain"].ToString();
+            txtPreferredRole.Text = ds.Tables[0].Rows[0]["PreferredRole"].ToString();
+            txtPreferredLocation.Text = ds.Tables[0].Rows[0]["PreferredLocation"].ToString();
+            if (ds.Tables[0].Rows[0]["WorkMode"].ToString() != "")
+            {
+                ddlWorkMode.SelectedValue = ds.Tables[0].Rows[0]["WorkMode"].ToString();
+            }
+
+            if (ds.Tables[0].Rows[0]["Availability"].ToString() != "")
+            {
+                ddlAvailability.SelectedValue = ds.Tables[0].Rows[0]["Availability"].ToString();
+            }
+
+
+
+            txtLinkedIn.Text = ds.Tables[0].Rows[0]["LinkedIn"].ToString();
+            txtGitHub.Text = ds.Tables[0].Rows[0]["GitHub"].ToString();
+            txtPortfolio.Text = ds.Tables[0].Rows[0]["Portfolio"].ToString();
+
+
+            txtEnrollmentNumber.Text = ds.Tables[0].Rows[0]["EnrollmentNo"].ToString();
+            txtCollegeName.Text = ds.Tables[0].Rows[0]["College"].ToString();
+            txtCourse.Text = ds.Tables[0].Rows[0]["Course"].ToString();
+            txtDepartment.Text = ds.Tables[0].Rows[0]["Department"].ToString();
+            txtSemester.Text = ds.Tables[0].Rows[0]["CurrentSemester"].ToString();
+            txtGraduationYear.Text = ds.Tables[0].Rows[0]["GraduationYear"].ToString();
+            txtCGPA.Text = ds.Tables[0].Rows[0]["CGPA"].ToString();
+
+
+            string photo = ds.Tables[0].Rows[0]["ProfilePhoto"].ToString();
+            if (!string.IsNullOrEmpty(photo))
+            {
+                if (!photo.StartsWith("~") && !photo.StartsWith("/"))
+                {
+                    photo = "~/StudentUploads/" + photo;
+                }
+                imgProfilePreview.ImageUrl = ResolveUrl(photo);
+            }
+        }
+
+        protected void btnSaveChanges_Click(object sender, EventArgs e)
+        {
+            getcon();
+            imgupload();
+
+            if (fnm != null)
+            {
+                cmd = new SqlCommand("update Students set FullName='" + txtFullName.Text + "',DateOfBirth='" + txtDateOfBirth.Text + "',Gender='" + ddlGender.SelectedValue + "',Email='" + txtEmailAddress.Text + "',ContactNo='" + txtContactNumber.Text + "',EnrollmentNo='" + txtEnrollmentNumber.Text + "',Address='" + txtAddress.Text + "',City='" + txtCity.Text + "',State='" + txtState.Text + "',Pincode='" + txtPincode.Text + "',College='" + txtCollegeName.Text + "',Course='" + txtCourse.Text + "',Department='" + txtDepartment.Text + "',CurrentSemester='" + txtSemester.Text + "',GraduationYear='" + txtGraduationYear.Text + "',CGPA='" + txtCGPA.Text + "',PreferredDomain='" + txtPreferredDomain.Text + "',PreferredRole='" + txtPreferredRole.Text + "',PreferredLocation='" + txtPreferredLocation.Text + "',WorkMode='" + ddlWorkMode.SelectedValue + "',Availability='" + ddlAvailability.SelectedValue + "',AboutMe='" + txtAboutMe.Text + "',LinkedIn='" + txtLinkedIn.Text + "',GitHub='" + txtGitHub.Text + "',Portfolio='" + txtPortfolio.Text + "',ProfilePhoto='" + fnm + "' where Email='" + Session["student"] + "'", con);
+            }
+            else
+            {
+                cmd = new SqlCommand("update Students set FullName='" + txtFullName.Text + "',DateOfBirth='" + txtDateOfBirth.Text + "',Gender='" + ddlGender.SelectedValue + "',Email='" + txtEmailAddress.Text + "',ContactNo='" + txtContactNumber.Text + "',EnrollmentNo='" + txtEnrollmentNumber.Text + "',Address='" + txtAddress.Text + "',City='" + txtCity.Text + "',State='" + txtState.Text + "',Pincode='" + txtPincode.Text + "',College='" + txtCollegeName.Text + "',Course='" + txtCourse.Text + "',Department='" + txtDepartment.Text + "',CurrentSemester='" + txtSemester.Text + "',GraduationYear='" + txtGraduationYear.Text + "',CGPA='" + txtCGPA.Text + "',PreferredDomain='" + txtPreferredDomain.Text + "',PreferredRole='" + txtPreferredRole.Text + "',PreferredLocation='" + txtPreferredLocation.Text + "',WorkMode='" + ddlWorkMode.SelectedValue + "',Availability='" + ddlAvailability.SelectedValue + "',AboutMe='" + txtAboutMe.Text + "',LinkedIn='" + txtLinkedIn.Text + "',GitHub='" + txtGitHub.Text + "',Portfolio='" + txtPortfolio.Text + "' where Email='" + Session["student"] + "' or EnrollmentNo='" + Session["student"] + "'", con);
+            }
+
+            cmd.ExecuteNonQuery();
+
+            Session["student"] = txtEmailAddress.Text;
+            Response.Redirect("student-profile.aspx");
         }
     }
 }

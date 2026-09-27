@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", function () {
     let companies = [
         {
             id: "COM001",
@@ -180,12 +180,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const drawerBtnApprove = document.getElementById("drawerBtnApproveCmp");
     const drawerBtnBlock = document.getElementById("drawerBtnBlockCmp");
     const drawerBtnDelete = document.getElementById("drawerBtnDeleteCmp");
-
-    const modalAdd = document.getElementById("modalAddCompany");
-    const modalEdit = document.getElementById("modalEditCompany");
     const modalBlock = document.getElementById("modalBlockCompany");
     const modalDelete = document.getElementById("modalDeleteCompany");
-    const btnOpenAdd = document.getElementById("btnOpenAddCompanyModal");
 
     function showToast(msg) {
         if (!toastEl) return;
@@ -252,7 +248,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <button type="button" class="cmp-btn-more" data-id="${item.id}" title="Actions"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                 <div class="cmp-action-dropdown" id="cmp-dropdown-${item.id}">
                                     <button type="button" class="cmp-dropdown-item btn-act-view" data-id="${item.id}"><i class="fa-regular fa-eye"></i> View Company</button>
-                                    <button type="button" class="cmp-dropdown-item btn-act-edit" data-id="${item.id}"><i class="fa-regular fa-pen-to-square"></i> Edit Company</button>
                                     ${item.status === 'Pending' ? `<button type="button" class="cmp-dropdown-item item-approve btn-act-approve" data-id="${item.id}"><i class="fa-solid fa-circle-check"></i> Approve Company</button>` : ''}
                                     <button type="button" class="cmp-dropdown-item btn-act-block" data-id="${item.id}"><i class="fa-solid fa-ban"></i> ${item.status === 'Blocked' ? 'Unblock Company' : 'Block Company'}</button>
                                     <button type="button" class="cmp-dropdown-item item-danger btn-act-delete" data-id="${item.id}"><i class="fa-regular fa-trash-can"></i> Delete Company</button>
@@ -362,20 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
-        tableBody.querySelectorAll(".btn-act-view").forEach(btn => {
-            btn.addEventListener("click", function () {
-                const id = this.getAttribute("data-id");
-                const found = companies.find(c => c.id === id);
-                if (found) openDrawer(found);
-            });
-        });
-
-        tableBody.querySelectorAll(".btn-act-edit").forEach(btn => {
-            btn.addEventListener("click", function () {
-                const id = this.getAttribute("data-id");
-                const found = companies.find(c => c.id === id);
-                if (found) openEditModal(found);
-            });
+        tableBody.querySelectorAll(".btn-act-view").forEach(btn => { btn.addEventListener("click", function () { const id = this.getAttribute("data-id"); window.location.href = `viewCompanyDetails.aspx?CompanyId=${id}`; }); });
         });
 
         tableBody.querySelectorAll(".btn-act-approve").forEach(btn => {
@@ -411,60 +393,11 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".cmp-action-dropdown").forEach(d => d.classList.remove("active"));
     });
 
-    function openDrawer(cmp) {
-        selectedCompany = cmp;
-        if (drawerLogo) drawerLogo.src = cmp.logo;
-        if (drawerName) drawerName.textContent = cmp.name;
-        if (drawerId) drawerId.textContent = cmp.id;
-        if (drawerStatusBadge) {
-            drawerStatusBadge.textContent = cmp.status;
-            drawerStatusBadge.className = `cmp-status-pill status-${cmp.status.toLowerCase()}`;
-        }
+    
 
-        if (drawerBtnApprove) {
-            drawerBtnApprove.style.display = (cmp.status === "Pending") ? "inline-flex" : "none";
-        }
+    
 
-        const el = id => document.getElementById(id);
-        if (el("dCmpName")) el("dCmpName").textContent = cmp.name;
-        if (el("dCmpId")) el("dCmpId").textContent = cmp.id;
-        if (el("dCmpEmail")) el("dCmpEmail").textContent = cmp.email;
-        if (el("dCmpPhone")) el("dCmpPhone").textContent = cmp.phone;
-        if (el("dCmpWebsite")) el("dCmpWebsite").innerHTML = `<a href="${cmp.website}" target="_blank" style="color:#2563eb; text-decoration:none;">${cmp.website.replace('https://', '')}</a>`;
-        if (el("dCmpIndustry")) el("dCmpIndustry").textContent = cmp.industry;
-        if (el("dCmpType")) el("dCmpType").textContent = cmp.type;
-        if (el("dCmpFounded")) el("dCmpFounded").textContent = cmp.founded || "2018";
-        if (el("dCmpRegDate")) el("dCmpRegDate").textContent = cmp.regDate;
-        if (el("dCmpStatus")) el("dCmpStatus").textContent = cmp.status;
-
-        if (el("dCmpFullAddress")) el("dCmpFullAddress").textContent = cmp.address || "Main Industrial Road";
-        if (el("dCmpCity")) el("dCmpCity").textContent = cmp.city;
-        if (el("dCmpState")) el("dCmpState").textContent = cmp.state;
-        if (el("dCmpCountry")) el("dCmpCountry").textContent = cmp.country || "India";
-        if (el("dCmpPincode")) el("dCmpPincode").textContent = cmp.pincode;
-
-        if (el("dContactName")) el("dContactName").textContent = cmp.contactName || "HR Manager";
-        if (el("dContactDesignation")) el("dContactDesignation").textContent = cmp.contactDesignation || "HR Lead";
-        if (el("dContactEmail")) el("dContactEmail").textContent = cmp.contactEmail || cmp.email;
-        if (el("dContactPhone")) el("dContactPhone").textContent = cmp.contactPhone || cmp.phone;
-
-        if (drawerOverlay) {
-            drawerOverlay.classList.add("active");
-            document.body.style.overflow = "hidden";
-        }
-    }
-
-    function closeDrawer() {
-        if (drawerOverlay) {
-            drawerOverlay.classList.remove("active");
-            document.body.style.overflow = "";
-        }
-    }
-
-    if (btnCloseDrawer) btnCloseDrawer.addEventListener("click", closeDrawer);
-    if (drawerOverlay) {
-        drawerOverlay.addEventListener("click", function (e) {
-            if (e.target === drawerOverlay) closeDrawer();
+    
         });
     }
 
@@ -528,102 +461,6 @@ document.addEventListener("DOMContentLoaded", function () {
             closeModal(document.getElementById(modalId));
         });
     });
-
-    if (btnOpenAdd) {
-        btnOpenAdd.addEventListener("click", function () {
-            openModal(modalAdd);
-        });
-    }
-
-    const btnSubmitAdd = document.getElementById("btnSubmitAddCompany");
-    if (btnSubmitAdd) {
-        btnSubmitAdd.addEventListener("click", function () {
-            const name = document.getElementById("addCmpName").value.trim();
-            const email = document.getElementById("addCmpEmail").value.trim();
-            const phone = document.getElementById("addCmpPhone").value.trim();
-            const cmpId = document.getElementById("addCmpId").value.trim() || `COM${companies.length + 1}`;
-            const industry = document.getElementById("addCmpIndustry").value;
-            const type = document.getElementById("addCmpType").value;
-            const status = document.getElementById("addCmpStatus").value;
-            const logo = document.getElementById("addCmpLogo").value.trim() || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=2563eb&color=fff`;
-
-            if (!name || !email) {
-                alert("Please enter company name and email.");
-                return;
-            }
-
-            const newCmp = {
-                id: cmpId,
-                name: name,
-                email: email,
-                phone: phone,
-                website: document.getElementById("addCmpWebsite").value.trim() || `https://${name.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`,
-                industry: industry,
-                location: document.getElementById("addCmpCity").value.trim() || "Ahmedabad",
-                type: type,
-                founded: document.getElementById("addCmpFounded").value.trim() || "2024",
-                regDate: "21 Aug 2026",
-                status: status,
-                logo: logo,
-                address: document.getElementById("addCmpAddress").value.trim(),
-                city: document.getElementById("addCmpCity").value.trim() || "Ahmedabad",
-                state: document.getElementById("addCmpState").value.trim() || "Gujarat",
-                country: document.getElementById("addCmpCountry").value.trim() || "India",
-                pincode: document.getElementById("addCmpPincode").value.trim() || "380001",
-                contactName: document.getElementById("addContactName").value.trim() || "HR Manager",
-                contactEmail: document.getElementById("addContactEmail").value.trim() || email,
-                contactPhone: document.getElementById("addContactPhone").value.trim() || phone,
-                contactDesignation: document.getElementById("addContactDesignation").value.trim() || "HR Manager"
-            };
-
-            companies.unshift(newCmp);
-            closeModal(modalAdd);
-            showToast(`Company ${name} added successfully!`);
-            applyFilters();
-        });
-    }
-
-    function openEditModal(cmp) {
-        selectedCompany = cmp;
-        document.getElementById("editCmpName").value = cmp.name;
-        document.getElementById("editCmpEmail").value = cmp.email;
-        document.getElementById("editCmpPhone").value = cmp.phone;
-        document.getElementById("editCmpWebsite").value = cmp.website;
-        document.getElementById("editCmpIndustry").value = cmp.industry;
-        document.getElementById("editCmpType").value = cmp.type;
-        document.getElementById("editCmpFounded").value = cmp.founded || "2018";
-        document.getElementById("editCmpStatus").value = cmp.status;
-        document.getElementById("editCmpAddress").value = cmp.address || "";
-        document.getElementById("editCmpCity").value = cmp.city;
-        document.getElementById("editCmpState").value = cmp.state;
-        document.getElementById("editContactName").value = cmp.contactName || "";
-        document.getElementById("editContactDesignation").value = cmp.contactDesignation || "";
-        openModal(modalEdit);
-    }
-
-    const btnSaveEdit = document.getElementById("btnSaveEditCompany");
-    if (btnSaveEdit) {
-        btnSaveEdit.addEventListener("click", function () {
-            if (!selectedCompany) return;
-            selectedCompany.name = document.getElementById("editCmpName").value.trim();
-            selectedCompany.email = document.getElementById("editCmpEmail").value.trim();
-            selectedCompany.phone = document.getElementById("editCmpPhone").value.trim();
-            selectedCompany.website = document.getElementById("editCmpWebsite").value.trim();
-            selectedCompany.industry = document.getElementById("editCmpIndustry").value;
-            selectedCompany.type = document.getElementById("editCmpType").value;
-            selectedCompany.founded = document.getElementById("editCmpFounded").value.trim();
-            selectedCompany.status = document.getElementById("editCmpStatus").value;
-            selectedCompany.address = document.getElementById("editCmpAddress").value.trim();
-            selectedCompany.city = document.getElementById("editCmpCity").value.trim();
-            selectedCompany.state = document.getElementById("editCmpState").value.trim();
-            selectedCompany.contactName = document.getElementById("editContactName").value.trim();
-            selectedCompany.contactDesignation = document.getElementById("editContactDesignation").value.trim();
-
-            closeModal(modalEdit);
-            showToast(`Company ${selectedCompany.name} updated successfully!`);
-            applyFilters();
-        });
-    }
 
     function openBlockModal(cmp) {
         selectedCompany = cmp;

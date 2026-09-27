@@ -1,566 +1,295 @@
-/* ==========================================================================
-   SIMS STUDENT EDIT PROFILE STYLESHEET
-   Scoped under .student-edit-profile namespace.
-   ========================================================================== */
-
 :root {
-    --student-navy: #0F1B33;
-    --student-blue: #2F6FED;
-    --student-blue-hover: #1D56D8;
-    --student-blue-light: #EFF6FF;
-    --student-bg: #F5F7FB;
-    --student-card-bg: #FFFFFF;
-    --student-text: #17233D;
-    --student-muted: #718096;
-    --student-border: #E2E8F0;
-    
-    --student-success: #16A34A;
-    --student-success-bg: #F0FDF4;
-    --student-warning: #F59E0B;
-    --student-warning-bg: #FFFBEB;
-    --student-danger: #EF4444;
-    --student-danger-bg: #FEF2F2;
-
-    --student-radius: 12px;
-    --student-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
-    --student-transition: all 0.2s ease;
+    --edit-navy: #14284b;
+    --edit-blue: #2867d8;
+    --edit-blue-dark: #1d56bd;
+    --edit-pale: #edf4ff;
+    --edit-ink: #192844;
+    --edit-muted: #6b7890;
+    --edit-line: #e2e8f2;
+    --edit-danger: #c2414c;
+    --edit-shadow: 0 8px 24px rgba(25, 40, 68, .06);
 }
 
-/* Main Container */
-.student-edit-profile {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    padding-bottom: 40px;
-    color: var(--student-text);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+.student-edit-page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 30px 30px 48px;
+    color: #172554;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
 }
 
-/* ==========================================================================
-   1. PAGE HEADER
-   ========================================================================== */
-.student-edit-header {
+.edit-page-header {
     display: flex;
+    align-items: flex-end;
     justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
+    gap: 24px;
+    margin-bottom: 26px;
 }
 
-.student-edit-title {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--student-navy);
-    margin: 0 0 4px 0;
-    letter-spacing: -0.3px;
-}
-
-.student-edit-subtitle {
-    font-size: 14px;
-    color: var(--student-muted);
+.edit-page-header h1 {
     margin: 0;
+    color: #172554;
+    font-size: 28px;
+    letter-spacing: -.5px;
 }
 
-.student-edit-header-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background-color: var(--student-card-bg);
-    color: var(--student-blue);
-    border: 1px solid var(--student-border);
-    border-radius: var(--student-radius);
+.edit-page-header p {
+    margin: 7px 0 0;
+    color: #64748b;
     font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: var(--student-transition);
 }
 
-.student-edit-header-btn:hover {
-    background-color: var(--student-blue-light);
-    border-color: var(--student-blue);
-}
-
-/* ==========================================================================
-   2. CARDS & SECTIONS
-   ========================================================================== */
-.student-edit-card {
-    background-color: var(--student-card-bg);
-    border: 1px solid var(--student-border);
-    border-radius: var(--student-radius);
-    padding: 24px;
-    box-shadow: var(--student-shadow);
+.edit-form-stack {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.student-edit-card-title {
-    font-size: 17px;
+.edit-card {
+    background: #fff;
+    border: 1px solid #e8edf5;
+    border-radius: 18px;
+    padding: 32px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(15,23,42,.03);
+}
+
+.edit-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.edit-card-header h2 {
+    margin: 0;
+    color: #172554; font-weight: 800;
+    font-size: 20px;
     font-weight: 700;
-    color: var(--student-navy);
-    margin: 0 0 4px 0;
+}
+
+.edit-card-header p {
+    margin: 4px 0 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.edit-card-icon {
+    display: none; /* Hide the big left icon in headers from old design */
+}
+/* Re-add the small icon inside h2 to match view page */
+.edit-card-header h2 i {
+    color: #2563eb;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.edit-section-subtitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: #172554; font-weight: 800;
+    margin: 32px 0 16px;
     display: flex;
     align-items: center;
     gap: 10px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--student-border);
 }
 
-.student-edit-card-title i {
-    color: var(--student-blue);
+.edit-section-subtitle i {
+    color: #2563eb;
     font-size: 16px;
 }
 
-/* ==========================================================================
-   3. PROFILE COMPLETION PROGRESS
-   ========================================================================== */
-.student-edit-progress-card {
-    background: linear-gradient(135deg, #1E3A8A 0%, #2F6FED 100%);
-    border-radius: var(--student-radius);
-    padding: 24px 28px;
-    color: #FFFFFF;
-    box-shadow: 0 8px 20px -4px rgba(47, 111, 237, 0.25);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.field-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
 }
 
-.student-edit-progress-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 700;
-    font-size: 15px;
+.field-wide {
+    grid-column: 1 / -1;
 }
 
-.student-edit-progress-track {
-    height: 10px;
-    background-color: rgba(255, 255, 255, 0.25);
-    border-radius: 6px;
-    overflow: hidden;
+.form-field {
+    background: #f8fafc;
+    border: 1px solid #edf1f5;
+    border-radius: 11px;
+    padding: 14px 16px;
+    min-height: 62px;
+    transition: border-color .2s, background .2s;
 }
 
-.student-edit-progress-fill {
-    height: 100%;
-    background-color: #38BDF8;
-    border-radius: 6px;
-    transition: width 0.8s ease;
+.form-field:focus-within {
+    border-color: #cbd5e1;
+    background: #fff;
 }
 
-.student-edit-progress-missing {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
+.field-label {
+    display: block;
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
 }
 
-/* ==========================================================================
-   4. PROFILE PHOTO SECTION
-   ========================================================================== */
-.student-edit-photo-container {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
+.field-label span {
+    color: var(--edit-danger);
 }
 
-.student-edit-photo-preview-wrap {
+.input-shell {
     position: relative;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid var(--student-blue-light);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    background-color: var(--student-blue-light);
     display: flex;
+}
+
+.input-shell > i {
+    display: none; /* hide input icons since view page doesn't have them */
+}
+
+.form-input {
+    box-sizing: border-box;
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0;
+    outline: none;
+    font-family: inherit;
+}
+
+.form-input::placeholder {
+    color: #cbd5e1;
+    font-weight: 400;
+}
+
+.form-select {
+    appearance: auto;
+    cursor: pointer;
+}
+
+.form-textarea {
+    height: auto;
+    min-height: 20px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 4px;
+}
+
+.edit-btn {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 17px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    font: 600 13px Inter, system-ui, sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .2s ease;
 }
 
-.student-edit-photo-img {
+.edit-btn-secondary {
+    background: #fff;
+    color: var(--edit-navy);
+    border-color: var(--edit-line);
+}
+
+.edit-btn-secondary:hover {
+    border-color: #b9c8df;
+    background: #f8fbff;
+}
+
+.edit-btn-primary {
+    background: var(--edit-blue);
+    color: #fff;
+    box-shadow: 0 5px 12px rgba(40, 103, 216, .2);
+}
+
+.edit-btn-primary:hover {
+    background: var(--edit-blue-dark);
+    box-shadow: 0 7px 16px rgba(40, 103, 216, .25);
+}
+
+/* Photo Upload row - adapting to match */
+.photo-upload-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px;
+    background: #f8fafc;
+    border: 1px solid #edf1f5;
+    border-radius: 11px;
+    margin-bottom: 24px;
+}
+
+.photo-preview-wrap {
+    width: 80px;
+    height: 80px;
+    flex: none;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--edit-pale);
+    border: 3px solid #e8f0ff;
+}
+
+.photo-preview {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.student-edit-photo-initials {
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--student-blue);
+.photo-upload-copy h3 {
+    font-size: 14px;
+    margin: 0 0 5px;
+    color: #172554; font-weight: 800;
 }
 
-.student-edit-photo-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.photo-upload-copy p {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0 0 12px;
 }
 
-.student-edit-upload-btn-wrap {
-    position: relative;
-    display: inline-block;
-}
-
-.student-edit-file-btn {
+.photo-upload-trigger {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 9px 18px;
-    background-color: var(--student-blue);
-    color: #FFFFFF;
-    border-radius: 8px;
-    font-size: 13.5px;
-    font-weight: 600;
+    padding: 8px 14px;
+    background: var(--edit-blue);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
     cursor: pointer;
-    transition: var(--student-transition);
+    transition: background .2s ease;
 }
 
-.student-edit-file-btn:hover {
-    background-color: var(--student-blue-hover);
+.photo-upload-trigger:hover {
+    background: var(--edit-blue-dark);
 }
 
-.student-edit-hidden-file {
+.file-input-hidden {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    width: 1px;
+    height: 1px;
     opacity: 0;
-    cursor: pointer;
+    pointer-events: none;
 }
 
-.student-edit-file-note {
-    font-size: 12.5px;
-    color: var(--student-muted);
-    margin: 0;
-}
-
-/* ==========================================================================
-   5. FORM GRIDS & INPUT CONTROLS
-   ========================================================================== */
-.student-edit-form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.student-edit-field-full {
-    grid-column: span 2;
-}
-
-.student-edit-field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.student-edit-label {
-    font-size: 13.5px;
-    font-weight: 600;
-    color: var(--student-navy);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.student-edit-req {
-    color: var(--student-danger);
-}
-
-.student-edit-input,
-.student-edit-select,
-.student-edit-textarea {
-    width: 100%;
-    height: 46px;
-    padding: 10px 14px;
-    background-color: #FFFFFF;
-    border: 1px solid var(--student-border);
-    border-radius: 8px;
-    font-size: 14px;
-    color: var(--student-text);
-    font-family: inherit;
-    transition: var(--student-transition);
-    box-sizing: border-box;
-}
-
-.student-edit-textarea {
-    height: 100px;
-    resize: vertical;
-    padding: 12px 14px;
-}
-
-.student-edit-input:focus,
-.student-edit-select:focus,
-.student-edit-textarea:focus {
-    outline: none;
-    border-color: var(--student-blue);
-    box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.15);
-}
-
-/* Email Verified Badge */
-.student-edit-email-wrap {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.student-edit-verified-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background-color: var(--student-success-bg);
-    color: var(--student-success);
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    flex-shrink: 0;
-}
-
-/* Validation Errors */
-.student-validator-error {
-    color: var(--student-danger);
-    font-size: 12px;
-    font-weight: 500;
-    margin-top: 2px;
-}
-
-/* Input Icon Prefix Wrap */
-.student-edit-input-icon-wrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.student-edit-input-icon-wrap i {
-    position: absolute;
-    left: 14px;
-    color: var(--student-muted);
-    font-size: 14px;
-}
-
-.student-edit-input-icon-wrap .student-edit-input {
-    padding-left: 40px;
-}
-
-/* ==========================================================================
-   6. SKILLS TAGS / CHIPS
-   ========================================================================== */
-.student-skills-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.student-skills-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    min-height: 40px;
-}
-
-.student-skill-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    background-color: var(--student-blue-light);
-    color: var(--student-blue);
-    border: 1px solid rgba(47, 111, 237, 0.2);
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.student-skill-remove {
-    cursor: pointer;
-    color: var(--student-muted);
-    transition: var(--student-transition);
-}
-
-.student-skill-remove:hover {
-    color: var(--student-danger);
-}
-
-.student-skill-add-wrap {
-    display: flex;
-    gap: 10px;
-    max-width: 400px;
-}
-
-.student-skill-add-btn {
-    padding: 0 18px;
-    background-color: var(--student-blue);
-    color: #FFFFFF;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 13.5px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: var(--student-transition);
-}
-
-.student-skill-add-btn:hover {
-    background-color: var(--student-blue-hover);
-}
-
-/* ==========================================================================
-   7. RESUME CARD
-   ========================================================================== */
-.student-resume-preview-box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-    background-color: var(--student-bg);
-    border: 1px solid var(--student-border);
-    border-radius: var(--student-radius);
-    flex-wrap: wrap;
-    gap: 14px;
-}
-
-.student-resume-info {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.student-resume-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background-color: var(--student-danger-bg);
-    color: var(--student-danger);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
-}
-
-.student-resume-filename {
-    font-size: 14.5px;
-    font-weight: 700;
-    color: var(--student-navy);
-    margin: 0 0 2px 0;
-}
-
-.student-resume-date {
-    font-size: 12px;
-    color: var(--student-muted);
-    margin: 0;
-}
-
-.student-resume-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.student-btn-outline {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    background-color: #FFFFFF;
-    color: var(--student-navy);
-    border: 1px solid var(--student-border);
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: var(--student-transition);
-}
-
-.student-btn-outline:hover {
-    border-color: var(--student-blue);
-    color: var(--student-blue);
-}
-
-/* ==========================================================================
-   8. ACTION BUTTONS & STICKY FOOTER
-   ========================================================================== */
-.student-edit-actions-bar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 14px;
-    padding: 20px 24px;
-    background-color: var(--student-card-bg);
-    border: 1px solid var(--student-border);
-    border-radius: var(--student-radius);
-    box-shadow: var(--student-shadow);
-}
-
-.student-edit-btn-cancel {
-    padding: 12px 24px;
-    background-color: var(--student-bg);
-    color: var(--student-muted);
-    border: 1px solid var(--student-border);
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: var(--student-transition);
-}
-
-.student-edit-btn-cancel:hover {
-    background-color: var(--student-border);
-    color: var(--student-navy);
-}
-
-.student-edit-btn-save {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 28px;
-    background-color: var(--student-blue);
-    color: #FFFFFF;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: var(--student-transition);
-    box-shadow: 0 4px 12px rgba(47, 111, 237, 0.25);
-}
-
-.student-edit-btn-save:hover {
-    background-color: var(--student-blue-hover);
-    transform: translateY(-1px);
-}
-
-/* ==========================================================================
-   9. RESPONSIVE BREAKPOINTS
-   ========================================================================== */
-@media (max-width: 768px) {
-    .student-edit-form-grid {
+@media(max-width:760px) {
+    .field-grid {
         grid-template-columns: 1fr;
-    }
-
-    .student-edit-field-full {
-        grid-column: span 1;
-    }
-
-    .student-edit-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .student-edit-header-btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .student-edit-actions-bar {
-        flex-direction: column-reverse;
-    }
-
-    .student-edit-btn-cancel,
-    .student-edit-btn-save {
-        width: 100%;
-        justify-content: center;
     }
 }

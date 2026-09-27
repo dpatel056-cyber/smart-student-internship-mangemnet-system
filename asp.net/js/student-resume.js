@@ -77,7 +77,7 @@
 
         // Validation 1: Only PDF
         if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-            alert('Invalid file format. Please upload a PDF file only.');
+            simsAlert('Invalid file format. Please upload a PDF file only.', { type: "warning", title: "Invalid File Format" });
             if (fileInput) fileInput.value = '';
             if (selectedBox) selectedBox.style.display = 'none';
             return;
@@ -85,7 +85,7 @@
 
         // Validation 2: Max 5 MB
         if (file.size > 5 * 1024 * 1024) {
-            alert('File too large! Maximum file size allowed is 5 MB.');
+            simsAlert('File too large! Maximum file size allowed is 5 MB.', { type: "warning", title: "File Too Large" });
             if (fileInput) fileInput.value = '';
             if (selectedBox) selectedBox.style.display = 'none';
             return;

@@ -97,8 +97,180 @@
                 var el = document.getElementById(id);
                 if (el) el.selectedIndex = 0;
             });
-            document.getElementById("listEmptyState").style.display = "none";
+            var listEmptyState = document.getElementById("listEmptyState");
+            if (listEmptyState) listEmptyState.style.display = "none";
+            if (typeof applyMessageCardFilter === "function") applyMessageCardFilter("all");
         }
+
+        /* ---------- SUMMARY CARD FILTERS ---------- */
+        var messageCards = document.querySelectorAll(".msg-stat-card[data-message-filter]");
+        var messageItems = document.querySelectorAll(".msg-item[data-message-status]");
+        var messageSearch = document.querySelector(".msg-search-input");
+        var messagePills = document.querySelectorAll(".msg-filter-pill[data-message-filter]");
+        var messageLayout = document.querySelector(".msg-layout");
+        var backToConversations = document.getElementById("msgBackToConversations");
+        var activeMessageFilter = "all";
+
+        function applyMessageCardFilter(filter) {
+            activeMessageFilter = filter;
+            var query = messageSearch ? messageSearch.value.toLowerCase().trim() : "";
+
+            messageCards.forEach(function (card) {
+                card.classList.toggle("message-filter-active", card.getAttribute("data-message-filter") === filter && filter !== "all");
+            });
+            messagePills.forEach(function (pill) {
+                pill.classList.toggle("active", pill.getAttribute("data-message-filter") === filter);
+            });
+
+            messageItems.forEach(function (item) {
+                var statuses = (item.getAttribute("data-message-status") || "").split(" ");
+                var searchable = (item.getAttribute("data-message-search") || item.textContent).toLowerCase();
+                var matchesCard = filter === "all" || statuses.indexOf(filter) !== -1;
+                var matchesSearch = !query || searchable.indexOf(query) !== -1;
+                item.style.display = matchesCard && matchesSearch ? "flex" : "none";
+            });
+
+            var visibleCount = Array.from(messageItems).filter(function (item) { return item.style.display !== "none"; }).length;
+            var emptyState = document.querySelector(".msg-conversation-list .msg-list-empty");
+            if (visibleCount === 0 && !emptyState) {
+                var empty = document.createElement("div");
+                empty.className = "msg-list-empty";
+                empty.innerHTML = '<i class="fa-regular fa-message"></i><span>No conversations found.</span>';
+                document.querySelector(".msg-conversation-list").appendChild(empty);
+            } else if (emptyState) {
+                emptyState.style.display = visibleCount === 0 ? "flex" : "none";
+            }
+        }
+
+        messageCards.forEach(function (card) {
+            card.style.cursor = "pointer";
+            card.addEventListener("click", function () {
+                var filter = card.getAttribute("data-message-filter");
+                applyMessageCardFilter(activeMessageFilter === filter && filter !== "all" ? "all" : filter);
+            });
+        });
+
+        if (messageSearch) messageSearch.addEventListener("input", function () { applyMessageCardFilter(activeMessageFilter); });
+        messagePills.forEach(function (pill) {
+            pill.addEventListener("click", function () { applyMessageCardFilter(pill.getAttribute("data-message-filter")); });
+        });
+
+        messageItems.forEach(function (item) {
+            item.addEventListener("click", function () {
+                messageItems.forEach(function (other) { other.classList.remove("active"); });
+                item.classList.add("active");
+                if (messageLayout) messageLayout.classList.add("chat-open");
+                var name = item.querySelector(".msg-item-name");
+                var chatName = document.querySelector(".msg-chat-user-name");
+                var detailName = document.querySelector(".msg-details-name");
+                if (name && chatName) chatName.textContent = name.textContent;
+                if (name && detailName) detailName.textContent = name.textContent;
+                var unreadBadge = item.querySelector(".msg-unread-badge");
+                if (unreadBadge) unreadBadge.remove();
+            });
+        });
+
+        var detailsPanel = document.querySelector(".msg-col-details");
+        var profileBackButton = document.getElementById("msgProfileBackBtn");
+        function showStudentProfile() {
+            if (detailsPanel) detailsPanel.classList.remove("profile-hidden");
+            if (messageLayout) {
+                messageLayout.classList.add("profile-open");
+                messageLayout.classList.remove("chat-open");
+            }
+        }
+        document.querySelectorAll(".msg-item-name, .msg-item .msg-avatar, .msg-chat-user-name, .msg-chat-user-info .msg-avatar").forEach(function (trigger) {
+            trigger.addEventListener("click", function (event) {
+                showStudentProfile();
+            });
+        });
+
+        if (backToConversations) backToConversations.addEventListener("click", function () {
+            if (messageLayout) messageLayout.classList.remove("chat-open");
+            if (detailsPanel) detailsPanel.classList.add("profile-hidden");
+        });
+
+        if (profileBackButton) profileBackButton.addEventListener("click", function () {
+            if (messageLayout) {
+                messageLayout.classList.remove("profile-open");
+                messageLayout.classList.add("chat-open");
+            }
+            if (detailsPanel) detailsPanel.classList.add("profile-hidden");
+        });
+
+        document.querySelectorAll(".msg-delete-conversation").forEach(function (button) {
+            button.addEventListener("click", function () {
+                var activeItem = document.querySelector(".msg-item.active");
+                if (activeItem) activeItem.remove();
+                if (detailsPanel) detailsPanel.classList.add("profile-hidden");
+                document.querySelectorAll(".msg-dropdown-menu").forEach(function (menu) { menu.style.display = "none"; });
+                showToast("Conversation deleted successfully.", "success");
+            });
+        });
+
+        var attachInput = document.getElementById("newMessageAttachment");
+        var attachButton = document.getElementById("newMessageAttachBtn");
+        var attachName = document.getElementById("newMessageAttachmentName");
+        if (attachButton && attachInput) attachButton.addEventListener("click", function () { attachInput.click(); });
+        if (attachInput) attachInput.addEventListener("change", function () {
+            if (attachName) attachName.textContent = this.files.length ? this.files[0].name : "";
+        });
+
+        var sendNewMessage = document.getElementById("newMessageSendBtn");
+        if (sendNewMessage) sendNewMessage.addEventListener("click", function () {
+            var recipient = document.querySelector("#newMsgModal .msg-form-input");
+            var body = document.querySelector("#newMsgModal .msg-form-textarea");
+            if (!recipient || !recipient.value.trim() || !body || !body.value.trim()) {
+                showToast("Please select a student and enter a message.", "error");
+                return;
+            }
+            closeNewMessageModal();
+            document.querySelectorAll("#newMsgModal .msg-form-input").forEach(function (field) { field.value = ""; });
+            body.value = "";
+            if (attachInput) attachInput.value = "";
+            if (attachName) attachName.textContent = "";
+            showToast("Message sent successfully.", "success");
+        });
+
+        // WhatsApp-style composer: append sent messages to the open chat.
+        var chatComposer = document.querySelector(".msg-textarea");
+        var chatSendButton = document.querySelector(".msg-send-btn");
+        var chatBody = document.querySelector(".msg-chat-area");
+        function sendChatMessage() {
+            if (!chatComposer || !chatBody) return;
+            var message = chatComposer.value.trim();
+            if (!message) return;
+            var now = new Date();
+            var time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+            var wrapper = document.createElement("div");
+            wrapper.className = "msg-bubble-wrapper right";
+            var bubble = document.createElement("div");
+            bubble.className = "msg-bubble right";
+            bubble.textContent = message;
+            var meta = document.createElement("div");
+            meta.className = "msg-bubble-meta";
+            meta.innerHTML = time + ' <i class="fa-solid fa-check-double msg-read-icon"></i>';
+            wrapper.appendChild(bubble);
+            wrapper.appendChild(meta);
+            chatBody.appendChild(wrapper);
+            chatComposer.value = "";
+            chatComposer.style.height = "24px";
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+        if (chatSendButton) chatSendButton.addEventListener("click", sendChatMessage);
+        if (chatComposer) chatComposer.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                sendChatMessage();
+            }
+        });
+        var chatAttachmentInput = document.getElementById("chatAttachmentInput");
+        var chatAttachButton = document.getElementById("chatAttachButton");
+        if (chatAttachButton && chatAttachmentInput) chatAttachButton.addEventListener("click", function () { chatAttachmentInput.click(); });
+        if (chatAttachmentInput) chatAttachmentInput.addEventListener("change", function () {
+            if (this.files.length) showToast("Attached: " + this.files[0].name, "success");
+        });
+        applyMessageCardFilter("all");
         var btnReset = document.getElementById("btnReset");
         if (btnReset) btnReset.addEventListener("click", resetFilters);
         var btnClearFilters = document.getElementById("btnClearFilters");

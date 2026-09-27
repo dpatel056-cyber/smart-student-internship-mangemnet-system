@@ -11,7 +11,7 @@
         <div class="profile-completion-header">
             <div>
                 <h1 class="profile-completion-title">Profile Completion</h1>
-                <p class="profile-completion-subtitle">Complete your profile to improve your internship opportunities and visibility to companies.</p>
+                <p class="profile-completion-subtitle">Complete your profile to improve your internship opportunities.</p>
             </div>
             <div>
                 <a href="student-edit-profile.aspx" class="profile-completion-header-btn">
@@ -121,7 +121,7 @@
                         </div>
                         <div class="profile-completion-section-info">
                             <h4 class="profile-completion-section-name">
-                                Education Details
+                                Academic Information
                                 <span class="profile-completion-badge badge-green">90% Complete</span>
                             </h4>
                             <p class="profile-completion-section-desc">College, course, branch, semester & CGPA</p>
@@ -236,7 +236,7 @@
                 </div>
 
                 <div class="profile-completion-row">
-                    <span class="profile-completion-row-label">Education Details</span>
+                    <span class="profile-completion-row-label">Academic Information</span>
                     <div class="profile-completion-row-track">
                         <div class="profile-completion-row-fill fill-blue" style="width: 0%;" data-percentage="90%"></div>
                     </div>
@@ -308,7 +308,7 @@
 
                 <div style="margin-top: 8px;">
                     <a href="student-edit-profile.aspx" class="profile-completion-action-btn btn-complete" style="display:inline-block; padding:10px 20px; font-weight:700;">
-                        <i class="fa-solid fa-circle-arrow-right"></i> Complete Now
+                        <i class="fa-solid fa-circle-arrow-right"></i> Complete Profile
                     </a>
                 </div>
             </div>
@@ -316,10 +316,12 @@
             <!-- RIGHT: WHY COMPLETE YOUR PROFILE? -->
             <div class="profile-completion-card">
                 <div class="profile-completion-card-header">
-                    <h3 class="profile-completion-card-title">
-                        <i class="fa-solid fa-lightbulb" style="color:#EAB308;"></i> Why Complete Your Profile?
-                    </h3>
-                </div>
+                        <h3 class="profile-completion-card-title">
+                            <i class="fa-solid fa-lightbulb" style="color:#EAB308;"></i> Why Complete Your Profile?
+                        </h3>
+                    </div>
+
+                    <p class="profile-completion-motivation">Complete your profile to improve your internship opportunities.</p>
 
                 <div class="profile-completion-benefits-list">
                     <div class="profile-completion-benefit-item">
@@ -356,7 +358,7 @@
                 <i class="fa-solid fa-code"></i> Manage Skills
             </a>
             <a href="student-education.aspx" class="profile-completion-btn-quick">
-                <i class="fa-solid fa-graduation-cap"></i> Education Details
+                <i class="fa-solid fa-graduation-cap"></i> Academic Information
             </a>
             <a href="student-resume.aspx" class="profile-completion-btn-quick">
                 <i class="fa-solid fa-file-pdf"></i> Upload Resume

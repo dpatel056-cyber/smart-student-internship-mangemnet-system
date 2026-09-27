@@ -2144,7 +2144,6 @@ img{max-width:100%;display:block;}
 .login-main{
   flex:1;
   display:flex;
-  min-height:100vh;
 }
 
 /* ---- Left brand panel ---- */
@@ -2457,31 +2456,6 @@ img{max-width:100%;display:block;}
 }
 
 .login-register-text a:hover{text-decoration:underline;}
-
-.login-secure-note{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  font-size:13px;
-  color:#16a34a;
-  background:#f0fdf4;
-  padding:10px;
-  border-radius:8px;
-}
-
-.login-demo-hint{
-  margin-top:16px;
-  padding:12px 14px;
-  background:var(--blue-50);
-  border:1px dashed var(--blue-600);
-  border-radius:8px;
-  font-size:12.5px;
-  color:#334155;
-  line-height:1.6;
-}
-
-.login-demo-hint strong{color:var(--blue-700);}
 
 .login-toast{
   position:fixed;

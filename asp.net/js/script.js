@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const emailInput = newsletterForm.querySelector('input[type="email"]');
       const email = emailInput.value.trim();
       if (email) {
-        alert('Thank you for subscribing! You will receive our latest updates.');
+        simsToast('Thank you for subscribing! You will receive our latest updates.', 'success', 'Subscribed!');
         newsletterForm.reset();
       }
     });
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      alert('Thank you! Your message has been sent. We will get back to you soon.');
+      simsToast('Thank you! Your message has been sent. We will get back to you soon.', 'success', 'Message Sent!');
       contactForm.reset();
     });
   }
