@@ -28,7 +28,6 @@
                 <span class="fb-stat-label">Average Rating</span>
                 <div class="fb-stat-num-wrap">
                     <h3 class="fb-stat-number">4.6 <span class="fb-stat-denom">/ 5</span></h3>
-                    <span class="fb-trend-badge trend-up"><i class="fa-solid fa-arrow-trend-up"></i> +0.3</span>
                 </div>
                 <div class="fb-stars-mini">
                     <i class="fa-solid fa-star star-filled"></i>
@@ -49,7 +48,6 @@
                 <span class="fb-stat-label">Total Feedback</span>
                 <div class="fb-stat-num-wrap">
                     <h3 class="fb-stat-number">1,248</h3>
-                    <span class="fb-trend-badge trend-up"><i class="fa-solid fa-arrow-trend-up"></i> +12%</span>
                 </div>
                 <span class="fb-stat-subtext">From registered users</span>
             </div>
@@ -64,7 +62,6 @@
                 <span class="fb-stat-label">Positive Feedback</span>
                 <div class="fb-stat-num-wrap">
                     <h3 class="fb-stat-number">1,020</h3>
-                    <span class="fb-trend-badge trend-up"><i class="fa-solid fa-arrow-trend-up"></i> 81.7%</span>
                 </div>
                 <span class="fb-stat-subtext">4 &amp; 5 star reviews</span>
             </div>
@@ -79,7 +76,6 @@
                 <span class="fb-stat-label">Negative Feedback</span>
                 <div class="fb-stat-num-wrap">
                     <h3 class="fb-stat-number">128</h3>
-                    <span class="fb-trend-badge trend-down"><i class="fa-solid fa-arrow-trend-down"></i> -4%</span>
                 </div>
                 <span class="fb-stat-subtext">Needs attention</span>
             </div>

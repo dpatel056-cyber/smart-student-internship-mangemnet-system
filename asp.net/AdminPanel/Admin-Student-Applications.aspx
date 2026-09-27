@@ -8,25 +8,10 @@
         <!-- ===================== PAGE HEADER ===================== -->
         <div class="sims-application-header">
             <div class="sims-application-header-left">
-                <div class="sims-application-breadcrumb">
-                    <span>Dashboard</span>
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <span>Student Management</span>
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <span class="sims-application-breadcrumb-current">Applications</span>
-                </div>
                 <h1 class="sims-application-title">Student Applications</h1>
                 <p class="sims-application-subtitle">Review, monitor and manage internship applications submitted by students.</p>
             </div>
             <div class="sims-application-header-right">
-                <button type="button" class="sims-app-btn sims-app-btn-outline" id="btnAdvancedFilters">
-                    <i class="fa-solid fa-sliders"></i>
-                    <span>Advanced Filters</span>
-                </button>
-                <button type="button" class="sims-app-btn sims-app-btn-primary" id="btnExportApplications">
-                    <i class="fa-solid fa-download"></i>
-                    <span>Export Applications</span>
-                </button>
             </div>
         </div>
 
@@ -476,16 +461,12 @@
                 <!-- ============== PAGINATION ============== -->
                 <div class="sims-application-pagination">
                     <div class="sims-application-pagination-info">
-                        Showing 1&ndash;10 of 2,480 applications
+                        Showing 0-0 of 0 applications
                     </div>
                     <div class="sims-application-pagination-controls">
-                        <button type="button" class="sims-app-page-btn" disabled><i class="fa-solid fa-chevron-left"></i> Previous</button>
-                        <button type="button" class="sims-app-page-btn active">1</button>
-                        <button type="button" class="sims-app-page-btn">2</button>
-                        <button type="button" class="sims-app-page-btn">3</button>
-                        <button type="button" class="sims-app-page-btn">4</button>
-                        <button type="button" class="sims-app-page-btn">5</button>
-                        <button type="button" class="sims-app-page-btn">Next <i class="fa-solid fa-chevron-right"></i></button>
+                        <button type="button" class="sims-app-page-btn apps-page-prev"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+                        <div class="apps-page-numbers"></div>
+                        <button type="button" class="sims-app-page-btn apps-page-next">Next <i class="fa-solid fa-chevron-right"></i></button>
                     </div>
                     <div class="sims-application-pagination-size">
                         <label for="pageSizeSelect">Show</label>
@@ -498,48 +479,6 @@
                 </div>
 
             </div>
-
-            <!-- ============== RECENT ACTIVITY ============== -->
-            <aside class="sims-application-activity-card">
-                <h3 class="sims-application-activity-title">Recent Application Activity</h3>
-                <ul class="sims-application-activity-list">
-                    <li>
-                        <span class="sims-application-activity-icon sims-activity-applied"><i class="fa-solid fa-file-circle-plus"></i></span>
-                        <div>
-                            <p><strong>Dhruvi Patel</strong> applied for Web Developer Intern</p>
-                            <span class="sims-application-activity-time">10 minutes ago</span>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="sims-application-activity-icon sims-activity-shortlisted"><i class="fa-solid fa-list-check"></i></span>
-                        <div>
-                            <p><strong>Rahul Shah</strong> was shortlisted</p>
-                            <span class="sims-application-activity-time">25 minutes ago</span>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="sims-application-activity-icon sims-activity-selected"><i class="fa-solid fa-circle-check"></i></span>
-                        <div>
-                            <p><strong>Priya Mehta</strong> was selected</p>
-                            <span class="sims-application-activity-time">1 hour ago</span>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="sims-application-activity-icon sims-activity-rejected"><i class="fa-solid fa-circle-xmark"></i></span>
-                        <div>
-                            <p><strong>Aarav Verma's</strong> application was rejected</p>
-                            <span class="sims-application-activity-time">2 hours ago</span>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="sims-application-activity-icon sims-activity-interview"><i class="fa-solid fa-calendar-check"></i></span>
-                        <div>
-                            <p>Interview scheduled for <strong>Meera Kapoor</strong></p>
-                            <span class="sims-application-activity-time">3 hours ago</span>
-                        </div>
-                    </li>
-                </ul>
-            </aside>
 
         </div>
     </div>

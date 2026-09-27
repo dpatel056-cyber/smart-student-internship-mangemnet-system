@@ -12,6 +12,7 @@ namespace asp.net
 {
     public partial class admin_companies : System.Web.UI.Page
     {
+        SqlCommand cmd;
         SqlConnection con;
         SqlDataAdapter da;
         DataSet ds;
@@ -26,18 +27,12 @@ namespace asp.net
         void showCompany()
         {
             getcon();
-            da = new SqlDataAdapter("SELECT * FROM c_registration ORDER BY Id DESC", con);
+            da = new SqlDataAdapter("SELECT * FROM c_registration", con);
             ds = new DataSet();
             da.Fill(ds);
             GridView1.DataSource = ds;
             GridView1.DataBind();
-            con.Close();
-
-            if (GridView1.Rows.Count > 0)
-            {
-                GridView1.UseAccessibleHeader = true;
-                GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
-            }
+          
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -48,31 +43,21 @@ namespace asp.net
         }
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "cmd_del")
+            if (e.CommandName == "cmd_view")
+            {
+                string id = e.CommandArgument.ToString();
+                Response.Redirect("viewCompanyDetails.aspx?id=" + id);
+            }
+            else if (e.CommandName == "cmd_del")
             {
                 string id = e.CommandArgument.ToString();
                 getcon();
-                SqlCommand cmd = new SqlCommand("DELETE FROM c_registration WHERE Id=@id", con);
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd = new SqlCommand("delete from c_registration where CompanyId='" + e.CommandArgument + "'", con);
                 cmd.ExecuteNonQuery();
-                con.Close();
                 showCompany();
             }
         }
 
-        protected void btnConfirmDeleteCompany_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(hfDeleteCompanyId.Value))
-            {
-                string id = hfDeleteCompanyId.Value;
-                getcon();
-                SqlCommand cmd = new SqlCommand("DELETE FROM c_registration WHERE Id=@id", con);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                hfDeleteCompanyId.Value = "";
-                showCompany();
-            }
-        }
+       
     }
 }

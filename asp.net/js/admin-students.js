@@ -214,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentPage = 1;
     let pageSize = 10;
     let filteredStudents = [...students];
+    let activeStudentCard = "all";
     let selectedStudent = null;
 
     const searchInput = document.getElementById("stuSearchInput");
@@ -262,7 +263,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const matchesStatus = (statusVal === "All" || item.status === statusVal);
             const matchesCourse = (courseVal === "All" || item.course === courseVal);
             const matchesBatch = (batchVal === "All" || item.batch === batchVal);
-            return matchesQuery && matchesStatus && matchesCourse && matchesBatch;
+            const itemIndex = students.indexOf(item);
+            const matchesCard = activeStudentCard === "all" ||
+                (activeStudentCard === "active" && item.status === "Active") ||
+                (activeStudentCard === "blocked" && item.status === "Blocked") ||
+                (activeStudentCard === "new" && itemIndex >= 0 && itemIndex < 2);
+            return matchesQuery && matchesStatus && matchesCourse && matchesBatch && matchesCard;
         });
 
         currentPage = 1;
@@ -307,7 +313,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <button type="button" class="stu-btn-more" data-id="${item.id}" title="Actions"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                 <div class="stu-action-dropdown" id="dropdown-${item.id}">
                                     <button type="button" class="stu-dropdown-item btn-act-view" data-id="${item.id}"><i class="fa-regular fa-eye"></i> View Student</button>
-                                    <button type="button" class="stu-dropdown-item btn-act-edit" data-id="${item.id}"><i class="fa-regular fa-pen-to-square"></i> Edit Student</button>
                                     <button type="button" class="stu-dropdown-item btn-act-block" data-id="${item.id}"><i class="fa-solid fa-ban"></i> ${item.status === 'Blocked' ? 'Unblock Student' : 'Block Student'}</button>
                                     <button type="button" class="stu-dropdown-item item-danger btn-act-delete" data-id="${item.id}"><i class="fa-regular fa-trash-can"></i> Delete Student</button>
                                 </div>
@@ -316,14 +321,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     </tr>
                 `;
             });
-            tableBody.innerHTML = html;
+            //tableBody.innerHTML = html;
         }
 
         if (entriesInfo) {
             if (totalItems === 0) {
                 entriesInfo.textContent = "Showing 0 to 0 of 0 students";
             } else {
-                entriesInfo.textContent = `Showing ${startIndex + 1}â€“${endIndex} of ${totalItems.toLocaleString()} students`;
+                entriesInfo.textContent = `Showing ${startIndex + 1}-${endIndex} of ${totalItems.toLocaleString()} students`;
             }
         }
 
@@ -462,6 +467,8 @@ document.addEventListener("DOMContentLoaded", function () {
             drawerStatusBadge.textContent = stu.status;
             drawerStatusBadge.className = `stu-status-pill status-${stu.status.toLowerCase()}`;
         }
+        const headerDetails = { drawerCourse: `${stu.course} - Computer Applications`, drawerCollege: stu.college, drawerEmail: stu.email, drawerPhone: stu.phone };
+        Object.keys(headerDetails).forEach(id => { const field = document.getElementById(id); if (field) field.textContent = headerDetails[id]; });
 
         const el = id => document.getElementById(id);
         if (el("dOverviewName")) el("dOverviewName").textContent = stu.name;
@@ -476,9 +483,25 @@ document.addEventListener("DOMContentLoaded", function () {
         if (el("dPersonalDob")) el("dPersonalDob").textContent = stu.dob || "15 Oct 2004";
         if (el("dPersonalGender")) el("dPersonalGender").textContent = stu.gender || "Female";
         if (el("dPersonalAddress")) el("dPersonalAddress").textContent = `${stu.address}, ${stu.city}, ${stu.state} - ${stu.pincode}`;
+        const nameParts = (stu.name || "").trim().split(/\s+/);
+        if (el("dPersonalFirstName")) el("dPersonalFirstName").textContent = nameParts.shift() || "-";
+        if (el("dPersonalLastName")) el("dPersonalLastName").textContent = nameParts.join(" ") || "-";
+        if (el("dPersonalEmail")) el("dPersonalEmail").textContent = stu.email || "-";
+        if (el("dPersonalMobile")) el("dPersonalMobile").textContent = stu.phone || "-";
+        if (el("dPersonalAlternateMobile")) el("dPersonalAlternateMobile").textContent = stu.alternatePhone || "Not provided";
+        if (el("dPersonalCity")) el("dPersonalCity").textContent = stu.city || "-";
+        if (el("dPersonalState")) el("dPersonalState").textContent = stu.state || "-";
+        if (el("dPersonalPincode")) el("dPersonalPincode").textContent = stu.pincode || "-";
 
         if (el("dAcademicCourse")) el("dAcademicCourse").textContent = stu.course;
-        if (el("dAcademicBatch")) el("dAcademicBatch").textContent = stu.batch;
+        if (el("dAcademicEnrollment")) el("dAcademicEnrollment").textContent = stu.id;
+        if (el("dAcademicBranch")) el("dAcademicBranch").textContent = stu.branch || "Computer Applications";
+        if (el("dAcademicSemester")) el("dAcademicSemester").textContent = stu.semester || "Semester 5";
+        if (el("dAcademicYear")) el("dAcademicYear").textContent = stu.batch || "2024-2027";
+        if (el("dAcademicCgpa")) el("dAcademicCgpa").textContent = stu.cgpa ? `${stu.cgpa} / 10` : "8.4 / 10";
+        if (el("dAcademicTenth")) el("dAcademicTenth").textContent = stu.tenthPercentage || "82%";
+        if (el("dAcademicTwelfth")) el("dAcademicTwelfth").textContent = stu.twelfthPercentage || "78%";
+        if (el("dAcademicGraduation")) el("dAcademicGraduation").textContent = stu.graduationYear || "2027";
         if (el("dAcademicCollege")) el("dAcademicCollege").textContent = stu.college;
 
         if (drawerOverlay) {
@@ -571,7 +594,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const photo = document.getElementById("addPhoto").value.trim() || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=2563eb&color=fff`;
 
             if (!name || !email) {
-                alert("Please enter full name and email.");
+                simsAlert("Please enter full name and email.", { type: "warning", title: "Missing Fields" });
                 return;
             }
 
@@ -703,6 +726,17 @@ document.addEventListener("DOMContentLoaded", function () {
     if (filterRegDate) filterRegDate.addEventListener("change", applyFilters);
     if (filterBatch) filterBatch.addEventListener("change", applyFilters);
 
+    document.querySelectorAll(".stu-stat-clickable").forEach(card => {
+        card.addEventListener("click", function () {
+            activeStudentCard = this.dataset.studentCard || "all";
+            document.querySelectorAll(".stu-stat-clickable").forEach(item => item.classList.remove("active"));
+            this.classList.add("active");
+            applyFilters();
+            const table = document.querySelector(".stu-table-card") || document.querySelector(".stu-students-table");
+            if (table) table.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+    });
+
     if (btnClear) {
         btnClear.addEventListener("click", function () {
             if (searchInput) searchInput.value = "";
@@ -710,6 +744,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (filterCourse) filterCourse.value = "All";
             if (filterRegDate) filterRegDate.value = "All";
             if (filterBatch) filterBatch.value = "All";
+            activeStudentCard = "all";
+            document.querySelectorAll(".stu-stat-clickable").forEach((card, index) => card.classList.toggle("active", index === 0));
             if (pageSizeSelect) pageSizeSelect.value = "10";
             pageSize = 10;
             applyFilters();

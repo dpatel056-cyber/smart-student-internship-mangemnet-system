@@ -52,38 +52,11 @@
                     <div class="student-sidebar-section">
                         <div class="student-sidebar-section-title">Profile</div>
 
-                        <div class="student-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuProfile">
+                        <a href="<%= ResolveUrl("~/StudentPanel/student-profile.aspx") %>" class="student-sidebar-parent student-sidebar-link">
                             <i class="fa-solid fa-user student-sidebar-icon"></i>
                             <span class="student-sidebar-label">Profile</span>
-                            <i class="fa-solid fa-chevron-down student-sidebar-caret"></i>
                             <span class="student-sidebar-tooltip">Profile</span>
-                        </div>
-                        <div class="student-sidebar-submenu" id="submenuProfile">
-                            <a href="<%= ResolveUrl("~/StudentPanel/student-profile.aspx") %>" class="student-sidebar-link">
-                                <i class="fa-solid fa-user student-sidebar-icon"></i>
-                                <span class="student-sidebar-label">My Profile</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/StudentPanel/student-edit-profile.aspx") %>" class="student-sidebar-link">
-                                <i class="fa-solid fa-user-pen student-sidebar-icon"></i>
-                                <span class="student-sidebar-label">Edit Profile</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/StudentPanel/student-profile-completion.aspx") %>" class="student-sidebar-link">
-                                <i class="fa-solid fa-chart-pie student-sidebar-icon"></i>
-                                <span class="student-sidebar-label">Profile Completion</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/StudentPanel/student-skills.aspx") %>" class="student-sidebar-link">
-                                <i class="fa-solid fa-code student-sidebar-icon"></i>
-                                <span class="student-sidebar-label">Skills</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/StudentPanel/student-education.aspx") %>" class="student-sidebar-link">
-                                <i class="fa-solid fa-graduation-cap student-sidebar-icon"></i>
-                                <span class="student-sidebar-label">Education</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/StudentPanel/student-resume.aspx") %>" class="student-sidebar-link">
-                                <i class="fa-solid fa-file-pdf student-sidebar-icon"></i>
-                                <span class="student-sidebar-label">Resume</span>
-                            </a>
-                        </div>
+                        </a>
                     </div>
 
                     <!-- INTERNSHIPS -->
@@ -279,7 +252,7 @@
                             aria-haspopup="true" aria-expanded="false" aria-controls="studentProfileDropdown">
                             <span class="student-header-avatar" id="studentAvatarInitials">DP</span>
                             <span class="student-header-profile-info">
-                               <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+                               <asp:Label ID="Label1" runat="server" CssClass="student-header-profile-name" Text="Label"></asp:Label>
                                 <span class="student-header-profile-role">Student</span>
                             </span>
                             <i class="fa-solid fa-chevron-down student-header-profile-caret"></i>
@@ -347,7 +320,7 @@
                 <!-- Buttons -->
                 <div style="display:flex; gap:12px;">
                     <button type="button" onclick="closeLogoutModal()" style="flex:1; padding:13px 0; border-radius:12px; border:none; background:#eff6ff; color:#2563eb; font-weight:700; font-size:15px; cursor:pointer;">No, Stay</button>
-                    <a href="<%= ResolveUrl("~/logout.aspx") %>" style="flex:1; padding:13px 0; border-radius:12px; border:none; background:#2563eb; color:#fff; font-weight:700; font-size:15px; text-decoration:none; display:flex; align-items:center; justify-content:center; cursor:pointer;">Yes, Logout</a>
+                    <a href="<%= ResolveUrl("~/PublicPanel/logout.aspx") %>" style="flex:1; padding:13px 0; border-radius:12px; border:none; background:#2563eb; color:#fff; font-weight:700; font-size:15px; text-decoration:none; display:flex; align-items:center; justify-content:center; cursor:pointer;">Yes, Logout</a>
                 </div>
             </div>
         </div>

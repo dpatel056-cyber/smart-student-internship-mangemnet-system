@@ -1,0 +1,39 @@
+﻿namespace asp.net {
+    public partial class company_edit_profile {
+        protected global::System.Web.UI.WebControls.Label lblSaveMessage;
+        protected global::System.Web.UI.WebControls.Image imgProfilePreview;
+        protected global::System.Web.UI.WebControls.FileUpload fileProfilePhoto;
+        protected global::System.Web.UI.WebControls.TextBox txtCompanyName;
+        protected global::System.Web.UI.WebControls.TextBox txtIndustry;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCompanyType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCompanySize;
+        protected global::System.Web.UI.WebControls.TextBox txtFoundedYear;
+        protected global::System.Web.UI.WebControls.TextBox txtHeadquarters;
+        protected global::System.Web.UI.WebControls.TextBox txtWebsite;
+        protected global::System.Web.UI.WebControls.TextBox txtAboutCompany;
+        protected global::System.Web.UI.WebControls.TextBox txtBusinessDomain;
+        protected global::System.Web.UI.WebControls.TextBox txtProductsServices;
+        protected global::System.Web.UI.WebControls.TextBox txtMission;
+        protected global::System.Web.UI.WebControls.TextBox txtVision;
+        protected global::System.Web.UI.WebControls.TextBox txtOfficialEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtOfficialContact;
+        protected global::System.Web.UI.WebControls.TextBox txtCompanyAddress;
+        protected global::System.Web.UI.WebControls.TextBox txtCompanyCity;
+        protected global::System.Web.UI.WebControls.TextBox txtCompanyState;
+        protected global::System.Web.UI.WebControls.TextBox txtCompanyPincode;
+        protected global::System.Web.UI.WebControls.TextBox txtHrName;
+        protected global::System.Web.UI.WebControls.TextBox txtHrDesignation;
+        protected global::System.Web.UI.WebControls.TextBox txtHrEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtHrContact;
+        protected global::System.Web.UI.WebControls.TextBox txtLinkedIn;
+        protected global::System.Web.UI.WebControls.TextBox txtInternshipDomains;
+        protected global::System.Web.UI.WebControls.DropDownList ddlInternshipType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPreferredWorkMode;
+        protected global::System.Web.UI.WebControls.TextBox txtPreferredDuration;
+        protected global::System.Web.UI.WebControls.TextBox txtRequiredSkills;
+        protected global::System.Web.UI.WebControls.TextBox txtPreferredCourses;
+        protected global::System.Web.UI.WebControls.TextBox txtPreferredSemester;
+        protected global::System.Web.UI.WebControls.TextBox txtMinimumCGPA;
+        protected global::System.Web.UI.WebControls.Button btnSaveProfile;
+    }
+}

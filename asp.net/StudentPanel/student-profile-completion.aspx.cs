@@ -10,9 +10,9 @@ namespace asp.net
         protected void Page_Load(object sender, EventArgs e)
         {
             // Security Check
-            if (Session["UserRole"] == null || Session["UserRole"].ToString() != "student")
+            if (Session["student"] == null)
             {
-                Response.Redirect("login.aspx");
+                Response.Redirect("~/PublicPanel/login.aspx");
                 return;
             }
 

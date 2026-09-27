@@ -1,6 +1,7 @@
 <%@ Page Title="Messages" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="admin-messages.aspx.cs" Inherits="asp.net.css.admin_messages" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="../js/admin-messages.js" defer></script>
     <style>
         /* Messages specific styles */
         :root {
@@ -575,11 +576,39 @@
             background: #F8FAFC;
         }
 
+        .msg-col-details.profile-hidden { display: none; }
+        .msg-layout:not(.chat-open) .msg-col-chat { display: none; }
+        .msg-layout:not(.chat-open) .msg-col-list { flex: 1 1 100%; max-width: 100%; }
+        .msg-back-btn { display: none; border: 0; background: transparent; color: #64748B; font-size: 18px; cursor: pointer; padding: 4px 8px 4px 0; }
+        .msg-layout.chat-open .msg-back-btn { display: inline-flex; align-items: center; }
+        .msg-layout.chat-open .msg-col-list { flex: 0 0 28%; max-width: 28%; }
+        .msg-layout.profile-open .msg-col-chat { display: none; }
+        .msg-layout.profile-open .msg-col-details {
+            display: flex;
+            flex: 1 1 72%;
+            max-width: 72%;
+            width: 72%;
+        }
+        .msg-profile-back-btn {
+            position: absolute;
+            left: 24px;
+            top: 22px;
+            border: 0;
+            background: transparent;
+            color: #64748B;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 6px;
+        }
+        .msg-chat-user-name, .msg-chat-user-info .msg-avatar, .msg-item-name, .msg-item .msg-avatar { cursor: pointer; }
+        .msg-attachment-name { color: #64748B; font-size: 12px; margin-left: 8px; }
+
         .msg-details-header {
             padding: 32px 20px 20px;
             text-align: center;
             border-bottom: 1px solid var(--msg-border);
             background: white;
+            position: relative;
         }
 
         .msg-large-avatar {
@@ -885,6 +914,26 @@
             background: #F1F5F9;
             color: var(--msg-primary);
         }
+
+        .msg-list-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 180px;
+            padding: 24px 16px;
+            color: #64748B;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .msg-list-empty i { color: #94A3B8; font-size: 28px; }
+        .msg-chat-user-name,
+        .msg-chat-user-info .msg-avatar,
+        .msg-item-name,
+        .msg-item .msg-avatar { cursor: pointer; }
+        .msg-attachment-name { color: #64748B; font-size: 12px; margin-left: 8px; }
     </style>
 </asp:Content>
 
@@ -896,36 +945,32 @@
                 <h1>Messages</h1>
                 <p>Manage conversations with students and users.</p>
             </div>
-            <div style="display:flex; gap:12px;">
-                <button type="button" class="msg-btn-outline" style="padding:8px 12px;"><i class="fa-solid fa-magnifying-glass"></i></button>
-                <button type="button" class="msg-btn-outline" style="padding:8px 12px;" onclick="location.reload();"><i class="fa-solid fa-rotate-right"></i></button>
-            </div>
         </div>
 
         <!-- Summary Cards -->
         <div class="msg-stats-grid">
-            <div class="msg-stat-card">
+            <div class="msg-stat-card" data-message-filter="all">
                 <div class="msg-stat-icon icon-blue"><i class="fa-solid fa-comments"></i></div>
                 <div class="msg-stat-details">
                     <div class="msg-stat-title">Total Conversations</div>
                     <div class="msg-stat-value">248</div>
                 </div>
             </div>
-            <div class="msg-stat-card">
+            <div class="msg-stat-card" data-message-filter="unread">
                 <div class="msg-stat-icon icon-yellow"><i class="fa-solid fa-envelope"></i></div>
                 <div class="msg-stat-details">
                     <div class="msg-stat-title">Unread</div>
                     <div class="msg-stat-value">24</div>
                 </div>
             </div>
-            <div class="msg-stat-card">
+            <div class="msg-stat-card" data-message-filter="pending">
                 <div class="msg-stat-icon icon-orange"><i class="fa-solid fa-clock-rotate-left"></i></div>
                 <div class="msg-stat-details">
                     <div class="msg-stat-title">Pending Reply</div>
                     <div class="msg-stat-value">18</div>
                 </div>
             </div>
-            <div class="msg-stat-card">
+            <div class="msg-stat-card" data-message-filter="resolved">
                 <div class="msg-stat-icon icon-green"><i class="fa-solid fa-check-double"></i></div>
                 <div class="msg-stat-details">
                     <div class="msg-stat-title">Resolved</div>
@@ -938,12 +983,12 @@
         <div class="msg-layout">
             <!-- Column 1: Conversations -->
             <div class="msg-card msg-col-list">
-                <div class="msg-col-header">
-                    <h2 class="msg-col-title">Conversations</h2>
+            <div class="msg-col-header">
+                <h2 class="msg-col-title">Conversations</h2>
                     <button type="button" class="msg-btn-new" onclick="openNewMessageModal()">
                         <i class="fa-solid fa-plus"></i> New Message
                     </button>
-                </div>
+            </div>
                 
                 <div class="msg-search-bar">
                     <div class="msg-search-input-wrapper">
@@ -953,15 +998,15 @@
                 </div>
                 
                 <div class="msg-filter-bar">
-                    <div class="msg-filter-pill active">All</div>
-                    <div class="msg-filter-pill">Unread</div>
-                    <div class="msg-filter-pill">Priority</div>
-                    <div class="msg-filter-pill">Date</div>
+                    <div class="msg-filter-pill active" data-message-filter="all">All</div>
+                    <div class="msg-filter-pill" data-message-filter="unread">Unread</div>
+                    <div class="msg-filter-pill" data-message-filter="pending">Pending</div>
+                    <div class="msg-filter-pill" data-message-filter="resolved">Resolved</div>
                 </div>
 
                 <div class="msg-conversation-list">
                     <!-- Convo 1 (Active & Unread) -->
-                    <div class="msg-item active unread">
+                    <div class="msg-item active unread" data-message-status="unread pending" data-message-search="Dhruvi Patel I need help with my course">
                         <div class="msg-avatar-wrapper">
                             <div class="msg-avatar" style="background: #6366F1;">DP</div>
                             <div class="msg-status-indicator status-online"></div>
@@ -979,7 +1024,7 @@
                     </div>
 
                     <!-- Convo 2 -->
-                    <div class="msg-item">
+                    <div class="msg-item" data-message-status="resolved" data-message-search="Rahul Shah Thank you for your response">
                         <div class="msg-avatar-wrapper">
                             <div class="msg-avatar" style="background: #EC4899;">RS</div>
                             <div class="msg-status-indicator status-offline"></div>
@@ -996,7 +1041,7 @@
                     </div>
 
                     <!-- Convo 3 (Priority) -->
-                    <div class="msg-item">
+                    <div class="msg-item" data-message-status="pending" data-message-search="Priya Patel Can you explain the fees">
                         <div class="msg-avatar-wrapper">
                             <div class="msg-avatar" style="background: #10B981;">PP</div>
                             <div class="msg-status-indicator status-offline"></div>
@@ -1014,7 +1059,7 @@
                     </div>
 
                     <!-- Convo 4 -->
-                    <div class="msg-item">
+                    <div class="msg-item" data-message-status="resolved" data-message-search="Amit Shah I have submitted my documents">
                         <div class="msg-avatar-wrapper">
                             <div class="msg-avatar" style="background: #F59E0B;">AS</div>
                             <div class="msg-status-indicator status-online"></div>
@@ -1035,6 +1080,9 @@
             <!-- Column 2: Chat Window -->
             <div class="msg-card msg-col-chat">
                 <div class="msg-chat-header">
+                    <button type="button" class="msg-back-btn" id="msgBackToConversations" title="Back to conversations">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
                     <div class="msg-chat-user-info">
                         <div class="msg-avatar-wrapper">
                             <div class="msg-avatar" style="background: #6366F1;">DP</div>
@@ -1050,11 +1098,7 @@
                     <div class="msg-dropdown">
                         <button type="button" class="msg-action-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                         <div class="msg-dropdown-menu">
-                            <div class="msg-dropdown-item"><i class="fa-solid fa-check"></i> Mark as Read</div>
-                            <div class="msg-dropdown-item"><i class="fa-regular fa-envelope"></i> Mark as Unread</div>
-                            <div class="msg-dropdown-item"><i class="fa-regular fa-flag"></i> Mark as Priority</div>
-                            <div class="msg-dropdown-item"><i class="fa-solid fa-box-archive"></i> Archive Conversation</div>
-                            <div class="msg-dropdown-item" style="color: #EF4444;"><i class="fa-solid fa-trash"></i> Delete Conversation</div>
+                            <div class="msg-dropdown-item msg-delete-conversation" style="color: #EF4444;"><i class="fa-solid fa-trash"></i> Delete Conversation</div>
                         </div>
                     </div>
                 </div>
@@ -1091,7 +1135,8 @@
 
                 <div class="msg-composer">
                     <div class="msg-input-wrapper">
-                        <button type="button" class="msg-composer-btn" title="Attach file"><i class="fa-solid fa-paperclip"></i></button>
+                        <input type="file" id="chatAttachmentInput" hidden />
+                        <button type="button" class="msg-composer-btn" id="chatAttachButton" title="Attach file"><i class="fa-solid fa-paperclip"></i></button>
                         <textarea class="msg-textarea" placeholder="Type your message..." rows="1"></textarea>
                         <button type="button" class="msg-composer-btn" title="Emoji"><i class="fa-regular fa-face-smile"></i></button>
                         <button type="button" class="msg-send-btn" title="Send"><i class="fa-solid fa-paper-plane"></i></button>
@@ -1100,8 +1145,11 @@
             </div>
 
             <!-- Column 3: Student Details -->
-            <div class="msg-card msg-col-details">
+            <div class="msg-card msg-col-details profile-hidden">
                 <div class="msg-details-header">
+                    <button type="button" class="msg-profile-back-btn" id="msgProfileBackBtn" title="Back to chat">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
                     <div class="msg-large-avatar">DP</div>
                     <h3 class="msg-details-name">Dhruvi Patel</h3>
                     <p class="msg-details-id">STU001</p>
@@ -1156,13 +1204,9 @@
                     </div>
                 </div>
 
-                <div class="msg-details-section" style="border-bottom: none;">
-                    <h4 class="msg-section-title">Quick Actions</h4>
+                <div class="msg-details-section msg-delete-section" style="border-bottom: none;">
                     <div class="msg-action-list">
-                        <button type="button" class="msg-action-link"><i class="fa-regular fa-user"></i> View Profile</button>
-                        <button type="button" class="msg-action-link"><i class="fa-solid fa-clock-rotate-left"></i> View Contact History</button>
-                        <button type="button" class="msg-action-link"><i class="fa-regular fa-flag"></i> Mark as Priority</button>
-                        <button type="button" class="msg-action-link danger"><i class="fa-solid fa-ban"></i> Block Student</button>
+                        <button type="button" class="msg-action-link danger msg-delete-conversation"><i class="fa-solid fa-trash"></i> Delete Conversation</button>
                     </div>
                 </div>
             </div>
@@ -1190,12 +1234,14 @@
                     <textarea class="msg-form-textarea" placeholder="Write your message..."></textarea>
                 </div>
                 <div class="msg-form-group">
-                    <button type="button" class="msg-attach-btn"><i class="fa-solid fa-paperclip"></i> Attach file</button>
+                    <input type="file" id="newMessageAttachment" hidden />
+                    <button type="button" class="msg-attach-btn" id="newMessageAttachBtn"><i class="fa-solid fa-paperclip"></i> Attach file</button>
+                    <span id="newMessageAttachmentName" class="msg-attachment-name"></span>
                 </div>
             </div>
             <div class="msg-modal-footer">
                 <button type="button" class="msg-btn-outline" onclick="closeNewMessageModal()">Cancel</button>
-                <button type="button" class="msg-btn-primary"><i class="fa-solid fa-paper-plane" style="margin-right:6px;"></i> Send Message</button>
+                <button type="button" class="msg-btn-primary" id="newMessageSendBtn"><i class="fa-solid fa-paper-plane" style="margin-right:6px;"></i> Send Message</button>
             </div>
         </div>
     </div>

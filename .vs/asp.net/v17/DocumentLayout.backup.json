@@ -1,14 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\DHRUVI PATEL\\OneDrive\\Desktop\\asp.net\\",
+  "WorkspaceRootPath": "E:\\asp.net\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|c:\\users\\dhruvi patel\\onedrive\\desktop\\asp.net\\asp.net\\register.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\register.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|e:\\asp.net\\asp.net\\companypanel\\company-profile.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\companypanel\\company-profile.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|c:\\users\\dhruvi patel\\onedrive\\desktop\\asp.net\\asp.net\\register.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\register.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|E:\\asp.net\\asp.net\\companypanel\\company-edit-profile.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\companypanel\\company-edit-profile.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|E:\\asp.net\\asp.net\\companypanel\\company-post-internship.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\companypanel\\company-post-internship.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|E:\\asp.net\\asp.net\\companypanel\\company-post-internship.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\companypanel\\company-post-internship.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|E:\\asp.net\\asp.net\\companypanel\\company-edit-profile.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\companypanel\\company-edit-profile.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|E:\\asp.net\\asp.net\\companypanel\\company-change-password.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\companypanel\\company-change-password.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|E:\\asp.net\\asp.net\\companypanel\\company-change-password.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\companypanel\\company-change-password.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|E:\\asp.net\\asp.net\\companypanel\\company-profile.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\companypanel\\company-profile.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,33 +42,104 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "register.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\DHRUVI PATEL\\OneDrive\\Desktop\\asp.net\\asp.net\\register.aspx.cs",
-              "RelativeDocumentMoniker": "asp.net\\register.aspx.cs",
-              "ToolTip": "C:\\Users\\DHRUVI PATEL\\OneDrive\\Desktop\\asp.net\\asp.net\\register.aspx.cs",
-              "RelativeToolTip": "asp.net\\register.aspx.cs",
-              "ViewState": "AgIAAM8AAAAAAAAAAADwv+AAAAAsAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "company-post-internship.aspx",
+              "DocumentMoniker": "E:\\asp.net\\asp.net\\CompanyPanel\\company-post-internship.aspx",
+              "RelativeDocumentMoniker": "asp.net\\CompanyPanel\\company-post-internship.aspx",
+              "ToolTip": "E:\\asp.net\\asp.net\\CompanyPanel\\company-post-internship.aspx",
+              "RelativeToolTip": "asp.net\\CompanyPanel\\company-post-internship.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-09-27T09:52:27.46Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "company-edit-profile.aspx.cs",
+              "DocumentMoniker": "E:\\asp.net\\asp.net\\CompanyPanel\\company-edit-profile.aspx.cs",
+              "RelativeDocumentMoniker": "asp.net\\CompanyPanel\\company-edit-profile.aspx.cs",
+              "ToolTip": "E:\\asp.net\\asp.net\\CompanyPanel\\company-edit-profile.aspx.cs",
+              "RelativeToolTip": "asp.net\\CompanyPanel\\company-edit-profile.aspx.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-11T11:41:29.747Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-09-27T09:51:55.69Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "register.aspx",
-              "DocumentMoniker": "C:\\Users\\DHRUVI PATEL\\OneDrive\\Desktop\\asp.net\\asp.net\\register.aspx",
-              "RelativeDocumentMoniker": "asp.net\\register.aspx",
-              "ToolTip": "C:\\Users\\DHRUVI PATEL\\OneDrive\\Desktop\\asp.net\\asp.net\\register.aspx*",
-              "RelativeToolTip": "asp.net\\register.aspx*",
-              "LogicalView": "7651a702-06e5-11d1-8ebd-00a0c90f26ea",
+              "Title": "company-profile.aspx",
+              "DocumentMoniker": "E:\\asp.net\\asp.net\\CompanyPanel\\company-profile.aspx",
+              "RelativeDocumentMoniker": "asp.net\\CompanyPanel\\company-profile.aspx",
+              "ToolTip": "E:\\asp.net\\asp.net\\CompanyPanel\\company-profile.aspx",
+              "RelativeToolTip": "asp.net\\CompanyPanel\\company-profile.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-08-11T11:29:35.608Z",
+              "WhenOpened": "2026-09-27T09:45:41.079Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "company-edit-profile.aspx",
+              "DocumentMoniker": "E:\\asp.net\\asp.net\\CompanyPanel\\company-edit-profile.aspx",
+              "RelativeDocumentMoniker": "asp.net\\CompanyPanel\\company-edit-profile.aspx",
+              "ToolTip": "E:\\asp.net\\asp.net\\CompanyPanel\\company-edit-profile.aspx",
+              "RelativeToolTip": "asp.net\\CompanyPanel\\company-edit-profile.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-09-27T09:51:36.736Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "company-post-internship.aspx.cs",
+              "DocumentMoniker": "E:\\asp.net\\asp.net\\CompanyPanel\\company-post-internship.aspx.cs",
+              "RelativeDocumentMoniker": "asp.net\\CompanyPanel\\company-post-internship.aspx.cs",
+              "ToolTip": "E:\\asp.net\\asp.net\\CompanyPanel\\company-post-internship.aspx.cs",
+              "RelativeToolTip": "asp.net\\CompanyPanel\\company-post-internship.aspx.cs",
+              "ViewState": "AgIAABkBAAAAAAAAAAAswAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-27T09:52:36.363Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "company-change-password.aspx.cs",
+              "DocumentMoniker": "E:\\asp.net\\asp.net\\CompanyPanel\\company-change-password.aspx.cs",
+              "RelativeDocumentMoniker": "asp.net\\CompanyPanel\\company-change-password.aspx.cs",
+              "ToolTip": "E:\\asp.net\\asp.net\\CompanyPanel\\company-change-password.aspx.cs",
+              "RelativeToolTip": "asp.net\\CompanyPanel\\company-change-password.aspx.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-27T09:47:04.982Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "company-change-password.aspx",
+              "DocumentMoniker": "E:\\asp.net\\asp.net\\CompanyPanel\\company-change-password.aspx",
+              "RelativeDocumentMoniker": "asp.net\\CompanyPanel\\company-change-password.aspx",
+              "ToolTip": "E:\\asp.net\\asp.net\\CompanyPanel\\company-change-password.aspx",
+              "RelativeToolTip": "asp.net\\CompanyPanel\\company-change-password.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-09-27T09:46:58.245Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "company-profile.aspx.cs",
+              "DocumentMoniker": "E:\\asp.net\\asp.net\\CompanyPanel\\company-profile.aspx.cs",
+              "RelativeDocumentMoniker": "asp.net\\CompanyPanel\\company-profile.aspx.cs",
+              "ToolTip": "E:\\asp.net\\asp.net\\CompanyPanel\\company-profile.aspx.cs",
+              "RelativeToolTip": "asp.net\\CompanyPanel\\company-profile.aspx.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwHkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-27T09:46:18.129Z"
             }
           ]
         }

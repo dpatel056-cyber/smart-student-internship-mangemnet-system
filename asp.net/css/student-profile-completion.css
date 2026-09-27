@@ -61,6 +61,7 @@
     color: var(--student-muted);
     margin: 0;
 }
+.profile-completion-motivation { margin: 0 0 18px; padding: 13px 14px; border-radius: 10px; background: var(--student-blue-light); color: var(--student-navy); font-size: 13px; font-weight: 600; line-height: 1.5; }
 
 .profile-completion-header-btn {
     display: inline-flex;

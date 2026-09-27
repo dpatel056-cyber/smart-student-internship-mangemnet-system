@@ -10,17 +10,9 @@
 namespace asp.net
 {
 
+
     public partial class company_profile
     {
-
-        /// <summary>
-        /// hlEditProfile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hlEditProfile;
 
         /// <summary>
         /// pnlHero control.
@@ -104,6 +96,15 @@ namespace asp.net
         protected global::System.Web.UI.WebControls.HyperLink hlWebsite;
 
         /// <summary>
+        /// hlEditProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlEditProfile;
+
+        /// <summary>
         /// hlEditProfileHero control.
         /// </summary>
         /// <remarks>
@@ -111,6 +112,60 @@ namespace asp.net
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink hlEditProfileHero;
+
+        /// <summary>
+        /// lblHeroContactPerson control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHeroContactPerson;
+
+        /// <summary>
+        /// lblHeroEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHeroEmail;
+
+        /// <summary>
+        /// lblHeroPhone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHeroPhone;
+
+        /// <summary>
+        /// hlWebsiteSocial control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlWebsiteSocial;
+
+        /// <summary>
+        /// hlEmailSocial control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlEmailSocial;
+
+        /// <summary>
+        /// hlCallSocial control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlCallSocial;
 
         /// <summary>
         /// lblTotalInternships control.
@@ -194,6 +249,33 @@ namespace asp.net
         protected global::System.Web.UI.WebControls.Label lblFoundedYear;
 
         /// <summary>
+        /// lblDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDescription;
+
+        /// <summary>
+        /// lblHeadquarters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHeadquarters;
+
+        /// <summary>
+        /// lblWebsiteField control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWebsiteField;
+
+        /// <summary>
         /// lblRegistrationNumber control.
         /// </summary>
         /// <remarks>
@@ -203,13 +285,49 @@ namespace asp.net
         protected global::System.Web.UI.WebControls.Label lblRegistrationNumber;
 
         /// <summary>
-        /// lblContactPerson control.
+        /// lblBusinessDomain control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactPerson;
+        protected global::System.Web.UI.WebControls.Label lblBusinessDomain;
+
+        /// <summary>
+        /// lblProductsServices control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProductsServices;
+
+        /// <summary>
+        /// lblMission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMission;
+
+        /// <summary>
+        /// lblVision control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVision;
+
+        /// <summary>
+        /// lblFullDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFullDescription;
 
         /// <summary>
         /// lblEmail control.
@@ -228,33 +346,6 @@ namespace asp.net
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPhone;
-
-        /// <summary>
-        /// lblAlternateEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAlternateEmail;
-
-        /// <summary>
-        /// lblWebsiteField control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWebsiteField;
-
-        /// <summary>
-        /// lblDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDescription;
 
         /// <summary>
         /// lblAddress control.
@@ -284,6 +375,15 @@ namespace asp.net
         protected global::System.Web.UI.WebControls.Label lblState;
 
         /// <summary>
+        /// lblPincode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPincode;
+
+        /// <summary>
         /// lblCountry control.
         /// </summary>
         /// <remarks>
@@ -293,13 +393,130 @@ namespace asp.net
         protected global::System.Web.UI.WebControls.Label lblCountry;
 
         /// <summary>
-        /// lblPincode control.
+        /// lblContactPerson control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPincode;
+        protected global::System.Web.UI.WebControls.Label lblContactPerson;
+
+        /// <summary>
+        /// lblHRDesignation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHRDesignation;
+
+        /// <summary>
+        /// lblAlternateEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlternateEmail;
+
+        /// <summary>
+        /// lblHRContactNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHRContactNumber;
+
+        /// <summary>
+        /// hlLinkedIn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlLinkedIn;
+
+        /// <summary>
+        /// lblContactWebsite control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblContactWebsite;
+
+        /// <summary>
+        /// lblInternshipDomains control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInternshipDomains;
+
+        /// <summary>
+        /// lblInternshipType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInternshipType;
+
+        /// <summary>
+        /// lblPreferredWorkMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPreferredWorkMode;
+
+        /// <summary>
+        /// lblPreferredDuration control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPreferredDuration;
+
+        /// <summary>
+        /// lblRequiredSkills control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRequiredSkills;
+
+        /// <summary>
+        /// lblPreferredCourses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPreferredCourses;
+
+        /// <summary>
+        /// lblPreferredSemester control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPreferredSemester;
+
+        /// <summary>
+        /// lblMinimumCGPA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMinimumCGPA;
 
         /// <summary>
         /// pnlStatusVerified control.
@@ -336,6 +553,60 @@ namespace asp.net
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlStatusRejected;
+
+        /// <summary>
+        /// lblActivityTotalPosts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActivityTotalPosts;
+
+        /// <summary>
+        /// lblActivityActiveInternships control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActivityActiveInternships;
+
+        /// <summary>
+        /// lblActivityTotalApplications control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActivityTotalApplications;
+
+        /// <summary>
+        /// lblActivityStudentsSelected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActivityStudentsSelected;
+
+        /// <summary>
+        /// lblActivityCurrentInterns control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActivityCurrentInterns;
+
+        /// <summary>
+        /// lblActivityCompletedInternships control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActivityCompletedInternships;
 
         /// <summary>
         /// lblCompletionPercent control.

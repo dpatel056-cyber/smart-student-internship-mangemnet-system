@@ -1,0 +1,46 @@
+namespace asp.net {
+    public partial class company_post_internship {
+        protected global::System.Web.UI.WebControls.TextBox txtTitle;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDomain;
+        protected global::System.Web.UI.WebControls.TextBox txtDescription;
+        protected global::System.Web.UI.WebControls.DropDownList ddlInternshipType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlWorkMode;
+        protected global::System.Web.UI.WebControls.TextBox txtLocation;
+        protected global::System.Web.UI.WebControls.TextBox txtStartDate;
+        protected global::System.Web.UI.WebControls.TextBox txtEndDate;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDuration;
+        protected global::System.Web.UI.WebControls.TextBox txtWorkingHours;
+        protected global::System.Web.UI.WebControls.TextBox txtWorkingDays;
+        protected global::System.Web.UI.WebControls.RadioButton rbPaid;
+        protected global::System.Web.UI.WebControls.RadioButton rbUnpaid;
+        protected global::System.Web.UI.WebControls.TextBox txtStipendAmount;
+        protected global::System.Web.UI.WebControls.TextBox txtOpenings;
+        protected global::System.Web.UI.WebControls.TextBox txtDeadline;
+        protected global::System.Web.UI.WebControls.TextBox txtEligibleCourses;
+        protected global::System.Web.UI.WebControls.TextBox txtEligibleDepts;
+        protected global::System.Web.UI.WebControls.TextBox txtPreferredSemester;
+        protected global::System.Web.UI.WebControls.TextBox txtMinCGPA;
+        protected global::System.Web.UI.WebControls.DropDownList ddlExperience;
+        protected global::System.Web.UI.WebControls.TextBox txtRequiredSkills;
+        protected global::System.Web.UI.WebControls.TextBox txtResponsibilities;
+        protected global::System.Web.UI.WebControls.TextBox txtQualifications;
+        protected global::System.Web.UI.WebControls.CheckBox chkCert;
+        protected global::System.Web.UI.WebControls.CheckBox chkLOR;
+        protected global::System.Web.UI.WebControls.CheckBox chkPPO;
+        protected global::System.Web.UI.WebControls.CheckBox chkFlexTime;
+        protected global::System.Web.UI.WebControls.CheckBox chkWFH;
+        protected global::System.Web.UI.WebControls.CheckBox chkMentorship;
+        protected global::System.Web.UI.WebControls.CheckBox chkLearning;
+        protected global::System.Web.UI.WebControls.TextBox txtOtherBenefits;
+        protected global::System.Web.UI.WebControls.TextBox txtCompanyName;
+        protected global::System.Web.UI.WebControls.FileUpload fuCompanyLogo;
+        protected global::System.Web.UI.WebControls.TextBox txtIndustry;
+        protected global::System.Web.UI.WebControls.TextBox txtCompanyLocation;
+        protected global::System.Web.UI.WebControls.TextBox txtContactPerson;
+        protected global::System.Web.UI.WebControls.TextBox txtCompanyEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtCompanyWebsite;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.Button btnPublish;
+        protected global::System.Web.UI.WebControls.Button btnSaveDraft;
+    }
+}

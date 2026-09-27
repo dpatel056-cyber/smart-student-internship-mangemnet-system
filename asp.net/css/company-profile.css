@@ -1,451 +1,578 @@
 /* =========================================================
    company-profile.css
-   Page-specific styles for company-profile.aspx (SIMS)
-   Scoped under .company-profile-page to avoid conflicts
-   with company.Master (header/sidebar/footer).
-========================================================= */
+   High-fidelity Company Profile matching student-profile.aspx
+   ========================================================= */
 
-:root{
-  --sims-navy:#0F1B33;
-  --sims-blue:#2F6FED;
-  --sims-blue-dark:#254fc4;
-  --sims-bg:#F5F7FB;
-  --sims-white:#FFFFFF;
-  --sims-text:#17233D;
-  --sims-text-secondary:#718096;
-  --sims-border:#E2E8F0;
-  --sims-success:#16A34A;
-  --sims-warning:#F59E0B;
-  --sims-danger:#EF4444;
+.company-profile-page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 34px 28px 56px;
+    color: #172554;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-.company-profile-page{
-  font-family:"Inter","Poppins",-apple-system,BlinkMacSystemFont,sans-serif;
-  color:var(--sims-text);
-  background:var(--sims-bg);
-  padding:24px;
-  max-width:1280px;
-  margin:0 auto;
+/* Header Card */
+.profile-header-card {
+    background: #fff;
+    border: 1px solid #e8edf5;
+    border-radius: 18px;
+    padding: 28px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 25px rgba(15,23,42,.08);
 }
 
-/* ---------- Page Header ---------- */
-.company-profile-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  flex-wrap:wrap;
-  gap:16px;
-  margin-bottom:24px;
-}
-.company-profile-title{
-  font-size:28px;
-  font-weight:700;
-  color:var(--sims-navy);
-  margin:0 0 4px 0;
-}
-.company-profile-subtitle{
-  font-size:14px;
-  color:var(--sims-text-secondary);
-  margin:0;
+.profile-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
 }
 
-/* ---------- Buttons ---------- */
-.btn-primary-sims{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  background:var(--sims-blue);
-  color:var(--sims-white) !important;
-  font-size:14px;
-  font-weight:600;
-  padding:10px 18px;
-  border-radius:8px;
-  text-decoration:none;
-  border:none;
-  cursor:pointer;
-  transition:background .2s ease, transform .1s ease;
-}
-.btn-primary-sims:hover{
-  background:var(--sims-blue-dark);
-}
-.btn-primary-sims:active{
-  transform:translateY(1px);
-}
-.btn-outline-sims{
-  background:transparent;
-  color:var(--sims-blue) !important;
-  border:1px solid var(--sims-blue);
-}
-.btn-outline-sims:hover{
-  background:rgba(47,111,237,0.08);
+.profile-main-info {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex: 1;
 }
 
-/* ---------- Hero Card ---------- */
-.company-profile-hero{
-  display:flex;
-  align-items:center;
-  gap:24px;
-  background:var(--sims-white);
-  border:1px solid var(--sims-border);
-  border-radius:12px;
-  box-shadow:0 1px 3px rgba(15,27,51,0.06);
-  padding:28px;
-  margin-bottom:24px;
-  flex-wrap:wrap;
-}
-.company-profile-logo-wrap{
-  flex-shrink:0;
-}
-.company-profile-logo{
-  width:96px;
-  height:96px;
-  border-radius:20px;
-  object-fit:cover;
-  background:var(--sims-bg);
-  border:1px solid var(--sims-border);
-}
-.company-profile-logo-initials{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(180deg,#2F6FED,#254fc4);
-  background:var(--sims-blue);
-  color:var(--sims-white);
-  font-size:28px;
-  font-weight:700;
-}
-.company-profile-info{
-  flex:1;
-  min-width:220px;
-}
-.company-profile-name-row{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.company-profile-name{
-  font-size:22px;
-  font-weight:700;
-  color:var(--sims-navy);
-}
-.company-profile-industry{
-  display:block;
-  font-size:14px;
-  color:var(--sims-text-secondary);
-  margin-top:2px;
-}
-.company-profile-meta{
-  display:flex;
-  align-items:center;
-  gap:20px;
-  flex-wrap:wrap;
-  margin-top:12px;
-  font-size:14px;
-  color:var(--sims-text-secondary);
-}
-.company-profile-location,
-.company-profile-website{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  text-decoration:none;
-  color:var(--sims-text-secondary) !important;
-}
-.company-profile-website:hover{
-  color:var(--sims-blue) !important;
-}
-.company-profile-hero-action{
-  margin-left:auto;
+.profile-photo {
+    width: 105px;
+    height: 105px;
+    border-radius: 50% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2563eb, #172554);
+    color: #fff;
+    font-size: 28px;
+    font-weight: 800;
+    border: 4px solid #e8f0ff;
+    flex-shrink: 0;
+    overflow: hidden !important;
+    position: relative;
 }
 
-/* ---------- Verification Badge ---------- */
-.badge-verification{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  font-size:12px;
-  font-weight:600;
-  padding:4px 10px;
-  border-radius:20px;
-}
-.badge-verified{
-  background:rgba(22,163,74,0.1);
-  color:var(--sims-success);
-}
-.badge-pending{
-  background:rgba(245,158,11,0.1);
-  color:var(--sims-warning);
-}
-.badge-rejected{
-  background:rgba(239,68,68,0.1);
-  color:var(--sims-danger);
+.company-profile-logo {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    display: block !important;
 }
 
-/* ---------- Statistics ---------- */
-.company-profile-stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-  margin-bottom:24px;
-}
-.company-profile-stat-card{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  background:var(--sims-white);
-  border:1px solid var(--sims-border);
-  border-radius:12px;
-  padding:18px;
-  box-shadow:0 1px 3px rgba(15,27,51,0.05);
-}
-.stat-icon{
-  width:44px;
-  height:44px;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:18px;
-  flex-shrink:0;
-}
-.stat-icon-blue{background:rgba(47,111,237,0.1);color:var(--sims-blue);}
-.stat-icon-green{background:rgba(22,163,74,0.1);color:var(--sims-success);}
-.stat-icon-purple{background:rgba(124,58,237,0.1);color:#7C3AED;}
-.stat-icon-orange{background:rgba(245,158,11,0.1);color:var(--sims-warning);}
-.stat-text{
-  display:flex;
-  flex-direction:column;
-}
-.stat-value{
-  font-size:22px;
-  font-weight:700;
-  color:var(--sims-navy);
-  line-height:1.2;
-}
-.stat-label{
-  font-size:13px;
-  color:var(--sims-text-secondary);
+.profile-info-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 5px;
+    flex: 1;
 }
 
-/* ---------- Section / Card ---------- */
-.company-profile-section{
-  background:var(--sims-white);
-  border:1px solid var(--sims-border);
-  border-radius:12px;
-  box-shadow:0 1px 3px rgba(15,27,51,0.05);
-  padding:24px;
-  margin-bottom:24px;
-}
-.section-title{
-  font-size:18px;
-  font-weight:600;
-  color:var(--sims-navy);
-  margin:0 0 18px 0;
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 13px 15px;
+    background: #f8fafc;
+    border-radius: 11px;
+    min-width: 0;
 }
 
-.company-profile-grid-2col{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:24px;
-  margin-bottom:0;
-}
-.company-profile-grid-2col .company-profile-section{
-  margin-bottom:24px;
-}
-
-.company-profile-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px 24px;
-}
-.company-profile-field{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-.field-full{
-  grid-column:1 / -1;
-}
-.company-profile-label{
-  font-size:13px;
-  font-weight:500;
-  color:var(--sims-text-secondary);
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-.company-profile-value{
-  font-size:15px;
-  font-weight:600;
-  color:var(--sims-text);
+.contact-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    background: #e8f0ff;
+    color: #2563eb;
+    flex-shrink: 0;
 }
 
-/* ---------- About Company ---------- */
-.about-text{
-  display:block;
-  font-size:15px;
-  line-height:1.6;
-  color:var(--sims-text);
+.contact-text {
+    min-width: 0;
 }
 
-/* ---------- Verification Status Box ---------- */
-.verification-box{
-  border-radius:10px;
-  padding:18px 20px;
-}
-.verification-heading{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:17px;
-  font-weight:700;
-  margin-bottom:8px;
-}
-.verification-message{
-  font-size:14px;
-  line-height:1.5;
-  margin:0 0 8px 0;
-}
-.verification-date{
-  font-size:13px;
-  font-weight:600;
-  margin:0;
-}
-.verification-verified{
-  background:rgba(22,163,74,0.06);
-  border:1px solid rgba(22,163,74,0.25);
-  color:var(--sims-success);
-}
-.verification-verified .verification-message,
-.verification-verified .verification-date{
-  color:var(--sims-text);
-}
-.verification-pending{
-  background:rgba(245,158,11,0.06);
-  border:1px solid rgba(245,158,11,0.25);
-  color:var(--sims-warning);
-}
-.verification-pending .verification-message{
-  color:var(--sims-text);
-}
-.verification-rejected{
-  background:rgba(239,68,68,0.06);
-  border:1px solid rgba(239,68,68,0.25);
-  color:var(--sims-danger);
-}
-.verification-rejected .verification-message{
-  color:var(--sims-text);
+.contact-label {
+    display: block;
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 2px;
 }
 
-/* ---------- Profile Completion ---------- */
-.completion-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.completion-percent{
-  font-size:18px;
-  font-weight:700;
-  color:var(--sims-blue);
-}
-.completion-bar-track{
-  width:100%;
-  height:10px;
-  background:var(--sims-bg);
-  border:1px solid var(--sims-border);
-  border-radius:20px;
-  overflow:hidden;
-  margin:12px 0;
-}
-.completion-bar-fill{
-  height:100%;
-  background:var(--sims-blue);
-  border-radius:20px;
-  transition:width .4s ease;
-}
-.completion-subtext{
-  font-size:14px;
-  color:var(--sims-text-secondary);
-  margin:0 0 12px 0;
-}
-.completion-missing{
-  margin-bottom:16px;
-}
-.completion-missing-label{
-  font-size:13px;
-  font-weight:600;
-  color:var(--sims-text-secondary);
-  display:block;
-  margin-bottom:6px;
-}
-.completion-missing-list{
-  margin:0;
-  padding-left:20px;
-  font-size:14px;
-  color:var(--sims-text);
-}
-.completion-missing-list li{
-  margin-bottom:4px;
+.contact-value {
+    display: block;
+    font-size: 13px;
+    color: #334155;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-/* Tablet */
-@media (max-width: 1024px){
-  .company-profile-stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-  .company-profile-grid-2col{
-    grid-template-columns:1fr 1fr;
-  }
+.edit-profile-btn {
+    background: #2563eb;
+    color: #fff !important;
+    border: 0;
+    padding: 12px 21px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
-/* Small tablet / large mobile */
-@media (max-width: 860px){
-  .company-profile-grid-2col{
-    grid-template-columns:1fr;
-  }
+.edit-profile-btn i {
+    margin-right: 4px;
 }
 
-/* Mobile */
-@media (max-width: 640px){
-  .company-profile-page{
-    padding:16px;
-  }
-  .company-profile-header{
-    flex-direction:column;
-    align-items:stretch;
-  }
-  .company-profile-header .btn-primary-sims{
-    width:100%;
-    justify-content:center;
-  }
-  .company-profile-hero{
-    flex-direction:column;
-    text-align:center;
-    padding:20px;
-  }
-  .company-profile-name-row{
-    justify-content:center;
-  }
-  .company-profile-meta{
-    justify-content:center;
-  }
-  .company-profile-hero-action{
-    margin-left:0;
-    width:100%;
-  }
-  .company-profile-hero-action .btn-primary-sims{
-    width:100%;
-    justify-content:center;
-  }
-  .company-profile-stats{
-    grid-template-columns:1fr;
-  }
-  .company-profile-grid{
-    grid-template-columns:1fr;
-  }
+.edit-profile-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37,99,235,.25);
+}
+
+.profile-contact-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+    padding-top: 22px;
+    border-top: 1px solid #edf1f7;
+}
+
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.social-link {
+    text-decoration: none;
+    padding: 9px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+    color: #475569 !important;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.2s ease;
+}
+
+.social-link:hover {
+    border-color: #2563eb;
+    color: #2563eb !important;
+    background: #f8fbff;
+}
+
+/* Verification Badge */
+.badge-verification {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    margin-left: 6px;
+}
+
+.badge-verified {
+    background: #ecfdf5;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+}
+
+.badge-pending {
+    background: #fffbeb;
+    color: #d97706;
+    border: 1px solid #fde68a;
+}
+
+.badge-rejected {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+/* Statistics summary cards */
+.profile-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.profile-stat-card {
+    background: #fff;
+    border: 1px solid #e8edf5;
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 5px 20px rgba(15,23,42,.05);
+}
+
+.stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+    flex-shrink: 0;
+}
+
+.stat-icon-blue { background: #e8f0ff; color: #2563eb; }
+.stat-icon-green { background: #ecfdf5; color: #16a34a; }
+.stat-icon-purple { background: #f3e8ff; color: #9333ea; }
+.stat-icon-orange { background: #fff7ed; color: #ea580c; }
+
+.stat-text { display: flex; flex-direction: column; }
+.stat-value { font-size: 20px; font-weight: 700; color: #172554; }
+.stat-label { font-size: 12px; color: #64748b; font-weight: 500; }
+
+/* Tabs Card */
+.profile-tabs-card {
+    background: #fff;
+    border: 1px solid #e8edf5;
+    border-radius: 16px;
+    padding: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px rgba(15,23,42,.06);
+}
+
+.profile-tabs {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+}
+
+.profile-tab {
+    flex: 1;
+    min-width: 140px;
+    border: 0;
+    background: transparent;
+    color: #64748b;
+    padding: 13px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.profile-tab:hover {
+    background: #f1f5f9;
+    color: #2563eb;
+}
+
+.profile-tab.active {
+    background: #2563eb;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(37,99,235,.2);
+}
+
+.profile-tab-content {
+    display: none;
+}
+
+.profile-tab-content.active {
+    display: block;
+}
+
+/* Section Cards & Fields */
+.profile-section-card {
+    background: #fff;
+    border: 1px solid #e8edf5;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 6px 25px rgba(15,23,42,.06);
+    margin-bottom: 25px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #edf1f7;
+}
+
+.section-header h2 {
+    margin: 0 0 6px;
+    color: #172554;
+    font-size: 21px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-header h2 i, .profile-subtitle i {
+    color: #2563eb;
+    margin-right: 8px;
+}
+
+.section-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.profile-subtitle {
+    margin: 27px 0 16px;
+    color: #334155;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.info-field {
+    background: #f8fafc;
+    border: 1px solid #edf1f5;
+    border-radius: 11px;
+    padding: 14px 16px;
+    min-height: 62px;
+}
+
+.info-label {
+    display: block;
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+}
+
+.info-value {
+    display: block;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.about-box {
+    background: #f8fafc;
+    border: 1px solid #edf1f5;
+    border-radius: 11px;
+    padding: 17px 18px;
+}
+
+.about-box p, .about-text {
+    margin: 0;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Verification Cards */
+.verification-box {
+    padding: 20px;
+    border-radius: 14px;
+    margin-top: 15px;
+}
+
+.verification-verified {
+    background: #ecfdf5;
+    border: 1px solid #bbf7d0;
+}
+
+.verification-pending {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+}
+
+.verification-rejected {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.verification-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.verification-verified .verification-heading { color: #15803d; }
+.verification-pending .verification-heading { color: #b45309; }
+.verification-rejected .verification-heading { color: #b91c1c; }
+
+.verification-message {
+    font-size: 13px;
+    color: #475569;
+    margin: 0 0 6px;
+}
+
+.verification-date {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Completion Bar */
+.completion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.completion-percent {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+.completion-bar-track {
+    width: 100%;
+    height: 10px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+
+.completion-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    border-radius: 20px;
+    transition: width 0.4s ease;
+}
+
+.completion-subtext {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0 0 16px;
+}
+
+.completion-missing {
+    background: #f8fafc;
+    border: 1px solid #edf1f5;
+    border-radius: 11px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.completion-missing-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.completion-missing-list {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.completion-missing-list li {
+    margin-bottom: 4px;
+}
+
+.btn-primary-sims {
+    background: #2563eb;
+    color: #fff !important;
+    border: 0;
+    padding: 11px 20px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-primary-sims:hover {
+    background: #1d4ed8;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .profile-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 850px) {
+    .profile-header-top {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .profile-info-2x2 {
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+    .profile-contact-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .company-profile-page {
+        padding: 16px 12px;
+    }
+    .profile-main-info {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .profile-info-2x2 {
+        grid-template-columns: 1fr;
+    }
+    .profile-photo {
+        width: 80px;
+        height: 80px;
+        font-size: 22px;
+    }
+    .profile-section-card {
+        padding: 18px;
+    }
+    .profile-tab {
+        padding: 10px 13px;
+        min-width: auto;
+    }
+    .profile-info-grid {
+        grid-template-columns: 1fr;
+    }
+    .profile-stats-grid {
+        grid-template-columns: 1fr;
+    }
 }

@@ -1,6 +1,7 @@
 <%@ Page Title="Notifications" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="admin-notifications.aspx.cs" Inherits="asp.net.css.admin_notifications" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="../js/admin-notifications.js" defer></script>
     <style>
         :root {
             --nt-primary: #4F46E5;
@@ -503,10 +504,28 @@
 
         /* Right Column (35%) */
         .nt-col-details {
+            display: none;
             flex: 0 0 35%;
             max-width: 35%;
             position: sticky;
             top: 24px;
+        }
+
+        .nt-layout.detail-open .nt-col-details { display: flex; }
+        .nt-layout:not(.detail-open) .nt-col-list { flex: 1 1 100%; max-width: 100%; }
+        .nt-filters-bar { display: none; }
+        .nt-item-meta { display: none; }
+        .nt-detail-panel { position: relative; }
+        .nt-detail-back-btn {
+            position: absolute;
+            top: 18px;
+            left: 20px;
+            border: 0;
+            background: transparent;
+            color: #64748B;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 6px;
         }
 
         .nt-detail-panel {
@@ -654,6 +673,125 @@
         
         .nt-dropdown-item:hover { background: #F1F5F9; color: var(--nt-primary); }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const list = document.querySelector('.nt-list-container');
+            if (!list) return;
+            const extra = [
+                ['Internship application shortlisted', 'Karan Mehta application moved to shortlisted.', 'Students', 'Read', 'Today'],
+                ['New company registered', 'Innovate Labs submitted a registration request.', 'Companies', 'Unread', 'Today'],
+                ['Feedback received', 'A new 5-star feedback was submitted.', 'Feedback', 'Read', 'Yesterday'],
+                ['Interview scheduled', 'An interview was scheduled for tomorrow.', 'Students', 'Unread', 'Yesterday'],
+                ['Certificate generated', 'Placement certificate generated successfully.', 'Students', 'Read', 'Yesterday'],
+                ['New message received', 'Sneha Desai sent a new message.', 'Messages', 'Unread', 'Yesterday'],
+                ['Company profile updated', 'ABC Technologies updated its profile.', 'Companies', 'Read', 'This Week'],
+                ['System backup completed', 'Weekly system backup completed successfully.', 'System', 'Read', 'This Week'],
+                ['Application status updated', 'A student application status was updated.', 'Students', 'Unread', 'This Week'],
+                ['Security check completed', 'Routine security verification completed.', 'Security', 'Read', 'This Week'],
+                ['New contact enquiry', 'A new contact enquiry needs attention.', 'Contact', 'Unread', 'This Week'],
+                ['Internship approval completed', 'An internship was approved by admin.', 'Companies', 'Read', 'This Week']
+            ];
+            extra.forEach(function (item, index) {
+                const row = document.createElement('div');
+                row.className = 'nt-item type-' + item[2].toLowerCase();
+                if (item[3] === 'Unread') row.classList.add('unread');
+                row.innerHTML = '<div class="nt-status-dot ' + (item[3] === 'Unread' ? 'dot-unread' : 'dot-read') + '"></div>' +
+                    '<div class="nt-item-icon"><i class="fa-solid fa-bell"></i></div>' +
+                    '<div class="nt-item-content"><div class="nt-item-header"><span class="nt-item-title">' + item[0] + '</span><span class="nt-item-time">' + item[4] + '</span></div>' +
+                    '<div class="nt-item-desc">' + item[1] + '</div><div class="nt-item-meta"><span class="nt-badge">' + item[2] + '</span>' +
+                    (item[3] === 'Unread' ? '<span class="nt-badge nt-badge-unread">Unread</span>' : '') + '</div></div>' +
+                    '<div class="nt-item-actions"><button class="nt-btn-view">View</button><button class="nt-btn-more"><i class="fa-solid fa-ellipsis-vertical"></i></button></div>';
+                list.appendChild(row);
+            });
+
+            const items = Array.from(list.querySelectorAll('.nt-item'));
+            const search = document.querySelector('.nt-search-input');
+            const filterSelects = document.querySelectorAll('.nt-filters-bar .nt-select');
+            const categoryFilter = filterSelects[0];
+            const readFilter = filterSelects[1];
+            const dateFilter = filterSelects[2];
+            const clear = document.querySelector('.nt-btn-clear');
+            const pageInfo = document.querySelector('.nt-page-info');
+            const controls = document.querySelector('.nt-page-controls');
+            const pageSizeControl = document.querySelector('.nt-pagination .nt-select');
+            let page = 1;
+            let pageSize = pageSizeControl ? Number(pageSizeControl.value) || 10 : 10;
+
+            function filteredItems() {
+                const query = search ? search.value.toLowerCase().trim() : '';
+                const category = categoryFilter ? categoryFilter.value.replace('Category: ', '') : 'All';
+                const readStatus = readFilter ? readFilter.value.replace('Read Status: ', '') : 'All';
+                const date = dateFilter ? dateFilter.value.replace('Date: ', '') : 'All Time';
+                return items.filter(function (item) {
+                    const text = item.textContent.toLowerCase();
+                    const itemCategory = item.querySelector('.nt-badge') ? item.querySelector('.nt-badge').textContent.trim() : '';
+                    const isUnread = item.classList.contains('unread');
+                    const itemTime = item.querySelector('.nt-item-time') ? item.querySelector('.nt-item-time').textContent : '';
+                    return (!query || text.includes(query)) &&
+                        (category === 'All' || itemCategory === category) &&
+                        (readStatus === 'All' || (readStatus === 'Unread' && isUnread) || (readStatus === 'Read' && !isUnread)) &&
+                        (date === 'All Time' || itemTime.includes(date) || (date === 'This Week' && (itemTime.includes('Today') || itemTime.includes('Yesterday'))));
+                });
+            }
+
+            function render() {
+                const matches = filteredItems();
+                const totalPages = Math.max(1, Math.ceil(matches.length / pageSize));
+                if (page > totalPages) page = totalPages;
+                items.forEach(function (item) { item.style.display = 'none'; });
+                matches.slice((page - 1) * pageSize, page * pageSize).forEach(function (item) { item.style.display = 'flex'; });
+                const first = matches.length ? ((page - 1) * pageSize) + 1 : 0;
+                const last = Math.min(page * pageSize, matches.length);
+                if (pageInfo) pageInfo.textContent = 'Showing ' + first + '-' + last + ' of ' + matches.length + ' notifications';
+                if (!controls) return;
+                controls.innerHTML = '';
+                const previous = document.createElement('button');
+                previous.className = 'nt-page-btn'; previous.textContent = 'Previous'; previous.disabled = page === 1;
+                previous.onclick = function () { if (page > 1) { page--; render(); } };
+                controls.appendChild(previous);
+                for (let i = 1; i <= totalPages; i++) {
+                    const button = document.createElement('button');
+                    button.className = 'nt-page-btn' + (i === page ? ' active' : ''); button.textContent = i;
+                    button.onclick = function () { page = i; render(); };
+                    controls.appendChild(button);
+                }
+                const next = document.createElement('button');
+                next.className = 'nt-page-btn'; next.textContent = 'Next'; next.disabled = page === totalPages;
+                next.onclick = function () { if (page < totalPages) { page++; render(); } };
+                controls.appendChild(next);
+            }
+
+            [search, categoryFilter, readFilter, dateFilter].forEach(function (control) {
+                if (control) control.addEventListener(control.tagName === 'SELECT' ? 'change' : 'input', function () { page = 1; render(); });
+            });
+            if (clear) clear.addEventListener('click', function () {
+                if (search) search.value = '';
+                [categoryFilter, readFilter, dateFilter].forEach(function (select) { if (select) select.selectedIndex = 0; });
+                page = 1; render();
+            });
+            if (pageSizeControl) pageSizeControl.addEventListener('change', function () { pageSize = Number(this.value) || 10; page = 1; render(); });
+            document.querySelectorAll('.nt-btn-view').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const layout = document.querySelector('.nt-layout');
+                    if (layout) layout.classList.add('detail-open');
+                });
+            });
+            const detailBack = document.getElementById('ntDetailBackBtn');
+            if (detailBack) detailBack.addEventListener('click', function () {
+                const layout = document.querySelector('.nt-layout');
+                if (layout) layout.classList.remove('detail-open');
+            });
+            document.addEventListener('click', function (event) {
+                const viewButton = event.target.closest('.nt-btn-view');
+                if (!viewButton) return;
+                event.preventDefault();
+                event.stopPropagation();
+                const layout = document.querySelector('.nt-layout');
+                if (layout) layout.classList.add('detail-open');
+            }, true);
+            render();
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -664,24 +802,6 @@
             <div class="nt-title-area">
                 <h1>Notifications</h1>
                 <p>Stay updated with important system activities.</p>
-            </div>
-            <div class="nt-header-actions">
-                <button type="button" class="nt-btn-outline">
-                    <i class="fa-solid fa-check-double"></i> Mark all as read
-                </button>
-                <button type="button" class="nt-btn-icon" onclick="location.reload();" title="Refresh">
-                    <i class="fa-solid fa-rotate-right"></i>
-                </button>
-                <button type="button" class="nt-btn-icon" title="Notification Settings">
-                    <i class="fa-solid fa-gear"></i>
-                </button>
-                <div class="nt-admin-profile">
-                    <div class="nt-admin-info">
-                        <span class="nt-admin-name">Admin</span>
-                        <span class="nt-admin-role">Super Admin</span>
-                    </div>
-                    <div class="nt-admin-avatar">A</div>
-                </div>
             </div>
         </div>
 
@@ -715,18 +835,6 @@
                     <div class="nt-stat-value">8 <span class="nt-stat-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i></span></div>
                 </div>
             </div>
-        </div>
-
-        <!-- Category Tabs -->
-        <div class="nt-tabs">
-            <div class="nt-tab-item active">All</div>
-            <div class="nt-tab-item">Students</div>
-            <div class="nt-tab-item">Companies</div>
-            <div class="nt-tab-item">Contact</div>
-            <div class="nt-tab-item">Messages</div>
-            <div class="nt-tab-item">Feedback</div>
-            <div class="nt-tab-item">Security</div>
-            <div class="nt-tab-item">System</div>
         </div>
 
         <!-- Master Detail Layout -->
@@ -917,7 +1025,7 @@
 
                 <!-- Pagination -->
                 <div class="nt-pagination">
-                    <div class="nt-page-info">Showing 1–10 of 248 notifications</div>
+                    <div class="nt-page-info">Showing 1-10 of 19 notifications</div>
                     <div style="display:flex; align-items:center; gap: 20px;">
                         <div style="display:flex; align-items:center; gap: 8px; font-size:14px; color:var(--nt-text-muted);">
                             Rows per page:
@@ -944,6 +1052,9 @@
             <!-- Right Column: Detail Panel -->
             <div class="nt-card nt-col-details">
                 <div class="nt-detail-panel">
+                    <button type="button" class="nt-detail-back-btn" id="ntDetailBackBtn" title="Back to notifications">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
                     <div class="nt-detail-icon">
                         <i class="fa-regular fa-bell"></i>
                     </div>
