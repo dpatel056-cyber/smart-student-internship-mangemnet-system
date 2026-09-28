@@ -24,31 +24,21 @@ namespace asp.net
         void getcon()
         {
             con = new SqlConnection(s);
-
             con.Open();
         }
         protected void btnUpdatePassword_Click(object sender, EventArgs e)
         {
             getcon();
-
-            cmd = new SqlCommand(
-                "select * from admin_registration where Email='" + Session["admin"].ToString() +
-                "' and Password='" + txtCurrentPassword.Text + "'", con);
-
+            cmd = new SqlCommand("select * from admin_registration where Email='" + Session["admin"].ToString() + "' and Password='" + txtCurrentPassword.Text + "'", con);
             ds = new DataSet();
             da = new SqlDataAdapter(cmd);
             da.Fill(ds);
 
             if (ds.Tables[0].Rows.Count > 0)
             {
-                cmd = new SqlCommand(
-                    "update admin_registration set Password='" + txtNewPassword.Text +
-                    "' where Email='" + Session["admin"].ToString() + "'", con);
-
+                cmd = new SqlCommand("update admin_registration set Password='" + txtNewPassword.Text + "' where Email='" + Session["admin"].ToString() + "'", con);
                 cmd.ExecuteNonQuery();
-
                 lblPasswordMessage.Text = "Password changed successfully.";
-
                 txtCurrentPassword.Text = "";
                 txtNewPassword.Text = "";
                 txtConfirmPassword.Text = "";
@@ -57,8 +47,6 @@ namespace asp.net
             {
                 lblPasswordMessage.Text = "Current password is incorrect.";
             }
-
-            con.Close();
         }
 
 

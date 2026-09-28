@@ -12,6 +12,7 @@ namespace asp.net
         SqlDataAdapter da;
         DataSet ds;
         SqlCommand cmd;
+        int i;
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -22,10 +23,9 @@ namespace asp.net
         void getcon()
         {
             con = new SqlConnection(s);
-            if (con.State == ConnectionState.Closed)
-            {
-                con.Open();
-            }
+
+            con.Open();
+
         }
 
         protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
@@ -37,52 +37,45 @@ namespace asp.net
                 if (role == "admin")
                 {
                     getcon();
-                    string qAdmin = "select * from admin_registration where Email='" + txtemail.Text + "' and Password='" + txtpassword.Text + "'";
-                    da = new SqlDataAdapter(qAdmin, con);
+                    da = new SqlDataAdapter("select * from admin_registration where Email='" + txtemail.Text + "' and Password='" + txtpassword.Text + "'", con);
                     ds = new DataSet();
                     da.Fill(ds);
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         Session["admin"] = ds.Tables[0].Rows[0]["Email"].ToString();
-                        
                         Response.Redirect("~/AdminPanel/admin-dashboard.aspx");
                     }
-                    
+                    else
+                    {
+                        lblMsg.Text = "Invalid Admin Email or Password";
+                    }
                 }
                 else if (role == "student")
                 {
-                    getcon();
-                    string qStu = "select count(*) from Students where (Email='" + txtemail.Text + "' or EnrollmentNo='" + txtemail.Text + "') and Password='" + txtpassword.Text + "'";
-                    cmd = new SqlCommand(qStu, con);
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    if (count > 0)
+                    cmd = new SqlCommand("select count(*) from Students where (Email='" + txtemail.Text + "' or EnrollmentNo='" + txtemail.Text + "') and Password='" + txtpassword.Text + "'", con);
+                    i = Convert.ToInt32(cmd.ExecuteScalar());
+                    if (i > 0)
                     {
                         Session["student"] = txtemail.Text;
-                       
-                        Response.Redirect("~/StudentPanel/student-dashboard.aspx");
+                        Response.Redirect("StudentPanel/student-dashboard.aspx");
                     }
                     else
                     {
                         lblMsg.Text = "Invalid Student Email/Enrollment or Password";
-                      
                     }
                 }
                 else if (role == "company")
                 {
-                    getcon();
-                    string qComp = "select count(*) from c_registration where c_email='" + txtemail.Text + "' and c_password='" + txtpassword.Text + "'";
-                    cmd = new SqlCommand(qComp, con);
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    if (count > 0)
+                    cmd = new SqlCommand("select count(*) from c_registration where c_email='" + txtemail.Text + "' and c_password='" + txtpassword.Text + "'", con);
+                    i = Convert.ToInt32(cmd.ExecuteScalar());
+                    if (i > 0)
                     {
                         Session["company"] = txtemail.Text;
-                        con.Close();
-                        Response.Redirect("~/CompanyPanel/company-dashboard.aspx");
+                        Response.Redirect("CompanyPanel/company-dashboard.aspx");
                     }
                     else
                     {
                         lblMsg.Text = "Invalid Company Email or Password";
-                        con.Close();
                     }
                 }
                 else

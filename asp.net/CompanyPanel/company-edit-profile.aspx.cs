@@ -69,11 +69,11 @@ namespace asp.net
                 txtCompanyName.Text = ds.Tables[0].Rows[0]["c_company"].ToString();
                 txtIndustry.Text = ds.Tables[0].Rows[0]["c_industry"].ToString();
 
-                if (ddlCompanyType.Items.FindByValue(ds.Tables[0].Rows[0]["c_type"].ToString()) != null)
-                    ddlCompanyType.SelectedValue = ds.Tables[0].Rows[0]["c_type"].ToString();
 
-                if (ddlCompanySize.Items.FindByValue(ds.Tables[0].Rows[0]["c_size"].ToString()) != null)
-                    ddlCompanySize.SelectedValue = ds.Tables[0].Rows[0]["c_size"].ToString();
+                ddlCompanyType.SelectedValue = ds.Tables[0].Rows[0]["c_type"].ToString();
+
+
+                ddlCompanySize.SelectedValue = ds.Tables[0].Rows[0]["c_size"].ToString();
 
                 txtFoundedYear.Text = ds.Tables[0].Rows[0]["c_founded_year"].ToString();
                 txtHeadquarters.Text = ds.Tables[0].Rows[0]["c_headquarters"].ToString();
@@ -104,11 +104,11 @@ namespace asp.net
                 // Internship Preferences
                 txtInternshipDomains.Text = ds.Tables[0].Rows[0]["c_internship_domains"].ToString();
 
-                if (ddlInternshipType.Items.FindByValue(ds.Tables[0].Rows[0]["c_internship_type"].ToString()) != null)
-                    ddlInternshipType.SelectedValue = ds.Tables[0].Rows[0]["c_internship_type"].ToString();
 
-                if (ddlPreferredWorkMode.Items.FindByValue(ds.Tables[0].Rows[0]["c_work_mode"].ToString()) != null)
-                    ddlPreferredWorkMode.SelectedValue = ds.Tables[0].Rows[0]["c_work_mode"].ToString();
+                ddlInternshipType.SelectedValue = ds.Tables[0].Rows[0]["c_internship_type"].ToString();
+
+
+                ddlPreferredWorkMode.SelectedValue = ds.Tables[0].Rows[0]["c_work_mode"].ToString();
 
                 txtPreferredDuration.Text = ds.Tables[0].Rows[0]["c_preferred_duration"].ToString();
                 txtRequiredSkills.Text = ds.Tables[0].Rows[0]["c_required_skills"].ToString();

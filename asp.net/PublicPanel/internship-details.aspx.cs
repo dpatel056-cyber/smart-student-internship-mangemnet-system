@@ -27,10 +27,9 @@ namespace asp.net
         void getcon()
         {
             con = new SqlConnection(s);
-            if (con.State == ConnectionState.Closed)
-            {
+
                 con.Open();
-            }
+
         }
 
         string getInternshipId()

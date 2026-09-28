@@ -284,47 +284,113 @@
 
         <!-- DATALIST FOR MY INTERNSHIPS -->
         <div class="internship-datalist-wrapper">
-            <asp:DataList ID="DataListMyInternships" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" CssClass="internship-card-grid">
-                <ItemTemplate>
-                    <div class="internship-card-box" onclick="window.location.href='<%= ResolveUrl("~/CompanyPanel/company-internship-details.aspx") %>?id=<%# Eval("Id") %>';">
-                        
-                        <!-- Top Row: Logo, Title, Company, Bookmark -->
-                        <div class="card-top-row">
-                            <div class="company-logo-wrap">
-                                <img src='<%# GetCompanyLogo(Eval("c_logo")) %>' alt="Company Logo" class="company-logo-img" onerror="this.onerror=null; this.src='<%= ResolveUrl("~/assets/default-company.png") %>';" />
-                            </div>
-                            <div class="title-company-wrap">
-                                <h3 class="internship-card-title"><%# Eval("InternshipTitle") %></h3>
-                                <span class="company-card-name"><%# GetCompanyName(Eval("c_company")) %></span>
-                            </div>
-                            <button type="button" class="bookmark-btn" onclick="event.stopPropagation();" title="Bookmark">
-                                <i class="fa-regular fa-bookmark"></i>
-                            </button>
-                        </div>
+           <asp:DataList ID="DataListMyInternships" runat="server"
+    RepeatLayout="Flow"
+    RepeatDirection="Horizontal"
+    CssClass="internship-card-grid">
 
-                        <!-- Details Row: Location, Work Mode -->
-                        <div class="card-details-row">
-                            <span class="detail-item"><i class="fa-solid fa-location-dot"></i> <%# Eval("Location") %></span>
-                            <span class="detail-item"><i class="fa-solid fa-building"></i> <%# Eval("WorkMode") %></span>
-                        </div>
+    <ItemTemplate>
 
-                        <!-- Stipend Row: Paid/Unpaid Badge & Amount -->
-                        <div class="card-stipend-row">
-                            <span class='<%# GetPaymentBadgeClass(Eval("PaymentStatus")) %>'>
-                                <%# GetPaymentStatusText(Eval("PaymentStatus")) %>
-                            </span>
-                            <span class="stipend-amount"><%# GetStipendText(Eval("PaymentStatus"), Eval("StipendAmount")) %></span>
-                        </div>
+        <div class="internship-card-box">
 
-                        <!-- Footer Row: Duration & Posted Time -->
-                        <div class="card-footer-row">
-                            <span class="footer-meta"><i class="fa-regular fa-clock"></i> <%# Eval("Duration") %></span>
-                            <span class="footer-meta posted-time">Posted <%# FormatPostedDate(Eval("PostedDate")) %></span>
-                        </div>
+            <!-- Top Row -->
+            <div class="card-top-row">
 
-                    </div>
-                </ItemTemplate>
-            </asp:DataList>
+                <div class="company-logo-wrap">
+                    <asp:Image ID="imgLogo" runat="server"
+                        CssClass="company-logo-img"
+                        ImageUrl='<%# Eval("c_logo") %>' />
+                </div>
+
+                <div class="title-company-wrap">
+
+                    <h3 class="internship-card-title">
+                        <asp:Label ID="lblTitle" runat="server"
+                            Text='<%# Eval("InternshipTitle") %>'>
+                        </asp:Label>
+                    </h3>
+
+                    <span class="company-card-name">
+                        <asp:Label ID="lblCompany" runat="server"
+                            Text='<%# Eval("c_company") %>'>
+                        </asp:Label>
+                    </span>
+
+                </div>
+
+                <button type="button" class="bookmark-btn">
+                    <i class="fa-regular fa-bookmark"></i>
+                </button>
+
+            </div>
+
+
+            <!-- Details -->
+            <div class="card-details-row">
+
+                <span class="detail-item">
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <asp:Label ID="lblLocation" runat="server"
+                        Text='<%# Eval("Location") %>'>
+                    </asp:Label>
+                </span>
+
+
+                <span class="detail-item">
+                    <i class="fa-solid fa-building"></i>
+
+                    <asp:Label ID="lblWorkMode" runat="server"
+                        Text='<%# Eval("WorkMode") %>'>
+                    </asp:Label>
+                </span>
+
+            </div>
+
+
+            <!-- Stipend -->
+            <div class="card-stipend-row">
+
+                <asp:Label ID="lblPaymentStatus" runat="server"
+                    CssClass="payment-status"
+                    Text='<%# Eval("PaymentStatus") %>'>
+                </asp:Label>
+
+                <asp:Label ID="lblStipend" runat="server"
+                    CssClass="stipend-amount"
+                    Text='<%# Eval("StipendAmount") %>'>
+                </asp:Label>
+
+            </div>
+
+
+            <!-- Footer -->
+            <div class="card-footer-row">
+
+                <span class="footer-meta">
+                    <i class="fa-regular fa-clock"></i>
+
+                    <asp:Label ID="lblDuration" runat="server"
+                        Text='<%# Eval("Duration") %>'>
+                    </asp:Label>
+                </span>
+
+
+                <span class="footer-meta">
+                    Posted
+
+                    <asp:Label ID="lblPostedDate" runat="server"
+                        Text='<%# Eval("PostedDate") %>'>
+                    </asp:Label>
+                </span>
+
+            </div>
+
+        </div>
+
+    </ItemTemplate>
+
+</asp:DataList>
             <asp:Panel ID="pnlNoMyInternships" runat="server" Visible="false">
                 <div class="empty-state-box">
                     <div class="empty-state-icon">

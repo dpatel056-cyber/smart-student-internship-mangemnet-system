@@ -1020,25 +1020,17 @@
 
                         <Columns>
 
-
-
                             <asp:BoundField DataField="c_name" HeaderText="Student" />
-
 
                             <asp:BoundField DataField="c_email" HeaderText="Email" />
 
-
                             <asp:BoundField DataField="c_subject" HeaderText="Subject" />
 
-
-
                             <asp:BoundField DataField="c_date" HeaderText="Submitted Date" DataFormatString="{0:dd MMM yyyy}" />
-
 
                             <asp:TemplateField HeaderText="Submitted Time">
 
                                 <ItemTemplate>
-
                                     <%# Eval("c_date", "{0:hh:mm tt}") %>
                                 </ItemTemplate>
 

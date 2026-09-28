@@ -164,21 +164,14 @@
                 <h2>All Posted Internships</h2>
             </div>
 
-            <asp:DataList ID="DataListAdminInternships" runat="server"
-                RepeatLayout="Flow"
-                RepeatDirection="Horizontal"
-                CssClass="admin-internships-grid"
-                OnItemCommand="DataListAdminInternships_ItemCommand">
+            <asp:DataList ID="DataListAdminInternships" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal"  CssClass="admin-internships-grid" OnItemCommand="DataListAdminInternships_ItemCommand">
 
                 <ItemTemplate>
                     <div class="admin-internship-card">
                         
                         <!-- Top Header: Logo + Title & Company -->
                         <div class="admin-card-header">
-                            <asp:Image ID="Image1" runat="server"
-                                CssClass="admin-company-logo-avatar"
-                                ImageUrl='<%# GetCompanyLogo(Eval("c_logo")) %>'
-                                onerror="this.onerror=null; this.src='../assets/default-company.png';" />
+                            <asp:Image ID="Image1" runat="server" CssClass="admin-company-logo-avatar" ImageUrl='<%# GetCompanyLogo(Eval("c_logo")) %>' onerror="this.onerror=null; this.src='../assets/default-company.png';" />
                             
                             <div class="admin-card-title-wrap">
                                 <h3 class="admin-card-title">
@@ -213,20 +206,9 @@
 
                         <!-- Action Buttons -->
                         <div class="admin-card-actions">
-                            <asp:LinkButton ID="LinkButton1" runat="server"
-                                CommandArgument='<%# Eval("Id") %>'
-                                CommandName="cmd_view"
-                                CssClass="admin-btn-action admin-btn-primary">
-                                <i class="fa-solid fa-eye"></i> View Details
-                            </asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_view" CssClass="admin-btn-action admin-btn-primary"> <i class="fa-solid fa-eye"></i> View Details</asp:LinkButton>
 
-                            <asp:LinkButton ID="LinkButton2" runat="server"
-                                CommandArgument='<%# Eval("Id") %>'
-                                CommandName="cmd_delete"
-                                OnClientClick="return confirm('Are you sure you want to delete this internship posting?');"
-                                CssClass="admin-btn-action admin-btn-danger">
-                                <i class="fa-solid fa-trash"></i> Delete
-                            </asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_delete" CssClass="admin-btn-action admin-btn-danger"><i class="fa-solid fa-trash"></i> Delete </asp:LinkButton>
                         </div>
                     </div>
                 </ItemTemplate>

@@ -25,92 +25,55 @@ namespace asp.net
         void getcon()
         {
             con = new SqlConnection(s);
-            if (con.State == ConnectionState.Closed)
-            {
+
                 con.Open();
-            }
+
         }
 
         protected void btnChangePassword_Click(object sender, EventArgs e)
         {
-            string currentPwd = txtCurrentPassword.Text.Trim();
-            string newPwd = txtNewPassword.Text.Trim();
-            string confirmPwd = txtConfirmPassword.Text.Trim();
-            string studentSession = Session["student"].ToString();
+            getcon();
 
-            if (string.IsNullOrEmpty(currentPwd) || string.IsNullOrEmpty(newPwd) || string.IsNullOrEmpty(confirmPwd))
+            // Check current password
+            cmd = new SqlCommand(
+                "select * from c_registration where c_email='" +
+                Session["company"].ToString() +
+                "' and c_password='" +
+                txtCurrentPassword.Text + "'", con);
+
+            ds = new DataSet();
+            da = new SqlDataAdapter(cmd);
+            da.Fill(ds);
+
+            if (ds.Tables[0].Rows.Count > 0)
             {
-                ShowAlert("Please fill in all password fields.", false);
-                return;
-            }
-
-            if (newPwd.Length < 6)
-            {
-                ShowAlert("New password must be at least 6 characters long.", false);
-                return;
-            }
-
-            if (newPwd != confirmPwd)
-            {
-                ShowAlert("New password and confirm password do not match.", false);
-                return;
-            }
-
-            if (currentPwd == newPwd)
-            {
-                ShowAlert("New password cannot be the same as your current password.", false);
-                return;
-            }
-
-            try
-            {
-                getcon();
-
-                // 1. Verify Current Password
-                string checkQuery = "select count(*) from Students where (Email='" + studentSession + "' or EnrollmentNo='" + studentSession + "') and Password='" + currentPwd + "'";
-                cmd = new SqlCommand(checkQuery, con);
-                int count = Convert.ToInt32(cmd.ExecuteScalar());
-
-                if (count == 0)
+                // Check new and confirm password
+                if (txtNewPassword.Text == txtConfirmPassword.Text)
                 {
-                    ShowAlert("Current password is incorrect. Please try again.", false);
-                    con.Close();
-                    return;
+                    cmd = new SqlCommand(
+                        "update c_registration set c_password='" +
+                        txtNewPassword.Text +
+                        "' where c_email='" +
+                        Session["company"].ToString() + "'", con);
+
+                    cmd.ExecuteNonQuery();
+
+                    lblMessage.Text = "Password changed successfully.";
+
+                    txtCurrentPassword.Text = "";
+                    txtNewPassword.Text = "";
+                    txtConfirmPassword.Text = "";
                 }
-
-                // 2. Update Password
-                string updateQuery = "update Students set Password='" + newPwd + "' where Email='" + studentSession + "' or EnrollmentNo='" + studentSession + "'";
-                cmd = new SqlCommand(updateQuery, con);
-                cmd.ExecuteNonQuery();
-
-                con.Close();
-
-                ShowAlert("Your password has been updated successfully!", true);
-
-                // Clear textboxes
-                txtCurrentPassword.Text = "";
-                txtNewPassword.Text = "";
-                txtConfirmPassword.Text = "";
-            }
-            catch (Exception ex)
-            {
-                ShowAlert("An error occurred while updating your password. Please try again.", false);
-            }
-        }
-
-        private void ShowAlert(string msg, bool isSuccess)
-        {
-            pnlAlert.Visible = true;
-            lblMessage.Text = msg;
-            if (isSuccess)
-            {
-                alertBox.Attributes["class"] = "alert-msg alert-success";
-                lblAlertIcon.Text = "<i class=\"fa-solid fa-circle-check\"></i>";
+                else
+                {
+                    lblMessage.Text =
+                        "New password and confirm password do not match.";
+                }
             }
             else
             {
-                alertBox.Attributes["class"] = "alert-msg alert-danger";
-                lblAlertIcon.Text = "<i class=\"fa-solid fa-triangle-exclamation\"></i>";
+                lblMessage.Text =
+                    "Current password is incorrect.";
             }
         }
     }

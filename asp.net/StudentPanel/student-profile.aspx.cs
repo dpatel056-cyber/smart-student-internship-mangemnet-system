@@ -19,8 +19,7 @@ namespace asp.net.js
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // FileUpload controls only post their content when the page form is multipart.
-           // Page.Form.Enctype = "multipart/form-data";
+
 
             if (!IsPostBack)
             {
@@ -196,7 +195,7 @@ namespace asp.net.js
             Session["student"] = txtEditEmail.Text;
             Response.Redirect("student-profile.aspx");
         }
-       
+
         protected void btnEditProfile_Click(object sender, EventArgs e)
         {
             filldata();
@@ -255,7 +254,7 @@ namespace asp.net.js
             gvOtherSkills.Visible = ds.Tables[0].Rows.Count > 0;
             lblNoOtherSkills.Visible = ds.Tables[0].Rows.Count == 0;
 
-            con.Close();
+
         }
 
         protected void gvSkills_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -301,47 +300,10 @@ namespace asp.net.js
                 lblNoProjects.CssClass = "no-projects-text";
                 lblNoProjects.Visible = true;
             }
-            con.Close();
+
         }
 
-        public string FormatTechTags(object techObj)
-        {
-            if (techObj == null || techObj == DBNull.Value || string.IsNullOrWhiteSpace(techObj.ToString()))
-                return "";
 
-            string techStr = techObj.ToString();
-            string[] tags = techStr.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-            if (tags.Length == 0)
-                return "";
-
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append("<div class=\"project-info\"><div class=\"project-info-label\"><i class=\"fa-solid fa-microchip\"></i> Technologies Used</div><div class=\"technology-tags\">");
-            foreach (string tag in tags)
-            {
-                sb.Append("<span class=\"tech-tag\">" + Server.HtmlEncode(tag.Trim()) + "</span>");
-            }
-            sb.Append("</div></div>");
-            return sb.ToString();
-        }
-
-        public string FormatProjectLink(object linkObj)
-        {
-            if (linkObj == null || linkObj == DBNull.Value || string.IsNullOrWhiteSpace(linkObj.ToString()))
-                return "";
-
-            string link = linkObj.ToString().Trim();
-            if (string.IsNullOrEmpty(link))
-                return "";
-
-            string targetUrl = link;
-            if (!targetUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase) && !targetUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-            {
-                targetUrl = "http://" + targetUrl;
-            }
-
-            return "<div class=\"project-links\"><a href=\"" + Server.HtmlEncode(targetUrl) + "\" target=\"_blank\" class=\"project-link-btn\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> " + Server.HtmlEncode(link) + "</a></div>";
-        }
         // ==========================================
         // SAVE / UPDATE PROJECT (INSERT & UPDATE)
         // Concatenation method thi insert and update

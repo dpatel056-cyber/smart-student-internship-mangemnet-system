@@ -38,9 +38,7 @@ namespace asp.net
         {
             getcon();
 
-            da = new SqlDataAdapter(
-                "select * from Students where StudentId='" + getStudentId() + "'",
-                con);
+            da = new SqlDataAdapter("select * from Students where StudentId='" + Request.QueryString["id"] + "'",con);
 
             ds = new DataSet();
             da.Fill(ds);
@@ -145,7 +143,7 @@ namespace asp.net
             gvOtherSkills.Visible = ds.Tables[0].Rows.Count > 0;
             lblNoOtherSkills.Visible = ds.Tables[0].Rows.Count == 0;
 
-            con.Close();
+
         }
 
         void LoadProjects()
@@ -173,8 +171,6 @@ namespace asp.net
                 lblNoProjects.CssClass = "no-projects-text";
                 lblNoProjects.Visible = true;
             }
-
-            con.Close();
         }
 
         //public string FormatTechTags(object techObj)

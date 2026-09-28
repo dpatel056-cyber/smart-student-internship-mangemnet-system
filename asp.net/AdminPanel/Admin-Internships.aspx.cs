@@ -27,24 +27,16 @@ namespace asp.net
         void getcon()
         {
             con = new SqlConnection(s);
-            if (con.State == ConnectionState.Closed)
-            {
-                con.Open();
-            }
+            con.Open();
         }
 
         void AdminInternships()
         {
             getcon();
-
             da = new SqlDataAdapter("select i.*, c.c_company, c.c_logo, c.c_industry from internship i left join c_registration c on i.CompanyId = c.CompanyId order by i.Id desc", con);
-
             ds = new DataSet();
-
             da.Fill(ds);
-
             DataListAdminInternships.DataSource = ds;
-
             DataListAdminInternships.DataBind();
         }
 
@@ -57,11 +49,8 @@ namespace asp.net
             else if (e.CommandName == "cmd_delete")
             {
                 getcon();
-
                 cmd = new SqlCommand("delete from internship where Id='" + e.CommandArgument.ToString() + "'", con);
-
                 cmd.ExecuteNonQuery();
-
                 AdminInternships();
             }
         }
