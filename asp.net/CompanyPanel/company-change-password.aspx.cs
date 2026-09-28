@@ -32,12 +32,7 @@ namespace asp.net
         {
             getcon();
 
-            cmd = new SqlCommand(
-                "select * from c_registration where c_email='" +
-                Session["company"].ToString() +
-                "' and c_password='" +
-                txtCurrentPassword.Text +
-                "'", con);
+            cmd = new SqlCommand("select * from c_registration where c_email='" + Session["company"].ToString() + "' and c_password='" + txtCurrentPassword.Text + "'", con);
 
             ds = new DataSet();
             da = new SqlDataAdapter(cmd);
@@ -47,17 +42,9 @@ namespace asp.net
             {
                 if (txtNewPassword.Text == txtConfirmPassword.Text)
                 {
-                    cmd = new SqlCommand(
-                        "update c_registration set c_password='" +
-                        txtNewPassword.Text +
-                        "' where c_email='" +
-                        Session["company"].ToString() +
-                        "'", con);
-
+                    cmd = new SqlCommand("update c_registration set c_password='" + txtNewPassword.Text + "' where c_email='" + Session["company"].ToString() + "'", con);
                     cmd.ExecuteNonQuery();
-
                     lblMessage.Text = "Password changed successfully.";
-
                     txtCurrentPassword.Text = "";
                     txtNewPassword.Text = "";
                     txtConfirmPassword.Text = "";

@@ -30,32 +30,14 @@ namespace asp.net
             con.Open();
         }
 
-        string getInternshipId()
-        {
-            if (Request.QueryString["id"] != null)
-            {
-                return Request.QueryString["id"].ToString();
-            }
-            return "";
-        }
 
         void loadInternshipDetails()
         {
-            string id = getInternshipId();
-
             getcon();
-
-            da = new SqlDataAdapter(
-                "select i.*, c.c_company, c.c_logo, c.c_industry, c.c_location, c.c_city, c.c_state, c.c_about, c.c_email, c.c_contact, c.c_hr_name " +
-                "from internship i left join c_registration c on i.CompanyId = c.CompanyId " +
-                "where i.Id='" + id + "'", con);
-
+            da = new SqlDataAdapter("select i.*, c.c_company, c.c_logo, c.c_industry, c.c_location, c.c_city, c.c_state, c.c_about, c.c_email, c.c_contact, c.c_hr_name from internship i left join c_registration c on i.CompanyId = c.CompanyId where i.Id='" + Request.QueryString["id"] + "'", con);
             ds = new DataSet();
-
             da.Fill(ds);
-
             DataListInternshipDetail.DataSource = ds;
-
             DataListInternshipDetail.DataBind();
         }
 
@@ -64,13 +46,8 @@ namespace asp.net
             if (e.CommandName == "DeleteInternship")
             {
                 getcon();
-
-                cmd = new SqlCommand(
-                    "delete from internship where Id='" + e.CommandArgument.ToString() + "'",
-                    con);
-
+                cmd = new SqlCommand("delete from internship where Id='" + e.CommandArgument.ToString() + "'",con);
                 cmd.ExecuteNonQuery();
-
                 Response.Redirect("admin-internships.aspx");
             }
         }

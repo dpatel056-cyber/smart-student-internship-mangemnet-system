@@ -421,17 +421,17 @@
             border-collapse: collapse;
         }
 
-        .skills-gridview > tbody {
-            display: flex !important;
-            flex-wrap: wrap !important;
-            gap: 10px !important;
-        }
+            .skills-gridview > tbody {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                gap: 10px !important;
+            }
 
-        .skills-gridview > tbody > tr > td {
-            padding: 0 !important;
-            border: none !important;
-            background: transparent !important;
-        }
+                .skills-gridview > tbody > tr > td {
+                    padding: 0 !important;
+                    border: none !important;
+                    background: transparent !important;
+                }
 
         .skill-pill {
             display: inline-flex;
@@ -475,11 +475,11 @@
             margin-top: 10px;
         }
 
-        .projects-gridview > tbody > tr > td {
-            padding: 0;
-            border: none;
-            background: transparent;
-        }
+            .projects-gridview > tbody > tr > td {
+                padding: 0;
+                border: none;
+                background: transparent;
+            }
 
         .project-card {
             background: #ffffff;
@@ -490,10 +490,10 @@
             transition: all 0.2s ease;
         }
 
-        .project-card:hover {
-            border-color: #bfdbfe;
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
-        }
+            .project-card:hover {
+                border-color: #bfdbfe;
+                box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
+            }
 
         .project-card-header {
             display: flex;
@@ -543,12 +543,12 @@
             margin-top: 16px;
         }
 
-        .project-description p {
-            margin: 0;
-            color: #475569;
-            font-size: 14px;
-            line-height: 1.6;
-        }
+            .project-description p {
+                margin: 0;
+                color: #475569;
+                font-size: 14px;
+                line-height: 1.6;
+            }
 
         .project-info {
             margin-top: 16px;
@@ -566,9 +566,9 @@
             letter-spacing: 0.3px;
         }
 
-        .project-info-label i {
-            color: #2563eb;
-        }
+            .project-info-label i {
+                color: #2563eb;
+            }
 
         .technology-tags {
             display: flex;
@@ -607,11 +607,11 @@
             transition: all 0.2s ease;
         }
 
-        .project-link-btn:hover {
-            background: #2563eb;
-            color: #ffffff;
-            border-color: #2563eb;
-        }
+            .project-link-btn:hover {
+                background: #2563eb;
+                color: #ffffff;
+                border-color: #2563eb;
+            }
 
         .no-projects-text {
             display: block;
@@ -969,7 +969,7 @@
                     <div class="profile-main-info">
                         <div class="profile-photo" aria-label="Student profile photo">
                             <asp:Label ID="lblInitials" runat="server">S</asp:Label>
-                            <asp:Image ID="imgStudentPhoto" runat="server" Visible="false" Style="width:100%; height:100%; border-radius:50%; object-fit:cover;" />
+                            <asp:Image ID="imgStudentPhoto" runat="server" Visible="false" Style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" />
                         </div>
                         <div class="profile-info-2x2">
                             <div class="contact-item">
@@ -1225,31 +1225,31 @@
                                                 </div>
                                             </div>
                                         </div>
-<div class="project-description">
-    <p><%# Eval("Description") %></p>
-</div>
+                                        <div class="project-description">
+                                            <p><%# Eval("Description") %></p>
+                                        </div>
 
-<div class="project-info">
-    <div class="project-info-label">
-        <i class="fa-solid fa-microchip"></i>
-        Technologies Used
-    </div>
+                                        <div class="project-info">
+                                            <div class="project-info-label">
+                                                <i class="fa-solid fa-microchip"></i>
+                                                Technologies Used
+                                            </div>
 
-    <div class="technology-tags">
-        <%# Eval("TechnologiesUsed") %>
-    </div>
-</div>
+                                            <div class="technology-tags">
+                                                <%# Eval("TechnologiesUsed") %>
+                                            </div>
+                                        </div>
 
-<div class="project-links">
-    <a href='<%# Eval("ProjectLink") %>'
-       target="_blank"
-       class="project-link-btn">
+                                        <div class="project-links">
+                                            <a href='<%# Eval("ProjectLink") %>'
+                                                target="_blank"
+                                                class="project-link-btn">
 
-        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        View Project
+                                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                                View Project
 
-    </a>
-</div>
+                                            </a>
+                                        </div>
                                     </div>
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -1314,4 +1314,4 @@
 
 
 
-       
+

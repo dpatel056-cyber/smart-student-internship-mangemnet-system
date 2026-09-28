@@ -26,20 +26,18 @@ namespace asp.net
         void getcon()
         {
             con = new SqlConnection(s);
-            if (con.State == ConnectionState.Closed)
-            {
+
                 con.Open();
-            }
+
         }
 
         void bindCompanies()
         {
-            try
-            {
-                getcon();
-                string query = "select c.*, (select count(*) from internship i where i.CompanyId = c.CompanyId) as TotalOpenings from c_registration c order by c.CompanyId desc";
 
-                da = new SqlDataAdapter(query, con);
+                getcon();
+                da = new SqlDataAdapter( "select c.*, (select count(*) from internship i where i.CompanyId = c.CompanyId) as TotalOpenings from c_registration c order by c.CompanyId desc",con);
+
+
                 ds = new DataSet();
                 da.Fill(ds);
 
@@ -56,12 +54,6 @@ namespace asp.net
                     if (pnlNoCompanies != null) pnlNoCompanies.Visible = true;
                 }
 
-                con.Close();
-            }
-            catch (Exception ex)
-            {
-                // Fallback gracefully
-            }
         }
 
         public string GetCompanyLogo(object logoObj)

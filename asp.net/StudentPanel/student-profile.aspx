@@ -3233,22 +3233,22 @@
             border-collapse: collapse;
         }
 
-        .skills-gridview > tbody {
-            display: flex !important;
-            flex-wrap: wrap !important;
-            gap: 10px !important;
-        }
+            .skills-gridview > tbody {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                gap: 10px !important;
+            }
 
-        .skills-gridview > tbody > tr {
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: 8px !important;
-            padding: 8px 14px 8px 16px !important;
-            border-radius: 20px !important;
-            font-size: 13px !important;
-            font-weight: 600 !important;
-            transition: all 0.2s ease !important;
-        }
+                .skills-gridview > tbody > tr {
+                    display: inline-flex !important;
+                    align-items: center !important;
+                    gap: 8px !important;
+                    padding: 8px 14px 8px 16px !important;
+                    border-radius: 20px !important;
+                    font-size: 13px !important;
+                    font-weight: 600 !important;
+                    transition: all 0.2s ease !important;
+                }
 
         .technical-box .skills-gridview > tbody > tr {
             background: #eff6ff !important;
@@ -3298,10 +3298,10 @@
             padding: 0 !important;
         }
 
-        .skill-delete-btn:hover {
-            background: #fee2e2 !important;
-            color: #ef4444 !important;
-        }
+            .skill-delete-btn:hover {
+                background: #fee2e2 !important;
+                color: #ef4444 !important;
+            }
 
         .no-skill-text {
             display: block;
@@ -3320,11 +3320,11 @@
             margin-top: 10px;
         }
 
-        .projects-gridview > tbody > tr > td {
-            padding: 0;
-            border: none;
-            background: transparent;
-        }
+            .projects-gridview > tbody > tr > td {
+                padding: 0;
+                border: none;
+                background: transparent;
+            }
 
         .project-card {
             background: #ffffff;
@@ -3335,10 +3335,10 @@
             transition: all 0.2s ease;
         }
 
-        .project-card:hover {
-            border-color: #bfdbfe;
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
-        }
+            .project-card:hover {
+                border-color: #bfdbfe;
+                box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
+            }
 
         .project-card-header {
             display: flex;
@@ -3405,33 +3405,33 @@
             transition: all 0.2s ease;
         }
 
-        .project-action-btn.edit-btn:hover {
-            color: #2563eb;
-            border-color: #bfdbfe;
-            background: #eff6ff;
-        }
+            .project-action-btn.edit-btn:hover {
+                color: #2563eb;
+                border-color: #bfdbfe;
+                background: #eff6ff;
+            }
 
-        .project-action-btn.delete-btn {
-            color: #ef4444;
-            border-color: #fee2e2;
-        }
+            .project-action-btn.delete-btn {
+                color: #ef4444;
+                border-color: #fee2e2;
+            }
 
-        .project-action-btn.delete-btn:hover {
-            color: #dc2626;
-            border-color: #fca5a5;
-            background: #fee2e2;
-        }
+                .project-action-btn.delete-btn:hover {
+                    color: #dc2626;
+                    border-color: #fca5a5;
+                    background: #fee2e2;
+                }
 
         .project-description {
             margin-top: 16px;
         }
 
-        .project-description p {
-            margin: 0;
-            color: #475569;
-            font-size: 14px;
-            line-height: 1.6;
-        }
+            .project-description p {
+                margin: 0;
+                color: #475569;
+                font-size: 14px;
+                line-height: 1.6;
+            }
 
         .project-info {
             margin-top: 16px;
@@ -3449,9 +3449,9 @@
             letter-spacing: 0.3px;
         }
 
-        .project-info-label i {
-            color: #2563eb;
-        }
+            .project-info-label i {
+                color: #2563eb;
+            }
 
         .technology-tags {
             display: flex;
@@ -3490,11 +3490,11 @@
             transition: all 0.2s ease;
         }
 
-        .project-link-btn:hover {
-            background: #2563eb;
-            color: #ffffff;
-            border-color: #2563eb;
-        }
+            .project-link-btn:hover {
+                background: #2563eb;
+                color: #ffffff;
+                border-color: #2563eb;
+            }
 
         .no-projects-text {
             display: block;
@@ -3515,7 +3515,7 @@
                 <div class="profile-main-info">
                     <div class="profile-photo" aria-label="Student profile photo">
                         <asp:Label ID="lblAvatarInitials" runat="server">-</asp:Label>
-                        <asp:Image ID="imgStudentPhoto" runat="server" Visible="false" Style="width:100%; height:100%; border-radius:50%; object-fit:cover; display:block;" />
+                        <asp:Image ID="imgStudentPhoto" runat="server" Visible="false" Style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;" />
                     </div>
                     <div class="profile-info-2x2">
                         <div class="contact-item">
@@ -3881,14 +3881,32 @@
                                                 <span class="project-type-badge"><%# Eval("ProjectType") %></span>
                                             </div>
                                         </div>
-                                        <div class="project-actions">
-                                            <asp:LinkButton ID="lbEditProject" runat="server" CommandName="EditProject" CommandArgument='<%# Eval("ProjectId") %>' CssClass="project-action-btn edit-btn" ToolTip="Edit Project" CausesValidation="false"><i class="fa-solid fa-pen"></i></asp:LinkButton>
-                                            <asp:LinkButton ID="lbDeleteProject" runat="server" CommandName="DeleteProject" CommandArgument='<%# Eval("ProjectId") %>' CssClass="project-action-btn delete-btn" ToolTip="Delete Project" CausesValidation="false"><i class="fa-solid fa-trash-can"></i></asp:LinkButton>
+                                    </div>
+                                    <div class="project-description">
+                                        <p><%# Eval("Description") %></p>
+                                    </div>
+
+                                    <div class="project-info">
+                                        <div class="project-info-label">
+                                            <i class="fa-solid fa-microchip"></i>
+                                            Technologies Used
+                                        </div>
+
+                                        <div class="technology-tags">
+                                            <%# Eval("TechnologiesUsed") %>
                                         </div>
                                     </div>
-                                    <%# !string.IsNullOrWhiteSpace(Eval("Description") as string) ? "<div class=\"project-description\"><p>" + HttpUtility.HtmlEncode(Eval("Description").ToString()) + "</p></div>" : "" %>
-                                    <%# FormatTechTags(Eval("TechnologiesUsed")) %>
-                                    <%# FormatProjectLink(Eval("ProjectLink")) %>
+
+                                    <div class="project-links">
+                                        <a href='<%# Eval("ProjectLink") %>'
+                                            target="_blank"
+                                            class="project-link-btn">
+
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                            View Project
+
+                                        </a>
+                                    </div>
                                 </div>
                             </ItemTemplate>
                         </asp:TemplateField>
