@@ -19,7 +19,11 @@ namespace asp.net.js
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["student"] == null)
+            {
+                Response.Redirect("~/PublicPanel/login.aspx");
+                return;
+            }
 
             if (!IsPostBack)
             {
@@ -39,7 +43,9 @@ namespace asp.net.js
         void loadStudentProfile()
         {
             getcon();
-            da = new SqlDataAdapter("select * from Students where Email='" + Session["student"] + "'",con);
+            cmd = new SqlCommand("select * from Students where Email=@Email", con);
+            cmd.Parameters.AddWithValue("@Email", Session["student"].ToString());
+            da = new SqlDataAdapter(cmd);
             ds = new DataSet();
             da.Fill(ds);
 
@@ -129,7 +135,9 @@ namespace asp.net.js
         void filldata()
         {
             getcon();
-            da = new SqlDataAdapter("select * from Students where Email='" + Session["student"] + "'",con);
+            cmd = new SqlCommand("select * from Students where Email=@Email", con);
+            cmd.Parameters.AddWithValue("@Email", Session["student"].ToString());
+            da = new SqlDataAdapter(cmd);
             ds = new DataSet();
             da.Fill(ds);
 
@@ -189,7 +197,33 @@ namespace asp.net.js
         protected void btnSaveProfile_Click(object sender, EventArgs e)
         {
             getcon();
-            cmd = new SqlCommand("update Students set FullName='" + txtEditFullName.Text + "',DateOfBirth='" + txtEditDob.Text + "',Email='" + txtEditEmail.Text + "',ContactNo='" + txtEditMobile.Text + "',EnrollmentNo='" + txtEditEnrollment.Text + "',College='" + txtEditCollege.Text + "',Course='" + txtEditCourse.Text + "',Department='" + txtEditDepartment.Text + "',CurrentSemester='" + txtEditSemester.Text + "',GraduationYear='" + txtEditGraduationYear.Text + "',CGPA='" + txtEditCgpa.Text + "',Gender='" + ddlEditGender.SelectedValue + "',Address='" + txtEditAddress.Text + "',City='" + txtEditCity.Text + "',State='" + txtEditState.Text + "',Pincode='" + txtEditPincode.Text + "',AboutMe='" + txtEditAboutMe.Text + "',PreferredDomain='" + txtEditPreferredDomain.Text + "',PreferredRole='" + txtEditPreferredRole.Text + "',PreferredLocation='" + txtEditPreferredLocation.Text + "',WorkMode='" + ddlEditWorkMode.SelectedValue + "',Availability='" + ddlEditAvailability.SelectedValue + "',LinkedIn='" + txtEditLinkedIn.Text + "',GitHub='" + txtEditGitHub.Text + "',Portfolio='" + txtEditPortfolio.Text + "' where Email='" + Session["student"] + "'", con);
+            cmd = new SqlCommand("update Students set FullName=@FullName,DateOfBirth=@DateOfBirth,Email=@NewEmail,ContactNo=@ContactNo,EnrollmentNo=@EnrollmentNo,College=@College,Course=@Course,Department=@Department,CurrentSemester=@CurrentSemester,GraduationYear=@GraduationYear,CGPA=@CGPA,Gender=@Gender,Address=@Address,City=@City,State=@State,Pincode=@Pincode,AboutMe=@AboutMe,PreferredDomain=@PreferredDomain,PreferredRole=@PreferredRole,PreferredLocation=@PreferredLocation,WorkMode=@WorkMode,Availability=@Availability,LinkedIn=@LinkedIn,GitHub=@GitHub,Portfolio=@Portfolio where Email=@Email", con);
+            cmd.Parameters.AddWithValue("@FullName", txtEditFullName.Text);
+            cmd.Parameters.AddWithValue("@DateOfBirth", txtEditDob.Text);
+            cmd.Parameters.AddWithValue("@NewEmail", txtEditEmail.Text);
+            cmd.Parameters.AddWithValue("@ContactNo", txtEditMobile.Text);
+            cmd.Parameters.AddWithValue("@EnrollmentNo", txtEditEnrollment.Text);
+            cmd.Parameters.AddWithValue("@College", txtEditCollege.Text);
+            cmd.Parameters.AddWithValue("@Course", txtEditCourse.Text);
+            cmd.Parameters.AddWithValue("@Department", txtEditDepartment.Text);
+            cmd.Parameters.AddWithValue("@CurrentSemester", txtEditSemester.Text);
+            cmd.Parameters.AddWithValue("@GraduationYear", txtEditGraduationYear.Text);
+            cmd.Parameters.AddWithValue("@CGPA", txtEditCgpa.Text);
+            cmd.Parameters.AddWithValue("@Gender", ddlEditGender.SelectedValue);
+            cmd.Parameters.AddWithValue("@Address", txtEditAddress.Text);
+            cmd.Parameters.AddWithValue("@City", txtEditCity.Text);
+            cmd.Parameters.AddWithValue("@State", txtEditState.Text);
+            cmd.Parameters.AddWithValue("@Pincode", txtEditPincode.Text);
+            cmd.Parameters.AddWithValue("@AboutMe", txtEditAboutMe.Text);
+            cmd.Parameters.AddWithValue("@PreferredDomain", txtEditPreferredDomain.Text);
+            cmd.Parameters.AddWithValue("@PreferredRole", txtEditPreferredRole.Text);
+            cmd.Parameters.AddWithValue("@PreferredLocation", txtEditPreferredLocation.Text);
+            cmd.Parameters.AddWithValue("@WorkMode", ddlEditWorkMode.SelectedValue);
+            cmd.Parameters.AddWithValue("@Availability", ddlEditAvailability.SelectedValue);
+            cmd.Parameters.AddWithValue("@LinkedIn", txtEditLinkedIn.Text);
+            cmd.Parameters.AddWithValue("@GitHub", txtEditGitHub.Text);
+            cmd.Parameters.AddWithValue("@Portfolio", txtEditPortfolio.Text);
+            cmd.Parameters.AddWithValue("@Email", Session["student"].ToString());
             cmd.ExecuteNonQuery();
 
             Session["student"] = txtEditEmail.Text;
@@ -205,7 +239,8 @@ namespace asp.net.js
         {
             getcon();
 
-            cmd = new SqlCommand("select StudentId from Students where Email='" + Session["student"] + "'",con);
+            cmd = new SqlCommand("select StudentId from Students where Email=@Email", con);
+            cmd.Parameters.AddWithValue("@Email", Session["student"].ToString());
 
             int id = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -217,7 +252,10 @@ namespace asp.net.js
         {
             getcon();
 
-            cmd = new SqlCommand("insert into StudentSkills(StudentId,SkillCategory,SkillName) values('" + getStudentId() + "','" + ddlSkillCategory.SelectedValue + "','" + txtNewSkillName.Text + "')", con);
+            cmd = new SqlCommand("insert into StudentSkills(StudentId,SkillCategory,SkillName) values(@StudentId,@SkillCategory,@SkillName)", con);
+            cmd.Parameters.AddWithValue("@StudentId", getStudentId());
+            cmd.Parameters.AddWithValue("@SkillCategory", ddlSkillCategory.SelectedValue);
+            cmd.Parameters.AddWithValue("@SkillName", txtNewSkillName.Text);
 
             cmd.ExecuteNonQuery();
 
@@ -230,7 +268,10 @@ namespace asp.net.js
         {
             getcon();
 
-            da = new SqlDataAdapter("select * from StudentSkills where StudentId='" + getStudentId() + "' and SkillCategory='technical'", con);
+            cmd = new SqlCommand("select * from StudentSkills where StudentId=@StudentId and SkillCategory=@SkillCategory", con);
+            cmd.Parameters.AddWithValue("@StudentId", getStudentId());
+            cmd.Parameters.AddWithValue("@SkillCategory", "technical");
+            da = new SqlDataAdapter(cmd);
             ds = new DataSet();
             da.Fill(ds);
             gvTechSkills.DataSource = ds;
@@ -238,7 +279,10 @@ namespace asp.net.js
             gvTechSkills.Visible = ds.Tables[0].Rows.Count > 0;
             lblNoTechSkills.Visible = ds.Tables[0].Rows.Count == 0;
 
-            da = new SqlDataAdapter("select * from StudentSkills where StudentId='" + getStudentId() + "' and SkillCategory='soft'", con);
+            cmd = new SqlCommand("select * from StudentSkills where StudentId=@StudentId and SkillCategory=@SkillCategory", con);
+            cmd.Parameters.AddWithValue("@StudentId", getStudentId());
+            cmd.Parameters.AddWithValue("@SkillCategory", "soft");
+            da = new SqlDataAdapter(cmd);
             ds = new DataSet();
             da.Fill(ds);
             gvSoftSkills.DataSource = ds;
@@ -246,7 +290,10 @@ namespace asp.net.js
             gvSoftSkills.Visible = ds.Tables[0].Rows.Count > 0;
             lblNoSoftSkills.Visible = ds.Tables[0].Rows.Count == 0;
 
-            da = new SqlDataAdapter("select * from StudentSkills where StudentId='" + getStudentId() + "' and SkillCategory='other'", con);
+            cmd = new SqlCommand("select * from StudentSkills where StudentId=@StudentId and SkillCategory=@SkillCategory", con);
+            cmd.Parameters.AddWithValue("@StudentId", getStudentId());
+            cmd.Parameters.AddWithValue("@SkillCategory", "other");
+            da = new SqlDataAdapter(cmd);
             ds = new DataSet();
             da.Fill(ds);
             gvOtherSkills.DataSource = ds;
@@ -263,7 +310,9 @@ namespace asp.net.js
             {
                 getcon();
 
-                cmd = new SqlCommand("delete from StudentSkills where SkillId='" + e.CommandArgument + "'",con);
+                cmd = new SqlCommand("delete from StudentSkills where SkillId=@SkillId and StudentId=@StudentId", con);
+                cmd.Parameters.AddWithValue("@SkillId", Convert.ToInt32(e.CommandArgument));
+                cmd.Parameters.AddWithValue("@StudentId", getStudentId());
 
                 cmd.ExecuteNonQuery();
 
@@ -281,7 +330,9 @@ namespace asp.net.js
         {
             getcon();
 
-            da = new SqlDataAdapter("select * from StudentProjects where StudentId='" + getStudentId() + "'", con);
+            cmd = new SqlCommand("select * from StudentProjects where StudentId=@StudentId", con);
+            cmd.Parameters.AddWithValue("@StudentId", getStudentId());
+            da = new SqlDataAdapter(cmd);
 
             ds = new DataSet();
             da.Fill(ds);
@@ -314,12 +365,20 @@ namespace asp.net.js
 
             if (hdnProjectId.Value == "")
             {
-                cmd = new SqlCommand("insert into StudentProjects (StudentId,ProjectName,ProjectType,Description,TechnologiesUsed,ProjectLink) values('" + getStudentId() + "','" + txtProjectName.Text + "','" + ddlProjectType.SelectedValue + "','" + txtProjectDesc.Text + "','" + txtProjectTech.Text + "','" + txtProjectLink.Text + "')", con);
+                cmd = new SqlCommand("insert into StudentProjects (StudentId,ProjectName,ProjectType,Description,TechnologiesUsed,ProjectLink) values(@StudentId,@ProjectName,@ProjectType,@Description,@TechnologiesUsed,@ProjectLink)", con);
+                cmd.Parameters.AddWithValue("@StudentId", getStudentId());
             }
             else
             {
-                cmd = new SqlCommand("update StudentProjects set ProjectName='" + txtProjectName.Text + "',ProjectType='" + ddlProjectType.SelectedValue + "',Description='" + txtProjectDesc.Text + "',TechnologiesUsed='" + txtProjectTech.Text + "',ProjectLink='" + txtProjectLink.Text + "' where ProjectId='" + hdnProjectId.Value + "' and StudentId='" + getStudentId() + "'", con);
+                cmd = new SqlCommand("update StudentProjects set ProjectName=@ProjectName,ProjectType=@ProjectType,Description=@Description,TechnologiesUsed=@TechnologiesUsed,ProjectLink=@ProjectLink where ProjectId=@ProjectId and StudentId=@StudentId", con);
+                cmd.Parameters.AddWithValue("@ProjectId", Convert.ToInt32(hdnProjectId.Value));
+                cmd.Parameters.AddWithValue("@StudentId", getStudentId());
             }
+            cmd.Parameters.AddWithValue("@ProjectName", txtProjectName.Text);
+            cmd.Parameters.AddWithValue("@ProjectType", ddlProjectType.SelectedValue);
+            cmd.Parameters.AddWithValue("@Description", txtProjectDesc.Text);
+            cmd.Parameters.AddWithValue("@TechnologiesUsed", txtProjectTech.Text);
+            cmd.Parameters.AddWithValue("@ProjectLink", txtProjectLink.Text);
 
             cmd.ExecuteNonQuery();
 
@@ -349,7 +408,10 @@ namespace asp.net.js
 
                 getcon();
 
-                da = new SqlDataAdapter("select * from StudentProjects where ProjectId='" +e.CommandArgument + "' and StudentId='" +getStudentId() + "'", con);
+                cmd = new SqlCommand("select * from StudentProjects where ProjectId=@ProjectId and StudentId=@StudentId", con);
+                cmd.Parameters.AddWithValue("@ProjectId", Convert.ToInt32(e.CommandArgument));
+                cmd.Parameters.AddWithValue("@StudentId", getStudentId());
+                da = new SqlDataAdapter(cmd);
 
                 ds = new DataSet();
                 da.Fill(ds);
@@ -369,7 +431,9 @@ namespace asp.net.js
             {
                 getcon();
 
-                cmd = new SqlCommand( "delete from StudentProjects where ProjectId='" + e.CommandArgument + "' and StudentId='" +getStudentId() + "'", con);
+                cmd = new SqlCommand("delete from StudentProjects where ProjectId=@ProjectId and StudentId=@StudentId", con);
+                cmd.Parameters.AddWithValue("@ProjectId", Convert.ToInt32(e.CommandArgument));
+                cmd.Parameters.AddWithValue("@StudentId", getStudentId());
 
                 cmd.ExecuteNonQuery();
 
