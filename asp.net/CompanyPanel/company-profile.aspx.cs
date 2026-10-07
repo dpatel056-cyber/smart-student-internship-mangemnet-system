@@ -2,8 +2,6 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace asp.net
 {
@@ -16,36 +14,56 @@ namespace asp.net
 
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (Session["company"] == null)
-            {
-                Response.Redirect("~/PublicPanel/login.aspx");
-            }
-
-            if (!IsPostBack)
-            {
-                companyfilldata();
-            }
-        }
-
         void getcon()
         {
             con = new SqlConnection(s);
             con.Open();
         }
 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session["company"] != null)
+            {
+                getcon();
+                da = new SqlDataAdapter("select * from c_registration where c_email='" + Session["company"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
+
+                if (!IsPostBack)
+                {
+                    companyfilldata();
+                }
+            }
+            else
+            {
+                Response.Redirect("~/PublicPanel/login.aspx");
+            }
+        }
+
+        private string GetInitials(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return "CO";
+            var parts = name.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length == 1)
+            {
+                return parts[0].Length >= 2 ? parts[0].Substring(0, 2).ToUpper() : parts[0].ToUpper();
+            }
+            return (parts[0][0].ToString() + parts[parts.Length - 1][0].ToString()).ToUpper();
+        }
+
         void companyfilldata()
         {
             getcon();
 
-            da = new SqlDataAdapter("select * from c_registration where c_email='" + Session["company"] + "'", con);
+            da = new SqlDataAdapter("SELECT * FROM c_registration WHERE c_email='" + Session["company"] + "'", con);
             ds = new DataSet();
             da.Fill(ds);
 
             if (ds.Tables[0].Rows.Count > 0)
             {
-                // Hero Header Details
+                DataRow row = ds.Tables[0].Rows[0];
+                int cId = Convert.ToInt32(ds.Tables[0].Rows[0]["CompanyId"]);
+
                 lblCompanyName.Text = ds.Tables[0].Rows[0]["c_company"].ToString();
                 lblIndustry.Text = ds.Tables[0].Rows[0]["c_industry"].ToString();
                 lblLocation.Text = ds.Tables[0].Rows[0]["c_city"].ToString() + ", " + ds.Tables[0].Rows[0]["c_state"].ToString();
@@ -57,16 +75,30 @@ namespace asp.net
                 lblHeroEmail.Text = ds.Tables[0].Rows[0]["c_email"].ToString();
                 lblHeroPhone.Text = ds.Tables[0].Rows[0]["c_contact"].ToString();
 
-                string logo = ds.Tables[0].Rows[0]["c_logo"].ToString();
+                // Logo
+                string logo = ds.Tables[0].Rows[0]["c_logo"] != DBNull.Value ? ds.Tables[0].Rows[0]["c_logo"].ToString().Trim() : "";
                 if (!string.IsNullOrEmpty(logo))
                 {
-                    if (!logo.StartsWith("~") && !logo.StartsWith("/"))
+                    if (logo.StartsWith("http://") || logo.StartsWith("https://"))
                     {
-                        logo = "~/CompanyUploads/" + logo;
+                        imgCompanyLogo.ImageUrl = logo;
                     }
-                    imgCompanyLogo.ImageUrl = ResolveUrl(logo);
+                    else
+                    {
+                        if (!logo.StartsWith("~") && !logo.StartsWith("/"))
+                        {
+                            logo = "~/CompanyUploads/" + logo;
+                        }
+                        imgCompanyLogo.ImageUrl = ResolveUrl(logo);
+                    }
                     imgCompanyLogo.Visible = true;
                     pnlLogoInitials.Visible = false;
+                }
+                else
+                {
+                    imgCompanyLogo.Visible = false;
+                    pnlLogoInitials.Visible = true;
+                    lblCompanyInitials.Text = GetInitials(lblCompanyName.Text);
                 }
 
                 // Tab 1: Overview
@@ -110,14 +142,50 @@ namespace asp.net
                 lblPreferredCourses.Text = ds.Tables[0].Rows[0]["c_preferred_courses"].ToString();
                 lblPreferredSemester.Text = ds.Tables[0].Rows[0]["c_preferred_semester"].ToString();
                 lblMinimumCGPA.Text = ds.Tables[0].Rows[0]["c_min_cgpa"].ToString();
+                // ==========================================
+                // DYNAMIC STAT CARDS & ACTIVITY CALCULATIONS
+                // ==========================================
 
-                //// Tab 5: Activity Overview
-                //lblActivityTotalPosts.Text = ds.Tables[0].Rows[0]["c_total_posts"].ToString();
-                //lblActivityActiveInternships.Text = ds.Tables[0].Rows[0]["c_active_posts"].ToString();
-                //lblActivityTotalApplications.Text = ds.Tables[0].Rows[0]["c_total_apps"].ToString();
-                //lblActivityStudentsSelected.Text = ds.Tables[0].Rows[0]["c_selected_apps"].ToString();
-                //lblActivityCurrentInterns.Text = ds.Tables[0].Rows[0]["c_current_interns"].ToString();
-                //lblActivityCompletedInternships.Text = ds.Tables[0].Rows[0]["c_completed_interns"].ToString();
+                // 1. Total Internships
+                da = new SqlDataAdapter("SELECT COUNT(*) FROM internship WHERE CompanyId = " + cId, con);
+                ds = new DataSet();
+                da.Fill(ds);
+                string totalInternships = ds.Tables[0].Rows[0][0].ToString();
+                lblTotalInternships.Text = totalInternships;
+                lblActivityTotalPosts.Text = totalInternships;
+
+                // 2. Active Internships
+                da = new SqlDataAdapter("SELECT COUNT(*) FROM internship WHERE CompanyId = " + cId + " AND (Status IS NULL OR (Status <> 'Inactive' AND Status <> 'Draft'))", con);
+                ds = new DataSet();
+                da.Fill(ds);
+                string activeInternships = ds.Tables[0].Rows[0][0].ToString();
+                lblActiveInternships.Text = activeInternships;
+                lblActivityActiveInternships.Text = activeInternships;
+
+                // 3. Total Applications
+                da = new SqlDataAdapter("SELECT COUNT(*) FROM StudentApplications a INNER JOIN internship i ON a.InternshipId = i.Id WHERE i.CompanyId = " + cId, con);
+                ds = new DataSet();
+                da.Fill(ds);
+                string totalApps = ds.Tables[0].Rows[0][0].ToString();
+                lblTotalApplications.Text = totalApps;
+                lblActivityTotalApplications.Text = totalApps;
+
+                // 4. Students Selected
+                da = new SqlDataAdapter("SELECT COUNT(*) FROM StudentApplications a INNER JOIN internship i ON a.InternshipId = i.Id WHERE i.CompanyId = " + cId + " AND (a.Status = 'Selected' OR a.Status = 'Accepted')", con);
+                ds = new DataSet();
+                da.Fill(ds);
+                string selectedCount = ds.Tables[0].Rows[0][0].ToString();
+                lblStudentsSelected.Text = selectedCount;
+                lblActivityStudentsSelected.Text = selectedCount;
+
+                // 5. Current Interns
+                lblActivityCurrentInterns.Text = selectedCount;
+
+                // 6. Completed Internships
+                da = new SqlDataAdapter("SELECT COUNT(*) FROM CompanyCertificates WHERE CompanyId = " + cId, con);
+                ds = new DataSet();
+                da.Fill(ds);
+                lblActivityCompletedInternships.Text = ds.Tables[0].Rows[0][0].ToString();
             }
 
         }

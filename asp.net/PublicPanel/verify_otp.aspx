@@ -1,5 +1,4 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/PublicPanel/public.Master" AutoEventWireup="true" CodeBehind="verify_otp.aspx.cs" Inherits="asp.net.verify_otp" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
@@ -18,7 +17,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Main nav -->
         <div class="navbar">
             <div class="container navbar-inner">
@@ -35,72 +33,23 @@
                     </ul>
                 </nav>
                 <div class="navbar-actions">
-                    <button class="icon-btn" id="searchBtn" type="button" aria-label="Search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <button class="icon-btn" id="notifBtn" type="button" aria-label="Notifications">
-                        <i class="fa-regular fa-bell"></i><span class="badge">1</span>
-                    </button>
-
                     <%-- <a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                    <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />
+                    <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/PublicPanel/login.aspx" Width="150px" />
                     <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                         <i class="fa-solid fa-bars"></i>
                     </button>
                 </div>
             </div>
-
-            <!-- Expandable search bar -->
-            <div class="search-panel" id="searchPanel">
-                <div class="container search-panel-inner">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <asp:TextBox ID="searchInput" ClientIDMode="Static" runat="server" placeholder="Search internships, companies, students..."></asp:TextBox>
-                    <button class="search-close" id="searchClose" type="button" aria-label="Close search">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
             </div>
-
-            <!-- Notification dropdown -->
-            <div class="notif-panel" id="notifPanel">
-                <div class="notif-header">
-                    <h4>Notifications</h4>
-                    <span class="notif-count">1 New</span>
-                </div>
-                <ul class="notif-list">
-                    <li class="notif-item unread"><span class="notif-icon"><i class="fa-solid fa-briefcase"></i></span>
-                        <div>
-                            <p>
-                                Your internship application at <strong>TechNova Pvt Ltd</strong> was shortlisted.
-                            </p>
-                            <span class="notif-time">2 hours ago</span>
-                        </div>
-                    </li>
-                    <li class="notif-item"><span class="notif-icon"><i class="fa-solid fa-certificate"></i></span>
-                        <div>
-                            <p>
-                                Your completion certificate is ready to download.
-                            </p>
-                            <span class="notif-time">Yesterday</span>
-                        </div>
-                    </li>
-                    <li class="notif-item"><span class="notif-icon"><i class="fa-solid fa-building"></i></span>
-                        <div>
-                            <p>
-                                New internship posted by <strong>Bright Solutions</strong>.
-                            </p>
-                            <span class="notif-time">2 days ago</span>
-                        </div>
-                    </li>
-                </ul>
-                <a href="#" class="notif-viewall">View All Notifications</a>
             </div>
-        </div>
     </header>
 </asp:Content>
-
 <asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
     <style>
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
         .fp-page-wrapper {
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             padding: 60px 20px;
@@ -109,8 +58,10 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
         }
-
         .fp-page-wrapper::before {
             content: '';
             position: absolute;
@@ -121,7 +72,6 @@
             background: radial-gradient(circle, rgba(37,99,235,0.03) 0%, rgba(255,255,255,0) 70%);
             pointer-events: none;
         }
-
         .fp-premium-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -134,7 +84,6 @@
             overflow: hidden;
             z-index: 10;
         }
-
         .fp-premium-card::before {
             content: '';
             position: absolute;
@@ -144,7 +93,6 @@
             height: 6px;
             background: linear-gradient(90deg, #2563eb, #7c3aed, #db2777);
         }
-
         .fp-steps {
             margin-bottom: 40px;
             background: #f1f5f9;
@@ -152,18 +100,15 @@
             border-radius: 50px;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
         }
-
         .fp-step-circle {
             width: 32px;
             height: 32px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
         }
-
         .fp-step.active .fp-step-circle {
             transform: scale(1.1);
         }
-
         .modal-icon {
             width: 70px;
             height: 70px;
@@ -172,7 +117,6 @@
             box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.2);
             transition: transform 0.3s ease;
         }
-
         .modal-title {
             font-size: 26px;
             font-weight: 800;
@@ -180,14 +124,12 @@
             margin-bottom: 12px;
             letter-spacing: -0.5px;
         }
-
         .modal-sub {
             font-size: 15px;
             color: #475569;
             margin-bottom: 35px;
             line-height: 1.6;
         }
-
         .btn-login {
             border-radius: 12px;
             padding: 15px;
@@ -197,12 +139,10 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: uppercase;
         }
-
         .btn-login:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.3);
         }
-
         .otp-box {
             width: 54px;
             height: 64px;
@@ -216,14 +156,12 @@
             color: #1e293b;
             text-align: center;
         }
-
         .otp-box:focus {
             border-color: #7c3aed;
             background: #fff;
             box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
             transform: translateY(-4px);
         }
-
         .forgot-link-btn {
             display: inline-flex;
             align-items: center;
@@ -232,16 +170,13 @@
             color: #64748b;
             transition: color 0.2s ease;
         }
-
         .forgot-link-btn:hover {
             color: #2563eb;
         }
-
         .otp-inputs {
             display: flex;
         }
     </style>
-
     <div class="fp-page-wrapper">
         <div class="fp-premium-card" id="fpModalBox">
             <!-- Step indicator -->
@@ -258,12 +193,10 @@
                     <span class="fp-step-circle" style="background: #cbd5e1; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%;">3</span><span class="fp-step-label">Reset</span>
                 </div>
             </div>
-
             <div class="fp-panel active" id="fpStep2">
                 <div class="modal-icon icon-purple" style="display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #f3e8ff; color: #7c3aed;"><i class="fa-solid fa-shield-halved"></i></div>
                 <h3 class="modal-title" style="text-align: center;">Verify OTP</h3>
-                <p class="modal-sub" style="text-align: center;">Enter the 6-digit OTP sent to <strong id="fpMaskedTarget" style="color: #0f172a;">your email</strong>.</p>
-
+                <p class="modal-sub" style="text-align: center;">Enter the 6-digit OTP sent to <strong id="fpMaskedTarget" style="color: #0f172a;"><asp:Label ID="litMaskedEmail" runat="server">your email</asp:Label></strong>.</p>
                 <div class="otp-inputs" id="otpInputs" style="justify-content: center; margin: 30px 0;">
                     <asp:TextBox ID="otp0" ClientIDMode="Static" runat="server" MaxLength="1" CssClass="otp-box"></asp:TextBox>
                     <asp:TextBox ID="otp1" ClientIDMode="Static" runat="server" MaxLength="1" CssClass="otp-box"></asp:TextBox>
@@ -272,18 +205,15 @@
                     <asp:TextBox ID="otp4" ClientIDMode="Static" runat="server" MaxLength="1" CssClass="otp-box"></asp:TextBox>
                     <asp:TextBox ID="otp5" ClientIDMode="Static" runat="server" MaxLength="1" CssClass="otp-box"></asp:TextBox>
                 </div>
-                <span class="field-error" id="otpError" style="text-align: center; display: none; margin-top: -15px; margin-bottom: 15px; color: #ef4444;">Invalid OTP. Please try again.</span>
-
+                <asp:Label ID="lblOtpError" runat="server" style="display:block; text-align:center; color:#ef4444; margin-bottom:15px; font-weight:600;"></asp:Label>
                 <div class="otp-resend-row" style="display: flex; justify-content: center; margin-bottom: 10px;">
                     <span id="otpTimerText">Resend OTP in <strong id="otpTimerSeconds" style="color: #2563eb;">30</strong>s</span>
-                    <a href="#" id="otpResendLink" class="forgot-link otp-resend-hidden" style="font-weight: 600; color: #2563eb; display: none;">Resend OTP</a>
+                    <a href="forgot_password.aspx" id="otpResendLink" class="forgot-link" style="font-weight: 600; color: #2563eb; display: none;">Resend OTP</a>
                 </div>
-
-                <div class="login-demo-hint" id="demoOtpHint" style="text-align: center; margin-bottom: 25px; background: #f1f5f9; padding: 10px; border-radius: 8px; font-size: 14px; color: #475569; display: none;">
-                    <strong>Demo OTP:</strong> <span id="demoOtpValue">123456</span>
+                <div class="login-demo-hint" id="demoOtpHint" style="text-align: center; margin-bottom: 25px; background: #f1f5f9; padding: 10px; border-radius: 8px; font-size: 14px; color: #475569;">
+                    <strong>Demo OTP:</strong> <span id="demoOtpValue" style="font-weight: 700; color: #2563eb; letter-spacing: 2px;"><asp:Label ID="litDemoOtp" runat="server">123456</asp:Label></span>
                 </div>
-
-                <asp:ImageButton ID="fpVerifyOtpBtn" ClientIDMode="Static" runat="server" ImageUrl="~/assets/otp2.png" AlternateText="Verify OTP" OnClientClick="return false;" Style="width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
+                <asp:ImageButton ID="fpVerifyOtpBtn" ClientIDMode="Static" runat="server" ImageUrl="~/assets/otp2.png" AlternateText="Verify OTP" OnClick="fpVerifyOtpBtn_Click" Style="width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
                 <div style="text-align: center; margin-top: 20px;">
                     <a href="forgot_password.aspx" class="forgot-link-btn">
                         <i class="fa-solid fa-arrow-left"></i>Change Email Address

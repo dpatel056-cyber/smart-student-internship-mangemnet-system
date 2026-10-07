@@ -1,12 +1,128 @@
 <%@ Page Title="Edit Profile" Language="C#" MasterPageFile="~/StudentPanel/student.Master" AutoEventWireup="true" CodeFile="student-edit-profile.aspx.cs" Inherits="asp.net.js.student_edit_profile" %>
 <asp:Content ID="HeadContentEditProfile" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="<%= ResolveUrl("~/css/student-edit-profile.css") %>" />
+    <link rel="stylesheet" href="<%= ResolveUrl("~/css/student-edit-profile.css?v=" + DateTime.Now.Ticks) %>" />
+    <style>
+        .photo-upload-row {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            padding: 20px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            margin-bottom: 24px;
+        }
+        .photo-preview-wrap {
+            width: 84px !important;
+            height: 84px !important;
+            flex: 0 0 84px !important;
+            border-radius: 50% !important;
+            overflow: hidden !important;
+            background: #2563eb !important;
+            color: #ffffff !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border: 3px solid #dbeafe !important;
+            position: relative !important;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.18) !important;
+        }
+        .photo-preview {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            border-radius: 50% !important;
+        }
+        .photo-preview-initials {
+            font-size: 30px !important;
+            font-weight: 700 !important;
+            color: #ffffff !important;
+            line-height: 1 !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-transform: uppercase !important;
+            width: 100% !important;
+            height: 100% !important;
+            text-align: center !important;
+            letter-spacing: 1px !important;
+        }
+        .photo-upload-copy h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 4px;
+        }
+        .photo-upload-copy p {
+            font-size: 13px;
+            color: #64748b;
+            margin: 0 0 14px;
+        }
+        .photo-upload-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .photo-upload-trigger {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            padding: 9px 18px !important;
+            background-color: #2563eb !important;
+            color: #ffffff !important;
+            border: 1px solid #2563eb !important;
+            border-radius: 8px !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            text-decoration: none !important;
+            transition: all 0.2s ease !important;
+            line-height: 1.4 !important;
+        }
+        .photo-upload-trigger i {
+            color: #ffffff !important;
+            font-size: 14px !important;
+        }
+        .photo-upload-trigger:hover {
+            background-color: #1d4ed8 !important;
+            border-color: #1d4ed8 !important;
+            color: #ffffff !important;
+        }
+        .photo-remove-btn {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            padding: 9px 18px !important;
+            background-color: #fee2e2 !important;
+            color: #dc2626 !important;
+            border: 1px solid #fecaca !important;
+            border-radius: 8px !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            text-decoration: none !important;
+            transition: all 0.2s ease !important;
+            line-height: 1.4 !important;
+        }
+        .photo-remove-btn i {
+            color: #dc2626 !important;
+            font-size: 14px !important;
+        }
+        .photo-remove-btn:hover {
+            background-color: #fecaca !important;
+            color: #b91c1c !important;
+            border-color: #f87171 !important;
+            text-decoration: none !important;
+        }
+        .photo-remove-btn:hover i {
+            color: #b91c1c !important;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="MainContentEditProfile" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 <section class="student-edit-page" aria-labelledby="editProfileTitle">
   <header class="edit-page-header">
       <div>
-
           <h1 id="editProfileTitle">Edit Profile</h1>
           <p>Keep your personal and academic details up to date.</p>
       </div>
@@ -14,9 +130,7 @@
           <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Profile
       </asp:HyperLink>
   </header>
-
   <div class="edit-form-stack">
-
     <!-- Personal Information Card -->
     <article class="edit-card">
       <header class="edit-card-header">
@@ -25,22 +139,26 @@
               <p>Manage your basic and professional personal details</p>
           </div>
       </header>
-
       <!-- Profile Photo Upload -->
       <div class="photo-upload-row">
           <div class="photo-preview-wrap">
-              <asp:Image ID="imgProfilePreview" runat="server" ImageUrl="~/Assets/Images/students/default-avatar.png" AlternateText="Profile photo preview" CssClass="photo-preview" />
+              <asp:Image ID="imgProfilePreview" runat="server" AlternateText="Profile photo preview" CssClass="photo-preview" Style="display:none;" />
+              <asp:Label ID="lblProfileInitials" runat="server" CssClass="photo-preview-initials" Text="ST" Style="display:flex;"></asp:Label>
           </div>
           <div class="photo-upload-copy">
               <h3>Profile Photo</h3>
               <p>Use a clear JPG, PNG or WebP image up to 2 MB.</p>
-              <label class="photo-upload-trigger" for="<%= fileProfilePhoto.ClientID %>">
-                  <i class="fa-solid fa-camera" aria-hidden="true"></i> Choose photo
-              </label>
+              <div class="photo-upload-buttons">
+                  <label class="photo-upload-trigger" for="<%= fileProfilePhoto.ClientID %>">
+                      <i class="fa-solid fa-camera" aria-hidden="true"></i> Choose photo
+                  </label>
+                  <asp:LinkButton ID="btnRemovePhoto" runat="server" CssClass="photo-remove-btn" OnClick="btnRemovePhoto_Click" CausesValidation="false">
+                      <i class="fa-solid fa-trash-can" aria-hidden="true"></i> Remove Photo
+                  </asp:LinkButton>
+              </div>
               <asp:FileUpload ID="fileProfilePhoto" runat="server" CssClass="file-input-hidden" accept="image/png,image/jpeg,image/webp" />
           </div>
       </div>
-
       <!-- 1. Basic Information -->
       <div class="edit-section-subtitle">
           <i class="fa-solid fa-id-card" aria-hidden="true"></i> Basic Information
@@ -86,9 +204,7 @@
                 <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-input" placeholder="Enter contact number" />
             </div>
         </div>
-        
       </div>
-
       <!-- 2. Address Information -->
       <div class="edit-section-subtitle">
           <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Address Information
@@ -123,7 +239,6 @@
             </div>
         </div>
       </div>
-
       <!-- 3. About Me -->
       <div class="edit-section-subtitle">
           <i class="fa-solid fa-user-pen" aria-hidden="true"></i> About Me
@@ -136,7 +251,6 @@
             </div>
         </div>
       </div>
-
       <!-- 4. Internship Preferences -->
       <div class="edit-section-subtitle">
           <i class="fa-solid fa-briefcase" aria-hidden="true"></i> Internship Preferences
@@ -187,7 +301,6 @@
             </div>
         </div>
       </div>
-
       <!-- 5. Professional Links -->
       <div class="edit-section-subtitle">
           <i class="fa-solid fa-link" aria-hidden="true"></i> Professional Links
@@ -216,7 +329,6 @@
         </div>
       </div>
     </article>
-
     <!-- Academic Information Card -->
     <article class="edit-card">
       <header class="edit-card-header">
@@ -233,7 +345,7 @@
             <asp:Label ID="lblEnrollmentNumberField" runat="server" AssociatedControlID="txtEnrollmentNumber" CssClass="field-label">ENROLLMENT NUMBER</asp:Label>
             <div class="input-shell">
                 <i class="fa-solid fa-id-card" aria-hidden="true"></i>
-                <asp:TextBox ID="txtEnrollmentNumber" runat="server" CssClass="form-input" placeholder="Enter enrollment number" />
+                <asp:TextBox ID="txtEnrollmentNumber" runat="server" CssClass="form-input" placeholder="e.g. 24FOTCA11001" />
             </div>
         </div>
         <div class="form-field">
@@ -244,10 +356,22 @@
             </div>
         </div>
         <div class="form-field">
-            <asp:Label ID="lblCourseField" runat="server" AssociatedControlID="txtCourse" CssClass="field-label">COURSE / DEGREE <span>*</span></asp:Label>
+            <asp:Label ID="lblCourseField" runat="server" AssociatedControlID="ddlCourse" CssClass="field-label">COURSE / DEGREE <span>*</span></asp:Label>
             <div class="input-shell">
                 <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
-                <asp:TextBox ID="txtCourse" runat="server" CssClass="form-input" placeholder="e.g. BCA, BTech" />
+                <asp:DropDownList ID="ddlCourse" runat="server" CssClass="form-input form-select">
+                    <asp:ListItem Value="">Select Course</asp:ListItem>
+                    <asp:ListItem Value="BCA" Text="BCA"></asp:ListItem>
+                    <asp:ListItem Value="MCA" Text="MCA"></asp:ListItem>
+                    <asp:ListItem Value="B.Tech" Text="B.Tech"></asp:ListItem>
+                    <asp:ListItem Value="M.Tech" Text="M.Tech"></asp:ListItem>
+                    <asp:ListItem Value="B.Sc IT" Text="B.Sc IT"></asp:ListItem>
+                    <asp:ListItem Value="M.Sc IT" Text="M.Sc IT"></asp:ListItem>
+                    <asp:ListItem Value="B.Sc CS" Text="B.Sc CS"></asp:ListItem>
+                    <asp:ListItem Value="M.Sc CS" Text="M.Sc CS"></asp:ListItem>
+                    <asp:ListItem Value="Diploma Engineering" Text="Diploma Engineering"></asp:ListItem>
+                    <asp:ListItem Value="MBA" Text="MBA"></asp:ListItem>
+                </asp:DropDownList>
             </div>
         </div>
         <div class="form-field">
@@ -280,28 +404,33 @@
         </div>
       </div>
     </article>
-
   </div>
-
   <footer class="edit-actions">
       <asp:HyperLink ID="hlCancel" runat="server" NavigateUrl="~/StudentPanel/student-profile.aspx" CssClass="edit-btn edit-btn-secondary">Cancel</asp:HyperLink>
       <asp:Button ID="btnSaveChanges" runat="server" CssClass="edit-btn edit-btn-primary" Text="Save Changes" OnClick="btnSaveChanges_Click" />
   </footer>
 </section>
-
 <script>
 (function(){
     var i = document.getElementById('<%= fileProfilePhoto.ClientID %>'),
-        p = document.getElementById('<%= imgProfilePreview.ClientID %>');
-    if(!i || !p) return;
+        p = document.getElementById('<%= imgProfilePreview.ClientID %>'),
+        init = document.getElementById('<%= lblProfileInitials.ClientID %>');
+    if(!i) return;
     i.addEventListener('change', function(){
         var f = this.files && this.files[0];
         if(!f || !/^image\//i.test(f.type)) return;
         var r = new FileReader();
-        r.onload = function(e){ p.src = e.target.result; };
+        r.onload = function(e){
+            if (p) {
+                p.src = e.target.result;
+                p.style.display = 'block';
+            }
+            if (init) {
+                init.style.display = 'none';
+            }
+        };
         r.readAsDataURL(f);
     });
 }());
 </script>
 </asp:Content>
-

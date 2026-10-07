@@ -161,48 +161,87 @@
     tooltipEl.style.transform      = "translate(-50%, calc(-100% - 10px))";
   }
 
-  function initApplicationStatusDonut() {
-    var canvas = document.getElementById("simsApplicationStatusDonut");
+  function initAdminApplicationPieChart() {
+    var canvas = document.getElementById("adminApplicationPieChart");
     if (!canvas || typeof Chart === "undefined") return;
 
-    /* The parent of the canvas must be position:relative for the tooltip div */
-    canvas.parentNode.style.position = "relative";
-
     var ctx = canvas.getContext("2d");
+
+    var pendingCount = parseInt(canvas.getAttribute("data-pending") || "0", 10);
+    var shortlistedCount = parseInt(canvas.getAttribute("data-shortlisted") || "0", 10);
+    var selectedCount = parseInt(canvas.getAttribute("data-selected") || "0", 10);
+    var rejectedCount = parseInt(canvas.getAttribute("data-rejected") || "0", 10);
+
+    var total = pendingCount + shortlistedCount + selectedCount + rejectedCount;
+
+    var chartData = [pendingCount, shortlistedCount, selectedCount, rejectedCount];
+    var chartLabels = ["Pending", "Shortlisted", "Selected", "Rejected"];
+    var chartColors = [
+      "#ca8a04", // Yellow/Amber (Pending)
+      "#2563eb", // Blue (Shortlisted)
+      "#16a34a", // Green (Selected)
+      "#dc2626"  // Red (Rejected)
+    ];
+
+    if (total === 0) {
+      chartData = [1];
+      chartLabels = ["No Applications Yet"];
+      chartColors = ["#e2e8f0"];
+    }
 
     new Chart(ctx, {
       type: "doughnut",
       data: {
-        labels: ["Applied", "Shortlisted", "Interview", "Selected", "Rejected"],
+        labels: chartLabels,
         datasets: [
           {
-            data: [1245, 645, 485, 325, 145],
-            backgroundColor: [
-              "#f59e0b", // Applied
-              "#3b82f6", // Shortlisted
-              "#8b5cf6", // Interview
-              "#10b981", // Selected
-              "#ef4444"  // Rejected
-            ],
+            data: chartData,
+            backgroundColor: chartColors,
             borderWidth: 3,
             borderColor: "#ffffff",
-            hoverOffset: 8
+            hoverOffset: total > 0 ? 6 : 0
           }
         ]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        cutout: "68%",
         plugins: {
-          legend: { display: false },
+          legend: {
+            position: "bottom",
+            labels: {
+              usePointStyle: true,
+              pointStyle: "circle",
+              padding: 14,
+              font: {
+                family: "'Inter', sans-serif",
+                size: 12,
+                weight: "600"
+              },
+              color: "#1e293b"
+            }
+          },
           tooltip: {
-            enabled: false,              /* disable built-in canvas tooltip */
-            external: donutExternalTooltip
+            enabled: total > 0,
+            callbacks: {
+              label: function (context) {
+                var label = context.label || "";
+                var value = context.parsed || 0;
+                var percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                return " " + label + ": " + value + " (" + percentage + "%)";
+              }
+            }
           }
-        }
+        },
+        cutout: "68%"
       }
     });
   }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    initRegistrationLineChart();
+    initApplicationStatusDonut();
+    initAdminApplicationPieChart();
+  });
 
 })();

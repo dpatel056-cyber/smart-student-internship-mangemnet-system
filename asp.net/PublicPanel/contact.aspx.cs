@@ -21,7 +21,6 @@ namespace asp.net
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
         void getcon() {
             con = new SqlConnection(s);

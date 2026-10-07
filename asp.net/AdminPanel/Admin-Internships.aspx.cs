@@ -18,9 +18,21 @@ namespace asp.net
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["admin"] != null)
             {
-                AdminInternships();
+                getcon();
+                da = new SqlDataAdapter("select * from admin_registration where Email='" + Session["admin"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
+
+                if (!IsPostBack)
+                {
+                    AdminInternships();
+                }
+            }
+            else
+            {
+                Response.Redirect("~/PublicPanel/login.aspx");
             }
         }
 
@@ -33,40 +45,77 @@ namespace asp.net
         void AdminInternships()
         {
             getcon();
-            da = new SqlDataAdapter("select i.*, c.c_company, c.c_logo, c.c_industry from internship i left join c_registration c on i.CompanyId = c.CompanyId order by i.Id desc", con);
+            da = new SqlDataAdapter("select i.*, c.c_company, c.c_logo, c.c_industry from internship i inner join c_registration c on i.CompanyId=c.CompanyId order by i.Id desc", con);
             ds = new DataSet();
             da.Fill(ds);
-            DataListAdminInternships.DataSource = ds;
-            DataListAdminInternships.DataBind();
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                DataListAdminInternships.DataSource = ds;
+                DataListAdminInternships.DataBind();
+
+                DataListAdminInternships.Visible = true;
+                pnlNoInternships.Visible = false;
+
+                lblResultCount.Text = "Showing " + ds.Tables[0].Rows.Count + " internships";
+            }
+            else
+            {
+                DataListAdminInternships.Visible = false;
+                pnlNoInternships.Visible = true;
+
+                lblResultCount.Text = "Showing 0 internships";
+            }
         }
 
         protected void DataListAdminInternships_ItemCommand(object source, DataListCommandEventArgs e)
         {
             if (e.CommandName == "cmd_view")
             {
-                Response.Redirect("admin-internship-details.aspx?id=" + e.CommandArgument.ToString());
+                Response.Redirect("admin-internship-details.aspx?id=" + e.CommandArgument);
+            }
+            else if (e.CommandName == "cmd_toggle_status")
+            {
+                string[] data = e.CommandArgument.ToString().Split('|');
+                string id = data[0];
+                string status = data[1];
+                string newStatus = (status == "Active") ? "Inactive" : "Active";
+
+                getcon();
+                cmd = new SqlCommand("update internship set Status='" + newStatus + "' where Id='" + id + "'", con);
+                cmd.ExecuteNonQuery();
+                AdminInternships();
             }
             else if (e.CommandName == "cmd_delete")
             {
                 getcon();
-                cmd = new SqlCommand("delete from internship where Id='" + e.CommandArgument.ToString() + "'", con);
+                cmd = new SqlCommand("delete from internship where Id='" + e.CommandArgument + "'", con);
                 cmd.ExecuteNonQuery();
                 AdminInternships();
             }
         }
-
+        //-------------------------------------
+        public bool IsInternshipActive(object status)
+        {
+            return status.ToString() == "Active";
+        }
         public string GetCompanyLogo(object logoObj)
         {
-            if (logoObj != null && logoObj != DBNull.Value && !string.IsNullOrEmpty(logoObj.ToString()))
+            if (logoObj != null && logoObj != DBNull.Value && !string.IsNullOrEmpty(logoObj.ToString().Trim()))
             {
                 string logo = logoObj.ToString().Trim();
+                if (logo.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || logo.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                {
+                    return logo;
+                }
                 if (logo.StartsWith("~") || logo.StartsWith("/"))
                 {
                     return ResolveUrl(logo);
                 }
+
                 return ResolveUrl("~/CompanyUploads/" + logo);
             }
-            return ResolveUrl("~/assets/default-company.png");
+            return ResolveUrl("~/CompanyUploads/default-company.png");
         }
     }
 }

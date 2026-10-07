@@ -4,6 +4,8 @@ namespace asp.net.js
     {
         protected global::System.Web.UI.WebControls.HyperLink hlBackToProfile;
         protected global::System.Web.UI.WebControls.Image imgProfilePreview;
+        protected global::System.Web.UI.WebControls.Label lblProfileInitials;
+        protected global::System.Web.UI.WebControls.LinkButton btnRemovePhoto;
         protected global::System.Web.UI.WebControls.FileUpload fileProfilePhoto;
 
         protected global::System.Web.UI.WebControls.TextBox txtFullName;
@@ -19,7 +21,7 @@ namespace asp.net.js
         protected global::System.Web.UI.WebControls.TextBox txtPincode;
 
         protected global::System.Web.UI.WebControls.TextBox txtCollegeName;
-        protected global::System.Web.UI.WebControls.TextBox txtCourse;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCourse;
         protected global::System.Web.UI.WebControls.TextBox txtDepartment;
         protected global::System.Web.UI.WebControls.TextBox txtSemester;
         protected global::System.Web.UI.WebControls.TextBox txtGraduationYear;

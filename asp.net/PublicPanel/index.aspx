@@ -1,9 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/PublicPanel/public.Master" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="asp.net.index" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-
 <asp:Content ID="Content2" runat="server" contentplaceholderid="ContentPlaceHolder2">
-  
     <main>
     <section class="hero">
         <div class="hero-bg-shape">
@@ -18,7 +16,7 @@
                 <%--<div class="hero-btns">
                     <a href="internships.aspx" class="btn btn-primary btn-lg">Explore Internships <i class="fa-solid fa-arrow-right"></i></a>
                 </div>--%>
-                <asp:ImageButton ID="homeimagebtn" runat="server" ImageUrl="~/assets/home.png" PostBackUrl="~/internships.aspx" />
+                <asp:ImageButton ID="homeimagebtn" runat="server" ImageUrl="~/assets/home.png" PostBackUrl="~/PublicPanel/internships.aspx" />
                 <div class="hero-trusted">
                     <span>Trusted by Students &amp; Top Companies</span>
                     <div class="trusted-logos">
@@ -100,7 +98,6 @@
     </section>
     </main>
 </asp:Content>
-
 <asp:Content ID="Content3" runat="server" contentplaceholderid="ContentPlaceHolder1">
     <!-- ============ HEADER ============ -->
                 <header class="site-header">
@@ -118,7 +115,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Main nav -->
                     <div class="navbar">
                         <div class="container navbar-inner">
@@ -135,68 +131,14 @@
                                 </ul>
                             </nav>
                             <div class="navbar-actions">
-                                <button class="icon-btn" id="searchBtn" type="button" aria-label="Search">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                </button>
-                                <button class="icon-btn" id="notifBtn" type="button" aria-label="Notifications">
-                                    <i class="fa-regular fa-bell"></i><span class="badge">1</span>
-                                </button>
                                 <%-- <a href="login.aspx" class="btn btn-primary">Login / Register</a> --%>
-                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />           
+                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/PublicPanel/login.aspx" Width="150px" />
                                 <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>
                             </div>
                         </div>
-
-                        <!-- Expandable search bar -->
-                        <div class="search-panel" id="searchPanel">
-                            <div class="container search-panel-inner">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                <asp:TextBox ID="searchInput" ClientIDMode="Static" runat="server" placeholder="Search internships, companies, students..."></asp:TextBox>
-                                <button class="search-close" id="searchClose" type="button" aria-label="Close search">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
                         </div>
-
-                        <!-- Notification dropdown -->
-                        <div class="notif-panel" id="notifPanel">
-                            <div class="notif-header">
-                                <h4>Notifications</h4>
-                                <span class="notif-count">1 New</span>
-                            </div>
-                            <ul class="notif-list">
-                                <li class="notif-item unread"><span class="notif-icon"><i class="fa-solid fa-briefcase"></i></span>
-                                    <div>
-                                        <p>
-                                            Your internship application at <strong>TechNova Pvt Ltd</strong> was shortlisted.
-                                        </p>
-                                        <span class="notif-time">2 hours ago</span>
-                                    </div>
-                                </li>
-                                <li class="notif-item"><span class="notif-icon"><i class="fa-solid fa-certificate"></i></span>
-                                    <div>
-                                        <p>
-                                            Your completion certificate is ready to download.
-                                        </p>
-                                        <span class="notif-time">Yesterday</span>
-                                    </div>
-                                </li>
-                                <li class="notif-item"><span class="notif-icon"><i class="fa-solid fa-building"></i></span>
-                                    <div>
-                                        <p>
-                                            New internship posted by <strong>Bright Solutions</strong>.
-                                        </p>
-                                        <span class="notif-time">2 days ago</span>
-                                    </div>
-                                </li>
-                            </ul>
-                            <a href="#" class="notif-viewall">View All Notifications</a>
                         </div>
-                    </div>
                 </header>
 </asp:Content>
-
-
-

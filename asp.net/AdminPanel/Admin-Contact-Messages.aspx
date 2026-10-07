@@ -1,5 +1,4 @@
 <%@ Page Title="Contact Messages" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="admin-contact-messages.aspx.cs" Inherits="asp.net.AdminPanel.Admin_Contact_Messages" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         :root {
@@ -11,12 +10,13 @@
             --cm-text-muted: #64748B;
             --cm-border: #E2E8F0;
             --cm-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --cm-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08),0 2px 4px -2px rgb(0 0 0 / 0.06);
-            --cm-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.10),0 4px 6px -4px rgb(0 0 0 / 0.08);
+            --cm-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+            --cm-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.08);
             --cm-radius: 12px;
             --cm-radius-lg: 16px;
         }
 
+        /* ===== PAGE LAYOUT ===== */
         .cm-container {
             font-family: 'Inter', sans-serif;
             background-color: var(--cm-bg);
@@ -26,7 +26,6 @@
             margin: 0 auto;
             box-sizing: border-box;
         }
-
 
         .cm-header-section {
             display: flex;
@@ -49,6 +48,7 @@
             margin: 0;
         }
 
+        /* ===== BUTTONS ===== */
         .cm-btn {
             display: inline-flex;
             align-items: center;
@@ -86,6 +86,7 @@
                 border-color: var(--cm-primary-hover);
             }
 
+        /* ===== STATS CARDS ===== */
         .cm-stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -103,7 +104,7 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            transition: transform .2s ease,box-shadow .2s ease;
+            transition: transform .2s ease, box-shadow .2s ease;
         }
 
             .cm-stat-card:hover {
@@ -160,7 +161,7 @@
             line-height: 1;
         }
 
-
+        /* ===== CONTENT CARD & FILTERS ===== */
         .cm-content-card {
             background: #fff;
             border-radius: var(--cm-radius-lg);
@@ -168,7 +169,6 @@
             border: 1px solid var(--cm-border);
             overflow: hidden;
         }
-
 
         .cm-filters-bar {
             padding: 18px 22px;
@@ -211,7 +211,7 @@
 
             .cm-search-input:focus {
                 border-color: var(--cm-primary);
-                box-shadow: 0 0 0 3px rgba(79,70,229,.10);
+                box-shadow: 0 0 0 3px rgba(79, 70, 229, .10);
             }
 
         .cm-filter-group {
@@ -252,11 +252,7 @@
                 color: var(--cm-text-main);
             }
 
-
-        /* =========================================================
-           TABLE
-        ========================================================= */
-
+        /* ===== TABLE ===== */
         .cm-table-container {
             width: 100%;
             overflow-x: auto;
@@ -308,20 +304,12 @@
                     background: #F8FBFF;
                 }
 
-
-            /* =========================================================
-           GRIDVIEW STATUS
-        ========================================================= */
-
+            /* ===== GRIDVIEW STATUS ===== */
             .cm-table-container td span {
                 font-weight: 600;
             }
 
-
-            /* =========================================================
-           ACTION LINKS
-        ========================================================= */
-
+            /* ===== ACTION LINKS ===== */
             .cm-table-container td a {
                 display: inline-flex;
                 align-items: center;
@@ -342,7 +330,6 @@
                     border-color: #93C5FD;
                 }
 
-
         .cm-table-actions {
             display: flex;
             align-items: center;
@@ -359,10 +346,7 @@
                 border-color: #fca5a5;
             }
 
-        /* =========================================================
-           PAGINATION
-        ========================================================= */
-
+        /* ===== PAGINATION ===== */
         .cm-pagination-bar {
             padding: 16px 22px;
             border-top: 1px solid var(--cm-border);
@@ -377,25 +361,17 @@
             color: var(--cm-text-muted);
         }
 
-
-        /* =========================================================
-           DRAWER OVERLAY
-        ========================================================= */
-
+        /* ===== DRAWER OVERLAY ===== */
         .cm-drawer-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(15,23,42,.40);
+            background: rgba(15, 23, 42, .40);
             z-index: 1040;
             display: none;
             backdrop-filter: blur(2px);
         }
 
-
-        /* =========================================================
-           DRAWER
-        ========================================================= */
-
+        /* ===== DRAWER ===== */
         .cm-drawer {
             position: fixed;
             top: 50%;
@@ -410,10 +386,10 @@
             flex-direction: column;
             border-radius: var(--cm-radius-lg);
             border: 1px solid #E2E8F0;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,.25);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .25);
             opacity: 0;
             visibility: hidden;
-            transition: transform .3s cubic-bezier(.4,0,.2,1), opacity .3s cubic-bezier(.4,0,.2,1), visibility .3s;
+            transition: transform .3s cubic-bezier(.4, 0, .2, 1), opacity .3s cubic-bezier(.4, 0, .2, 1), visibility .3s;
         }
 
             .cm-drawer.open {
@@ -422,11 +398,7 @@
                 visibility: visible;
             }
 
-
-        /* =========================================================
-           DRAWER HEADER
-        ========================================================= */
-
+        /* ===== DRAWER HEADER ===== */
         .cm-drawer-header {
             min-height: 74px;
             padding: 0 28px;
@@ -494,11 +466,7 @@
                 color: #475569;
             }
 
-
-        /* =========================================================
-           DRAWER BODY
-        ========================================================= */
-
+        /* ===== DRAWER BODY ===== */
         .cm-drawer-body {
             flex: 1;
             overflow-y: auto;
@@ -507,11 +475,7 @@
             box-sizing: border-box;
         }
 
-
-        /* =========================================================
-           DETAILS GRID
-        ========================================================= */
-
+        /* ===== DETAILS GRID ===== */
         .cm-detail-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -545,11 +509,7 @@
             overflow-wrap: anywhere;
         }
 
-
-        /* =========================================================
-           STATUS
-        ========================================================= */
-
+        /* ===== STATUS ===== */
         .cm-detail-status {
             display: flex;
             align-items: center;
@@ -568,11 +528,7 @@
             outline: none;
         }
 
-
-        /* =========================================================
-           SUBJECT
-        ========================================================= */
-
+        /* ===== SUBJECT ===== */
         .cm-subject-section {
             display: flex;
             flex-direction: column;
@@ -589,11 +545,7 @@
             overflow-wrap: anywhere;
         }
 
-
-        /* =========================================================
-           MESSAGE
-        ========================================================= */
-
+        /* ===== MESSAGE ===== */
         .cm-message-section {
             margin-bottom: 30px;
         }
@@ -605,7 +557,7 @@
             background: #F8FAFC;
             border: 1px solid #E2E8F0;
             border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(15,23,42,.03);
+            box-shadow: 0 3px 12px rgba(15, 23, 42, .03);
         }
 
         .cm-message-text {
@@ -616,11 +568,7 @@
             overflow-wrap: anywhere;
         }
 
-
-        /* =========================================================
-           HISTORY
-        ========================================================= */
-
+        /* ===== HISTORY ===== */
         .cm-history-section {
             margin-bottom: 30px;
         }
@@ -693,7 +641,7 @@
             border: 1px solid #DFE6EF;
             border-radius: 11px;
             padding: 13px 15px;
-            box-shadow: 0 2px 8px rgba(15,23,42,.04);
+            box-shadow: 0 2px 8px rgba(15, 23, 42, .04);
         }
 
         .cm-timeline-header {
@@ -724,11 +672,7 @@
             overflow-wrap: anywhere;
         }
 
-
-        /* =========================================================
-           ADMIN RESPONSE
-        ========================================================= */
-
+        /* ===== ADMIN RESPONSE ===== */
         .cm-reply-area {
             display: flex;
             flex-direction: column;
@@ -759,14 +703,10 @@
 
             .cm-textarea:focus {
                 border-color: #4F46E5;
-                box-shadow: 0 0 0 3px rgba(79,70,229,.10);
+                box-shadow: 0 0 0 3px rgba(79, 70, 229, .10);
             }
 
-
-        /* =========================================================
-           DRAWER FOOTER
-        ========================================================= */
-
+        /* ===== DRAWER FOOTER ===== */
         .cm-drawer-footer {
             min-height: 72px;
             padding: 15px 28px;
@@ -784,15 +724,11 @@
                 justify-content: center;
             }
 
-
-        /* =========================================================
-           DELETE MODAL
-        ========================================================= */
-
+        /* ===== DELETE MODAL ===== */
         .cm-modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(15,23,42,.50);
+            background: rgba(15, 23, 42, .50);
             z-index: 1100;
             display: none;
             align-items: center;
@@ -808,7 +744,7 @@
             background: #fff;
             border-radius: 16px;
             padding: 32px 24px;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,.10), 0 10px 10px -5px rgba(0,0,0,.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .10), 0 10px 10px -5px rgba(0, 0, 0, .04);
             text-align: center;
         }
 
@@ -875,13 +811,8 @@
                 background: #F1F5F9;
             }
 
-
-        /* =========================================================
-           RESPONSIVE
-        ========================================================= */
-
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
-
             .cm-stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -896,9 +827,7 @@
             }
         }
 
-
         @media (max-width: 600px) {
-
             .cm-container {
                 padding: 20px 12px 32px;
             }
@@ -949,526 +878,158 @@
             }
         }
     </style>
-
 </asp:Content>
 
-
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-
     <div class="cm-container">
 
-
+        <!-- Page Header -->
         <div class="cm-header-section">
-
             <div class="cm-title-area">
-
-                <h1>Contact Messages
-                </h1>
-
-                <p>
-                    Manage enquiries and messages submitted through the contact form.
-                </p>
-
+                <h1>Contact Messages</h1>
+                <p>Manage enquiries and messages submitted through the contact form.</p>
             </div>
-
         </div>
 
-
-
-
-
-
-
-
-
-
-        <!-- =====================================================
-             MAIN CONTENT CARD
-        ===================================================== -->
-
+        <!-- Content Card -->
         <div class="cm-content-card">
 
-
-            <!-- =================================================
-                 FILTER BAR
-            ================================================= -->
-
-            <div class="cm-filters-bar">
-
-
-                <div class="cm-search-wrapper">
-
-                    <i class="fa-solid fa-magnifying-glass"></i>
-
-                    <input type="text" id="txtSearch" class="cm-search-input" placeholder="Search by student name, email or subject..." />
-
+            <!-- Search Bar -->
+            <div class="cm-filters-bar" style="padding: 18px 22px; border-bottom: 1px solid var(--cm-border); display: flex; align-items: center; justify-content: space-between; background: #fff;">
+                <div class="cm-search-wrapper" style="position: relative; flex: 1; min-width: 300px; max-width: 520px;">
+                    <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94A3B8; pointer-events: none;"></i>
+                    <input type="text" id="txtSearch" class="cm-search-input" placeholder="Search by student name, email or subject..." style="width: 100%; box-sizing: border-box; padding: 11px 14px 11px 40px; border: 1px solid var(--cm-border); border-radius: 8px; font-size: 14px; color: var(--cm-text-main); outline: none;" />
                 </div>
-
-
-
-
-                <!-- =================================================
-                 TABLE
-            ================================================= -->
-
-                <div class="cm-table-container">
-
-
-                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="cm-table" UseAccessibleHeader="true" GridLines="None" OnRowCommand="GridView1_RowCommand">
-
-
-                        <Columns>
-
-                            <asp:BoundField DataField="c_name" HeaderText="Student" />
-
-                            <asp:BoundField DataField="c_email" HeaderText="Email" />
-
-                            <asp:BoundField DataField="c_subject" HeaderText="Subject" />
-
-                            <asp:BoundField DataField="c_date" HeaderText="Submitted Date" DataFormatString="{0:dd MMM yyyy}" />
-
-                            <asp:TemplateField HeaderText="Submitted Time">
-
-                                <ItemTemplate>
-                                    <%# Eval("c_date", "{0:hh:mm tt}") %>
-                                </ItemTemplate>
-
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="ACTION">
-
-                                <ItemTemplate>
-
-                                    <div class="cm-table-actions">
-                                        <asp:LinkButton ID="btnView" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="ViewContact">
-                                        <i class="fa-solid fa-eye"></i> View
-                                        </asp:LinkButton>
-                                        <asp:LinkButton ID="btnDelete" runat="server" CssClass="cm-delete-link" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_dlt" CausesValidation="false">
-                                        <i class="fa-solid fa-trash-can"></i> Delete
-                                        </asp:LinkButton>
-                                    </div>
-
-                                </ItemTemplate>
-
-                            </asp:TemplateField>
-
-
-                        </Columns>
-
-
-                    </asp:GridView>
-
-
-                </div>
-
-
-
-
             </div>
 
+            <!-- Messages Table -->
+            <div class="cm-table-container">
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="cm-table" UseAccessibleHeader="true" GridLines="None" OnRowCommand="GridView1_RowCommand">
+                    <Columns>
+                        <asp:TemplateField HeaderText="Student">
+                            <ItemTemplate>
+                                <asp:Label ID="lblStudent" runat="server" Text='<%# Eval("c_name") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
 
+                        <asp:TemplateField HeaderText="Email">
+                            <ItemTemplate>
+                                <asp:Label ID="lblEmail" runat="server" Text='<%# Eval("c_email") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Subject">
+                            <ItemTemplate>
+                                <asp:Label ID="lblSubject" runat="server" Text='<%# Eval("c_subject") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Submitted Date">
+                            <ItemTemplate>
+                                <asp:Label ID="lblSubmittedDate" runat="server" Text='<%# Eval("c_date", "{0:dd MMM yyyy}") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Submitted Time">
+                            <ItemTemplate>
+                                <asp:Label ID="lblSubmittedTime" runat="server" Text='<%# Eval("c_date", "{0:hh:mm tt}") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="ACTION">
+                            <ItemTemplate>
+                                <div class="cm-table-actions">
+                                    <asp:LinkButton ID="btnView" runat="server" CommandName="ViewContact" CommandArgument='<%# Eval("Id") %>'><i class="fa-solid fa-eye"></i> View</asp:LinkButton>
+                                    <asp:LinkButton ID="btnDelete" runat="server" CommandName="cmd_dlt" CommandArgument='<%# Eval("Id") %>' CssClass="cm-delete-link" CausesValidation="false"><i class="fa-solid fa-trash-can"></i> Delete</asp:LinkButton>
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </div>
         </div>
 
-
-        <!-- =========================================================
-         DRAWER OVERLAY
-    ========================================================= -->
-
-        <div
-            class="cm-drawer-overlay"
-            id="cmDrawerOverlay"
-            onclick="closeDrawer()">
-        </div>
-
-
-        <!-- =========================================================
-         DETAIL DRAWER
-    ========================================================= -->
-
-        <div
-            class="cm-drawer"
-            id="cmDetailDrawer">
-
-
-
-
-            <asp:HiddenField
-                ID="hfContactId"
-                runat="server" />
-
-
-            <!-- =====================================================
-             DRAWER HEADER
-        ===================================================== -->
-
+        <!-- Drawer Overlay -->
+        <div class="cm-drawer-overlay" id="cmDrawerOverlay" onclick="closeDrawer()"></div>
+        <!-- Details Drawer -->
+        <div class="cm-drawer" id="cmDetailDrawer">
+            <asp:HiddenField ID="hfContactId" runat="server" />
             <div class="cm-drawer-header">
-
-
-                <h2 class="cm-drawer-title">Contact Details
-                </h2>
-
-
+                <h2 class="cm-drawer-title">Contact Details</h2>
                 <div class="cm-drawer-header-actions">
-
-
-
                     <button type="button" class="cm-drawer-close" onclick="closeDrawer()">
                         <i class="fa-solid fa-xmark"></i>
-
                     </button>
-
-
                 </div>
-
-
             </div>
-
-
-            <!-- =====================================================
-             DRAWER BODY
-        ===================================================== -->
-
             <div class="cm-drawer-body">
-
-
-                <!-- =================================================
-                 DETAILS
-            ================================================= -->
-
                 <div class="cm-detail-grid">
-
-                    <!-- STUDENT -->
+                    <!-- Student -->
                     <div class="cm-detail-item">
-
                         <span class="cm-detail-label">Student</span>
-
-                        <asp:Label ID="lblDetailName"
-                            runat="server"
-                            CssClass="cm-detail-value">
-                        </asp:Label>
-
+                        <asp:Label ID="lblDetailName" runat="server" CssClass="cm-detail-value"></asp:Label>
                     </div>
-
-
-                    <!-- EMAIL -->
+                    <!-- Email -->
                     <div class="cm-detail-item">
-
                         <span class="cm-detail-label">Email</span>
-
-                        <asp:Label ID="lblDetailEmail"
-                            runat="server"
-                            CssClass="cm-detail-value">
-                        </asp:Label>
-
+                        <asp:Label ID="lblDetailEmail" runat="server" CssClass="cm-detail-value"></asp:Label>
                     </div>
-
-
-                    <!-- SUBMITTED DATE -->
+                    <!-- Submitted Date -->
                     <div class="cm-detail-item">
-
                         <span class="cm-detail-label">Submitted Date</span>
-
-                        <asp:Label ID="lblDetailDate"
-                            runat="server"
-                            CssClass="cm-detail-value">
-                        </asp:Label>
-
+                        <asp:Label ID="lblDetailDate" runat="server" CssClass="cm-detail-value"></asp:Label>
                     </div>
-
-
-                    <!-- SUBMITTED TIME -->
+                    <!-- Submitted Time -->
                     <div class="cm-detail-item">
-
                         <span class="cm-detail-label">Submitted Time</span>
-
-                        <asp:Label ID="lblDetailTime"
-                            runat="server"
-                            CssClass="cm-detail-value">
-                        </asp:Label>
-
+                        <asp:Label ID="lblDetailTime" runat="server" CssClass="cm-detail-value"></asp:Label>
                     </div>
-
                 </div>
-
-
-                <!-- =================================================
-     SUBJECT
-================================================= -->
-
+                <!-- Subject -->
                 <div class="cm-subject-section">
-
                     <span class="cm-detail-label">Subject</span>
-
-                    <asp:Label ID="lblDetailSubject"
-                        runat="server"
-                        CssClass="cm-subject-value">
-                    </asp:Label>
-
+                    <asp:Label ID="lblDetailSubject" runat="server" CssClass="cm-subject-value"></asp:Label>
                 </div>
-
-
                 <br />
-
-
-                <!-- =================================================
-     MESSAGE
-================================================= -->
-
+                <!-- Message -->
                 <div class="cm-message-section">
-
                     <span class="cm-detail-label">Message</span>
-
                     <div class="cm-message-box">
-
-                        <asp:Label ID="lblDetailMessage"
-                            runat="server"
-                            CssClass="cm-message-text">
-                        </asp:Label>
-
+                        <asp:Label ID="lblDetailMessage" runat="server" CssClass="cm-message-text"></asp:Label>
                     </div>
-
                 </div>
-
-
             </div>
-
-
-
         </div>
-
-
-
-
-
-    <!-- =========================================================
-         JAVASCRIPT
-    ========================================================= -->
-
+    </div>
     <script>
-
-        /* =====================================================
-           OPEN DRAWER
-        ===================================================== */
-
+        /* OPEN DRAWER */
         function openDrawer() {
-
-            var overlay =
-                document.getElementById('cmDrawerOverlay');
-
-            var drawer =
-                document.getElementById('cmDetailDrawer');
-
-
+            var overlay = document.getElementById('cmDrawerOverlay');
+            var drawer = document.getElementById('cmDetailDrawer');
             if (overlay) {
                 overlay.style.display = 'block';
             }
-
-
             setTimeout(function () {
-
                 if (drawer) {
                     drawer.classList.add('open');
                 }
-
             }, 10);
-
-
             document.body.style.overflow = 'hidden';
         }
 
-
-        /* =====================================================
-           CLOSE DRAWER
-        ===================================================== */
-
+        /* CLOSE DRAWER */
         function closeDrawer() {
-
-            var drawer =
-                document.getElementById('cmDetailDrawer');
-
-            var overlay =
-                document.getElementById('cmDrawerOverlay');
-
-
+            var drawer = document.getElementById('cmDetailDrawer');
+            var overlay = document.getElementById('cmDrawerOverlay');
             if (drawer) {
                 drawer.classList.remove('open');
             }
-
-
             setTimeout(function () {
-
                 if (overlay) {
                     overlay.style.display = 'none';
                 }
-
             }, 300);
-
-
             document.body.style.overflow = '';
         }
-
-
-
-
-        /* =====================================================
-           SEARCH + STATUS FILTER
-        ===================================================== */
-
-        document.addEventListener(
-            'DOMContentLoaded',
-            function () {
-
-
-                var search =
-                    document.getElementById('txtSearch');
-
-
-
-
-                var table =
-                    document.querySelector('.cm-table');
-
-
-                if (!table) {
-                    return;
-                }
-
-
-                function filterTable() {
-
-
-                    var searchText =
-                        search ?
-                            search.value.toLowerCase().trim()
-                            : '';
-
-
-                    var statusText =
-                        status ?
-                            status.value.toLowerCase().trim()
-                            : '';
-
-
-                    var rows =
-                        table.querySelectorAll('tbody tr');
-
-
-                    var visibleCount = 0;
-
-
-                    rows.forEach(function (row) {
-
-
-                        var rowText =
-                            row.innerText.toLowerCase();
-
-
-                        var rowStatus = '';
-
-
-                        if (row.cells.length >= 5) {
-
-                            rowStatus =
-                                row.cells[4]
-                                    .innerText
-                                    .toLowerCase()
-                                    .trim();
-
-                        }
-
-
-                        var matchesSearch =
-                            !searchText ||
-                            rowText.indexOf(searchText) !== -1;
-
-
-                        var matchesStatus =
-                            !statusText ||
-                            rowStatus === statusText;
-
-
-                        if (
-                            matchesSearch &&
-                            matchesStatus
-                        ) {
-
-                            row.style.display = '';
-
-                            visibleCount++;
-
-                        }
-                        else {
-
-                            row.style.display = 'none';
-
-                        }
-
-
-                    });
-
-
-
-
-                }
-
-
-                if (search) {
-
-                    search.addEventListener(
-                        'input',
-                        filterTable
-                    );
-
-                }
-
-
-                if (status) {
-
-                    status.addEventListener(
-                        'change',
-                        filterTable
-                    );
-
-                }
-
-
-                if (clear) {
-
-                    clear.addEventListener(
-                        'click',
-                        function () {
-
-
-                            if (search) {
-                                search.value = '';
-                            }
-
-
-                            if (status) {
-                                status.value = '';
-                            }
-
-
-                            filterTable();
-
-                        }
-                    );
-
-                }
-
-
-                filterTable();
-
-            }
-        );
-
-
-
-
-
-
     </script>
-
-
 </asp:Content>

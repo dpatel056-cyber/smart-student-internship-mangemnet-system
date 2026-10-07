@@ -2,7 +2,7 @@ namespace asp.net
 {
     public partial class student_change_password
     {
-        protected global::System.Web.UI.WebControls.Panel pnlAlert;
+        protected global::System.Web.UI.WebControls.PlaceHolder pnlAlert;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl alertBox;
         protected global::System.Web.UI.WebControls.Label lblAlertIcon;
         protected global::System.Web.UI.WebControls.Label lblMessage;

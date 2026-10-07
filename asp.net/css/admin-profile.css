@@ -2,7 +2,6 @@
    SIMS ADMIN PROFILE PAGE — STYLES
    Namespaced under .sims-profile-* to avoid conflicts with admin.Master
    ========================================================================== */
-
 .sims-profile-page {
     --sp-primary: #2954E6;
     --sp-primary-dark: #1E3FB8;
@@ -21,16 +20,13 @@
     --sp-gray-bg: #F1F2F5;
     --sp-radius: 10px;
     --sp-shadow: 0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04);
-
     font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
     color: var(--sp-text);
     background: var(--sp-bg);
     max-width: 100%;
     box-sizing: border-box;
 }
-
 .sims-profile-page * { box-sizing: border-box; }
-
 /* ---------- PAGE HEADER ---------- */
 .sims-profile-pageheader {
     display: flex;
@@ -43,7 +39,6 @@
 .sims-profile-breadcrumb { font-size: 13px; color: var(--sp-muted); margin-bottom: 6px; }
 .sims-profile-title { font-size: 24px; font-weight: 700; color: var(--sp-navy); margin: 0 0 4px 0; }
 .sims-profile-subtitle { font-size: 14px; color: var(--sp-muted); margin: 0; }
-
 /* ---------- BUTTONS ---------- */
 .sims-profile-btn {
     display: inline-flex;
@@ -72,7 +67,6 @@
 .sims-profile-btn-danger:hover { background: #B91C1C; }
 .sims-profile-btn-block { width: 100%; justify-content: center; }
 .sims-profile-btn-link { background: none; border: none; color: var(--sp-primary); font-weight: 600; font-size: 13px; cursor: pointer; padding: 0; }
-
 /* ---------- CARDS ---------- */
 .sims-profile-card {
     background: var(--sp-white);
@@ -82,7 +76,6 @@
     padding: 24px;
     margin-bottom: 0;
 }
-
 /* ---------- HERO ---------- */
 .sims-profile-hero {
     display: flex;
@@ -115,7 +108,6 @@
 .sims-profile-completion-pct { font-weight: 700; color: var(--sp-primary); }
 .sims-profile-progress { width: 100%; height: 8px; background: var(--sp-gray-bg); border-radius: 6px; overflow: hidden; }
 .sims-profile-progress-bar { height: 100%; background: linear-gradient(90deg, var(--sp-primary), #4F7CFF); border-radius: 6px; }
-
 /* ---------- BADGES ---------- */
 .sims-profile-badge {
     display: inline-flex; align-items: center; gap: 5px;
@@ -125,7 +117,6 @@
 .sims-profile-badge-warning { background: var(--sp-orange-bg); color: var(--sp-orange); }
 .sims-profile-badge-danger { background: var(--sp-red-bg); color: var(--sp-red); }
 .sims-profile-badge-neutral { background: var(--sp-gray-bg); color: var(--sp-muted); }
-
 /* ---------- QUICK STATS ---------- */
 .sims-profile-stats {
     display: grid;
@@ -155,7 +146,6 @@
 .sims-profile-stat-number { font-size: 18px; font-weight: 700; color: var(--sp-navy); line-height: 1.2; }
 .sims-profile-stat-label { font-size: 12.5px; font-weight: 600; color: var(--sp-text); }
 .sims-profile-stat-sub { font-size: 11.5px; color: var(--sp-muted); }
-
 /* ---------- GRID LAYOUT ---------- */
 .sims-profile-grid {
     display: grid;
@@ -164,20 +154,17 @@
     align-items: start;
 }
 .sims-profile-col-main, .sims-profile-col-side { min-width: 0; }
-
 /* ---------- SECTION HEAD ---------- */
 .sims-profile-section-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
 .sims-profile-section-title { font-size: 16px; font-weight: 700; color: var(--sp-navy); margin: 0 0 2px; }
 .sims-profile-section-subtitle { font-size: 13px; color: var(--sp-muted); margin: 0; }
 .sims-profile-section-footer { margin-top: 14px; display: flex; justify-content: flex-end; }
-
 /* ---------- INFO GRID (view mode) ---------- */
 .sims-profile-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; }
 .sims-profile-info-item { display: flex; flex-direction: column; gap: 3px; }
 .sims-profile-info-full { grid-column: 1 / -1; }
 .sims-profile-info-label { font-size: 12px; color: var(--sp-muted); }
 .sims-profile-info-value { font-size: 14px; font-weight: 600; color: var(--sp-text); }
-
 /* ---------- FORMS ---------- */
 .sims-profile-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; }
 .sims-profile-form-group { display: flex; flex-direction: column; gap: 6px; }
@@ -204,7 +191,6 @@
 .sims-profile-textarea { resize: vertical; min-height: 70px; }
 .sims-profile-form-actions { display: flex; gap: 10px; margin-top: 18px; }
 .sims-profile-validation { font-size: 12px; color: var(--sp-red); min-height: 14px; display: block; }
-
 /* ---------- PASSWORD ---------- */
 .sims-profile-password-wrap { position: relative; }
 .sims-profile-password-toggle {
@@ -220,13 +206,11 @@
 .sims-profile-requirements li i { font-size: 6px; color: var(--sp-border); }
 .sims-profile-requirements li.sims-profile-req-met { color: var(--sp-green); }
 .sims-profile-requirements li.sims-profile-req-met i { color: var(--sp-green); }
-
 /* ---------- KEY-VALUE LIST ---------- */
 .sims-profile-kv { display: flex; flex-direction: column; gap: 12px; }
 .sims-profile-kv-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
 .sims-profile-kv-row span:first-child { color: var(--sp-muted); }
 .sims-profile-kv-row strong { color: var(--sp-text); font-weight: 600; }
-
 /* ---------- SECURITY ---------- */
 .sims-profile-security-overall {
     display: flex; align-items: center; gap: 8px;
@@ -238,10 +222,8 @@
 .sims-profile-security-list li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--sp-text); }
 .sims-profile-security-list li i:first-child { width: 16px; color: var(--sp-muted); }
 .sims-profile-security-list li .sims-profile-badge { margin-left: auto; }
-
 /* ---------- 2FA ---------- */
 .sims-profile-2fa-desc { font-size: 13px; color: var(--sp-muted); margin: 0 0 14px; }
-
 /* ---------- LOGIN TABLE ---------- */
 .sims-profile-table-wrap { width: 100%; overflow-x: auto; }
 .sims-profile-login-table { width: 100%; border-collapse: collapse; min-width: 640px; }
@@ -251,7 +233,6 @@
 }
 .sims-profile-login-table td { font-size: 13.5px; padding: 12px; border-bottom: 1px solid var(--sp-border); color: var(--sp-text); }
 .sims-profile-login-table tr:last-child td { border-bottom: none; }
-
 /* ---------- TIMELINE ---------- */
 .sims-profile-timeline { list-style: none; margin: 0; padding: 0; position: relative; }
 .sims-profile-timeline-item { display: flex; gap: 14px; position: relative; padding-bottom: 20px; }
@@ -269,13 +250,11 @@
 .sims-profile-timeline-desc { font-size: 13.5px; font-weight: 600; color: var(--sp-text); }
 .sims-profile-timeline-time { font-size: 12px; color: var(--sp-muted); white-space: nowrap; }
 .sims-profile-timeline-module { font-size: 12px; color: var(--sp-primary); font-weight: 600; }
-
 /* ---------- PERMISSIONS ---------- */
 .sims-profile-permissions-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px 16px; margin-bottom: 12px; }
 .sims-profile-permission { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--sp-text); }
 .sims-profile-permission i { color: var(--sp-green); font-size: 12px; }
 .sims-profile-permissions-note { font-size: 12.5px; color: var(--sp-muted); margin: 0; }
-
 /* ---------- PREFERENCES ---------- */
 .sims-profile-toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--sp-border); font-size: 13.5px; }
 .sims-profile-preferences .sims-profile-form-group { margin-top: 12px; margin-bottom: 4px; }
@@ -286,7 +265,6 @@
 .sims-profile-slider::before { content: ''; position: absolute; height: 16px; width: 16px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .15s; }
 .sims-profile-switch input:checked + .sims-profile-slider { background: var(--sp-primary); }
 .sims-profile-switch input:checked + .sims-profile-slider::before { transform: translateX(18px); }
-
 /* ---------- COMPLETION LIST ---------- */
 .sims-profile-completion-list { list-style: none; margin: 14px 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .sims-profile-completion-list li { font-size: 13px; display: flex; align-items: center; gap: 8px; }
@@ -295,7 +273,6 @@
 .sims-profile-completion-pending { color: var(--sp-muted); }
 .sims-profile-completion-pending i { color: var(--sp-border); font-size: 11px; }
 .sims-profile-completion-note { font-size: 12.5px; color: var(--sp-muted); margin: 0 0 12px; }
-
 /* ---------- DANGER ZONE ---------- */
 .sims-profile-danger { border-color: #F4D5D5; }
 .sims-profile-danger-title { color: var(--sp-red); display: flex; align-items: center; gap: 8px; }
@@ -306,7 +283,6 @@
 .sims-profile-danger-row:first-of-type { border-top: none; }
 .sims-profile-danger-info strong { font-size: 13.5px; color: var(--sp-text); display: block; margin-bottom: 2px; }
 .sims-profile-danger-info p { font-size: 12.5px; color: var(--sp-muted); margin: 0; }
-
 /* ---------- MODALS ---------- */
 .sims-profile-modal-overlay {
     display: none;
@@ -341,7 +317,6 @@
 .sims-profile-modal-warning-danger { background: var(--sp-red-bg); color: #991B1B; }
 .sims-profile-modal-warning p { margin: 0; font-size: 13.5px; font-weight: 600; }
 .sims-profile-modal-note { font-size: 13px; color: var(--sp-muted); margin: 0; }
-
 /* Photo modal specifics */
 .sims-profile-photo-current { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 18px; }
 .sims-profile-photo-current img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--sp-border); }
@@ -357,7 +332,6 @@
 .sims-profile-photo-preview { margin-top: 16px; text-align: center; }
 .sims-profile-photo-preview span { font-size: 12px; color: var(--sp-muted); display: block; margin-bottom: 8px; }
 .sims-profile-photo-preview img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--sp-primary); margin-bottom: 8px; }
-
 /* ---------- TOASTS ---------- */
 .sims-profile-toast-container {
     position: fixed; top: 20px; right: 20px; z-index: 10000;
@@ -373,10 +347,8 @@
 .sims-profile-toast i.sims-profile-toast-icon { color: var(--sp-green); font-size: 15px; }
 .sims-profile-toast-close { margin-left: auto; background: none; border: none; color: var(--sp-muted); cursor: pointer; }
 @keyframes sims-profile-toast-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-
 /* Body scroll lock while modal open */
 body.sims-profile-modal-open-body { overflow: hidden; }
-
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
@@ -385,7 +357,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     .sims-profile-stats { grid-template-columns: repeat(2, 1fr); }
     .sims-profile-permissions-grid { grid-template-columns: 1fr 1fr; }
 }
-
 @media (max-width: 768px) {
     .sims-profile-hero { flex-direction: column; align-items: flex-start; }
     .sims-profile-hero-right { width: 100%; justify-content: space-between; }
@@ -394,7 +365,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     .sims-profile-permissions-grid { grid-template-columns: 1fr; }
     .sims-profile-requirements { grid-template-columns: 1fr; }
 }
-
 @media (max-width: 560px) {
     .sims-profile-hero-left { flex-direction: column; align-items: center; text-align: center; width: 100%; }
     .sims-profile-info { align-items: center; }
@@ -409,7 +379,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     .sims-profile-hero-meta { width: 100%; justify-content: space-between; }
     .sims-profile-completion { width: 100%; }
 }
-
 /* ================================================================
    NEW HERO SECTION
    ================================================================ */
@@ -417,14 +386,12 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     padding: 28px 32px;
     margin-bottom: 24px;
 }
-
 .sims-profile-hero-content {
     display: flex;
     align-items: center;
     gap: 0;
     flex-wrap: nowrap;
 }
-
 /* --- Avatar & Info --- */
 .sims-profile-hero-main {
     display: flex;
@@ -433,14 +400,12 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     flex: 0 0 auto;
     min-width: 280px;
 }
-
 .sims-profile-avatar-wrap-new {
     position: relative;
     width: 100px;
     height: 100px;
     flex-shrink: 0;
 }
-
 .sims-profile-avatar-new {
     width: 100px;
     height: 100px;
@@ -449,7 +414,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     border: 3px solid #e8edf5;
     box-shadow: 0 4px 12px rgba(41, 84, 230, 0.12);
 }
-
 .sims-profile-camera-btn {
     position: absolute;
     bottom: 4px;
@@ -469,13 +433,11 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     transition: all .15s;
 }
 .sims-profile-camera-btn:hover { background: #2563eb; color: #fff; border-color: #2563eb; }
-
 .sims-profile-details-new {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
-
 .sims-profile-name-new {
     font-size: 22px;
     font-weight: 700;
@@ -483,7 +445,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     margin: 0;
     line-height: 1.2;
 }
-
 .sims-profile-role-badge {
     display: inline-block;
     background: #eef2ff;
@@ -495,7 +456,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     width: fit-content;
     margin-bottom: 6px;
 }
-
 .sims-profile-contact-row {
     display: flex;
     align-items: center;
@@ -504,11 +464,9 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     color: #64748b;
     flex-wrap: wrap;
 }
-
 .sims-contact-item { display: flex; align-items: center; gap: 5px; }
 .sims-contact-item i { color: #94a3b8; font-size: 12px; }
 .sims-contact-sep { color: #cbd5e1; }
-
 /* --- Vertical Divider --- */
 .sims-profile-hero-divider {
     width: 1px;
@@ -517,7 +475,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     margin: 0 32px;
     flex-shrink: 0;
 }
-
 /* --- Stats --- */
 .sims-profile-hero-stats {
     display: flex;
@@ -525,18 +482,15 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     gap: 10px;
     flex: 1;
 }
-
 .sims-stat-row {
     display: grid;
     grid-template-columns: 115px 16px 1fr;
     align-items: center;
     font-size: 13.5px;
 }
-
 .sims-stat-label { color: #64748b; font-weight: 500; }
 .sims-stat-colon { color: #94a3b8; }
 .sims-stat-value { color: #0f172a; font-weight: 600; }
-
 .sims-status-badge-active {
     display: inline-block;
     background: #dcfce7;
@@ -546,7 +500,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     font-size: 12px;
     font-weight: 600;
 }
-
 /* --- Edit Profile Button --- */
 .sims-profile-hero-actions {
     display: flex;
@@ -554,7 +507,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     flex-shrink: 0;
     margin-left: 24px;
 }
-
 /* ================================================================
    NEW 2-COLUMN GRID LAYOUT
    ================================================================ */
@@ -564,7 +516,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     gap: 20px;
     align-items: start;
 }
-
 .sims-profile-new-left,
 .sims-profile-new-right {
     display: flex;
@@ -572,7 +523,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     gap: 16px;
     min-width: 0;
 }
-
 /* ================================================================
    PERSONAL INFO SECTION
    ================================================================ */
@@ -584,7 +534,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     padding-bottom: 16px;
     border-bottom: 1px solid #f1f5f9;
 }
-
 .sims-profile-pi-icon-wrap {
     width: 40px;
     height: 40px;
@@ -597,24 +546,20 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     font-size: 16px;
     flex-shrink: 0;
 }
-
 .sims-profile-qa-icon {
     background: #fffbeb;
     color: #d97706;
 }
-
 .sims-profile-pi-title {
     font-size: 16px;
     font-weight: 700;
     color: #0f172a;
     margin: 0;
 }
-
 .sims-profile-pi-rows {
     display: flex;
     flex-direction: column;
 }
-
 .sims-profile-pi-row {
     display: grid;
     grid-template-columns: 130px 18px 1fr;
@@ -624,32 +569,25 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     font-size: 13.5px;
     transition: background .1s;
 }
-
 .sims-profile-pi-row:last-child { border-bottom: none; }
-
 .sims-profile-pi-label {
     color: #64748b;
     font-weight: 500;
 }
-
 .sims-profile-pi-colon { color: #cbd5e1; }
-
 .sims-profile-pi-value {
     color: #1e293b;
     font-weight: 600;
 }
-
 /* ================================================================
    QUICK ACTIONS
    ================================================================ */
 .sims-profile-qa-card { }
-
 .sims-profile-qa-btns {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
 }
-
 .sims-profile-qa-btn {
     display: inline-flex;
     align-items: center;
@@ -663,42 +601,34 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     transition: all .15s ease;
     font-family: inherit;
 }
-
 .sims-profile-qa-blue { background: #eef2ff; color: #2563eb; }
 .sims-profile-qa-blue:hover { background: #e0e7ff; transform: translateY(-1px); }
-
 .sims-profile-qa-green { background: #f0fdf4; color: #16a34a; }
 .sims-profile-qa-green:hover { background: #dcfce7; transform: translateY(-1px); }
-
 .sims-profile-qa-purple { background: #faf5ff; color: #7c3aed; }
 .sims-profile-qa-purple:hover { background: #ede9fe; transform: translateY(-1px); }
-
 /* ================================================================
    CHANGE PASSWORD — RIGHT COLUMN
    ================================================================ */
 .sims-profile-new-right .sims-profile-card {
     height: 100%;
 }
-
 .sims-profile-new-right .sims-profile-section-head {
     margin-bottom: 20px;
     padding-bottom: 16px;
     border-bottom: 1px solid #f1f5f9;
 }
-
 .sims-profile-new-right .sims-profile-section-title {
     font-size: 16px;
     font-weight: 700;
     color: #0f172a;
     margin: 0 0 4px;
 }
-
 .sims-profile-new-right .sims-profile-section-subtitle {
     font-size: 13px;
     color: #94a3b8;
     margin: 0;
 }
-
 /* Update password button — full width & styled */
 .sims-profile-new-right .sims-profile-btn-primary {
     background: linear-gradient(135deg, #2563eb, #1d4ed8);
@@ -712,25 +642,21 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(37, 99, 235, 0.30);
 }
-
 /* Responsive */
 @media (max-width: 900px) {
     .sims-profile-hero-content { flex-wrap: wrap; }
     .sims-profile-hero-divider { display: none; }
     .sims-profile-new-grid { grid-template-columns: 1fr; }
 }
-
     align-items: start;
     margin-top: 20px;
 }
-
 .sims-profile-new-left,
 .sims-profile-new-right {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
-
 /* ---------- PERSONAL INFO SECTION ---------- */
 .sims-profile-pi-head {
     display: flex;
@@ -738,7 +664,6 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     gap: 12px;
     margin-bottom: 20px;
 }
-
 .sims-profile-pi-icon-wrap {
     width: 38px;
     height: 38px;
@@ -751,25 +676,21 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     font-size: 15px;
     flex-shrink: 0;
 }
-
 .sims-profile-qa-icon {
     background: #fff8e1;
     color: #f59e0b;
 }
-
 .sims-profile-pi-title {
     font-size: 16px;
     font-weight: 700;
     color: #0f172a;
     margin: 0;
 }
-
 .sims-profile-pi-rows {
     display: flex;
     flex-direction: column;
     gap: 0;
 }
-
 .sims-profile-pi-row {
     display: grid;
     grid-template-columns: 130px 20px 1fr;
@@ -778,37 +699,30 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     border-bottom: 1px solid #f1f5f9;
     font-size: 14px;
 }
-
 .sims-profile-pi-row:last-child {
     border-bottom: none;
 }
-
 .sims-profile-pi-label {
     color: #64748b;
     font-weight: 500;
 }
-
 .sims-profile-pi-colon {
     color: #94a3b8;
     font-weight: 400;
 }
-
 .sims-profile-pi-value {
     color: #0f172a;
     font-weight: 500;
 }
-
 /* ---------- QUICK ACTIONS ---------- */
 .sims-profile-qa-card {
     padding: 20px;
 }
-
 .sims-profile-qa-btns {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
 }
-
 .sims-profile-qa-btn {
     display: inline-flex;
     align-items: center;
@@ -821,25 +735,21 @@ body.sims-profile-modal-open-body { overflow: hidden; }
     cursor: pointer;
     transition: all .15s ease;
 }
-
 .sims-profile-qa-blue {
     background: #eef2ff;
     color: #2563eb;
 }
 .sims-profile-qa-blue:hover { background: #e0e7ff; }
-
 .sims-profile-qa-green {
     background: #f0fdf4;
     color: #16a34a;
 }
 .sims-profile-qa-green:hover { background: #dcfce7; }
-
 .sims-profile-qa-purple {
     background: #faf5ff;
     color: #7c3aed;
 }
 .sims-profile-qa-purple:hover { background: #ede9fe; }
-
 @media (max-width: 900px) {
     .sims-profile-new-grid {
         grid-template-columns: 1fr;

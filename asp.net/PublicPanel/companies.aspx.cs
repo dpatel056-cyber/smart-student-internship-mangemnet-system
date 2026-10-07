@@ -1,7 +1,7 @@
 using System;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -12,6 +12,7 @@ namespace asp.net
         SqlConnection con;
         SqlDataAdapter da;
         DataSet ds;
+        SqlCommand cmd;
 
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
@@ -19,94 +20,65 @@ namespace asp.net
         {
             if (!IsPostBack)
             {
-                bindCompanies();
+                fillGrid();
             }
         }
 
         void getcon()
         {
             con = new SqlConnection(s);
-
-                con.Open();
-
+            con.Open();
         }
 
-        void bindCompanies()
+        void fillGrid()
         {
+            getcon();
+            da = new SqlDataAdapter("select c.*, (select count(*) from internship i where i.CompanyId = c.CompanyId) as TotalOpenings from c_registration c where (c.IsBlocked = 0 OR c.IsBlocked IS NULL) and (c.Status != 'Blocked' OR c.Status IS NULL) order by c.CompanyId desc", con);
+            ds = new DataSet();
+            da.Fill(ds);
 
-                getcon();
-                da = new SqlDataAdapter( "select c.*, (select count(*) from internship i where i.CompanyId = c.CompanyId) as TotalOpenings from c_registration c order by c.CompanyId desc",con);
-
-
-                ds = new DataSet();
-                da.Fill(ds);
-
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    DataListPublicCompanies.DataSource = ds;
-                    DataListPublicCompanies.DataBind();
-                    DataListPublicCompanies.Visible = true;
-                    if (pnlNoCompanies != null) pnlNoCompanies.Visible = false;
-                }
-                else
-                {
-                    DataListPublicCompanies.Visible = false;
-                    if (pnlNoCompanies != null) pnlNoCompanies.Visible = true;
-                }
-
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                DataListPublicCompanies.DataSource = ds;
+                DataListPublicCompanies.DataBind();
+                DataListPublicCompanies.Visible = true;
+                lblResultCount.Text = "Showing " + ds.Tables[0].Rows.Count + " companies";
+            }
+            else
+            {
+                DataListPublicCompanies.Visible = false;
+                lblResultCount.Text = "Showing 0 companies";
+            }
         }
-
+        //LOGO 
         public string GetCompanyLogo(object logoObj)
         {
-            if (logoObj != null && logoObj != DBNull.Value && !string.IsNullOrEmpty(logoObj.ToString()))
+            if (logoObj == null || logoObj == DBNull.Value)
+                return ResolveUrl("~/CompanyUploads/default-company.png");
+
+            string logo = logoObj.ToString().Trim();
+            if (string.IsNullOrEmpty(logo))
+                return ResolveUrl("~/CompanyUploads/default-company.png");
+
+            if (logo.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || logo.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                return logo;
+
+            if (logo.StartsWith("~") || logo.StartsWith("/"))
+                return ResolveUrl(logo);
+
+            string uploadsPath = Server.MapPath("~/uploads/company_logos/" + logo);
+            if (System.IO.File.Exists(uploadsPath))
             {
-                string logo = logoObj.ToString();
-                if (logo.StartsWith("~") || logo.StartsWith("/"))
-                {
-                    return ResolveUrl(logo);
-                }
+                return ResolveUrl("~/uploads/company_logos/" + logo);
+            }
+
+            string compUploadsPath = Server.MapPath("~/CompanyUploads/" + logo);
+            if (System.IO.File.Exists(compUploadsPath))
+            {
                 return ResolveUrl("~/CompanyUploads/" + logo);
             }
-            return ResolveUrl("~/assets/default-company.png");
-        }
 
-        public string GetCompanyName(object nameObj)
-        {
-            if (nameObj != null && nameObj != DBNull.Value && !string.IsNullOrEmpty(nameObj.ToString()))
-            {
-                return nameObj.ToString();
-            }
-            return "Company";
-        }
-
-        public string GetCompanyIndustry(object indObj, object domainObj = null)
-        {
-            if (indObj != null && indObj != DBNull.Value && !string.IsNullOrEmpty(indObj.ToString()))
-            {
-                return indObj.ToString();
-            }
-            if (domainObj != null && domainObj != DBNull.Value && !string.IsNullOrEmpty(domainObj.ToString()))
-            {
-                return domainObj.ToString();
-            }
-            return "Technology, Internet";
-        }
-
-        public string GetCompanyLocation(object locObj, object cityObj = null, object stateObj = null)
-        {
-            if (locObj != null && locObj != DBNull.Value && !string.IsNullOrEmpty(locObj.ToString()))
-            {
-                return locObj.ToString();
-            }
-            string city = cityObj != null && cityObj != DBNull.Value ? cityObj.ToString().Trim() : "";
-            string state = stateObj != null && stateObj != DBNull.Value ? stateObj.ToString().Trim() : "";
-            if (!string.IsNullOrEmpty(city) && !string.IsNullOrEmpty(state))
-            {
-                return city + ", " + state;
-            }
-            if (!string.IsNullOrEmpty(city)) return city;
-            if (!string.IsNullOrEmpty(state)) return state;
-            return "India";
+            return ResolveUrl("~/CompanyUploads/" + logo);
         }
     }
 }

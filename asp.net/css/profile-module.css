@@ -3,13 +3,11 @@
    Shared stylesheet for: my-profile / edit-profile /
    profile-completion / skills-management / education-details /
    experience-projects.
-
    Reuses the same CSS variables, sidebar/topbar/footer, .btn,
    .modal-*, .status-badge, .dash-panel etc. defined in style.css.
    Only NEW component classes needed for Module 2 live here, so
    style.css (Module 1) never has to be touched.
 ============================================================ */
-
 /* ---- Page header / breadcrumb strip used on every module page ---- */
 .pm-breadcrumb{
   display:flex;
@@ -23,7 +21,6 @@
 .pm-breadcrumb a:hover{text-decoration:underline;}
 .pm-breadcrumb i{font-size:10px; color:#cbd5e1;}
 .pm-breadcrumb .current{color:var(--text-dark); font-weight:600;}
-
 /* ---- Generic section card (extends .dash-panel look) ---- */
 .pm-card{
   background:#fff;
@@ -42,7 +39,6 @@
 }
 .pm-card-header h3{font-size:16px; color:var(--navy-900);}
 .pm-card-header p{font-size:12.5px; color:var(--text-muted); margin-top:3px;}
-
 /* ================= MY PROFILE ================= */
 .pm-profile-layout{
   display:grid;
@@ -50,7 +46,6 @@
   gap:20px;
   align-items:start;
 }
-
 .pm-profile-card{
   background:#fff;
   border-radius:16px;
@@ -58,14 +53,12 @@
   box-shadow:0 10px 30px rgba(15,23,42,.05);
   text-align:center;
 }
-
 .pm-avatar-wrap{
   position:relative;
   width:110px;
   height:110px;
   margin:0 auto 16px;
 }
-
 .pm-avatar-lg{
   width:110px;
   height:110px;
@@ -81,7 +74,6 @@
   border:4px solid var(--blue-50);
 }
 .pm-avatar-lg img{width:100%; height:100%; object-fit:cover;}
-
 .pm-profile-card h2{font-size:19px; color:var(--navy-900); margin-bottom:4px;}
 .pm-profile-card .pm-enrollment{
   display:inline-block;
@@ -96,7 +88,6 @@
 }
 .pm-profile-card .pm-course-line{font-size:13px; color:var(--text-muted); margin-bottom:2px;}
 .pm-profile-card .pm-college-line{font-size:12.5px; color:var(--text-muted); margin-bottom:18px;}
-
 .pm-mini-completion{
   background:#f8fafc;
   border:1px solid var(--border-light);
@@ -110,10 +101,8 @@
 .pm-mini-completion-top strong{font-size:13px; color:var(--blue-600);}
 .pm-mini-completion a{font-size:11.5px; font-weight:600; color:var(--blue-600); display:block; margin-top:8px; text-align:right;}
 .pm-mini-completion a:hover{text-decoration:underline;}
-
 .pm-profile-card .pm-card-btns{display:flex; flex-direction:column; gap:10px;}
 .pm-profile-card .btn{width:100%; justify-content:center;}
-
 /* Info grid on My Profile (right column) */
 .pm-info-grid{
   display:grid;
@@ -133,9 +122,7 @@
 .pm-info-item .pm-info-label{font-size:11.5px; color:var(--text-muted); margin-bottom:3px; text-transform:uppercase; letter-spacing:.3px;}
 .pm-info-item .pm-info-value{font-size:14px; font-weight:600; color:var(--text-dark); word-break:break-word;}
 .pm-info-item.pm-info-full{grid-column:1 / -1;}
-
 .pm-skills-inline{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;}
-
 /* Resume status pill */
 .pm-resume-status{
   display:inline-flex; align-items:center; gap:6px;
@@ -143,7 +130,6 @@
 }
 .pm-resume-status.uploaded{background:#dcfce7; color:#16a34a;}
 .pm-resume-status.missing{background:#fee2e2; color:#ef4444;}
-
 /* ================= SKILL TAGS ================= */
 .skill-tag{
   display:inline-flex;
@@ -166,7 +152,6 @@
 }
 .skill-tag button:hover{background:var(--blue-600); color:#fff;}
 .skill-tag button.skill-delete-btn:hover{background:#ef4444;}
-
 .pm-skills-toolbar{
   display:flex;
   align-items:center;
@@ -191,7 +176,6 @@
   font-family:inherit;
 }
 .pm-search-box input:focus{outline:none; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(37,99,235,.12);}
-
 .pm-tags-wrap{display:flex; flex-wrap:wrap; gap:12px;}
 .pm-empty-state{
   text-align:center;
@@ -200,7 +184,6 @@
 }
 .pm-empty-state i{font-size:34px; color:#cbd5e1; margin-bottom:12px; display:block;}
 .pm-empty-state p{font-size:13.5px;}
-
 /* ================= PROGRESS BAR (Profile Completion) ================= */
 .pm-progress-hero{
   background:linear-gradient(120deg,var(--navy-900), var(--blue-700));
@@ -231,7 +214,6 @@
 .pm-progress-hero h2{font-size:22px; font-weight:700;}
 .pm-progress-hero p{font-size:13px; color:#d7ddf5; margin-top:4px;}
 .pm-progress-percent{font-size:34px; font-weight:800;}
-
 .pm-progress-track{
   width:100%;
   height:14px;
@@ -246,7 +228,6 @@
   border-radius:20px;
   transition:width .6s ease;
 }
-
 .pm-details-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -267,7 +248,6 @@
 .pm-detail-row i.pm-row-icon{font-size:15px;}
 .pm-detail-row a{margin-left:auto; font-size:12px; font-weight:700; color:var(--blue-600);}
 .pm-detail-row a:hover{text-decoration:underline;}
-
 /* ================= FORMS (Edit Profile / Add modals) ================= */
 .pm-form-row{
   display:grid;
@@ -317,7 +297,6 @@
 .pm-form-group.has-error input,
 .pm-form-group.has-error select,
 .pm-form-group.has-error textarea{border-color:#ef4444;}
-
 .pm-section-title{
   font-size:13px;
   font-weight:700;
@@ -331,7 +310,6 @@
 }
 .pm-section-title:first-child{margin-top:0;}
 .pm-section-title i{font-size:13px;}
-
 .pm-form-actions{
   display:flex;
   gap:12px;
@@ -341,7 +319,6 @@
   border-top:1px solid var(--border-light);
 }
 .pm-form-actions .btn{min-width:150px; justify-content:center;}
-
 /* Photo upload */
 .pm-photo-upload{
   display:flex;
@@ -360,10 +337,8 @@
 .pm-photo-actions{display:flex; flex-direction:column; gap:8px;}
 .pm-photo-actions .btn{padding:9px 18px; font-size:13px;}
 .pm-photo-hint{font-size:11.5px; color:var(--text-muted);}
-
 /* ================= CARD LISTS (Education / Experience / Projects) ================= */
 .pm-item-list{display:flex; flex-direction:column; gap:14px;}
-
 .pm-item-card{
   border:1px solid var(--border-light);
   border-radius:12px;
@@ -375,7 +350,6 @@
   transition:box-shadow .2s, border-color .2s;
 }
 .pm-item-card:hover{box-shadow:0 8px 22px rgba(15,23,42,.06); border-color:#dbe8ff;}
-
 .pm-item-main{display:flex; gap:14px; flex:1; min-width:0;}
 .pm-item-icon{
   width:44px; height:44px; min-width:44px; border-radius:10px;
@@ -385,13 +359,11 @@
 .pm-item-icon.icon-green{background:#dcfce7; color:#16a34a;}
 .pm-item-icon.icon-purple{background:#f3e8ff; color:#9333ea;}
 .pm-item-icon.icon-orange{background:#fff4e2; color:#f59e0b;}
-
 .pm-item-body h4{font-size:14.5px; color:var(--navy-900); margin-bottom:3px;}
 .pm-item-body .pm-item-sub{font-size:12.5px; color:var(--blue-600); font-weight:600; margin-bottom:6px;}
 .pm-item-body .pm-item-meta{display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12px; color:var(--text-muted); margin-bottom:6px;}
 .pm-item-body .pm-item-meta span{display:inline-flex; align-items:center; gap:5px;}
 .pm-item-body .pm-item-desc{font-size:12.5px; color:var(--text-muted); line-height:1.6;}
-
 .pm-item-actions{display:flex; gap:8px; flex-shrink:0;}
 .pm-icon-action{
   width:34px; height:34px; border-radius:8px;
@@ -401,7 +373,6 @@
 }
 .pm-icon-action:hover{background:var(--blue-50); color:var(--blue-600);}
 .pm-icon-action.pm-danger:hover{background:#fee2e2; color:#ef4444;}
-
 /* ================= TABS (Experience & Projects) ================= */
 .pm-tabs{
   display:flex;
@@ -439,19 +410,15 @@
   padding:1px 7px; border-radius:20px;
 }
 .pm-tab-btn.active .pm-tab-count{background:var(--blue-50); color:var(--blue-600);}
-
 .pm-tab-panel{display:none;}
 .pm-tab-panel.active{display:block;}
-
 /* ================= Misc ================= */
 .pm-flex-end{display:flex; justify-content:flex-end; margin-bottom:18px;}
-
 /* ---- Responsive ---- */
 @media (max-width:1100px){
   .pm-profile-layout{grid-template-columns:1fr;}
   .pm-details-grid{grid-template-columns:1fr;}
 }
-
 @media (max-width:640px){
   .pm-info-grid{grid-template-columns:1fr;}
   .pm-form-row{grid-template-columns:1fr;}

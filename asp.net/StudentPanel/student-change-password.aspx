@@ -1,5 +1,4 @@
 <%@ Page Title="Change Password" Language="C#" MasterPageFile="~/StudentPanel/student.Master" AutoEventWireup="true" CodeBehind="student-change-password.aspx.cs" Inherits="asp.net.student_change_password" %>
-
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <style>
@@ -132,7 +131,6 @@
         }
     </style>
 </asp:Content>
-
 <asp:Content ID="MainContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="change-password-container">
         <div class="pwd-card">
@@ -143,14 +141,12 @@
                 <h1 class="pwd-title">Change Password</h1>
                 <p class="pwd-subtitle">Update your password to keep your student account secure</p>
             </div>
-
-            <asp:Panel ID="pnlAlert" runat="server" Visible="false">
+            <asp:PlaceHolder ID="pnlAlert" runat="server" Visible="false">
                 <div id="alertBox" runat="server" class="alert-msg">
                     <asp:Label ID="lblAlertIcon" runat="server" />
                     <asp:Label ID="lblMessage" runat="server" />
                 </div>
-            </asp:Panel>
-
+            </asp:PlaceHolder>
             <div class="form-group">
                 <asp:Label ID="lblCurrentPassword" runat="server" AssociatedControlID="txtCurrentPassword" CssClass="form-label">Current Password *</asp:Label>
                 <div class="input-group-custom">
@@ -159,7 +155,6 @@
                     <i class="fa-solid fa-eye toggle-password" onclick="toggleVisibility('txtCurrentPassword', this)"></i>
                 </div>
             </div>
-
             <div class="form-group">
                 <asp:Label ID="lblNewPassword" runat="server" AssociatedControlID="txtNewPassword" CssClass="form-label">New Password *</asp:Label>
                 <div class="input-group-custom">
@@ -168,7 +163,6 @@
                     <i class="fa-solid fa-eye toggle-password" onclick="toggleVisibility('txtNewPassword', this)"></i>
                 </div>
             </div>
-
             <div class="form-group">
                 <asp:Label ID="lblConfirmPassword" runat="server" AssociatedControlID="txtConfirmPassword" CssClass="form-label">Confirm New Password *</asp:Label>
                 <div class="input-group-custom">
@@ -177,11 +171,9 @@
                     <i class="fa-solid fa-eye toggle-password" onclick="toggleVisibility('txtConfirmPassword', this)"></i>
                 </div>
             </div>
-
             <asp:Button ID="btnChangePassword" runat="server" Text="Update Password" OnClick="btnChangePassword_Click" CssClass="btn-submit-pwd" />
         </div>
     </div>
-
     <script>
         function toggleVisibility(inputId, icon) {
             var input = document.getElementById(inputId);

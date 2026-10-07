@@ -1,5 +1,4 @@
 <%@ Page Title="Internship Details" Language="C#" MasterPageFile="~/PublicPanel/public.Master" AutoEventWireup="true" CodeBehind="internship-details.aspx.cs" Inherits="asp.net.internship_details" %>
-
 <asp:Content ID="Content0" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/style.css") %>" />
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/internship-module.css") %>" />
@@ -49,7 +48,8 @@
             border-radius: 50% !important;
             overflow: hidden !important;
             border: 2px solid #e2e8f0;
-            object-fit: cover;
+            object-fit: contain;
+            padding: 4px;
             display: block;
         }
         .btn-view-company {
@@ -92,189 +92,285 @@
         }
     </style>
 </asp:Content>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-
 <main class="site-main" style="background:#f8fafc; min-height:80vh;">
   <div class="container" style="padding-top:30px; padding-bottom:60px;">
-
     <!-- Back Navigation -->
     <div class="back-nav">
         <a href="internships.aspx" class="back-link">
             <i class="fa-solid fa-arrow-left"></i> Back to Internships
         </a>
     </div>
-
     <!-- Not Found Panel -->
-    <asp:Panel ID="pnlNotFound" runat="server" Visible="false" style="background:#fff; border-radius:16px; padding:60px; text-align:center; border:1px solid #e2e8f0; box-shadow:0 4px 12px rgba(0,0,0,0.03);">
+    <div id="divNotFound" runat="server" visible="false" style="background:#fff; border-radius:16px; padding:60px; text-align:center; border:1px solid #e2e8f0; box-shadow:0 4px 12px rgba(0,0,0,0.03);">
         <i class="fa-solid fa-file-circle-xmark" style="font-size:56px; color:#ef4444; margin-bottom:16px;"></i>
         <h2 style="font-size:24px; font-weight:700; color:#0f172a; margin-bottom:8px;">Internship Not Found</h2>
         <p style="color:#64748b; font-size:15px; margin-bottom:20px;">The requested internship details could not be found or the link has expired.</p>
         <a href="internships.aspx" class="btn-view-company" style="background:#2563eb;">Explore Other Internships</a>
-    </asp:Panel>
-
-    <!-- DataList for Internship Details -->
+    </div>
     <asp:DataList ID="DataListInternshipDetail" runat="server" Width="100%">
-        <ItemTemplate>
-
-            <!-- Header Banner Card -->
-            <div class="imd-header" style="margin-bottom:28px;">
-                <div class="imd-cover"></div>
-                <div class="imd-content">
-                  <div class="imd-logo" style="border-radius:50% !important; overflow:hidden !important; width:90px; height:90px; background:#fff; padding:3px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
-                      <img src='<%# GetCompanyLogo(Eval("c_logo")) %>' alt="Company Logo" style="width:100%; height:100%; border-radius:50% !important; object-fit:cover; display:block;" onerror="this.onerror=null; this.src='<%= ResolveUrl("~/assets/default-company.png") %>';" />
-                  </div>
-                  
-                  <h1 class="imd-title" style="margin-top:12px;"><%# Eval("InternshipTitle") %></h1>
-                  <div class="imd-company" style="margin-bottom:16px;">
-                    <i class="fa-solid fa-building"></i> <span><%# GetCompanyName(Eval("c_company")) %></span>
-                    <i class="fa-solid fa-circle-check cp-verified" style="color:#16a34a; font-size:14px; margin-left:6px;" title="Verified Company"></i>
-                  </div>
-                  
-                  <div class="imd-quick-info">
-                    <div class="imd-info-pill"><i class="fa-solid fa-location-dot"></i> <span><%# GetValueOrFallback(Eval("Location"), "India") %></span></div>
-                    <div class="imd-info-pill"><i class="fa-solid fa-briefcase"></i> <span><%# GetValueOrFallback(Eval("WorkMode"), "In-Office") %></span></div>
-                    <div class="imd-info-pill"><i class="fa-solid fa-indian-rupee-sign"></i> <span><%# GetStipend(Eval("PaymentStatus"), Eval("StipendAmount")) %></span></div>
-                    <div class="imd-info-pill"><i class="fa-regular fa-clock"></i> <span><%# GetValueOrFallback(Eval("Duration"), "3 Months") %></span></div>
-                  </div>
+    <ItemTemplate>
+        <div class="imd-header" style="margin-bottom:28px;">
+            <div class="imd-cover"></div>
+            <div class="imd-content">
+                <asp:HyperLink ID="hlCompanyLogo" runat="server"
+                    NavigateUrl='<%# ResolveUrl("~/PublicPanel/company-details.aspx?CompanyId=" + Eval("CompanyId")) %>'
+                    CssClass="imd-logo"
+                    style="border-radius:16px; overflow:hidden; width:80px; height:80px; background:#fff; border:1.5px solid #e2e8f0; padding:8px; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(15,23,42,0.06);"
+                    ToolTip="View Company Profile">
+                    <asp:Image ID="imgCompanyLogo" runat="server"
+                        ImageUrl='<%# GetCompanyLogo(Eval("c_logo")) %>'
+                        AlternateText="Company Logo"
+                        style="width:100%; height:100%; max-width:100%; max-height:100%; border-radius:8px; object-fit:contain; display:block;" />
+                </asp:HyperLink>
+                <h1 class="imd-title" style="margin-top:12px;">
+                    <asp:Label ID="lblInternshipTitle" runat="server" Text='<%# Eval("InternshipTitle") %>'></asp:Label>
+                </h1>
+                <div class="imd-company" style="margin-bottom:16px;">
+                    <asp:HyperLink ID="hlCompany" runat="server"
+                        NavigateUrl='<%# ResolveUrl("~/PublicPanel/company-details.aspx?CompanyId=" + Eval("CompanyId")) %>'
+                        style="color: #2563eb; text-decoration: none !important; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;"
+                        ToolTip="Click to view company profile">
+                        <i class="fa-solid fa-building"></i>
+                        <asp:Label ID="lblCompanyName" runat="server" Text='<%# Eval("c_company") %>'></asp:Label>
+                        <i class="fa-solid fa-circle-check cp-verified"
+                            style="color:#16a34a; font-size:14px; margin-left:4px;">
+                        </i>
+                    </asp:HyperLink>
+                </div>
+                <div class="imd-quick-info">
+                    <div class="imd-info-pill">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <asp:Label ID="lblLocation" runat="server" Text='<%# Eval("Location") %>'></asp:Label>
+                    </div>
+                    <div class="imd-info-pill">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <asp:Label ID="lblWorkMode" runat="server" Text='<%# Eval("WorkMode") %>'></asp:Label>
+                    </div>
+                    <div class="imd-info-pill">
+                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                        <asp:Label ID="lblStipendAmount" runat="server" Text='<%# Eval("StipendAmount") %>'></asp:Label>
+                    </div>
+                    <div class="imd-info-pill">
+                        <i class="fa-regular fa-clock"></i>
+                        <asp:Label ID="lblDuration" runat="server" Text='<%# Eval("Duration") %>'></asp:Label>
+                    </div>
                 </div>
             </div>
-
-            <!-- Main Layout Grid -->
-            <div class="imd-layout">
-                
-                <!-- Left Main Section -->
-                <div class="imd-main">
-                  
-                  <div class="imd-section">
-                    <h3 class="imd-section-title"><i class="fa-solid fa-align-left" style="color:#2563eb; margin-right:8px;"></i> Overview</h3>
-                    <p class="imd-text"><%# GetFormattedText(Eval("InternshipDescription")) %></p>
-                  </div>
-                  
-                  <div class="imd-section">
-                    <h3 class="imd-section-title"><i class="fa-solid fa-list-check" style="color:#2563eb; margin-right:8px;"></i> Key Responsibilities</h3>
-                    <div class="imd-text"><%# GetBulletList(Eval("Responsibilities")) %></div>
-                  </div>
-                  
-                  <div class="imd-section">
-                    <h3 class="imd-section-title"><i class="fa-solid fa-user-graduate" style="color:#2563eb; margin-right:8px;"></i> Requirements &amp; Qualifications</h3>
-                    <div class="imd-text"><%# GetBulletList(Eval("RequiredQualifications")) %></div>
-                  </div>
-
-                  <div class="imd-section">
-                    <h3 class="imd-section-title"><i class="fa-solid fa-lightbulb" style="color:#2563eb; margin-right:8px;"></i> Skills Required</h3>
-                    <div class="imd-skills">
-                        <%# GetSkillBadges(Eval("RequiredSkills")) %>
+        </div>
+        <!-- Main Layout -->
+        <div class="imd-layout">
+            <!-- LEFT -->
+            <div class="imd-main">
+                <div class="imd-section">
+                    <h3 class="imd-section-title">
+                        <i class="fa-solid fa-align-left"
+                            style="color:#2563eb; margin-right:8px;"></i>
+                        Overview
+                    </h3>
+                    <p class="imd-text">
+                        <asp:Label ID="lblDescription" runat="server" Text='<%# Eval("InternshipDescription") %>'></asp:Label>
+                    </p>
+                </div>
+                <div class="imd-section">
+                    <h3 class="imd-section-title">
+                        <i class="fa-solid fa-list-check"
+                            style="color:#2563eb; margin-right:8px;"></i>
+                        Key Responsibilities
+                    </h3>
+                    <div class="imd-text">
+                        <asp:Label ID="lblResponsibilities" runat="server" Text='<%# Eval("Responsibilities") %>'></asp:Label>
                     </div>
-                  </div>
-                  
-                  <div class="imd-section">
-                    <h3 class="imd-section-title"><i class="fa-solid fa-gift" style="color:#2563eb; margin-right:8px;"></i> Benefits &amp; Perks</h3>
-                    <div class="imd-skills">
-                        <%# GetBenefitBadges(Eval("Benefits"), Eval("OtherBenefits")) %>
+                </div>
+                <div class="imd-section">
+                    <h3 class="imd-section-title">
+                        <i class="fa-solid fa-user-graduate"
+                            style="color:#2563eb; margin-right:8px;"></i>
+                        Requirements &amp; Qualifications
+                    </h3>
+                    <div class="imd-text">
+                        <asp:Label ID="lblQualifications" runat="server" Text='<%# Eval("RequiredQualifications") %>'></asp:Label>
                     </div>
-                  </div>
-
-                  <!-- Company Information Box (User Request) -->
-                  <div class="company-info-box">
+                </div>
+                <div class="imd-section">
+                    <h3 class="imd-section-title">
+                        <i class="fa-solid fa-lightbulb"
+                            style="color:#2563eb; margin-right:8px;"></i>
+                        Skills Required
+                    </h3>
+                    <div class="imd-skills">
+                        <span class="imd-skill-badge">
+                            <asp:Label ID="lblSkills" runat="server" Text='<%# Eval("RequiredSkills") %>'></asp:Label>
+                        </span>
+                    </div>
+                </div>
+                <div class="imd-section">
+                    <h3 class="imd-section-title">
+                        <i class="fa-solid fa-gift"
+                            style="color:#2563eb; margin-right:8px;"></i>
+                        Benefits &amp; Perks
+                    </h3>
+                    <div class="imd-skills">
+                        <span class="imd-skill-badge">
+                            <i class="fa-solid fa-circle-check"
+                                style="color:#16a34a; margin-right:4px;"></i>
+                            <asp:Label ID="lblBenefits" runat="server" Text='<%# Eval("Benefits") %>'></asp:Label>
+                        </span>
+                        <span class="imd-skill-badge">
+                            <asp:Label ID="lblOtherBenefits" runat="server" Text='<%# Eval("OtherBenefits") %>'></asp:Label>
+                        </span>
+                    </div>
+                </div>
+                <!-- Company Information -->
+                <div class="company-info-box">
                     <div class="company-info-header">
-                        <img src='<%# GetCompanyLogo(Eval("c_logo")) %>' alt="Company Logo" class="company-logo-avatar" onerror="this.onerror=null; this.src='<%= ResolveUrl("~/assets/default-company.png") %>';" />
+                        <asp:Image ID="imgCompanyLogo2" runat="server"
+                            ImageUrl='<%# GetCompanyLogo(Eval("c_logo")) %>'
+                            AlternateText="Company Logo"
+                            CssClass="company-logo-avatar" />
                         <div>
-                            <h3 style="font-size:20px; font-weight:700; color:#0f172a; margin:0;"><%# GetCompanyName(Eval("c_company")) %></h3>
+                            <h3 style="font-size:20px; font-weight:700; color:#0f172a; margin:0;">
+                                <asp:Label ID="lblCompanyBoxName" runat="server" Text='<%# Eval("c_company") %>'></asp:Label>
+                            </h3>
                             <p style="color:#64748b; font-size:14px; margin:4px 0 0 0;">
-                                <i class="fa-solid fa-industry"></i> <%# GetValueOrFallback(Eval("c_industry"), "Information Technology") %> &nbsp;|&nbsp; 
-                                <i class="fa-solid fa-location-dot"></i> <%# GetCompanyLocation(Eval("c_location"), Eval("c_city"), Eval("c_state")) %>
+                                <i class="fa-solid fa-industry"></i>
+                                <asp:Label ID="lblCompanyIndustry" runat="server" Text='<%# Eval("c_industry") %>'></asp:Label>
+                                &nbsp;|&nbsp;
+                                <i class="fa-solid fa-location-dot"></i>
+                                <asp:Label ID="lblCompanyLocation" runat="server" Text='<%# Eval("c_location") %>'></asp:Label>
                             </p>
                         </div>
                     </div>
-                    
                     <p style="color:#334155; font-size:14px; line-height:1.6; margin-bottom:20px;">
-                        <%# GetValueOrFallback(Eval("c_about"), "Leading company offering professional internship opportunities and career development programs.") %>
+                        <asp:Label ID="lblCompanyAbout" runat="server" Text='<%# Eval("c_about") %>'></asp:Label>
                     </p>
-
-                    <!-- View Company Button -->
-                    <a href='<%# ResolveUrl("~/company-details.aspx") %>?CompanyId=<%# Eval("CompanyId") %>' class="btn-view-company">
-                        <i class="fa-solid fa-building"></i> View Company Details
-                    </a>
-                  </div>
-                  
+                    <asp:HyperLink ID="hlViewCompanyDetails" runat="server"
+                        NavigateUrl='<%# "company-details.aspx?CompanyId=" + Eval("CompanyId") %>'
+                        CssClass="btn-view-company">
+                        <i class="fa-solid fa-building"></i>
+                        View Company Details
+                    </asp:HyperLink>
                 </div>
-                
-                <!-- Right Sidebar Section -->
-                <aside class="imd-sidebar">
-                  
-                  <!-- Quick Actions -->
-                  <div class="imd-side-card">
-                    <h3 class="imd-side-title">Quick Actions</h3>
+            </div>
+            <!-- RIGHT SIDEBAR -->
+            <aside class="imd-sidebar">
+                <!-- Quick Actions -->
+                <div class="imd-side-card">
+                    <h3 class="imd-side-title">
+                        Quick Actions
+                    </h3>
                     <div class="imd-actions">
-                        <!-- Apply Internship Button -->
-                        <a href='<%# GetApplyUrl(Eval("Id")) %>' class="btn-apply-now">
-                            <i class="fa-solid fa-paper-plane"></i> Apply Internship
-                        </a>
-                        <button type="button" class="btn imd-btn-save" style="width:100%; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px; border:1px solid #cbd5e1; border-radius:10px; background:#fff; font-weight:600; cursor:pointer;">
-                            <i class="fa-regular fa-bookmark"></i> Save Internship
+                        <asp:HyperLink ID="hlApply" runat="server"
+                            NavigateUrl='<%# ResolveUrl("~/StudentPanel/student-internship-details.aspx?id=" + Eval("Id") + "&apply=1") %>'
+                            CssClass="btn-apply-now">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            Apply Internship
+                        </asp:HyperLink>
+                        <asp:HyperLink ID="hlSave" runat="server"
+                            NavigateUrl='<%# ResolveUrl("~/StudentPanel/student-internship-details.aspx?id=" + Eval("Id")) %>'
+                            CssClass="btn imd-btn-save"
+                            style="width:100%; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px; border:1px solid #cbd5e1; border-radius:10px; background:#fff; font-weight:600; cursor:pointer; text-decoration:none; color:#334155;">
+                            <i class="fa-regular fa-bookmark"></i>
+                            Save Internship
+                        </asp:HyperLink>
+                    </div>
+                </div>
+                <!-- Internship Details -->
+                <div class="imd-side-card">
+                    <h3 class="imd-side-title">
+                        Internship Details
+                    </h3>
+                    <ul class="imd-meta-list">
+                        <li>
+                            <span class="imd-meta-label">
+                                Domain
+                            </span>
+                            <span class="imd-meta-value">
+                                <asp:Label ID="lblDomain" runat="server" Text='<%# Eval("InternshipDomain") %>'></asp:Label>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="imd-meta-label">
+                                Type
+                            </span>
+                            <span class="imd-meta-value">
+                                <asp:Label ID="lblType" runat="server" Text='<%# Eval("InternshipType") %>'></asp:Label>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="imd-meta-label">
+                                Work Mode
+                            </span>
+                            <span class="imd-meta-value">
+                                <asp:Label ID="lblSidebarWorkMode" runat="server" Text='<%# Eval("WorkMode") %>'></asp:Label>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="imd-meta-label">
+                                Openings
+                            </span>
+                            <span class="imd-meta-value">
+                                <asp:Label ID="lblOpenings" runat="server" Text='<%# Eval("NumberOfOpenings") %>'></asp:Label> Positions
+                            </span>
+                        </li>
+                        <li>
+                            <span class="imd-meta-label">
+                                Start Date
+                            </span>
+                            <span class="imd-meta-value">
+                                <asp:Label ID="lblStartDate" runat="server" Text='<%# Eval("StartDate") %>'></asp:Label>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="imd-meta-label">
+                                Apply Deadline
+                            </span>
+                            <span class="imd-meta-value">
+                                <asp:Label ID="lblDeadline" runat="server" Text='<%# Eval("ApplicationDeadline") %>'></asp:Label>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="imd-meta-label">
+                                Eligible Courses
+                            </span>
+                            <span class="imd-meta-value">
+                                <asp:Label ID="lblCourses" runat="server" Text='<%# Eval("EligibleCourses") %>'></asp:Label>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="imd-meta-label">
+                                Min CGPA
+                            </span>
+                            <span class="imd-meta-value">
+                                <asp:Label ID="lblCGPA" runat="server" Text='<%# Eval("MinimumCGPA") %>'></asp:Label>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Share -->
+                <div class="imd-side-card" style="text-align:center;">
+                    <h3 class="imd-side-title">
+                        Share Internship
+                    </h3>
+                    <div class="imd-share-links">
+                        <button type="button" class="imd-share-btn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </button>
+                        <button type="button" class="imd-share-btn">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </button>
+                        <button type="button" class="imd-share-btn">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </button>
+                        <button type="button" class="imd-share-btn">
+                            <i class="fa-solid fa-link"></i>
                         </button>
                     </div>
-                  </div>
-                  
-                  <!-- Job Details Card -->
-                  <div class="imd-side-card">
-                    <h3 class="imd-side-title">Internship Details</h3>
-                    <ul class="imd-meta-list">
-                      <li>
-                        <span class="imd-meta-label">Domain</span>
-                        <span class="imd-meta-value"><%# GetValueOrFallback(Eval("InternshipDomain"), "Software") %></span>
-                      </li>
-                      <li>
-                        <span class="imd-meta-label">Type</span>
-                        <span class="imd-meta-value"><%# GetValueOrFallback(Eval("InternshipType"), "Full-time") %></span>
-                      </li>
-                      <li>
-                        <span class="imd-meta-label">Work Mode</span>
-                        <span class="imd-meta-value"><%# GetValueOrFallback(Eval("WorkMode"), "In-Office") %></span>
-                      </li>
-                      <li>
-                        <span class="imd-meta-label">Openings</span>
-                        <span class="imd-meta-value"><%# GetValueOrFallback(Eval("NumberOfOpenings"), "1") %> Positions</span>
-                      </li>
-                      <li>
-                        <span class="imd-meta-label">Start Date</span>
-                        <span class="imd-meta-value"><%# GetValueOrFallback(Eval("StartDate"), "Immediate") %></span>
-                      </li>
-                      <li>
-                        <span class="imd-meta-label">Apply Deadline</span>
-                        <span class="imd-meta-value"><%# GetValueOrFallback(Eval("ApplicationDeadline"), "Open") %></span>
-                      </li>
-                      <li>
-                        <span class="imd-meta-label">Eligible Courses</span>
-                        <span class="imd-meta-value"><%# GetValueOrFallback(Eval("EligibleCourses"), "All Graduates") %></span>
-                      </li>
-                      <li>
-                        <span class="imd-meta-label">Min CGPA</span>
-                        <span class="imd-meta-value"><%# GetValueOrFallback(Eval("MinimumCGPA"), "N/A") %></span>
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <!-- Share Card -->
-                  <div class="imd-side-card" style="text-align: center;">
-                    <h3 class="imd-side-title">Share Internship</h3>
-                    <div class="imd-share-links">
-                      <button type="button" class="imd-share-btn" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin-in"></i></button>
-                      <button type="button" class="imd-share-btn" aria-label="Share on Twitter"><i class="fa-brands fa-x-twitter"></i></button>
-                      <button type="button" class="imd-share-btn" aria-label="Share on Facebook"><i class="fa-brands fa-facebook-f"></i></button>
-                      <button type="button" class="imd-share-btn" aria-label="Copy Link"><i class="fa-solid fa-link"></i></button>
-                    </div>
-                  </div>
-                  
-                </aside>
-
-            </div>
-
-        </ItemTemplate>
-    </asp:DataList>
-
+                </div>
+            </aside>
+        </div>
+    </ItemTemplate>
+</asp:DataList>
   </div>
 </main>
-
 </asp:Content>

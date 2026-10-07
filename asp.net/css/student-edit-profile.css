@@ -9,7 +9,6 @@
     --edit-danger: #c2414c;
     --edit-shadow: 0 8px 24px rgba(25, 40, 68, .06);
 }
-
 .student-edit-page {
     max-width: 1180px;
     margin: 0 auto;
@@ -17,7 +16,6 @@
     color: #172554;
     font-family: Inter, system-ui, -apple-system, sans-serif;
 }
-
 .edit-page-header {
     display: flex;
     align-items: flex-end;
@@ -25,26 +23,22 @@
     gap: 24px;
     margin-bottom: 26px;
 }
-
 .edit-page-header h1 {
     margin: 0;
     color: #172554;
     font-size: 28px;
     letter-spacing: -.5px;
 }
-
 .edit-page-header p {
     margin: 7px 0 0;
     color: #64748b;
     font-size: 14px;
 }
-
 .edit-form-stack {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-
 .edit-card {
     background: #fff;
     border: 1px solid #e8edf5;
@@ -53,7 +47,6 @@
     margin-bottom: 25px;
     box-shadow: 0 4px 15px rgba(15,23,42,.03);
 }
-
 .edit-card-header {
     display: flex;
     align-items: center;
@@ -62,20 +55,17 @@
     padding-bottom: 20px;
     border-bottom: 1px solid #f1f5f9;
 }
-
 .edit-card-header h2 {
     margin: 0;
     color: #172554; font-weight: 800;
     font-size: 20px;
     font-weight: 700;
 }
-
 .edit-card-header p {
     margin: 4px 0 0;
     color: #64748b;
     font-size: 13px;
 }
-
 .edit-card-icon {
     display: none; /* Hide the big left icon in headers from old design */
 }
@@ -85,7 +75,6 @@
     margin-right: 10px;
     font-size: 18px;
 }
-
 .edit-section-subtitle {
     font-size: 15px;
     font-weight: 700;
@@ -95,22 +84,18 @@
     align-items: center;
     gap: 10px;
 }
-
 .edit-section-subtitle i {
     color: #2563eb;
     font-size: 16px;
 }
-
 .field-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
 }
-
 .field-wide {
     grid-column: 1 / -1;
 }
-
 .form-field {
     background: #f8fafc;
     border: 1px solid #edf1f5;
@@ -119,12 +104,10 @@
     min-height: 62px;
     transition: border-color .2s, background .2s;
 }
-
 .form-field:focus-within {
     border-color: #cbd5e1;
     background: #fff;
 }
-
 .field-label {
     display: block;
     color: #94a3b8;
@@ -134,20 +117,16 @@
     text-transform: uppercase;
     letter-spacing: .3px;
 }
-
 .field-label span {
     color: var(--edit-danger);
 }
-
 .input-shell {
     position: relative;
     display: flex;
 }
-
 .input-shell > i {
     display: none; /* hide input icons since view page doesn't have them */
 }
-
 .form-input {
     box-sizing: border-box;
     width: 100%;
@@ -160,31 +139,26 @@
     outline: none;
     font-family: inherit;
 }
-
 .form-input::placeholder {
     color: #cbd5e1;
     font-weight: 400;
 }
-
 .form-select {
     appearance: auto;
     cursor: pointer;
 }
-
 .form-textarea {
     height: auto;
     min-height: 20px;
     resize: vertical;
     line-height: 1.5;
 }
-
 .edit-actions {
     display: flex;
     justify-content: flex-end;
     gap: 12px;
     padding-top: 4px;
 }
-
 .edit-btn {
     display: inline-flex;
     align-items: center;
@@ -199,29 +173,24 @@
     cursor: pointer;
     transition: all .2s ease;
 }
-
 .edit-btn-secondary {
     background: #fff;
     color: var(--edit-navy);
     border-color: var(--edit-line);
 }
-
 .edit-btn-secondary:hover {
     border-color: #b9c8df;
     background: #f8fbff;
 }
-
 .edit-btn-primary {
     background: var(--edit-blue);
     color: #fff;
     box-shadow: 0 5px 12px rgba(40, 103, 216, .2);
 }
-
 .edit-btn-primary:hover {
     background: var(--edit-blue-dark);
     box-shadow: 0 7px 16px rgba(40, 103, 216, .25);
 }
-
 /* Photo Upload row - adapting to match */
 .photo-upload-row {
     display: flex;
@@ -233,53 +202,111 @@
     border-radius: 11px;
     margin-bottom: 24px;
 }
-
 .photo-preview-wrap {
-    width: 80px;
-    height: 80px;
-    flex: none;
+    width: 84px;
+    height: 84px;
+    flex: 0 0 84px;
     border-radius: 50%;
     overflow: hidden;
-    background: var(--edit-pale);
-    border: 3px solid #e8f0ff;
+    background: #2563eb;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #dbeafe;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.18);
 }
-
 .photo-preview {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 50%;
 }
-
+.photo-preview-initials {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    letter-spacing: 1px;
+}
 .photo-upload-copy h3 {
-    font-size: 14px;
-    margin: 0 0 5px;
-    color: #172554; font-weight: 800;
+    font-size: 15px;
+    margin: 0 0 4px;
+    color: #0f172a;
+    font-weight: 700;
 }
-
 .photo-upload-copy p {
-    font-size: 12px;
+    font-size: 13px;
     color: #64748b;
-    margin: 0 0 12px;
+    margin: 0 0 14px;
 }
-
+.photo-upload-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
 .photo-upload-trigger {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 14px;
-    background: var(--edit-blue);
-    color: #fff;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 700;
+    padding: 9px 18px;
+    background-color: #2563eb;
+    color: #ffffff;
+    border: 1px solid #2563eb;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background .2s ease;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    line-height: 1.4;
 }
-
+.photo-upload-trigger i {
+    color: #ffffff;
+    font-size: 14px;
+}
 .photo-upload-trigger:hover {
-    background: var(--edit-blue-dark);
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+    color: #ffffff;
 }
-
+.photo-remove-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    background-color: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    line-height: 1.4;
+}
+.photo-remove-btn i {
+    color: #dc2626;
+    font-size: 14px;
+}
+.photo-remove-btn:hover {
+    background-color: #fecaca;
+    color: #b91c1c;
+    border-color: #f87171;
+    text-decoration: none;
+}
+.photo-remove-btn:hover i {
+    color: #b91c1c;
+}
 .file-input-hidden {
     position: absolute;
     width: 1px;
@@ -287,7 +314,6 @@
     opacity: 0;
     pointer-events: none;
 }
-
 @media(max-width:760px) {
     .field-grid {
         grid-template-columns: 1fr;

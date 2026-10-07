@@ -1,23 +1,19 @@
 <%@ Page Title="Company Profile" Language="C#" MasterPageFile="~/CompanyPanel/company.Master" AutoEventWireup="true" CodeBehind="company-profile.aspx.cs" Inherits="asp.net.company_profile" %>
-
 <asp:Content ID="Content0" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/company-profile.css") %>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </asp:Content>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
 <div class="company-profile-page">
-
     <!-- ===================== HEADER CARD ===================== -->
-    <asp:Panel ID="pnlHero" runat="server" CssClass="profile-header-card">
+    <div class="profile-header-card"><asp:PlaceHolder ID="pnlHero" runat="server">
         <div class="profile-header-top">
             <div class="profile-main-info">
-                <div class="profile-photo" aria-label="Company logo" style="border-radius: 50% !important; overflow: hidden !important;">
-                    <asp:Image ID="imgCompanyLogo" runat="server" CssClass="company-profile-logo" Visible="false" AlternateText="Company Logo" Style="width:100%; height:100%; border-radius:50% !important; object-fit:cover; display:block;" />
-                    <asp:Panel ID="pnlLogoInitials" runat="server" Style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border-radius: 50%;">
+                <div class="profile-photo" aria-label="Company logo" style="border-radius: 50% !important; overflow: hidden !important; transform: none !important; animation: none !important; transition: none !important;">
+                    <asp:Image ID="imgCompanyLogo" runat="server" CssClass="company-profile-logo" Visible="false" AlternateText="Company Logo" Style="width:100%; height:100%; border-radius:50% !important; object-fit:cover; display:block; transform: none !important; animation: none !important; transition: none !important;" />
+                    <asp:PlaceHolder ID="pnlLogoInitials" runat="server"><div style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border-radius: 50%;">
                         <asp:Label ID="lblCompanyInitials" runat="server" />
-                    </asp:Panel>
+                    </div></asp:PlaceHolder>
                 </div>
                 <div class="profile-info-2x2">
                     <div class="contact-item">
@@ -56,7 +52,6 @@
             </asp:HyperLink>
             <asp:HyperLink ID="hlEditProfileHero" runat="server" Visible="false" NavigateUrl="~/CompanyPanel/company-edit-profile.aspx"></asp:HyperLink>
         </div>
-
         <div class="profile-contact-row">
             <div class="contact-item">
                 <div class="contact-icon"><i class="fa-solid fa-user"></i></div>
@@ -80,7 +75,6 @@
                 </div>
             </div>
         </div>
-
         <div class="social-links">
             <asp:HyperLink ID="hlWebsiteSocial" runat="server" Target="_blank" Rel="noopener" CssClass="social-link" NavigateUrl="#">
                 <i class="fa-solid fa-globe"></i> Website
@@ -92,8 +86,7 @@
                 <i class="fa-solid fa-phone"></i> Call Us
             </asp:HyperLink>
         </div>
-    </asp:Panel>
-
+    </asp:PlaceHolder></div>
     <!-- ===================== STATISTICS CARDS ===================== -->
     <div class="profile-stats-grid">
         <div class="profile-stat-card">
@@ -125,7 +118,6 @@
             </div>
         </div>
     </div>
-
     <!-- ===================== TABS NAVIGATION ===================== -->
     <section class="profile-tabs-card" aria-label="Company Profile sections">
         <div class="profile-tabs" role="tablist">
@@ -136,7 +128,6 @@
             <button type="button" class="profile-tab" onclick="openCompanyTab('profile-completion', this)"><i class="fa-solid fa-chart-line"></i><span>Activity</span></button>
         </div>
     </section>
-
     <!-- ===================== TAB 1: OVERVIEW ===================== -->
     <section id="company-info" class="profile-tab-content active">
         <div class="profile-section-card">
@@ -146,7 +137,6 @@
                     <p>View key organizational overview and company specs</p>
                 </div>
             </div>
-
             <div class="profile-subtitle"><i class="fa-solid fa-id-card"></i>Company Overview</div>
             <div class="profile-info-grid">
                 <div class="info-field">
@@ -185,7 +175,6 @@
             </div>
         </div>
     </section>
-
     <!-- ===================== TAB 2: COMPANY INFORMATION ===================== -->
     <section id="about-company" class="profile-tab-content">
         <div class="profile-section-card">
@@ -195,7 +184,6 @@
                     <p>Overview, specialization, mission, and vision of your company</p>
                 </div>
             </div>
-
             <div class="profile-subtitle"><i class="fa-solid fa-bullseye"></i>Company Specialization &amp; Vision</div>
             <div class="profile-info-grid">
                 <div class="info-field">
@@ -218,7 +206,6 @@
             </div>
         </div>
     </section>
-
     <!-- ===================== TAB 3: CONTACT ===================== -->
     <section id="contact-info" class="profile-tab-content">
         <div class="profile-section-card">
@@ -228,7 +215,6 @@
                     <p>Company contact information, HR details, and online presence</p>
                 </div>
             </div>
-
             <!-- SECTION 1: COMPANY CONTACT (3 ROW x 2 COL) -->
             <div class="profile-subtitle"><i class="fa-solid fa-building"></i>Company Contact</div>
             <div class="profile-info-grid">
@@ -258,7 +244,6 @@
                 </div>
                 <asp:Label ID="lblCountry" runat="server" Visible="false" />
             </div>
-
             <!-- SECTION 2: HR / RECRUITER (2 ROW x 2 COL) -->
             <div class="profile-subtitle"><i class="fa-solid fa-user-tie"></i>HR / Recruiter</div>
             <div class="profile-info-grid">
@@ -279,7 +264,6 @@
                     <asp:Label ID="lblHRContactNumber" runat="server" CssClass="info-value" />
                 </div>
             </div>
-
             <!-- SECTION 3: ONLINE PRESENCE (1 ROW x 1 COL) -->
             <div class="profile-subtitle"><i class="fa-solid fa-globe"></i>Online Presence</div>
             <div class="profile-info-grid" style="grid-template-columns: 1fr;">
@@ -291,7 +275,6 @@
             </div>
         </div>
     </section>
-
     <!-- ===================== TAB 4: INTERNSHIP PREFERENCES ===================== -->
     <section id="verification-status" class="profile-tab-content">
         <div class="profile-section-card">
@@ -301,7 +284,6 @@
                     <p>Hiring criteria, preferred domains, qualifications, and work modes</p>
                 </div>
             </div>
-
             <div class="profile-subtitle"><i class="fa-solid fa-sliders"></i>Preferences &amp; Eligibility Criteria</div>
             <div class="profile-info-grid">
                 <div class="info-field">
@@ -337,14 +319,12 @@
                     <asp:Label ID="lblMinimumCGPA" runat="server" CssClass="info-value" />
                 </div>
             </div>
-
             <!-- Hidden Control Placeholders for Backend Compatibility -->
-            <asp:Panel ID="pnlStatusVerified" runat="server" Visible="false"><asp:Label ID="lblVerifiedDate" runat="server" Visible="false" /></asp:Panel>
-            <asp:Panel ID="pnlStatusPending" runat="server" Visible="false" />
-            <asp:Panel ID="pnlStatusRejected" runat="server" Visible="false" />
+            <asp:PlaceHolder ID="pnlStatusVerified" runat="server" Visible="false"><asp:Label ID="lblVerifiedDate" runat="server" Visible="false" /></asp:PlaceHolder>
+            <asp:PlaceHolder ID="pnlStatusPending" runat="server" Visible="false" />
+            <asp:PlaceHolder ID="pnlStatusRejected" runat="server" Visible="false" />
         </div>
     </section>
-
     <!-- ===================== TAB 5: ACTIVITY ===================== -->
     <section id="profile-completion" class="profile-tab-content">
         <div class="profile-section-card">
@@ -354,7 +334,6 @@
                     <p>Summary of internship postings, student applications, and placement metrics</p>
                 </div>
             </div>
-
             <div class="profile-subtitle"><i class="fa-solid fa-chart-pie"></i>Activity Metrics &amp; Engagement</div>
             <div class="profile-info-grid">
                 <div class="info-field">
@@ -382,17 +361,14 @@
                     <asp:Label ID="lblActivityCompletedInternships" runat="server" CssClass="info-value" />
                 </div>
             </div>
-
             <!-- Hidden Control Placeholders for Backend Compatibility -->
             <asp:Label ID="lblCompletionPercent" runat="server" Visible="false" />
-            <asp:Panel ID="pnlCompletionBar" runat="server" Visible="false" />
-            <asp:Repeater ID="rptMissingFields" runat="server" Visible="false" />
+            <asp:PlaceHolder ID="pnlCompletionBar" runat="server" Visible="false" />
+            <asp:PlaceHolder ID="rptMissingFields" runat="server" Visible="false" />
             <asp:HyperLink ID="hlCompleteProfile" runat="server" Visible="false" />
         </div>
     </section>
-
 </div>
-
 <script>
     function openCompanyTab(id, button) {
         document.querySelectorAll('.profile-tab-content').forEach(function (x) { x.classList.remove('active'); });
@@ -402,5 +378,4 @@
         if (button) button.classList.add('active');
     }
 </script>
-
 </asp:Content>

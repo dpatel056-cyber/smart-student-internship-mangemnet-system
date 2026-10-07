@@ -18,41 +18,67 @@ namespace asp.net
 
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (Session["company"] == null)
-            {
-                Response.Redirect("~/PublicPanel/login.aspx");
-            }
-
-            if (!IsPostBack)
-            {
-                companyfilldata();
-            }
-        }
-
         void getcon()
         {
             con = new SqlConnection(s);
             con.Open();
         }
 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session["company"] != null)
+            {
+                getcon();
+                da = new SqlDataAdapter("select * from c_registration where c_email='" + Session["company"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
+
+                if (!IsPostBack)
+                {
+                    companyfilldata();
+                }
+            }
+            else
+            {
+                Response.Redirect("~/PublicPanel/login.aspx");
+            }
+        }
+
+        //--------------------------------
+        //********************************
+        //--------------------------------
         void imgupload()
         {
             if (fileProfilePhoto.HasFile)
             {
-                string path = Server.MapPath("~/CompanyUploads/");
-                if (!Directory.Exists(path))
+                string fileName = Path.GetFileName(fileProfilePhoto.FileName);
+                string compUploadsPath = Server.MapPath("~/CompanyUploads/");
+                if (!Directory.Exists(compUploadsPath))
                 {
-                    Directory.CreateDirectory(path);
+                    Directory.CreateDirectory(compUploadsPath);
                 }
-                fnm = "~/CompanyUploads/" + fileProfilePhoto.FileName;
-                fileProfilePhoto.SaveAs(Server.MapPath(fnm));
+                string fullSavePath = Path.Combine(compUploadsPath, fileName);
+                fileProfilePhoto.SaveAs(fullSavePath);
+
+                fnm = fileName;
             }
             else
             {
                 fnm = null;
             }
+        }
+        //--------------------------------
+        //********************************
+        //--------------------------------
+        private string GetInitials(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return "CO";
+            var parts = name.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length == 1)
+            {
+                return parts[0].Length >= 2 ? parts[0].Substring(0, 2).ToUpper() : parts[0].ToUpper();
+            }
+            return (parts[0][0].ToString() + parts[parts.Length - 1][0].ToString()).ToUpper();
         }
 
         void companyfilldata()
@@ -66,12 +92,10 @@ namespace asp.net
             if (ds.Tables[0].Rows.Count > 0)
             {
                 // Basic Details
-                txtCompanyName.Text = ds.Tables[0].Rows[0]["c_company"].ToString();
+                txtCompanyName.Text= ds.Tables[0].Rows[0]["c_company"].ToString();
                 txtIndustry.Text = ds.Tables[0].Rows[0]["c_industry"].ToString();
 
-
                 ddlCompanyType.SelectedValue = ds.Tables[0].Rows[0]["c_type"].ToString();
-
 
                 ddlCompanySize.SelectedValue = ds.Tables[0].Rows[0]["c_size"].ToString();
 
@@ -104,9 +128,7 @@ namespace asp.net
                 // Internship Preferences
                 txtInternshipDomains.Text = ds.Tables[0].Rows[0]["c_internship_domains"].ToString();
 
-
                 ddlInternshipType.SelectedValue = ds.Tables[0].Rows[0]["c_internship_type"].ToString();
-
 
                 ddlPreferredWorkMode.SelectedValue = ds.Tables[0].Rows[0]["c_work_mode"].ToString();
 
@@ -116,7 +138,11 @@ namespace asp.net
                 txtPreferredSemester.Text = ds.Tables[0].Rows[0]["c_preferred_semester"].ToString();
                 txtMinimumCGPA.Text = ds.Tables[0].Rows[0]["c_min_cgpa"].ToString();
 
-                string logo = ds.Tables[0].Rows[0]["c_logo"].ToString();
+                //--------------------------------
+                //********************************
+                //--------------------------------
+
+                string logo = ds.Tables[0].Rows[0]["c_logo"] != DBNull.Value ? ds.Tables[0].Rows[0]["c_logo"].ToString() : "";
                 if (!string.IsNullOrEmpty(logo))
                 {
                     if (!logo.StartsWith("~") && !logo.StartsWith("/"))
@@ -124,8 +150,47 @@ namespace asp.net
                         logo = "~/CompanyUploads/" + logo;
                     }
                     imgProfilePreview.ImageUrl = ResolveUrl(logo);
+                    imgProfilePreview.Style["display"] = "block";
+                    lblProfileInitials.Style["display"] = "none";
+                    btnRemovePhoto.Visible = true;
+                }
+                else
+                {
+                    imgProfilePreview.ImageUrl = "";
+                    imgProfilePreview.Style["display"] = "none";
+                    lblProfileInitials.Style["display"] = "flex";
+                    lblProfileInitials.Text = GetInitials(txtCompanyName.Text);
+                    btnRemovePhoto.Visible = false;
                 }
             }
+        }
+
+        protected void btnRemovePhoto_Click(object sender, EventArgs e)
+        {
+            getcon();
+            da = new SqlDataAdapter("select c_logo from c_registration where c_email='" + Session["company"] + "'", con);
+            ds = new DataSet();
+            da.Fill(ds);
+
+            //--------------------------------
+            //********************************
+            //--------------------------------
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                string logo = ds.Tables[0].Rows[0]["c_logo"].ToString();
+                if (!string.IsNullOrEmpty(logo))
+                {
+                    string filePath = Server.MapPath(logo.StartsWith("~") ? logo : "~/CompanyUploads/" + logo);
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+                }
+            }
+
+            cmd = new SqlCommand("update c_registration set c_logo = NULL where c_email='" + Session["company"] + "'", con);
+            cmd.ExecuteNonQuery();
+            Response.Redirect("company-edit-profile.aspx");
         }
 
         protected void btnSaveProfile_Click(object sender, EventArgs e)

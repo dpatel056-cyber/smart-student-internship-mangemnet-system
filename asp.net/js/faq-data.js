@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ===================== FAQ DATA ===================== */
-  const faqCategories = [
+  const defaultFaqCategories = [
     { id: 'general',    name: 'General',          icon: 'fa-comments',        color: 'cat-blue'   },
     { id: 'students',   name: 'For Students',     icon: 'fa-user-graduate',   color: 'cat-green'  },
     { id: 'companies',  name: 'For Companies',    icon: 'fa-building',        color: 'cat-purple' },
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'security',   name: 'Account & Security', icon: 'fa-shield-halved', color: 'cat-skyblue'}
   ];
 
-  const faqData = {
+  const defaultFaqData = {
     general: [
       { q: 'What is SIMS?', a: 'SIMS (Smart Student Internship Management System) is a platform that connects students with verified companies offering internship opportunities. It helps students discover, apply, and manage internships while enabling companies to find and hire talented students.' },
       { q: 'How can I register on SIMS?', a: 'Click the "Register" button in the top-right corner, choose whether you are a student or a company, fill in your basic details, verify your email address, and your account will be ready to use.' },
@@ -69,13 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
   };
 
+  const faqCategories = (window.simsFaqCategories && window.simsFaqCategories.length > 0) ? window.simsFaqCategories : defaultFaqCategories;
+  const faqData = (window.simsFaqData && Object.keys(window.simsFaqData).length > 0) ? window.simsFaqData : defaultFaqData;
+
   const catListEl = document.getElementById('faqCatList');
   const faqListEl = document.getElementById('faqList');
   const faqEmptyEl = document.getElementById('faqEmpty');
 
   if (!catListEl || !faqListEl) return;
 
-  let activeCategory = 'general';
+  let activeCategory = (faqCategories.length > 0) ? faqCategories[0].id : 'general';
 
   /* ===== Render category sidebar ===== */
   function renderCategories() {

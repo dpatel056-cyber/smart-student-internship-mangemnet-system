@@ -2,6 +2,37 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window._simsScriptInitialized) return;
   window._simsScriptInitialized = true;
 
+  /* ===== Active Navigation Link Detection ===== */
+  const path = window.location.pathname.toLowerCase();
+  const navLinks = document.querySelectorAll('#mainNav a[data-nav-page]');
+
+  if (navLinks.length > 0) {
+    navLinks.forEach(link => link.classList.remove('active'));
+
+    let matched = false;
+    navLinks.forEach(link => {
+      const page = link.getAttribute('data-nav-page').toLowerCase();
+
+      if (page === 'internships.aspx' && (path.includes('internship-details.aspx') || path.includes('internships.aspx'))) {
+        link.classList.add('active');
+        matched = true;
+      } else if (page === 'companies.aspx' && (path.includes('company-details.aspx') || path.includes('companies.aspx'))) {
+        link.classList.add('active');
+        matched = true;
+      } else if (path.endsWith('/' + page) || path.endsWith(page)) {
+        link.classList.add('active');
+        matched = true;
+      }
+    });
+
+    if (!matched) {
+      if (path.endsWith('/index.aspx') || path.endsWith('/') || path.includes('index.aspx')) {
+        const homeLink = document.querySelector('#mainNav a[data-nav-page="index.aspx"]');
+        if (homeLink) homeLink.classList.add('active');
+      }
+    }
+  }
+
   /* ===== Mobile hamburger menu ===== */
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   const mainNav = document.getElementById('mainNav');

@@ -1,849 +1,312 @@
 /* ==========================================================================
-   SIMS STUDENT DASHBOARD STYLESHEET
-   Scoped under .student-dashboard namespace to prevent layout collisions.
+   SIMS STUDENT DASHBOARD STYLESHEET (MATCHING COMPANY & ADMIN DASHBOARD)
    ========================================================================== */
-
-/* Font Family & Base Tokens */
 :root {
-    --student-navy: #0F1B33;
-    --student-blue: #2F6FED;
-    --student-blue-hover: #1D56D8;
-    --student-blue-light: #EFF6FF;
-    --student-bg: #F5F7FB;
-    --student-card-bg: #FFFFFF;
-    --student-text: #17233D;
-    --student-muted: #718096;
-    --student-border: #E2E8F0;
-    
-    --student-success: #16A34A;
-    --student-success-bg: #F0FDF4;
-    --student-warning: #F59E0B;
-    --student-warning-bg: #FFFBEB;
-    --student-danger: #EF4444;
-    --student-danger-bg: #FEF2F2;
-
-    --student-radius: 12px;
-    --student-radius-lg: 16px;
-    --student-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
-    --student-transition: all 0.2s ease;
+    --co-navy: #0F1B33;
+    --co-blue: #2563EB;
+    --co-blue-hover: #1D4ED8;
+    --co-blue-light: #EFF6FF;
+    --co-bg: #F8FAFC;
+    --co-card-bg: #FFFFFF;
+    --co-text: #0F172A;
+    --co-muted: #64748B;
+    --co-border: #E2E8F0;
+    --co-success: #16A34A;
+    --co-success-bg: #F0FDF4;
+    --co-warning: #F59E0B;
+    --co-warning-bg: #FFFBEB;
+    --co-danger: #EF4444;
+    --co-danger-bg: #FEF2F2;
+    --co-purple: #7C3AED;
+    --co-purple-bg: #F5F3FF;
+    --co-indigo: #4F46E5;
+    --co-indigo-bg: #EEF2FF;
+    --co-pink: #EC4899;
+    --co-pink-bg: #FDF2F8;
+    --co-teal: #0D9488;
+    --co-teal-bg: #F0FDFA;
+    --co-radius: 12px;
+    --co-radius-lg: 16px;
+    --co-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+    --co-shadow-hover: 0 10px 25px -4px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.03);
+    --co-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-/* Page Container */
-.student-dashboard {
+/* 1. Top KPI Stat Cards Grid (4 cols, 2 rows for 8 cards) */
+.sims-stat-grid-v2,
+.co-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+@media (max-width: 1200px) {
+    .sims-stat-grid-v2,
+    .co-stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 576px) {
+    .sims-stat-grid-v2,
+    .co-stat-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.sims-stat-card-v2,
+.co-stat-card {
+    background: #ffffff;
+    border: 1px solid #e6e9f0;
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
+    transition: box-shadow 0.22s ease, transform 0.22s ease;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+.sims-stat-card-v2:hover,
+.co-stat-card:hover {
+    box-shadow: 0 6px 20px rgba(16, 24, 40, 0.1);
+    transform: translateY(-2px);
+    border-color: #cbd5e1;
+}
+.sims-stat-icon-v2,
+.co-stat-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+.sims-bg-purple, .co-stat-icon.purple       { background: #ede9fe; color: #7c3aed; }
+.sims-bg-blue, .co-stat-icon.blue           { background: #dbeafe; color: #2563eb; }
+.sims-bg-green, .co-stat-icon.green         { background: #d1fae5; color: #059669; }
+.sims-bg-orange, .co-stat-icon.orange       { background: #ffedd5; color: #ea580c; }
+.sims-bg-yellow, .co-stat-icon.yellow       { background: #fef9c3; color: #ca8a04; }
+.sims-bg-purple-light, .co-stat-icon.purple-light { background: #f3e8ff; color: #9333ea; }
+.sims-bg-teal, .co-stat-icon.teal           { background: #ccfbf1; color: #0f766e; }
+.sims-bg-pink, .co-stat-icon.pink           { background: #fce7f3; color: #db2777; }
+.sims-bg-red, .co-stat-icon.red             { background: #fee2e2; color: #dc2626; }
+.sims-stat-info-v2,
+.co-stat-info {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    padding-bottom: 30px;
-    color: var(--student-text);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    min-width: 0;
 }
-
-/* ==========================================================================
-   1. PAGE HEADER
-   ========================================================================== */
-.student-dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-}
-
-.student-dashboard-title {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--student-navy);
-    margin: 0 0 4px 0;
-    letter-spacing: -0.3px;
-}
-
-.student-dashboard-subtitle {
-    font-size: 14px;
-    color: var(--student-muted);
+.sims-stat-title-v2,
+.co-stat-info p {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
     margin: 0;
 }
-
-.student-header-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background-color: var(--student-card-bg);
-    color: var(--student-blue);
-    border: 1px solid var(--student-border);
-    border-radius: var(--student-radius);
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: var(--student-transition);
-}
-
-.student-header-btn:hover {
-    background-color: var(--student-blue-light);
-    border-color: var(--student-blue);
-    color: var(--student-blue-hover);
-}
-
-/* ==========================================================================
-   2. WELCOME CARD & PROFILE COMPLETION
-   ========================================================================== */
-.student-welcome-card {
-    background: linear-gradient(135deg, #1E3A8A 0%, #2F6FED 100%);
-    border-radius: var(--student-radius-lg);
-    padding: 28px 32px;
-    color: #FFFFFF;
-    box-shadow: 0 10px 25px -5px rgba(47, 111, 237, 0.25);
-    position: relative;
-    overflow: hidden;
-}
-
-.student-welcome-card::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 70%);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.student-welcome-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.student-welcome-greeting {
+.sims-stat-num-v2,
+.co-stat-info h3 {
     font-size: 22px;
     font-weight: 700;
-    margin: 0 0 6px 0;
+    color: #1a2233;
+    line-height: 1.2;
+    margin: 0 0 2px 0;
 }
-
-.student-welcome-desc {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.85);
+/* 2. Panels & Grids */
+.co-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+@media (max-width: 991px) {
+    .co-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+.co-panel {
+    background: var(--co-card-bg);
+    border: 1px solid var(--co-border);
+    border-radius: var(--co-radius-lg);
+    padding: 24px;
+    box-shadow: var(--co-shadow);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+}
+.co-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--co-border);
+}
+.co-panel-header h3 {
+    font-size: 16.5px;
+    font-weight: 700;
+    color: var(--co-text);
     margin: 0;
-    max-width: 600px;
-    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-
-.student-welcome-badge {
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(4px);
-    padding: 6px 14px;
-    border-radius: 20px;
+.co-panel-header a {
     font-size: 13px;
+    font-weight: 600;
+    color: var(--co-blue);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+.co-panel-header a:hover {
+    color: var(--co-blue-hover);
+    text-decoration: underline;
+}
+/* 3. Tables */
+.co-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+.co-table th {
+    background: #f8fafc;
+    padding: 12px 14px;
+    font-weight: 600;
+    color: var(--co-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1.5px solid var(--co-border);
+    text-align: left;
+    white-space: nowrap;
+}
+.co-table td {
+    padding: 14px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    color: var(--co-text);
+    vertical-align: middle;
+}
+.co-table tr:hover td {
+    background: #f8fafc;
+}
+.co-applicant-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.co-applicant-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #dbeafe;
+    color: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+.co-applicant-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* Status Badges */
+.co-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 11px;
+    border-radius: 20px;
+    font-size: 12px;
     font-weight: 600;
     white-space: nowrap;
 }
-
-.student-progress-wrapper {
-    background-color: rgba(255, 255, 255, 0.12);
-    border-radius: var(--student-radius);
-    padding: 20px;
-    backdrop-filter: blur(6px);
+.co-badge.badge-pending     { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+.co-badge.badge-shortlisted { background: #ede9fe; color: #7c3aed; border: 1px solid #ddd6fe; }
+.co-badge.badge-selected    { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+.co-badge.badge-rejected    { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+/* 4. Interviews List */
+.co-interview-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+    background: #f8fafc;
+    margin-bottom: 10px;
+    transition: var(--co-transition);
+}
+.co-interview-item:hover {
+    background: #ffffff;
+    border-color: #cbd5e1;
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+.co-date-box {
+    width: 48px;
+    height: 48px;
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-}
-
-.student-progress-info {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    font-size: 14px;
-    font-weight: 600;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
-
-.student-progress-track {
-    height: 10px;
-    background-color: rgba(255, 255, 255, 0.25);
-    border-radius: 6px;
+.co-date-box .day {
+    font-size: 16px;
+    font-weight: 800;
+    color: #2563eb;
+    line-height: 1;
+}
+.co-date-box .mon {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--co-muted);
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+.co-interview-info {
+    flex: 1;
+    min-width: 0;
+}
+.co-interview-info h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--co-text);
+    margin: 0 0 2px 0;
+    white-space: nowrap;
     overflow: hidden;
-}
-
-.student-progress-fill {
-    height: 100%;
-    background-color: #38BDF8;
-    border-radius: 6px;
-    transition: width 1s ease-in-out;
-}
-
-.student-progress-foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 4px;
-}
-
-.student-progress-note {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.student-welcome-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 18px;
-    background-color: #FFFFFF;
-    color: var(--student-blue);
-    border: none;
-    border-radius: var(--student-radius);
-    font-size: 13px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: var(--student-transition);
-}
-
-.student-welcome-btn:hover {
-    background-color: #F8FAFC;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* ==========================================================================
-   3. QUICK STATISTICS CARDS
-   ========================================================================== */
-.student-statistics {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
-
-.student-stat-card {
-    background-color: var(--student-card-bg);
-    border: 1px solid var(--student-border);
-    border-radius: var(--student-radius);
-    padding: 20px 24px;
-    box-shadow: var(--student-shadow);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    text-decoration: none;
-    color: inherit;
-    transition: var(--student-transition);
-}
-
-.student-stat-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--student-blue);
-    box-shadow: 0 8px 25px -4px rgba(47, 111, 237, 0.12);
-}
-
-.student-stat-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.student-stat-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--student-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 6px;
-}
-
-.student-stat-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--student-navy);
-    line-height: 1;
-    margin-bottom: 6px;
-}
-
-.student-stat-desc {
-    font-size: 12px;
-    color: var(--student-muted);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.student-stat-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: var(--student-radius);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
-}
-
-.student-stat-icon-blue {
-    background-color: var(--student-blue-light);
-    color: var(--student-blue);
-}
-
-.student-stat-icon-green {
-    background-color: var(--student-success-bg);
-    color: var(--student-success);
-}
-
-.student-stat-icon-purple {
-    background-color: #F3E8FF;
-    color: #9333EA;
-}
-
-.student-stat-icon-orange {
-    background-color: var(--student-warning-bg);
-    color: var(--student-warning);
-}
-
-/* ==========================================================================
-   4. DASHBOARD CARDS & COMMON HEADERS
-   ========================================================================== */
-.student-dashboard-card {
-    background-color: var(--student-card-bg);
-    border: 1px solid var(--student-border);
-    border-radius: var(--student-radius);
-    padding: 24px;
-    box-shadow: var(--student-shadow);
-    display: flex;
-    flex-direction: column;
-}
-
-.student-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.student-card-title {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--student-navy);
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.student-card-title i {
-    color: var(--student-blue);
-    font-size: 16px;
-}
-
-.student-card-link {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--student-blue);
-    text-decoration: none;
-    transition: var(--student-transition);
-}
-
-.student-card-link:hover {
-    color: var(--student-blue-hover);
-    text-decoration: underline;
-}
-
-/* ==========================================================================
-   5. APPLICATION ANALYTICS (2 COLUMNS)
-   ========================================================================== */
-.student-analytics-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.student-chart-container {
-    position: relative;
-    width: 100%;
-    max-width: 260px;
-    height: 200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.student-status-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 10px;
-}
-
-.student-status-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 18px;
-    border-radius: var(--student-radius);
-    background-color: var(--student-bg);
-    border: 1px solid #EDF2F7;
-}
-
-.student-status-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 600;
-    font-size: 14px;
-}
-
-.student-status-badge {
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-}
-
-.badge-selected {
-    background-color: var(--student-success-bg);
-    color: var(--student-success);
-}
-
-.badge-pending {
-    background-color: var(--student-warning-bg);
-    color: var(--student-warning);
-}
-
-.badge-rejected {
-    background-color: var(--student-danger-bg);
-    color: var(--student-danger);
-}
-
-.student-status-count {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--student-navy);
-}
-
-/* ==========================================================================
-   6. RECENT APPLICATIONS TABLE
-   ========================================================================== */
-.student-table-responsive {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-.student-application-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 14px;
-}
-
-.student-application-table th {
-    background-color: var(--student-bg);
-    color: var(--student-muted);
-    font-weight: 600;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--student-border);
-}
-
-.student-application-table td {
-    padding: 16px;
-    border-bottom: 1px solid var(--student-border);
-    color: var(--student-text);
-    vertical-align: middle;
-}
-
-.student-application-table tr:last-child td {
-    border-bottom: none;
-}
-
-.student-application-table tr:hover td {
-    background-color: #F8FAFC;
-}
-
-.student-company-cell {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 600;
-}
-
-.student-company-logo {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background-color: var(--student-blue-light);
-    color: var(--student-blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 14px;
-    flex-shrink: 0;
-}
-
-.student-btn-action {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border-radius: 6px;
-    background-color: var(--student-bg);
-    color: var(--student-navy);
-    border: 1px solid var(--student-border);
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: var(--student-transition);
-}
-
-.student-btn-action:hover {
-    background-color: var(--student-blue);
-    color: #FFFFFF;
-    border-color: var(--student-blue);
-}
-
-/* ==========================================================================
-   7. TWO-COLUMN GRID (INTERVIEWS & NOTIFICATIONS)
-   ========================================================================== */
-.student-two-col-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-/* Interviews List */
-.student-interviews-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.student-interview-card {
-    display: flex;
-    gap: 16px;
-    padding: 16px;
-    border: 1px solid var(--student-border);
-    border-radius: var(--student-radius);
-    background-color: #FFFFFF;
-    transition: var(--student-transition);
-}
-
-.student-interview-card:hover {
-    border-color: var(--student-blue);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-
-.student-interview-date {
-    width: 60px;
-    background-color: var(--student-blue-light);
-    color: var(--student-blue);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 4px;
-    flex-shrink: 0;
-}
-
-.student-interview-day {
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1;
-}
-
-.student-interview-month {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-top: 4px;
-}
-
-.student-interview-details {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex-grow: 1;
-}
-
-.student-interview-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--student-navy);
-    margin: 0;
-}
-
-.student-interview-company {
-    font-size: 13px;
-    color: var(--student-muted);
-    margin: 0;
-}
-
-.student-interview-meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 12px;
-    color: var(--student-muted);
-    margin-top: 6px;
-}
-
-/* Notifications List */
-.student-notifications-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.student-notification-item {
-    display: flex;
-    gap: 14px;
-    padding: 14px;
-    border-radius: var(--student-radius);
-    background-color: var(--student-bg);
-    border: 1px solid transparent;
-    transition: var(--student-transition);
-}
-
-.student-notification-item.is-unread {
-    background-color: var(--student-blue-light);
-    border-color: rgba(47, 111, 237, 0.2);
-}
-
-.student-notification-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: #FFFFFF;
-    color: var(--student-blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-}
-
-.student-notification-content {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.student-notification-text {
-    font-size: 13.5px;
-    color: var(--student-text);
-    margin: 0;
-    line-height: 1.4;
-}
-
-.student-notification-time {
-    font-size: 11.5px;
-    color: var(--student-muted);
-}
-
-/* ==========================================================================
-   8. RECOMMENDED INTERNSHIPS CARDS
-   ========================================================================== */
-.student-recommended-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.student-internship-card {
-    background-color: var(--student-card-bg);
-    border: 1px solid var(--student-border);
-    border-radius: var(--student-radius);
-    padding: 20px;
-    box-shadow: var(--student-shadow);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 16px;
-    transition: var(--student-transition);
-}
-
-.student-internship-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--student-blue);
-    box-shadow: 0 10px 25px -5px rgba(47, 111, 237, 0.15);
-}
-
-.student-internship-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 12px;
-}
-
-.student-internship-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--student-navy);
+    text-overflow: ellipsis;
+}
+.co-interview-info p {
+    font-size: 12.5px;
+    color: var(--co-muted);
     margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
-.student-internship-company {
-    font-size: 13px;
-    color: var(--student-muted);
-    font-weight: 500;
-}
-
-.student-internship-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    font-size: 12px;
-    color: var(--student-muted);
-    margin: 6px 0;
-}
-
-.student-internship-skills {
-    font-size: 12px;
-    color: var(--student-muted);
-    display: flex;
+.co-mode {
+    font-size: 11.5px;
+    color: #4f46e5;
+    font-weight: 600;
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-}
-
-.student-internship-skills span {
-    background-color: var(--student-bg);
-    color: var(--student-navy);
-    padding: 3px 8px;
+    gap: 4px;
+    background: #ede9fe;
+    padding: 2px 8px;
     border-radius: 4px;
-    font-weight: 600;
 }
-
-.student-internship-foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 14px;
-    border-top: 1px solid var(--student-border);
-    margin-top: 4px;
-}
-
-.student-internship-stipend {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--student-navy);
-}
-
-.student-internship-btn {
-    padding: 7px 14px;
-    background-color: var(--student-blue);
-    color: #FFFFFF;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: var(--student-transition);
-}
-
-.student-internship-btn:hover {
-    background-color: var(--student-blue-hover);
-}
-
-/* ==========================================================================
-   9. EMPTY STATES
-   ========================================================================== */
-.student-empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.student-empty-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background-color: var(--student-bg);
-    color: var(--student-muted);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    margin-bottom: 14px;
-}
-
-.student-empty-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--student-muted);
-    margin: 0 0 14px 0;
-}
-
-.student-btn-browse {
-    padding: 8px 18px;
-    background-color: var(--student-blue-light);
-    color: var(--student-blue);
-    border-radius: var(--student-radius);
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: var(--student-transition);
-}
-
-.student-btn-browse:hover {
-    background-color: var(--student-blue);
-    color: #FFFFFF;
-}
-
-/* ==========================================================================
-   10. RESPONSIVE BREAKPOINTS
-   ========================================================================== */
-@media (max-width: 1200px) {
-    .student-statistics {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .student-recommended-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 992px) {
-    .student-analytics-grid,
-    .student-two-col-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 640px) {
-    .student-statistics {
-        grid-template-columns: 1fr;
-    }
-
-    .student-recommended-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .student-welcome-card {
-        padding: 20px;
-    }
-
-    .student-welcome-top {
-        flex-direction: column;
-    }
-
-    .student-progress-foot {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .student-dashboard-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .student-header-btn {
-        width: 100%;
-        justify-content: center;
-    }
+.text-end {
+    text-align: right;
 }

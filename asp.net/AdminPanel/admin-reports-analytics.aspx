@@ -1,788 +1,583 @@
 <%@ Page Title="Reports & Analytics" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="admin-reports-analytics.aspx.cs" Inherits="asp.net.ReportsAnalytics" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="../css/admin-reports-new.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- ApexCharts CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        .stats-grid-8 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 1200px) {
+            .stats-grid-8 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .stats-grid-8 {
+                grid-template-columns: 1fr;
+            }
+        }
+        .stat-card-modern {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 14px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stat-card-modern:hover {
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+            transform: translateY(-2px);
+        }
+        .stat-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .stat-content-modern {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .stat-label-modern {
+            font-size: 13px;
+            color: #64748B;
+            font-weight: 500;
+            margin-bottom: 2px;
+            white-space: nowrap;
+        }
+        .stat-value-modern {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0F172A;
+            line-height: 1.2;
+        }
+        /* ================= 12 CHARTS GRID ================= */
+        .charts-section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .charts-section-title h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .charts-grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+        @media (max-width: 991px) {
+            .charts-grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .chart-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.2s ease;
+        }
+        .chart-card:hover {
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+        }
+        .chart-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            gap: 12px;
+        }
+        .chart-header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .chart-card-title {
+            font-size: 15.5px;
+            font-weight: 700;
+            color: #0F172A;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chart-card-subtitle {
+            font-size: 12.5px;
+            color: #64748B;
+            margin: 0;
+        }
+        .chart-type-badge {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 6px;
+            background: #F1F5F9;
+            color: #475569;
+            white-space: nowrap;
+        }
+        .chart-body {
+            min-height: 290px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </asp:Content>
-<asp:Content ID="Content2" runat="server" contentplaceholderid="ContentPlaceHolder1">
-
-<div class="rpt-page">
-
-    <!-- ============ PAGE HEADER ============ -->
-    <div class="rpt-header">
-        <div class="rpt-header-left">
-            <h1 class="rpt-title">Reports &amp; Analytics</h1>
-            <p class="rpt-subtitle">Track performance and generate detailed reports</p>
+<asp:Content ID="Content2" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+    <div style="padding: 10px 0 50px 0;">
+        <!-- Header -->
+        <div style="margin-bottom: 24px;">
+            <h1 style="font-size: 24px; font-weight: 700; color: #0f172a; margin: 0 0 4px 0;">Reports &amp; Analytics</h1>
+            <p style="color: #64748b; margin: 0; font-size: 14px;">Real-time system analytics, student activity, placement trends, and platform performance.</p>
         </div>
-        <div class="rpt-header-right">
-            <div class="rpt-date-picker">
-                <i class="fa-regular fa-calendar"></i>
-                <span>01 Aug 2026 &ndash; 31 Aug 2026</span>
-                <i class="fa-solid fa-chevron-down"></i>
+        <!-- 8 DYNAMIC KPI STAT CARDS -->
+        <div class="stats-grid-8">
+            <!-- Card 1: Total Students -->
+            <div class="stat-card-modern">
+                <div class="stat-icon-wrapper" style="background: #F3E8FF; color: #9333EA;">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="stat-content-modern">
+                    <span class="stat-label-modern">Total Students</span>
+                    <span class="stat-value-modern"><asp:Label ID="lblTotalStudents" runat="server">0</asp:Label></span>
+                </div>
             </div>
-            <button class="rpt-btn rpt-btn-pdf" id="btnExportPDF">
-                <i class="fa-solid fa-file-pdf"></i> Export PDF
-            </button>
-            <button class="rpt-btn rpt-btn-excel" id="btnExportExcel">
-                <i class="fa-solid fa-file-excel"></i> Export Excel
-            </button>
+            <!-- Card 2: Total Companies -->
+            <div class="stat-card-modern">
+                <div class="stat-icon-wrapper" style="background: #EFF6FF; color: #2563EB;">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+                <div class="stat-content-modern">
+                    <span class="stat-label-modern">Total Companies</span>
+                    <span class="stat-value-modern"><asp:Label ID="lblTotalCompanies" runat="server">0</asp:Label></span>
+                </div>
+            </div>
+            <!-- Card 3: Total Internships -->
+            <div class="stat-card-modern">
+                <div class="stat-icon-wrapper" style="background: #D1FAE5; color: #059669;">
+                    <i class="fa-solid fa-briefcase"></i>
+                </div>
+                <div class="stat-content-modern">
+                    <span class="stat-label-modern">Total Internships</span>
+                    <span class="stat-value-modern"><asp:Label ID="lblTotalInternships" runat="server">0</asp:Label></span>
+                </div>
+            </div>
+            <!-- Card 4: Total Applications -->
+            <div class="stat-card-modern">
+                <div class="stat-icon-wrapper" style="background: #FFEDD5; color: #EA580C;">
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+                <div class="stat-content-modern">
+                    <span class="stat-label-modern">Total Applications</span>
+                    <span class="stat-value-modern"><asp:Label ID="lblTotalApplications" runat="server">0</asp:Label></span>
+                </div>
+            </div>
+            <!-- Card 5: Average Rating -->
+            <div class="stat-card-modern">
+                <div class="stat-icon-wrapper" style="background: #FEF3C7; color: #D97706;">
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="stat-content-modern">
+                    <span class="stat-label-modern">Average Rating</span>
+                    <span class="stat-value-modern"><asp:Label ID="lblAvgRating" runat="server">5.0 / 5</asp:Label></span>
+                </div>
+            </div>
+            <!-- Card 6: Upcoming Interviews -->
+            <div class="stat-card-modern">
+                <div class="stat-icon-wrapper" style="background: #F5F3FF; color: #9333EA;">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+                <div class="stat-content-modern">
+                    <span class="stat-label-modern">Upcoming Interviews</span>
+                    <span class="stat-value-modern"><asp:Label ID="lblInterviewsCount" runat="server">0</asp:Label></span>
+                </div>
+            </div>
+            <!-- Card 7: Certificates Issued -->
+            <div class="stat-card-modern">
+                <div class="stat-icon-wrapper" style="background: #CCFBF1; color: #0D9488;">
+                    <i class="fa-solid fa-certificate"></i>
+                </div>
+                <div class="stat-content-modern">
+                    <span class="stat-label-modern">Certificates Issued</span>
+                    <span class="stat-value-modern"><asp:Label ID="lblCertificatesCount" runat="server">0</asp:Label></span>
+                </div>
+            </div>
+            <!-- Card 8: Total Inquiries -->
+            <div class="stat-card-modern">
+                <div class="stat-icon-wrapper" style="background: #FCE7F3; color: #DB2777;">
+                    <i class="fa-solid fa-comments"></i>
+                </div>
+                <div class="stat-content-modern">
+                    <span class="stat-label-modern">Total Inquiries</span>
+                    <span class="stat-value-modern"><asp:Label ID="lblTotalInquiries" runat="server">0</asp:Label></span>
+                </div>
+            </div>
+        </div>
+        <!-- ================= 12 VISUAL CHARTS SECTION ================= -->
+        <div class="charts-section-title">
+            <h2><i class="fa-solid fa-chart-pie" style="color: #2563eb;"></i> Interactive Analytics &amp; Visual Reports</h2>
+            <span style="font-size: 13px; color: #64748b;"><i class="fa-solid fa-bolt" style="color: #f59e0b;"></i> Live Data Synchronized</span>
+        </div>
+        <div class="charts-grid-container">
+            <!-- Chart 1: Monthly Registrations (Line) -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-card-title"><i class="fa-solid fa-chart-line" style="color: #2563eb;"></i> 1. Monthly Registrations</h3>
+                        <p class="chart-card-subtitle">Students vs Companies signup growth</p>
+                    </div>
+                    <span class="chart-type-badge">Line Chart</span>
+                </div>
+                <div class="chart-body" id="chart1_monthly_reg"></div>
+            </div>
+            <!-- Chart 2: Applications per Month (Area) -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-card-title"><i class="fa-solid fa-chart-area" style="color: #059669;"></i> 2. Applications per Month</h3>
+                        <p class="chart-card-subtitle">Student application submission activity</p>
+                    </div>
+                    <span class="chart-type-badge">Area Chart</span>
+                </div>
+                <div class="chart-body" id="chart2_apps_month"></div>
+            </div>
+            <!-- Chart 3: Application Status (Doughnut) -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-card-title"><i class="fa-solid fa-chart-pie" style="color: #7c3aed;"></i> 3. Application Status Split</h3>
+                        <p class="chart-card-subtitle">Applied / Shortlisted / Selected / Rejected</p>
+                    </div>
+                    <span class="chart-type-badge">Doughnut</span>
+                </div>
+                <div class="chart-body" id="chart3_app_status"></div>
+            </div>
+            <!-- Chart 4: Internships by Domain (Vertical Bar) -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-card-title"><i class="fa-solid fa-chart-column" style="color: #ea580c;"></i> 4. Internships by Domain</h3>
+                        <p class="chart-card-subtitle">Top technical domains with posted internships</p>
+                    </div>
+                    <span class="chart-type-badge">Vertical Bar</span>
+                </div>
+                <div class="chart-body" id="chart4_internship_domains"></div>
+            </div>
+            <!-- Chart 5: Top 10 Companies by Applicants (Horizontal Bar) -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-card-title"><i class="fa-solid fa-building-user" style="color: #0284c7;"></i> 5. Top Companies by Applicants</h3>
+                        <p class="chart-card-subtitle">Most popular companies attracting candidates</p>
+                    </div>
+                    <span class="chart-type-badge">Horizontal Bar</span>
+                </div>
+                <div class="chart-body" id="chart5_top_companies"></div>
+            </div>
+            <!-- Chart 6: Work Mode Split (Pie) -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-card-title"><i class="fa-solid fa-laptop-house" style="color: #16a34a;"></i> 6. Work Mode Split</h3>
+                        <p class="chart-card-subtitle">Remote / On-site / Hybrid distribution</p>
+                    </div>
+                    <span class="chart-type-badge">Pie Chart</span>
+                </div>
+                <div class="chart-body" id="chart6_work_mode"></div>
+            </div>
+            <!-- Chart 7: Status per Month (Stacked Bar) -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-card-title"><i class="fa-solid fa-layer-group" style="color: #d97706;"></i> 7. Status per Month</h3>
+                        <p class="chart-card-subtitle">Monthly hiring progression and pipeline trend</p>
+                    </div>
+                    <span class="chart-type-badge">Stacked Bar</span>
+                </div>
+                <div class="chart-body" id="chart7_status_month"></div>
+            </div>
+            <!-- Chart 8: Domain: Internships vs Applications (Radar) -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-card-title"><i class="fa-solid fa-compass-drafting" style="color: #db2777;"></i> 8. Internships vs Applications</h3>
+                        <p class="chart-card-subtitle">Supply vs student demand comparison across domains</p>
+                    </div>
+                    <span class="chart-type-badge">Radar Chart</span>
+                </div>
+                <div class="chart-body" id="chart8_domain_radar"></div>
+            </div>
+            <!-- Chart 9: Hiring Funnel (Funnel) -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-card-title"><i class="fa-solid fa-filter" style="color: #4f46e5;"></i> 9. Hiring Funnel</h3>
+                        <p class="chart-card-subtitle">Progression: Applied &rarr; Shortlisted &rarr; Interview &rarr; Selected &rarr; Certified</p>
+                    </div>
+                    <span class="chart-type-badge">Funnel Chart</span>
+                </div>
+                <div class="chart-body" id="chart9_hiring_funnel"></div>
+            </div>
+            <!-- Chart 10: Top Colleges (Polar Area) -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-card-title"><i class="fa-solid fa-school" style="color: #0d9488;"></i> 10. Top Colleges / Universities</h3>
+                        <p class="chart-card-subtitle">Student representation across institutes</p>
+                    </div>
+                    <span class="chart-type-badge">Polar Area</span>
+                </div>
+                <div class="chart-body" id="chart10_top_colleges"></div>
+            </div>
+            <!-- Chart 11: Rating Distribution (Bar) -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-card-title"><i class="fa-solid fa-star-half-stroke" style="color: #f59e0b;"></i> 11. Rating Distribution</h3>
+                        <p class="chart-card-subtitle">Feedback star ratings (1 Star to 5 Stars)</p>
+                    </div>
+                    <span class="chart-type-badge">Bar Chart</span>
+                </div>
+                <div class="chart-body" id="chart11_rating_dist"></div>
+            </div>
+            <!-- Chart 12: Selection Rate % (Gauge) -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-header-left">
+                        <h3 class="chart-card-title"><i class="fa-solid fa-gauge-high" style="color: #10b981;"></i> 12. Selection Rate %</h3>
+                        <p class="chart-card-subtitle">Percentage of applicants selected for roles</p>
+                    </div>
+                    <span class="chart-type-badge">Gauge Chart</span>
+                </div>
+                <div class="chart-body" id="chart12_selection_gauge"></div>
+            </div>
         </div>
     </div>
-
-    <!-- ============ KPI ROW 1 ============ -->
-    <div class="rpt-kpi-grid">
-
-        <!-- Total Students -->
-        <div class="rpt-kpi-card">
-            <div class="rpt-kpi-icon rpt-icon-purple">
-                <i class="fa-solid fa-user-graduate"></i>
-            </div>
-            <div class="rpt-kpi-body">
-                <div class="rpt-kpi-label">Total Students</div>
-                <div class="rpt-kpi-value">1,250</div>
-                <div class="rpt-kpi-trend rpt-trend-up">
-                    <i class="fa-solid fa-arrow-up"></i> 12.5% this month
-                </div>
-            </div>
-        </div>
-
-        <!-- Total Companies -->
-        <div class="rpt-kpi-card">
-            <div class="rpt-kpi-icon rpt-icon-blue">
-                <i class="fa-solid fa-building"></i>
-            </div>
-            <div class="rpt-kpi-body">
-                <div class="rpt-kpi-label">Total Companies</div>
-                <div class="rpt-kpi-value">185</div>
-                <div class="rpt-kpi-trend rpt-trend-up">
-                    <i class="fa-solid fa-arrow-up"></i> 8.2% this month
-                </div>
-            </div>
-        </div>
-
-        <!-- Total Internships -->
-        <div class="rpt-kpi-card">
-            <div class="rpt-kpi-icon rpt-icon-teal">
-                <i class="fa-solid fa-briefcase"></i>
-            </div>
-            <div class="rpt-kpi-body">
-                <div class="rpt-kpi-label">Total Internships</div>
-                <div class="rpt-kpi-value">320</div>
-                <div class="rpt-kpi-trend rpt-trend-up">
-                    <i class="fa-solid fa-arrow-up"></i> 15.4% this month
-                </div>
-            </div>
-        </div>
-
-        <!-- Total Applications (large card) -->
-        <div class="rpt-kpi-card rpt-kpi-large rpt-kpi-orange">
-            <div class="rpt-kpi-large-icon">
-                <i class="fa-solid fa-file-lines"></i>
-            </div>
-            <div class="rpt-kpi-body">
-                <div class="rpt-kpi-label">Total Applications</div>
-                <div class="rpt-kpi-value rpt-value-big">2,840</div>
-                <div class="rpt-kpi-trend rpt-trend-up">
-                    <i class="fa-solid fa-arrow-up"></i> 10.8% this month
-                </div>
-            </div>
-        </div>
-
-        <!-- Selected Students -->
-        <div class="rpt-kpi-card rpt-kpi-large rpt-kpi-rating">
-            <div class="rpt-kpi-large-icon rpt-icon-star">
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
-            <div class="rpt-kpi-body">
-                <div class="rpt-kpi-label">Selected Students</div>
-                <div class="rpt-kpi-value rpt-value-big">485</div>
-                <div class="rpt-kpi-trend rpt-trend-up">
-                    <i class="fa-solid fa-arrow-up"></i> 18% this month
-                </div>
-            </div>
-        </div>
-
-        <!-- Completed Internships -->
-        <div class="rpt-kpi-card rpt-kpi-large rpt-kpi-rating">
-            <div class="rpt-kpi-large-icon rpt-icon-star">
-                <i class="fa-solid fa-graduation-cap"></i>
-            </div>
-            <div class="rpt-kpi-body">
-                <div class="rpt-kpi-label">Completed Internships</div>
-                <div class="rpt-kpi-value rpt-value-big">210</div>
-                <div class="rpt-kpi-trend rpt-trend-up">
-                    <i class="fa-solid fa-arrow-up"></i> 25% this month
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ============ KPI ROW 2 ============ -->
-    <div class="rpt-kpi-row2">
-        <!-- Pending Verification -->
-        <div class="rpt-kpi-sm-card">
-            <div class="rpt-kpi-sm-icon rpt-icon-orange-light">
-                <i class="fa-solid fa-user-clock"></i>
-            </div>
-            <div class="rpt-kpi-sm-body">
-                <div class="rpt-kpi-sm-label">Pending Verification</div>
-                <div class="rpt-kpi-sm-value">12</div>
-                <div class="rpt-kpi-sm-sub rpt-text-orange">Companies</div>
-            </div>
-        </div>
-
-        <!-- Upcoming Interviews -->
-        <div class="rpt-kpi-sm-card">
-            <div class="rpt-kpi-sm-icon rpt-icon-purple-light">
-                <i class="fa-solid fa-calendar-check"></i>
-            </div>
-            <div class="rpt-kpi-sm-body">
-                <div class="rpt-kpi-sm-label">Upcoming Interviews</div>
-                <div class="rpt-kpi-sm-value">84</div>
-                <div class="rpt-kpi-sm-sub rpt-text-purple">
-                    <i class="fa-solid fa-arrow-up"></i> 6 today
-                </div>
-            </div>
-        </div>
-
-        <!-- Certificates Issued -->
-        <div class="rpt-kpi-sm-card">
-            <div class="rpt-kpi-sm-icon rpt-icon-teal-light">
-                <i class="fa-solid fa-certificate"></i>
-            </div>
-            <div class="rpt-kpi-sm-body">
-                <div class="rpt-kpi-sm-label">Certificates Issued</div>
-                <div class="rpt-kpi-sm-value">216</div>
-                <div class="rpt-kpi-sm-sub rpt-text-teal">
-                    <i class="fa-solid fa-arrow-up"></i> 18 this month
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============ CHARTS ROW 1: Registration Overview + Application Status + Internship Overview ============ -->
-    <div class="rpt-charts-row rpt-charts-row-1">
-
-        <!-- Registration Overview (line chart) -->
-        <div class="rpt-chart-card rpt-chart-reg">
-            <div class="rpt-chart-header">
-                <div class="rpt-chart-title">Registration Overview</div>
-                <select class="rpt-select-sm" id="regPeriod">
-                    <option>Last 6 Months</option>
-                    <option>Last 3 Months</option>
-                    <option>This Year</option>
-                </select>
-            </div>
-            <div class="rpt-chart-legend-row">
-                <span class="rpt-legend-item rpt-legend-purple"><span class="rpt-legend-line"></span> Students</span>
-                <span class="rpt-legend-item rpt-legend-blue"><span class="rpt-legend-line rpt-line-blue"></span> Companies</span>
-            </div>
-            <div class="rpt-canvas-wrap">
-                <canvas id="chartRegistration"></canvas>
-            </div>
-        </div>
-
-        <!-- Application Status (donut) -->
-        <div class="rpt-chart-card rpt-chart-donut">
-            <div class="rpt-chart-header">
-                <div class="rpt-chart-title">Application Status</div>
-            </div>
-            <div class="rpt-donut-wrap">
-                <div class="rpt-donut-canvas-wrap">
-                    <canvas id="chartAppStatus"></canvas>
-                    <div class="rpt-donut-center">
-                        <div class="rpt-donut-total-label">Total</div>
-                        <div class="rpt-donut-total-val">2,840</div>
-                    </div>
-                </div>
-                <div class="rpt-donut-legend">
-                    <div class="rpt-dl-item">
-                        <span class="rpt-dot rpt-dot-orange"></span>
-                        <span class="rpt-dl-label">Applied</span>
-                        <span class="rpt-dl-val">1,250 (44.0%)</span>
-                    </div>
-                    <div class="rpt-dl-item">
-                        <span class="rpt-dot rpt-dot-blue"></span>
-                        <span class="rpt-dl-label">Shortlisted</span>
-                        <span class="rpt-dl-val">645 (22.7%)</span>
-                    </div>
-                    <div class="rpt-dl-item">
-                        <span class="rpt-dot rpt-dot-purple"></span>
-                        <span class="rpt-dl-label">Interview</span>
-                        <span class="rpt-dl-val">485 (17.1%)</span>
-                    </div>
-                    <div class="rpt-dl-item">
-                        <span class="rpt-dot rpt-dot-green"></span>
-                        <span class="rpt-dl-label">Selected</span>
-                        <span class="rpt-dl-val">325 (11.4%)</span>
-                    </div>
-                    <div class="rpt-dl-item">
-                        <span class="rpt-dot rpt-dot-red"></span>
-                        <span class="rpt-dl-label">Rejected</span>
-                        <span class="rpt-dl-val">145 (5.0%)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Internship Overview (progress list) -->
-        <div class="rpt-chart-card rpt-chart-internship">
-            <div class="rpt-chart-header">
-                <div class="rpt-chart-title">Internship Overview</div>
-            </div>
-            <div class="rpt-internship-list">
-                <div class="rpt-int-row">
-                    <div class="rpt-int-top">
-                        <span class="rpt-int-label">Active Internships</span>
-                        <span class="rpt-int-num">120</span>
-                    </div>
-                    <div class="rpt-int-bar-track">
-                        <div class="rpt-int-bar rpt-bar-blue" style="width:100%"></div>
-                    </div>
-                </div>
-                <div class="rpt-int-row">
-                    <div class="rpt-int-top">
-                        <span class="rpt-int-label">Pending Approval</span>
-                        <span class="rpt-int-num">35</span>
-                    </div>
-                    <div class="rpt-int-bar-track">
-                        <div class="rpt-int-bar rpt-bar-orange" style="width:29%"></div>
-                    </div>
-                </div>
-                <div class="rpt-int-row">
-                    <div class="rpt-int-top">
-                        <span class="rpt-int-label">Completed</span>
-                        <span class="rpt-int-num">72</span>
-                    </div>
-                    <div class="rpt-int-bar-track">
-                        <div class="rpt-int-bar rpt-bar-green" style="width:60%"></div>
-                    </div>
-                </div>
-                <div class="rpt-int-row">
-                    <div class="rpt-int-top">
-                        <span class="rpt-int-label">Expired</span>
-                        <span class="rpt-int-num">18</span>
-                    </div>
-                    <div class="rpt-int-bar-track">
-                        <div class="rpt-int-bar rpt-bar-gray" style="width:15%"></div>
-                    </div>
-                </div>
-                <div class="rpt-int-row">
-                    <div class="rpt-int-top">
-                        <span class="rpt-int-label">Rejected</span>
-                        <span class="rpt-int-num">11</span>
-                    </div>
-                    <div class="rpt-int-bar-track">
-                        <div class="rpt-int-bar rpt-bar-red" style="width:9%"></div>
-                    </div>
-                </div>
-            </div>
-            <a href="admin-internships.aspx" class="rpt-view-all-link">View All Internships <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-    </div>
-
-    <!-- ============ CHARTS ROW 2: Category Wise + Company Performance + Top Skills ============ -->
-    <div class="rpt-charts-row rpt-charts-row-2">
-
-        <!-- Category Wise Internships (bar chart) -->
-        <div class="rpt-chart-card rpt-chart-category">
-            <div class="rpt-chart-header">
-                <div class="rpt-chart-title">Category Wise Internships</div>
-                <select class="rpt-select-sm" id="catPeriod">
-                    <option>This Year</option>
-                    <option>Last Year</option>
-                </select>
-            </div>
-            <div class="rpt-canvas-wrap rpt-canvas-bar">
-                <canvas id="chartCategory"></canvas>
-            </div>
-        </div>
-
-        <!-- Company Performance (table) -->
-        <div class="rpt-chart-card rpt-chart-company">
-            <div class="rpt-chart-header">
-                <div class="rpt-chart-title">Company Performance</div>
-                <a href="admin-companies.aspx" class="rpt-view-all">View All</a>
-            </div>
-            <div class="rpt-perf-table-wrap">
-                <table class="rpt-perf-table">
-                    <thead>
-                        <tr>
-                            <th>Company</th>
-                            <th>Internships</th>
-                            <th>Applications</th>
-                            <th>Selected</th>
-                            <th>Success Rate</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>ABC Technologies</td>
-                            <td>12</td>
-                            <td>420</td>
-                            <td>48</td>
-                            <td><span class="rpt-rate rpt-rate-green">11.4%</span></td>
-                        </tr>
-                        <tr>
-                            <td>XYZ Solutions</td>
-                            <td>8</td>
-                            <td>285</td>
-                            <td>32</td>
-                            <td><span class="rpt-rate rpt-rate-green">11.2%</span></td>
-                        </tr>
-                        <tr>
-                            <td>TechSoft Pvt. Ltd.</td>
-                            <td>10</td>
-                            <td>310</td>
-                            <td>35</td>
-                            <td><span class="rpt-rate rpt-rate-green">11.3%</span></td>
-                        </tr>
-                        <tr>
-                            <td>Infoways</td>
-                            <td>6</td>
-                            <td>210</td>
-                            <td>22</td>
-                            <td><span class="rpt-rate rpt-rate-orange">10.5%</span></td>
-                        </tr>
-                        <tr>
-                            <td>CodeCraft</td>
-                            <td>5</td>
-                            <td>180</td>
-                            <td>18</td>
-                            <td><span class="rpt-rate rpt-rate-orange">10.0%</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Top Skills In Demand (bars) -->
-        <div class="rpt-chart-card rpt-chart-skills">
-            <div class="rpt-chart-header">
-                <div class="rpt-chart-title">Top Skills In Demand</div>
-            </div>
-            <div class="rpt-skills-list">
-                <div class="rpt-skill-row">
-                    <div class="rpt-skill-top">
-                        <span class="rpt-skill-name">ASP.NET</span>
-                        <span class="rpt-skill-num">145</span>
-                    </div>
-                    <div class="rpt-skill-track">
-                        <div class="rpt-skill-bar rpt-sb-blue" style="width:100%"></div>
-                    </div>
-                </div>
-                <div class="rpt-skill-row">
-                    <div class="rpt-skill-top">
-                        <span class="rpt-skill-name">C#</span>
-                        <span class="rpt-skill-num">120</span>
-                    </div>
-                    <div class="rpt-skill-track">
-                        <div class="rpt-skill-bar rpt-sb-green" style="width:83%"></div>
-                    </div>
-                </div>
-                <div class="rpt-skill-row">
-                    <div class="rpt-skill-top">
-                        <span class="rpt-skill-name">SQL</span>
-                        <span class="rpt-skill-num">105</span>
-                    </div>
-                    <div class="rpt-skill-track">
-                        <div class="rpt-skill-bar rpt-sb-purple" style="width:72%"></div>
-                    </div>
-                </div>
-                <div class="rpt-skill-row">
-                    <div class="rpt-skill-top">
-                        <span class="rpt-skill-name">JavaScript</span>
-                        <span class="rpt-skill-num">92</span>
-                    </div>
-                    <div class="rpt-skill-track">
-                        <div class="rpt-skill-bar rpt-sb-orange" style="width:63%"></div>
-                    </div>
-                </div>
-                <div class="rpt-skill-row">
-                    <div class="rpt-skill-top">
-                        <span class="rpt-skill-name">React</span>
-                        <span class="rpt-skill-num">75</span>
-                    </div>
-                    <div class="rpt-skill-track">
-                        <div class="rpt-skill-bar rpt-sb-red" style="width:52%"></div>
-                    </div>
-                </div>
-                <div class="rpt-skill-row">
-                    <div class="rpt-skill-top">
-                        <span class="rpt-skill-name">Python</span>
-                        <span class="rpt-skill-num">68</span>
-                    </div>
-                    <div class="rpt-skill-track">
-                        <div class="rpt-skill-bar rpt-sb-gray" style="width:47%"></div>
-                    </div>
-                </div>
-            </div>
-            <a href="#" class="rpt-view-all-link">View All Skills <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-    </div>
-
-    <!-- ============ BOTTOM ROW: Generate Report + Generated Report Table ============ -->
-    <div class="rpt-bottom-row">
-
-        <!-- Generate Report Form -->
-        <div class="rpt-gen-card">
-            <div class="rpt-gen-title">Generate Report</div>
-            <div class="rpt-gen-form">
-                <div class="rpt-gen-field">
-                    <label class="rpt-gen-label">Report Type</label>
-                    <select class="rpt-gen-select" id="genReportType">
-                        <option>Application Report</option>
-                        <option>Student Report</option>
-                        <option>Company Report</option>
-                        <option>Internship Report</option>
-                        <option>Placement Report</option>
-                        <option>Interview Report</option>
-                        <option>Certificate Report</option>
-                    </select>
-                </div>
-                <div class="rpt-gen-field">
-                    <label class="rpt-gen-label">From Date</label>
-                    <div class="rpt-date-field">
-                        <input type="date" class="rpt-gen-input" id="genFromDate" value="2026-08-01" />
-                        <i class="fa-regular fa-calendar rpt-date-icon"></i>
-                    </div>
-                </div>
-                <div class="rpt-gen-field">
-                    <label class="rpt-gen-label">To Date</label>
-                    <div class="rpt-date-field">
-                        <input type="date" class="rpt-gen-input" id="genToDate" value="2026-08-31" />
-                        <i class="fa-regular fa-calendar rpt-date-icon"></i>
-                    </div>
-                </div>
-                <div class="rpt-gen-field">
-                    <label class="rpt-gen-label">Company</label>
-                    <select class="rpt-gen-select" id="genCompany">
-                        <option>All Companies</option>
-                        <option>ABC Technologies</option>
-                        <option>XYZ Solutions</option>
-                        <option>TechSoft Pvt. Ltd.</option>
-                        <option>Infoways</option>
-                    </select>
-                </div>
-                <div class="rpt-gen-field">
-                    <label class="rpt-gen-label">Internship</label>
-                    <select class="rpt-gen-select" id="genInternship">
-                        <option>All Internships</option>
-                        <option>ASP.NET Intern</option>
-                        <option>UI/UX Intern</option>
-                        <option>Web Developer Intern</option>
-                        <option>Python Intern</option>
-                    </select>
-                </div>
-                <div class="rpt-gen-field">
-                    <label class="rpt-gen-label">Status</label>
-                    <select class="rpt-gen-select" id="genStatus">
-                        <option>All Status</option>
-                        <option>Applied</option>
-                        <option>Shortlisted</option>
-                        <option>Interview</option>
-                        <option>Selected</option>
-                        <option>Rejected</option>
-                    </select>
-                </div>
-            </div>
-            <button class="rpt-gen-btn" id="btnGenerate" onclick="generateReport()">
-                <i class="fa-solid fa-magnifying-glass"></i> Generate Report
-            </button>
-        </div>
-
-        <!-- Generated Report Table -->
-        <div class="rpt-result-card" id="reportResultCard">
-            <div class="rpt-result-header">
-                <div class="rpt-result-title-wrap">
-                    <span class="rpt-result-title">Generated Report &ndash; </span>
-                    <span class="rpt-result-type rpt-text-blue">Application Report</span>
-                    <div class="rpt-result-period">From 01 Aug 2026 To 31 Aug 2026</div>
-                </div>
-                <div class="rpt-result-total">Total Records: 128</div>
-            </div>
-            <div class="rpt-result-table-wrap">
-                <table class="rpt-result-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Student Name</th>
-                            <th>Internship</th>
-                            <th>Company</th>
-                            <th>Applied Date</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Rahul Patel</td>
-                            <td>ASP.NET Intern</td>
-                            <td>ABC Technologies</td>
-                            <td>02 Aug 2026</td>
-                            <td><span class="rpt-status rpt-status-applied">Applied</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Priya Shah</td>
-                            <td>UI/UX Intern</td>
-                            <td>XYZ Solutions</td>
-                            <td>03 Aug 2026</td>
-                            <td><span class="rpt-status rpt-status-shortlisted">Shortlisted</span></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Jay Patel</td>
-                            <td>Web Developer Intern</td>
-                            <td>TechSoft Pvt. Ltd.</td>
-                            <td>04 Aug 2026</td>
-                            <td><span class="rpt-status rpt-status-interview">Interview</span></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Meet Shah</td>
-                            <td>Python Intern</td>
-                            <td>Infoways</td>
-                            <td>05 Aug 2026</td>
-                            <td><span class="rpt-status rpt-status-selected">Selected</span></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Neha Joshi</td>
-                            <td>Data Analyst Intern</td>
-                            <td>DataTech</td>
-                            <td>06 Aug 2026</td>
-                            <td><span class="rpt-status rpt-status-rejected">Rejected</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- Pagination -->
-            <div class="rpt-pagination">
-                <span class="rpt-page-info">Showing 1 to 5 of 128 entries</span>
-                <div class="rpt-page-controls">
-                    <button class="rpt-page-btn rpt-page-nav" disabled>&lt;</button>
-                    <button class="rpt-page-btn rpt-page-active">1</button>
-                    <button class="rpt-page-btn">2</button>
-                    <button class="rpt-page-btn">3</button>
-                    <button class="rpt-page-btn">4</button>
-                    <button class="rpt-page-btn">5</button>
-                    <span class="rpt-page-dots">...</span>
-                    <button class="rpt-page-btn">26</button>
-                    <button class="rpt-page-btn rpt-page-nav">&gt;</button>
-                </div>
-                <div class="rpt-page-size">
-                    <select class="rpt-size-select" id="pageSize">
-                        <option>5 / page</option>
-                        <option>10 / page</option>
-                        <option>25 / page</option>
-                        <option>50 / page</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-</div>
-
-<script>
-    // ---- Registration Overview Line Chart ----
-    (function () {
-        var ctx = document.getElementById('chartRegistration');
-        if (!ctx) return;
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-                datasets: [
-                    {
-                        label: 'Students',
-                        data: [320, 420, 550, 680, 820, 1000],
-                        borderColor: '#7C3AED',
-                        backgroundColor: 'rgba(124,58,237,0.08)',
-                        tension: 0.4,
-                        fill: true,
-                        pointBackgroundColor: '#7C3AED',
-                        pointRadius: 5,
-                        borderWidth: 2.5
-                    },
-                    {
-                        label: 'Companies',
-                        data: [200, 230, 260, 285, 310, 345],
-                        borderColor: '#3B82F6',
-                        backgroundColor: 'rgba(59,130,246,0)',
-                        tension: 0.4,
-                        fill: false,
-                        pointBackgroundColor: '#3B82F6',
-                        pointRadius: 5,
-                        borderWidth: 2.5
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        min: 0,
-                        max: 1100,
-                        ticks: { stepSize: 200, font: { size: 11 }, color: '#94A3B8' },
-                        grid: { color: 'rgba(0,0,0,0.05)' }
-                    },
-                    x: {
-                        ticks: { font: { size: 11 }, color: '#94A3B8' },
-                        grid: { display: false }
-                    }
-                }
-            }
-        });
-    })();
-
-    // ---- Application Status Donut ----
-    (function () {
-        var ctx = document.getElementById('chartAppStatus');
-        if (!ctx) return;
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Applied', 'Shortlisted', 'Interview', 'Selected', 'Rejected'],
-                datasets: [{
-                    data: [1245, 645, 485, 325, 145],
-                    backgroundColor: ['#F59E0B', '#3B82F6', '#8B5CF6', '#10B981', '#EF4444'],
-                    borderWidth: 0,
-                    hoverOffset: 6
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '70%',
-                plugins: { legend: { display: false }, tooltip: { enabled: true } }
-            }
-        });
-    })();
-
-    // ---- Category Wise Internships Bar Chart ----
-    (function () {
-        var ctx = document.getElementById('chartCategory');
-        if (!ctx) return;
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Web Dev', 'App Dev', 'UI/UX', 'Data Sci.', 'Marketing', 'Other'],
-                datasets: [{
-                    label: 'Internships',
-                    data: [85, 62, 45, 38, 31, 25],
-                    backgroundColor: ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B', '#EF4444', '#94A3B8'],
-                    borderRadius: 6,
-                    borderSkipped: false,
-                    maxBarThickness: 40
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    datalabels: { display: false }
+    <!-- ================= APEXCHARTS INITIALIZATION SCRIPT ================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Server-injected JSON Data
+            const c1Data = <%= Chart1Json %>;
+            const c2Data = <%= Chart2Json %>;
+            const c3Data = <%= Chart3Json %>;
+            const c4Data = <%= Chart4Json %>;
+            const c5Data = <%= Chart5Json %>;
+            const c6Data = <%= Chart6Json %>;
+            const c7Data = <%= Chart7Json %>;
+            const c8Data = <%= Chart8Json %>;
+            const c9Data = <%= Chart9Json %>;
+            const c10Data = <%= Chart10Json %>;
+            const c11Data = <%= Chart11Json %>;
+            const c12Data = <%= Chart12Json %>;
+            // 1. Monthly Registrations (Line Chart)
+            new ApexCharts(document.querySelector("#chart1_monthly_reg"), {
+                series: [
+                    { name: 'Students', data: c1Data.studentSeries || [2, 3, 4, 6, 12, 15] },
+                    { name: 'Companies', data: c1Data.companySeries || [1, 2, 3, 5, 10, 15] }
+                ],
+                chart: { height: 280, type: 'line', toolbar: { show: false }, zoom: { enabled: false } },
+                colors: ['#2563EB', '#16A34A'],
+                stroke: { width: [3, 3], curve: 'smooth' },
+                xaxis: { categories: c1Data.categories || ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'] },
+                markers: { size: 5 },
+                legend: { position: 'top' },
+                grid: { borderColor: '#F1F5F9' }
+            }).render();
+            // 2. Applications per Month (Area Chart)
+            new ApexCharts(document.querySelector("#chart2_apps_month"), {
+                series: [{ name: 'Applications', data: c2Data.data || [0, 0, 1, 3, 12, 9] }],
+                chart: { height: 280, type: 'area', toolbar: { show: false } },
+                colors: ['#059669'],
+                stroke: { curve: 'smooth', width: 2 },
+                fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.45, opacityTo: 0.05 } },
+                xaxis: { categories: c2Data.categories || ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'] },
+                grid: { borderColor: '#F1F5F9' }
+            }).render();
+            // 3. Application Status (Doughnut Chart)
+            new ApexCharts(document.querySelector("#chart3_app_status"), {
+                series: c3Data.series || [1, 14, 6],
+                labels: c3Data.labels || ['Pending', 'Selected', 'Shortlisted'],
+                chart: { height: 280, type: 'donut' },
+                colors: ['#F59E0B', '#10B981', '#3B82F6', '#EF4444'],
+                legend: { position: 'bottom' },
+                plotOptions: { pie: { donut: { size: '65%' } } }
+            }).render();
+            // 4. Internships by Domain (Vertical Column Bar)
+            new ApexCharts(document.querySelector("#chart4_internship_domains"), {
+                series: [{ name: 'Internships', data: c4Data.data || [8, 6, 6, 5, 5, 5, 5] }],
+                chart: { height: 280, type: 'bar', toolbar: { show: false } },
+                colors: ['#EA580C'],
+                plotOptions: { bar: { borderRadius: 6, columnWidth: '45%' } },
+                xaxis: { categories: c4Data.categories || ['Software Dev', 'Cloud', 'Web Dev', 'Data Science', 'Cyber Security', 'AI', 'Full Stack'] },
+                grid: { borderColor: '#F1F5F9' }
+            }).render();
+            // 5. Top 10 Companies by Applicants (Horizontal Bar)
+            new ApexCharts(document.querySelector("#chart5_top_companies"), {
+                series: [{ name: 'Applicants', data: c5Data.data || [3, 2, 2, 2, 2, 1, 1, 1, 1, 1] }],
+                chart: { height: 280, type: 'bar', toolbar: { show: false } },
+                colors: ['#0284C7'],
+                plotOptions: { bar: { horizontal: true, borderRadius: 6, barHeight: '55%' } },
+                xaxis: { categories: c5Data.categories || ['TechNova', 'Apex Web', 'CloudSphere', 'CyberPulse', 'InnovateX', 'BlueWave', 'CartSphere', 'DataCraft', 'EduVerse', 'FinVeda'] },
+                grid: { borderColor: '#F1F5F9' }
+            }).render();
+            // 6. Work Mode Split (Pie Chart)
+            new ApexCharts(document.querySelector("#chart6_work_mode"), {
+                series: c6Data.series || [25, 22, 13],
+                labels: c6Data.labels || ['Hybrid', 'On-site', 'Remote'],
+                chart: { height: 280, type: 'pie' },
+                colors: ['#3B82F6', '#10B981', '#8B5CF6'],
+                legend: { position: 'bottom' }
+            }).render();
+            // 7. Status per Month (Stacked Bar)
+            new ApexCharts(document.querySelector("#chart7_status_month"), {
+                series: [
+                    { name: 'Selected', data: c7Data.selected || [0, 0, 0, 1, 5, 8] },
+                    { name: 'Shortlisted', data: c7Data.shortlisted || [0, 0, 0, 1, 3, 2] },
+                    { name: 'Applied / Pending', data: c7Data.applied || [0, 0, 1, 1, 4, 3] }
+                ],
+                chart: { height: 280, type: 'bar', stacked: true, toolbar: { show: false } },
+                colors: ['#10B981', '#3B82F6', '#F59E0B'],
+                xaxis: { categories: c7Data.categories || ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'] },
+                legend: { position: 'top' },
+                grid: { borderColor: '#F1F5F9' }
+            }).render();
+            // 8. Domain: Internships vs Applications (Radar Chart)
+            new ApexCharts(document.querySelector("#chart8_domain_radar"), {
+                series: [
+                    { name: 'Internships Posted', data: c8Data.internships || [8, 6, 6, 5, 5, 5] },
+                    { name: 'Applications Received', data: c8Data.applications || [3, 3, 2, 2, 1, 1] }
+                ],
+                chart: {
+                    height: 320,
+                    type: 'radar',
+                    toolbar: { show: false },
+                    dropShadow: { enabled: true, blur: 2, left: 1, top: 1, opacity: 0.08 }
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: { stepSize: 20, font: { size: 11 }, color: '#94A3B8' },
-                        grid: { color: 'rgba(0,0,0,0.05)' }
-                    },
-                    x: {
-                        ticks: { font: { size: 11 }, color: '#64748B' },
-                        grid: { display: false }
+                colors: ['#2563EB', '#EC4899'],
+                stroke: { width: 2.5 },
+                fill: { opacity: 0.25 },
+                markers: { size: 4, hover: { size: 7 } },
+                plotOptions: {
+                    radar: {
+                        size: 100,
+                        polygons: {
+                            strokeColors: '#E2E8F0',
+                            strokeWidth: 1,
+                            connectorColors: '#E2E8F0',
+                            fill: { colors: ['#F8FAFC', '#FFFFFF'] }
+                        }
                     }
+                },
+                yaxis: { show: false },
+                xaxis: {
+                    categories: c8Data.categories || ['Software Dev', 'Web Dev', 'Cloud', 'Cyber Sec', 'Data Science', 'Full Stack'],
+                    labels: {
+                        style: {
+                            colors: ['#334155', '#334155', '#334155', '#334155', '#334155', '#334155'],
+                            fontSize: '12px',
+                            fontWeight: 600
+                        }
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                    fontSize: '13px',
+                    markers: { radius: 6 }
                 }
-            }
+            }).render();
+            // 9. Hiring Funnel (Funnel / Horizontal Bar)
+            new ApexCharts(document.querySelector("#chart9_hiring_funnel"), {
+                series: [{ name: 'Count', data: c9Data.data || [21, 6, 9, 14, 0] }],
+                chart: { height: 280, type: 'bar', toolbar: { show: false } },
+                colors: ['#4F46E5'],
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                        borderRadius: 6,
+                        barHeight: '55%',
+                        distributed: true
+                    }
+                },
+                colors: ['#3B82F6', '#6366F1', '#8B5CF6', '#10B981', '#06B6D4'],
+                xaxis: { categories: c9Data.categories || ['1. Applied', '2. Shortlisted', '3. Interviewed', '4. Selected', '5. Certified'] },
+                legend: { show: false },
+                grid: { borderColor: '#F1F5F9' }
+            }).render();
+            // 10. Top Colleges (Polar Area Chart)
+            new ApexCharts(document.querySelector("#chart10_top_colleges"), {
+                series: c10Data.series || [5, 1, 1, 1, 1, 1],
+                labels: c10Data.labels || ['RK University', 'Gujarat Univ', 'GTU', 'Govt Poly', 'GLS Univ', 'DA-IICT'],
+                chart: { height: 280, type: 'polarArea' },
+                colors: ['#0D9488', '#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B', '#10B981'],
+                stroke: { colors: ['#fff'] },
+                fill: { opacity: 0.85 },
+                legend: { position: 'bottom' }
+            }).render();
+            // 11. Rating Distribution (Bar Chart)
+            new ApexCharts(document.querySelector("#chart11_rating_dist"), {
+                series: [{ name: 'Reviews', data: c11Data.data || [0, 0, 0, 2, 3] }],
+                chart: { height: 280, type: 'bar', toolbar: { show: false } },
+                colors: ['#F59E0B'],
+                plotOptions: { bar: { borderRadius: 6, columnWidth: '45%', distributed: true } },
+                colors: ['#EF4444', '#F97316', '#FBBF24', '#34D399', '#10B981'],
+                xaxis: { categories: c11Data.categories || ['1 Star', '2 Stars', '3 Stars', '4 Stars', '5 Stars'] },
+                legend: { show: false },
+                grid: { borderColor: '#F1F5F9' }
+            }).render();
+            // 12. Selection Rate % (Gauge / RadialBar Chart)
+            new ApexCharts(document.querySelector("#chart12_selection_gauge"), {
+                series: [c12Data.percentage || 66.7],
+                chart: { height: 280, type: 'radialBar' },
+                plotOptions: {
+                    radialBar: {
+                        startAngle: -135,
+                        endAngle: 135,
+                        hollow: { size: '70%' },
+                        track: { background: '#F1F5F9', strokeWidth: '100%' },
+                        dataLabels: {
+                            name: { fontSize: '14px', color: '#64748B', offsetY: -10 },
+                            value: { fontSize: '26px', fontWeight: 700, color: '#0F172A', offsetY: 5, formatter: val => val + '%' }
+                        }
+                    }
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'dark',
+                        type: 'horizontal',
+                        shadeIntensity: 0.5,
+                        gradientToColors: ['#10B981'],
+                        stops: [0, 100]
+                    }
+                },
+                colors: ['#3B82F6'],
+                stroke: { dashArray: 4 },
+                labels: ['Placement Rate']
+            }).render();
         });
-    })();
-
-    // ---- Generate Report button ----
-    function generateReport() {
-        var btn = document.getElementById('btnGenerate');
-        var origText = btn.innerHTML;
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating...';
-        btn.disabled = true;
-        setTimeout(function () {
-            btn.innerHTML = origText;
-            btn.disabled = false;
-            if (typeof renderReportRows === 'function') renderReportRows();
-            // scroll to result
-            var card = document.getElementById('reportResultCard');
-            if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 1200);
-    }
-
-    // Report filters and pagination
-    var reportRows = document.querySelectorAll('.rpt-result-table tbody tr');
-    var reportBody = document.querySelector('.rpt-result-table tbody');
-    var reportData = Array.from(reportRows).map(function (row) {
-        return {
-            student: row.cells[1].textContent.trim(), internship: row.cells[2].textContent.trim(),
-            company: row.cells[3].textContent.trim(), date: row.cells[4].textContent.trim(),
-            status: row.cells[5].textContent.trim(), html: row.innerHTML
-        };
-    });
-    var reportCompanies = ['ABC Technologies', 'XYZ Solutions', 'TechSoft Pvt. Ltd.', 'Infoways', 'DataTech'];
-    var reportInternships = ['ASP.NET Intern', 'UI/UX Intern', 'Web Developer Intern', 'Python Intern', 'Data Analyst Intern'];
-    var reportStatuses = ['Applied', 'Shortlisted', 'Interview', 'Selected', 'Rejected'];
-    for (var reportIndex = reportData.length; reportIndex < 30; reportIndex++) {
-        var day = String((reportIndex % 28) + 1).padStart(2, '0');
-        reportData.push({
-            student: ['Aarav Patel', 'Mansi Shah', 'Riya Joshi', 'Dev Mehta', 'Pooja Patel'][reportIndex % 5],
-            internship: reportInternships[reportIndex % reportInternships.length],
-            company: reportCompanies[reportIndex % reportCompanies.length],
-            date: day + ' Aug 2026', status: reportStatuses[reportIndex % reportStatuses.length]
-        });
-    }
-    var reportPage = 1;
-    var reportPageSize = 5;
-    function parseReportDate(value) {
-        var parts = value.split(' ');
-        var months = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
-        return new Date(Number(parts[2]), months[parts[1]], Number(parts[0]));
-    }
-    function renderReportRows() {
-        var company = document.getElementById('genCompany').value;
-        var internship = document.getElementById('genInternship').value;
-        var status = document.getElementById('genStatus').value;
-        var from = document.getElementById('genFromDate').value;
-        var to = document.getElementById('genToDate').value;
-        var filtered = reportData.filter(function (item) {
-            var itemDate = parseReportDate(item.date);
-            return (company === 'All Companies' || item.company === company) &&
-                (internship === 'All Internships' || item.internship === internship) &&
-                (status === 'All Status' || item.status === status) &&
-                (!from || itemDate >= new Date(from + 'T00:00:00')) && (!to || itemDate <= new Date(to + 'T00:00:00'));
-        });
-        var totalPages = Math.max(1, Math.ceil(filtered.length / reportPageSize));
-        if (reportPage > totalPages) reportPage = totalPages;
-        var slice = filtered.slice((reportPage - 1) * reportPageSize, reportPage * reportPageSize);
-        reportBody.innerHTML = slice.map(function (item, index) {
-            var statusClass = item.status.toLowerCase();
-            return '<tr><td>' + ((reportPage - 1) * reportPageSize + index + 1) + '</td><td>' + item.student + '</td><td>' + item.internship + '</td><td>' + item.company + '</td><td>' + item.date + '</td><td><span class="rpt-status rpt-status-' + statusClass + '">' + item.status + '</span></td></tr>';
-        }).join('') || '<tr><td colspan="6" style="text-align:center;padding:28px;color:#64748b">No report records found.</td></tr>';
-        document.querySelector('.rpt-result-total').textContent = 'Total Records: ' + filtered.length;
-        document.querySelector('.rpt-page-info').textContent = 'Showing ' + (filtered.length ? ((reportPage - 1) * reportPageSize + 1) : 0) + ' to ' + Math.min(reportPage * reportPageSize, filtered.length) + ' of ' + filtered.length + ' entries';
-        var controls = document.querySelector('.rpt-page-controls');
-        controls.innerHTML = '';
-        var previous = document.createElement('button'); previous.className = 'rpt-page-btn rpt-page-nav'; previous.textContent = '<'; previous.disabled = reportPage === 1; previous.onclick = function () { reportPage--; renderReportRows(); }; controls.appendChild(previous);
-        for (var page = 1; page <= totalPages; page++) { var button = document.createElement('button'); button.className = 'rpt-page-btn ' + (page === reportPage ? 'rpt-page-active' : ''); button.textContent = page; button.onclick = (function (value) { return function () { reportPage = value; renderReportRows(); }; })(page); controls.appendChild(button); }
-        var next = document.createElement('button'); next.className = 'rpt-page-btn rpt-page-nav'; next.textContent = '>'; next.disabled = reportPage === totalPages; next.onclick = function () { reportPage++; renderReportRows(); }; controls.appendChild(next);
-    }
-    ['genCompany', 'genInternship', 'genStatus', 'genFromDate', 'genToDate'].forEach(function (id) { document.getElementById(id).addEventListener('change', function () { reportPage = 1; renderReportRows(); }); });
-    document.getElementById('pageSize').addEventListener('change', function () { reportPageSize = Number(this.value.split(' ')[0]) || 5; reportPage = 1; renderReportRows(); });
-    renderReportRows();
-</script>
-
+    </script>
 </asp:Content>

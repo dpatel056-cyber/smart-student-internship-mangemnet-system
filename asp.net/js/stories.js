@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!storyCards.length) return;
 
-  const EXTRA_START = 4;
+  const EXTRA_START = 8;
   let currentFilter = 'all';
   let expanded = false;
 
@@ -20,27 +20,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function applyFilter() {
-    let visibleCount = 0;
     let matchedCount = 0;
+    let visibleCount = 0;
 
     storyCards.forEach((card) => {
-      const categories = String(card.dataset.category || '').split(/\s+/).filter(Boolean);
-      const matches = currentFilter === 'all' || categories.includes(currentFilter);
+      const catAttr = (card.dataset.category || '').toLowerCase().trim();
+      const categories = catAttr.split(/[,\s]+/).filter(Boolean);
+
+      const matches = (currentFilter === 'all') ||
+                      categories.includes(currentFilter.toLowerCase()) ||
+                      catAttr.includes(currentFilter.toLowerCase());
+
+      const parentSpan = (card.parentElement && card.parentElement.tagName === 'SPAN' && card.parentElement !== storiesGrid)
+        ? card.parentElement
+        : null;
 
       if (!matches) {
         card.style.display = 'none';
         card.classList.remove('hidden-story');
+        if (parentSpan) parentSpan.style.display = 'none';
         return;
       }
 
       matchedCount += 1;
-      visibleCount += 1;
-      card.style.display = '';
 
       if (!expanded && matchedCount > EXTRA_START) {
         card.classList.add('hidden-story');
+        card.style.display = 'none';
+        if (parentSpan) parentSpan.style.display = 'none';
       } else {
         card.classList.remove('hidden-story');
+        card.style.display = 'flex';
+        if (parentSpan) parentSpan.style.display = '';
+        visibleCount += 1;
       }
     });
 
@@ -62,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
       expanded = false;
       setViewMoreLabel();
       applyFilter();
-      storiesGrid?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
@@ -71,8 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
       expanded = !expanded;
       setViewMoreLabel();
       applyFilter();
-      if (!expanded) {
-        storiesGrid?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (!expanded && storiesGrid) {
+        storiesGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   }

@@ -15,36 +15,46 @@ namespace asp.net
         SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (Session["company"] == null)
-            {
-                Response.Redirect("~/PublicPanel/login.aspx");
-                return;
-            }
-
-            if (!IsPostBack)
-            {
-                LoadInternshipDetails();
-            }
-        }
-
         void getcon()
         {
             con = new SqlConnection(s);
             con.Open();
         }
 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session["company"] != null)
+            {
+                getcon();
+                da = new SqlDataAdapter("select * from c_registration where c_email='" + Session["company"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
+
+                if (!IsPostBack)
+                {
+                    LoadInternshipDetails();
+                }
+            }
+            else
+            {
+                Response.Redirect("~/PublicPanel/login.aspx");
+            }
+        }
+
         void LoadInternshipDetails()
         {
             getcon();
-            cmd = new SqlCommand("SELECT p.*, c.c_company, c.c_logo, c.c_industry, c.c_location, c.c_about, c.c_website FROM PostInternship p LEFT JOIN c_registration c ON p.CompanyId = c.c_id WHERE p.Id = '" + Request.QueryString["id"].ToString() + "'", con);
+            if (Request.QueryString["id"] == null) return;
+            da = new SqlDataAdapter("SELECT i.*, c.c_company, c.c_logo, c.c_industry, c.c_location, c.c_about, c.c_website FROM internship i INNER JOIN c_registration c ON i.CompanyId = c.CompanyId WHERE i.Id = '" + Request.QueryString["id"].ToString() + "'", con);
             ds = new DataSet();
             da.Fill(ds);
             DataListInternshipDetail.DataSource = ds;
             DataListInternshipDetail.DataBind();
         }
 
+        //------------------------------
+        //*****************************
+        //-----------------------------
         public string GetCompanyLogo(object logoObj)
         {
             if (logoObj != null && logoObj != DBNull.Value && !string.IsNullOrEmpty(logoObj.ToString()))

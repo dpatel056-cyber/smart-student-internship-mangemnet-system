@@ -5,42 +5,20 @@
 (function () {
     "use strict";
 
-    var STORAGE_KEY = "sims_company_sidebar_collapsed";
-
     document.addEventListener("DOMContentLoaded", function () {
-        initSidebarCollapse();
+        var layout = document.querySelector(".company-layout");
+        if (layout) {
+            layout.classList.remove("is-collapsed");
+        }
+        try {
+            localStorage.removeItem("sims_company_sidebar_collapsed");
+        } catch (e) { }
+
         initMobileDrawer();
         initSubmenus();
         setActiveMenuFromUrl();
         initProfileDropdown();
     });
-
-    // --------------------------------------------------
-    // Sidebar collapse (desktop) with localStorage
-    // --------------------------------------------------
-    function initSidebarCollapse() {
-        var layout = document.querySelector(".company-layout");
-        var toggleBtn = document.getElementById("companySidebarToggle");
-        if (!layout || !toggleBtn) return;
-
-        var isCollapsed = localStorage.getItem(STORAGE_KEY) === "true";
-        if (isCollapsed) {
-            layout.classList.add("is-collapsed");
-        }
-        toggleBtn.setAttribute("aria-expanded", String(!isCollapsed));
-
-        toggleBtn.addEventListener("click", function () {
-            // On mobile, toggle acts as drawer opener instead of collapse
-            if (window.innerWidth <= 991) {
-                toggleMobileDrawer();
-                return;
-            }
-
-            var collapsed = layout.classList.toggle("is-collapsed");
-            localStorage.setItem(STORAGE_KEY, String(collapsed));
-            toggleBtn.setAttribute("aria-expanded", String(!collapsed));
-        });
-    }
 
     // --------------------------------------------------
     // Mobile off-canvas drawer

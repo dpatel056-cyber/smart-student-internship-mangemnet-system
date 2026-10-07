@@ -3,6 +3,10 @@
 </asp:Content>
 <asp:Content ID="Content2" runat="server" contentplaceholderid="ContentPlaceHolder2">
 <style>
+  html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+  }
   .fp-page-wrapper {
       background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
       padding: 60px 20px;
@@ -11,6 +15,9 @@
       align-items: center;
       justify-content: center;
       position: relative;
+      overflow: hidden;
+      width: 100%;
+      box-sizing: border-box;
   }
   .fp-page-wrapper::before {
       content: '';
@@ -130,14 +137,11 @@
       color: #2563eb;
   }
 </style>
-
 <div class="fp-page-wrapper" id="fpModalOverlay">
   <div class="fp-premium-card" id="fpModalBox">
-
     <button type="button" class="modal-close" id="fpCloseBtn" aria-label="Close" style="display: none;">
       <i class="fa-solid fa-xmark"></i>
     </button>
-
     <!-- Step indicator -->
     <div class="fp-steps">
       <div class="fp-step active" data-step-indicator="1">
@@ -152,13 +156,11 @@
         <span class="fp-step-circle">3</span><span class="fp-step-label">Reset</span>
       </div>
     </div>
-
     <!-- ===== STEP 1: Forgot Password - enter email/enrollment ===== -->
     <div class="fp-panel active" id="fpStep1">
       <div class="modal-icon icon-blue"><i class="fa-solid fa-key"></i></div>
       <h3 class="modal-title" style="text-align: center;">Forgot Password?</h3>
       <p class="modal-sub" style="text-align: center;">Enter your registered email or enrollment number. We'll send you a One-Time Password (OTP) to verify it's you.</p>
-
       <div class="login-form-group">
         <label for="fpEmail" style="font-weight: 600; color: #334155;">Email / Enrollment Number</label>
         <div class="login-input-wrap">
@@ -167,16 +169,13 @@
         </div>
         <span class="field-error" id="fpEmailError">Please enter a valid registered email or enrollment number.</span>
       </div>
-
-      <asp:ImageButton ID="fpSendOtpBtn" ClientIDMode="Static" runat="server" ImageUrl="~/assets/otp1.png" AlternateText="Send OTP" OnClientClick="return false;" style="margin-top: 15px; width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
-      
+      <asp:Label ID="lblMsg" runat="server" style="display:block; text-align:center; color:#ef4444; margin-bottom:12px; font-weight:600;"></asp:Label>
+      <asp:ImageButton ID="fpSendOtpBtn" ClientIDMode="Static" runat="server" ImageUrl="~/assets/otp1.png" AlternateText="Send OTP" OnClick="fpSendOtpBtn_Click" style="margin-top: 10px; width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
       <div style="text-align: center; margin-top: 25px;">
         <a href="login.aspx" class="forgot-link-btn"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
       </div>
     </div>
-
     </div>
-
   </div>
 </div>
 <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
@@ -184,11 +183,9 @@
 </body>
 </html>
 </asp:Content>
-
 <asp:Content ID="Content3" runat="server" contentplaceholderid="ContentPlaceHolder1">
                 <!-- ============ HEADER ============ -->
                 <header class="site-header">
-
                     <!-- Top bar -->
                     <div class="topbar">
                         <div class="container topbar-inner">
@@ -203,7 +200,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Main nav -->
                     <div class="navbar">
                         <div class="container navbar-inner">
@@ -220,64 +216,14 @@
                                 </ul>
                             </nav>
                             <div class="navbar-actions">
-                                <button class="icon-btn" id="searchBtn" type="button" aria-label="Search">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                </button>
-                                <button class="icon-btn" id="notifBtn" type="button" aria-label="Notifications">
-                                    <i class="fa-regular fa-bell"></i><span class="badge">1</span>
-                                </button>
 <%--                                <a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />        
+                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/PublicPanel/login.aspx" Width="150px" />
                                 <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>
                             </div>
                         </div>
-
-                        <!-- Expandable search bar -->
-                        <div class="search-panel" id="searchPanel">
-                            <div class="container search-panel-inner">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                <asp:TextBox ID="searchInput" ClientIDMode="Static" runat="server" placeholder="Search internships, companies, students..."></asp:TextBox>
-                                <button class="search-close" id="searchClose" type="button" aria-label="Close search">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
                         </div>
-
-                        <!-- Notification dropdown -->
-                        <div class="notif-panel" id="notifPanel">
-                            <div class="notif-header">
-                                <h4>Notifications</h4>
-                                <span class="notif-count">1 New</span>
-                            </div>
-                            <ul class="notif-list">
-                                <li class="notif-item unread"><span class="notif-icon"><i class="fa-solid fa-briefcase"></i></span>
-                                    <div>
-                                        <p>
-                                            Your internship application at <strong>TechNova Pvt Ltd</strong> was shortlisted.</p>
-                                        <span class="notif-time">2 hours ago</span>
-                                    </div>
-                                </li>
-                                <li class="notif-item"><span class="notif-icon"><i class="fa-solid fa-certificate"></i></span>
-                                    <div>
-                                        <p>
-                                            Your completion certificate is ready to download.</p>
-                                        <span class="notif-time">Yesterday</span>
-                                    </div>
-                                </li>
-                                <li class="notif-item"><span class="notif-icon"><i class="fa-solid fa-building"></i></span>
-                                    <div>
-                                        <p>
-                                            New internship posted by <strong>Bright Solutions</strong>.</p>
-                                        <span class="notif-time">2 days ago</span>
-                                    </div>
-                                </li>
-                            </ul>
-                            <a href="#" class="notif-viewall">View All Notifications</a>
                         </div>
-                    </div>
     </header>
 </asp:Content>
-
-

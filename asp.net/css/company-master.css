@@ -1,7 +1,6 @@
 /* ==================================================
    SIMS - Company Master Page Stylesheet
    ================================================== */
-
 :root {
     --sims-navy: #0F1B33;
     --sims-navy-light: #16233F;
@@ -15,16 +14,13 @@
     --sims-success: #16A34A;
     --sims-warning: #F59E0B;
     --sims-danger: #EF4444;
-
     --sidebar-width: 293px;
     --sidebar-collapsed-width: 78px;
     --header-height: 78px;
 }
-
 * {
     box-sizing: border-box;
 }
-
 body {
     margin: 0;
     font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -32,30 +28,24 @@ body {
     color: var(--sims-text);
     -webkit-font-smoothing: antialiased;
 }
-
 a {
     text-decoration: none;
     color: inherit;
 }
-
 button {
     font-family: inherit;
     cursor: pointer;
 }
-
 /* ==================================================
    LAYOUT
    ================================================== */
-
 .company-layout {
     min-height: 100vh;
     position: relative;
 }
-
 /* ==================================================
    SIDEBAR
    ================================================== */
-
 .company-sidebar {
     position: fixed;
     top: 0;
@@ -70,11 +60,9 @@ button {
     transition: width 0.25s ease;
     overflow: hidden;
 }
-
 .company-layout.is-collapsed .company-sidebar {
     width: var(--sidebar-collapsed-width);
 }
-
 .company-sidebar-brand {
     display: flex;
     align-items: center;
@@ -85,7 +73,6 @@ button {
     flex-shrink: 0;
     white-space: nowrap;
 }
-
 .company-sidebar-logo {
     width: 38px;
     height: 38px;
@@ -99,7 +86,6 @@ button {
     font-weight: 700;
     font-size: 18px;
 }
-
 .company-sidebar-brand-text {
     font-size: 19px;
     font-weight: 700;
@@ -107,33 +93,27 @@ button {
     letter-spacing: 0.5px;
     transition: opacity 0.15s ease;
 }
-
 .company-layout.is-collapsed .company-sidebar-brand-text {
     opacity: 0;
     width: 0;
     display: none;
 }
-
 .company-sidebar-menu {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 12px 14px 20px 14px;
 }
-
 .company-sidebar-menu::-webkit-scrollbar {
     width: 5px;
 }
-
 .company-sidebar-menu::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 10px;
 }
-
 .company-sidebar-section {
     margin-bottom: 6px;
 }
-
 .company-sidebar-section-title {
     font-size: 11px;
     font-weight: 600;
@@ -143,11 +123,9 @@ button {
     padding: 14px 12px 6px 12px;
     white-space: nowrap;
 }
-
 .company-layout.is-collapsed .company-sidebar-section-title {
     display: none;
 }
-
 .company-sidebar-link,
 .company-sidebar-parent {
     display: flex;
@@ -164,52 +142,43 @@ button {
     cursor: pointer;
     transition: background-color 0.15s ease, color 0.15s ease;
 }
-
 .company-sidebar-link:hover,
 .company-sidebar-parent:hover {
     background-color: rgba(255, 255, 255, 0.06);
     color: var(--sims-white);
 }
-
 .company-sidebar-icon {
     width: 20px;
     min-width: 20px;
     text-align: center;
     font-size: 16px;
 }
-
 .company-sidebar-label {
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .company-layout.is-collapsed .company-sidebar-label,
 .company-layout.is-collapsed .company-sidebar-caret {
     display: none;
 }
-
 .company-sidebar-caret {
     font-size: 11px;
     transition: transform 0.2s ease;
 }
-
 .company-sidebar-parent.is-open .company-sidebar-caret {
     transform: rotate(180deg);
 }
-
 /* Active state */
 .company-sidebar-link.company-sidebar-active,
 .company-sidebar-parent.company-sidebar-active {
     background-color: var(--sims-blue);
     color: var(--sims-white);
 }
-
 .company-sidebar-link.company-sidebar-active .company-sidebar-icon,
 .company-sidebar-parent.company-sidebar-active .company-sidebar-icon {
     color: var(--sims-white);
 }
-
 .company-sidebar-link.company-sidebar-active::before,
 .company-sidebar-parent.company-sidebar-active::before {
     content: "";
@@ -221,7 +190,6 @@ button {
     background-color: var(--sims-white);
     border-radius: 0 4px 4px 0;
 }
-
 /* Submenu */
 .company-sidebar-submenu {
     max-height: 0;
@@ -229,20 +197,16 @@ button {
     transition: max-height 0.28s ease;
     padding-left: 14px;
 }
-
 .company-sidebar-parent.is-open + .company-sidebar-submenu {
     max-height: 600px;
 }
-
 .company-sidebar-submenu .company-sidebar-link {
     font-size: 13.8px;
     padding: 9px 12px;
 }
-
 .company-layout.is-collapsed .company-sidebar-submenu {
     display: none;
 }
-
 /* Tooltip for collapsed state */
 .company-sidebar-tooltip {
     position: absolute;
@@ -263,23 +227,19 @@ button {
     z-index: 1200;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
-
 .company-layout.is-collapsed .company-sidebar-link:hover .company-sidebar-tooltip,
 .company-layout.is-collapsed .company-sidebar-parent:hover .company-sidebar-tooltip {
     opacity: 1;
     visibility: visible;
 }
-
 /* ==================================================
    SIDEBAR BOTTOM PROFILE
    ================================================== */
-
 .company-sidebar-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding: 16px 18px;
     flex-shrink: 0;
 }
-
 .company-sidebar-bottom-profile {
     display: flex;
     align-items: center;
@@ -287,26 +247,49 @@ button {
     margin-bottom: 10px;
     white-space: nowrap;
 }
-
-.company-sidebar-bottom-avatar {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    border-radius: 8px;
+.company-sidebar-bottom-avatar,
+#companySidebarAvatarContainer {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    max-width: 36px !important;
+    max-height: 36px !important;
+    border-radius: 8px !important;
     background-color: var(--sims-blue);
     color: var(--sims-white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     font-weight: 700;
     font-size: 13px;
+    overflow: hidden !important;
+    position: relative;
+    flex-shrink: 0 !important;
 }
-
+.company-sidebar-bottom-avatar img,
+.company-sidebar-avatar-img,
+#imgSidebarLogo {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    max-width: 36px !important;
+    max-height: 36px !important;
+    object-fit: cover !important;
+    display: block !important;
+    border-radius: 8px !important;
+}
+.company-sidebar-avatar-text {
+    font-weight: 700;
+    font-size: 13px;
+    color: #ffffff;
+    line-height: 1;
+}
 .company-sidebar-bottom-info {
     overflow: hidden;
     line-height: 1.3;
 }
-
 .company-sidebar-bottom-name {
     font-size: 13.5px;
     font-weight: 600;
@@ -314,16 +297,13 @@ button {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .company-sidebar-bottom-role {
     font-size: 11.5px;
     color: rgba(255, 255, 255, 0.45);
 }
-
 .company-layout.is-collapsed .company-sidebar-bottom-info {
     display: none;
 }
-
 .company-sidebar-bottom-logout {
     display: flex;
     align-items: center;
@@ -336,20 +316,16 @@ button {
     transition: background-color 0.15s ease, color 0.15s ease;
     white-space: nowrap;
 }
-
 .company-sidebar-bottom-logout:hover {
     background-color: rgba(239, 68, 68, 0.12);
     color: #FCA5A5;
 }
-
 .company-layout.is-collapsed .company-sidebar-bottom-logout span {
     display: none;
 }
-
 /* ==================================================
    HEADER
    ================================================== */
-
 .company-header {
     position: fixed;
     top: 0;
@@ -366,18 +342,15 @@ button {
     z-index: 900;
     transition: left 0.25s ease;
 }
-
 .company-layout.is-collapsed .company-header {
     left: var(--sidebar-collapsed-width);
 }
-
 .company-header-left {
     display: flex;
     align-items: center;
     gap: 16px;
     min-width: 0;
 }
-
 .company-header-toggle {
     background: none;
     border: none;
@@ -390,12 +363,10 @@ button {
     justify-content: center;
     transition: background-color 0.15s ease;
 }
-
 .company-header-toggle:hover,
 .company-header-toggle:focus-visible {
     background-color: var(--sims-bg);
 }
-
 .company-header-title {
     font-size: 17px;
     font-weight: 700;
@@ -404,13 +375,11 @@ button {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .company-header-right {
     display: flex;
     align-items: center;
     gap: 14px;
 }
-
 /* Search */
 .company-header-search {
     display: flex;
@@ -423,16 +392,13 @@ button {
     width: 300px;
     transition: border-color 0.15s ease, width 0.2s ease;
 }
-
 .company-header-search:focus-within {
     border-color: var(--sims-blue);
 }
-
 .company-header-search i {
     color: var(--sims-text-secondary);
     font-size: 14px;
 }
-
 .company-header-search input {
     border: none;
     background: transparent;
@@ -442,11 +408,9 @@ button {
     width: 100%;
     font-family: inherit;
 }
-
 .company-header-search input::placeholder {
     color: var(--sims-text-secondary);
 }
-
 /* Notification */
 .company-header-notification {
     position: relative;
@@ -462,12 +426,10 @@ button {
     justify-content: center;
     transition: background-color 0.15s ease;
 }
-
 .company-header-notification:hover,
 .company-header-notification:focus-visible {
     background-color: var(--sims-bg);
 }
-
 .company-header-notification-badge {
     position: absolute;
     top: 4px;
@@ -485,12 +447,10 @@ button {
     justify-content: center;
     line-height: 1;
 }
-
 /* Profile */
 .company-header-profile-wrap {
     position: relative;
 }
-
 .company-header-profile {
     display: flex;
     align-items: center;
@@ -501,48 +461,67 @@ button {
     border-radius: 999px;
     transition: background-color 0.15s ease;
 }
-
 .company-header-profile:hover,
 .company-header-profile:focus-visible {
     background-color: var(--sims-bg);
 }
-
-.company-header-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
+.company-header-avatar,
+#companyHeaderAvatarWrap {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    max-width: 38px !important;
+    max-height: 38px !important;
+    border-radius: 50% !important;
     background-color: var(--sims-blue);
     color: var(--sims-white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     font-weight: 700;
     font-size: 13.5px;
-    flex-shrink: 0;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    position: relative;
 }
-
+.company-header-avatar img,
+.company-header-avatar-img,
+#imgHeaderLogo {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    max-width: 38px !important;
+    max-height: 38px !important;
+    object-fit: cover !important;
+    display: block !important;
+    border-radius: 50% !important;
+}
+.company-header-avatar-text {
+    font-weight: 700;
+    font-size: 13.5px;
+    color: #ffffff;
+    line-height: 1;
+}
 .company-header-profile-info {
     text-align: left;
     line-height: 1.25;
 }
-
 .company-header-profile-name {
     font-size: 13.8px;
     font-weight: 600;
     color: var(--sims-text);
     white-space: nowrap;
 }
-
 .company-header-profile-role {
     font-size: 12px;
     color: var(--sims-text-secondary);
 }
-
 .company-header-profile-caret {
     font-size: 11px;
     color: var(--sims-text-secondary);
 }
-
 /* Profile dropdown */
 .company-profile-dropdown {
     position: absolute;
@@ -560,13 +539,11 @@ button {
     transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
     z-index: 950;
 }
-
 .company-profile-dropdown.is-open {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
-
 .company-profile-dropdown-item {
     display: flex;
     align-items: center;
@@ -578,34 +555,27 @@ button {
     color: var(--sims-text);
     transition: background-color 0.15s ease;
 }
-
 .company-profile-dropdown-item i {
     width: 16px;
     color: var(--sims-text-secondary);
 }
-
 .company-profile-dropdown-item:hover {
     background-color: var(--sims-bg);
 }
-
 .company-profile-dropdown-divider {
     height: 1px;
     background-color: var(--sims-border);
     margin: 6px 4px;
 }
-
 .company-profile-dropdown-item.is-danger {
     color: var(--sims-danger);
 }
-
 .company-profile-dropdown-item.is-danger i {
     color: var(--sims-danger);
 }
-
 /* ==================================================
    MAIN CONTENT
    ================================================== */
-
 .company-main {
     margin-left: var(--sidebar-width);
     padding-top: var(--header-height);
@@ -614,61 +584,61 @@ button {
     flex-direction: column;
     transition: margin-left 0.25s ease;
 }
-
 .company-layout.is-collapsed .company-main {
     margin-left: var(--sidebar-collapsed-width);
 }
-
 .company-content {
-    flex: 1;
+    flex: 1 0 auto;
     padding: 28px;
     background-color: var(--sims-bg);
 }
-
-/* ==================================================
-   FOOTER
-   ================================================== */
-
+/* =====================================================
+   FOOTER (Same as Admin Panel)
+   ===================================================== */
+.sims-footer,
 .company-footer {
-    background-color: var(--sims-white);
-    border-top: 1px solid var(--sims-border);
-    padding: 16px 28px;
+    height: auto;
+    min-height: 52px;
+    background: var(--sims-white, #ffffff);
+    border-top: 1px solid var(--sims-border, #e2e8f0);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 14px 28px;
+    font-size: 12.5px;
+    color: var(--sims-text-secondary, #64748b);
+    gap: 12px;
     flex-wrap: wrap;
-    gap: 8px;
-    font-size: 13px;
-    color: var(--sims-text-secondary);
+    margin-top: auto;
+    position: sticky;
+    bottom: 0;
+    z-index: 1000;
 }
-
+.sims-footer-copyright,
 .company-footer-left {
     font-weight: 500;
+    color: var(--sims-text-secondary, #64748b);
 }
-
-.company-footer-center {
-    font-weight: 500;
-}
-
+.sims-footer-links,
 .company-footer-links {
     display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
 }
-
+.sims-footer-links a,
 .company-footer-links a {
-    color: var(--sims-text-secondary);
+    color: var(--sims-text-secondary, #64748b);
+    font-weight: 500;
+    text-decoration: none;
     transition: color 0.15s ease;
 }
-
+.sims-footer-links a:hover,
 .company-footer-links a:hover {
-    color: var(--sims-blue);
+    color: var(--sims-blue, #2563eb);
 }
-
 /* ==================================================
    OVERLAY (mobile)
    ================================================== */
-
 .company-sidebar-overlay {
     position: fixed;
     inset: 0;
@@ -678,95 +648,191 @@ button {
     visibility: hidden;
     transition: opacity 0.2s ease, visibility 0.2s ease;
 }
-
 .company-sidebar-overlay.is-visible {
     opacity: 1;
     visibility: visible;
 }
-
 /* ==================================================
    RESPONSIVE
    ================================================== */
-
 @media (max-width: 1200px) {
     .company-content {
         padding: 20px;
     }
 }
-
 @media (max-width: 991px) {
     .company-sidebar {
         left: calc(-1 * var(--sidebar-width));
         width: var(--sidebar-width) !important;
         box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     }
-
     .company-layout.is-mobile-open .company-sidebar {
         left: 0;
     }
-
     .company-header,
     .company-main {
         left: 0;
         margin-left: 0 !important;
     }
-
     .company-header-search {
         width: 220px;
     }
-
     .company-layout.is-collapsed .company-sidebar-brand-text,
     .company-layout.is-mobile-open .company-sidebar-brand-text {
         display: block;
         opacity: 1;
         width: auto;
     }
-
     .company-layout.is-mobile-open .company-sidebar-section-title,
     .company-layout.is-mobile-open .company-sidebar-label,
     .company-layout.is-mobile-open .company-sidebar-caret {
         display: block;
     }
-
     .company-layout.is-mobile-open .company-sidebar-bottom-info {
         display: block;
     }
-
     .company-layout.is-mobile-open .company-sidebar-bottom-logout span {
         display: inline;
     }
 }
-
 @media (max-width: 767px) {
     .company-header {
         padding: 0 16px;
     }
-
     .company-header-search {
         width: 42px;
         padding: 9px;
         overflow: hidden;
     }
-
     .company-header-search input {
         display: none;
     }
-
     .company-header-profile-info {
         display: none;
     }
-
     .company-header-profile-caret {
         display: none;
     }
-
     .company-content {
         padding: 15px;
     }
-
     .company-footer {
         padding: 14px 16px;
         flex-direction: column;
         align-items: flex-start;
     }
+}
+/* ==================================================
+   UNIVERSAL STATUS BADGES FOR COMPANY PANEL
+   ================================================== */
+.interview-status-badge,
+.badge-status,
+.badge-status-chip {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 5px 12px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.2px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid transparent !important;
+    text-decoration: none !important;
+}
+.interview-status-badge i,
+.badge-status i,
+.badge-status-chip i {
+    font-size: 11.5px !important;
+}
+/* Completed / Approved / Selected / Passed (Green) */
+.status-completed,
+.badge-completed,
+.badge-passed,
+.st-selected,
+.badge-selected {
+    background: #dcfce7 !important;
+    color: #15803d !important;
+    border-color: #bbf7d0 !important;
+}
+.status-completed i,
+.badge-completed i,
+.badge-passed i,
+.st-selected i,
+.badge-selected i {
+    color: #16a34a !important;
+}
+/* Scheduled / Active / Applied / Sent (Blue) */
+.status-scheduled,
+.badge-pending,
+.st-applied,
+.status-applied {
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+    border-color: #bfdbfe !important;
+}
+.status-scheduled i,
+.badge-pending i,
+.st-applied i,
+.status-applied i {
+    color: #2563eb !important;
+}
+/* Shortlisted (Purple) */
+.st-shortlisted,
+.badge-shortlisted,
+.status-shortlisted {
+    background: #f3e8ff !important;
+    color: #7e22ce !important;
+    border-color: #e9d5ff !important;
+}
+.st-shortlisted i,
+.badge-shortlisted i,
+.status-shortlisted i {
+    color: #9333ea !important;
+}
+/* Cancelled / Rejected / Failed (Red) */
+.status-cancelled,
+.badge-failed,
+.st-rejected,
+.status-rejected {
+    background: #fee2e2 !important;
+    color: #b91c1c !important;
+    border-color: #fecaca !important;
+}
+.status-cancelled i,
+.badge-failed i,
+.st-rejected i,
+.status-rejected i {
+    color: #dc2626 !important;
+}
+/* In Progress / Assigned (Slate / Gray) */
+.badge-assigned {
+    background: #f1f5f9 !important;
+    color: #475569 !important;
+    border-color: #cbd5e1 !important;
+}
+.badge-assigned i {
+    color: #64748b !important;
+}
+/* Submitted / Under Review (Amber / Yellow) */
+.badge-submitted,
+.status-under-review {
+    background: #fef9c3 !important;
+    color: #a16207 !important;
+    border-color: #fef08a !important;
+}
+.badge-submitted i,
+.status-under-review i {
+    color: #ca8a04 !important;
+}
+/* Revision Requested (Orange) */
+.badge-revision {
+    background: #ffedd5 !important;
+    color: #c2410c !important;
+    border-color: #fed7aa !important;
+}
+.badge-revision i {
+    color: #ea580c !important;
 }

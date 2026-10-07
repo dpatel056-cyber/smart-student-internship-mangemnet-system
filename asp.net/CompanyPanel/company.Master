@@ -1,304 +1,339 @@
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="company.master.cs" Inherits="asp.net.company" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SIMS - Company Panel</title>
-
     <!-- Google Font: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
     <!-- Company Master Stylesheet -->
-    <link rel="stylesheet" href="<%= ResolveUrl("~/css/company-master.css") %>" />
-
+    <link rel="stylesheet" href="<%= ResolveUrl("~/css/company-master.css?v=2") %>" />
+    <style>
+        .company-sidebar {
+            background-color: #101a30 !important;
+        }
+        .company-sidebar-menu {
+            padding: 14px 12px !important;
+        }
+        .company-sidebar-section-title {
+            color: #5c6884 !important;
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.8px !important;
+            text-transform: uppercase !important;
+            padding: 16px 12px 6px 12px !important;
+            white-space: nowrap !important;
+        }
+        .company-sidebar-link {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 14px !important;
+            border-radius: 8px !important;
+            color: #aab4c8 !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            text-decoration: none !important;
+            margin-bottom: 3px !important;
+            transition: all 0.2s ease !important;
+            position: relative !important;
+        }
+        .company-sidebar-link:hover {
+            background: #17233f !important;
+            color: #ffffff !important;
+        }
+        .company-sidebar-link.is-active,
+        .company-sidebar-link.active {
+            background: #2563eb !important;
+            color: #ffffff !important;
+            font-weight: 600 !important;
+        }
+        .company-sidebar-link.is-active::before,
+        .company-sidebar-link.active::before {
+            content: "" !important;
+            position: absolute !important;
+            left: 0 !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            width: 4px !important;
+            height: 60% !important;
+            background-color: #ffffff !important;
+            border-radius: 0 4px 4px 0 !important;
+        }
+        .company-sidebar-icon {
+            width: 20px !important;
+            text-align: center !important;
+            font-size: 15px !important;
+            flex-shrink: 0 !important;
+        }
+        .company-badge-pill {
+            background: #ef4444 !important;
+            color: #ffffff !important;
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            padding: 2px 7px !important;
+            border-radius: 9999px !important;
+            margin-left: auto !important;
+        }
+        .company-sidebar-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+            padding: 12px !important;
+            flex-shrink: 0 !important;
+            margin-top: auto !important;
+        }
+        .company-sidebar-bottom-profile {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            padding: 8px !important;
+            border-radius: 8px !important;
+            cursor: pointer !important;
+            text-decoration: none !important;
+            transition: background 0.2s ease !important;
+            white-space: nowrap !important;
+        }
+        .company-sidebar-bottom-profile:hover {
+            background: #17233f !important;
+        }
+        .company-sidebar-bottom-avatar {
+            width: 34px !important;
+            height: 34px !important;
+            min-width: 34px !important;
+            min-height: 34px !important;
+            max-width: 34px !important;
+            max-height: 34px !important;
+            border-radius: 50% !important;
+            background-color: #2563EB !important;
+            color: #ffffff !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-weight: 700 !important;
+            font-size: 13px !important;
+            overflow: hidden !important;
+            position: relative !important;
+            flex-shrink: 0 !important;
+        }
+        .company-sidebar-avatar-img {
+            width: 34px !important;
+            height: 34px !important;
+            min-width: 34px !important;
+            min-height: 34px !important;
+            max-width: 34px !important;
+            max-height: 34px !important;
+            object-fit: cover !important;
+            display: block !important;
+            border-radius: 50% !important;
+        }
+        .company-sidebar-avatar-text {
+            font-weight: 700 !important;
+            font-size: 13px !important;
+            color: #ffffff !important;
+            line-height: 1 !important;
+        }
+        .company-sidebar-bottom-info {
+            line-height: 1.25 !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+        }
+        .company-sidebar-bottom-name {
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            color: #FFFFFF !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+        }
+        .company-sidebar-bottom-role {
+            font-size: 11.5px !important;
+            color: #aab4c8 !important;
+        }
+        .company-layout.is-collapsed .company-sidebar-bottom-info {
+            display: none !important;
+        }
+        .company-sidebar-bottom-logout {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            padding: 10px 8px 0 8px !important;
+            color: #aab4c8 !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            text-decoration: none !important;
+            background: transparent !important;
+            border: none !important;
+            transition: color 0.2s ease !important;
+            white-space: nowrap !important;
+            cursor: pointer !important;
+        }
+        .company-sidebar-bottom-logout:hover {
+            color: #ff6868 !important;
+            background: transparent !important;
+        }
+        .company-sidebar-bottom-logout i {
+            width: 20px !important;
+            text-align: center !important;
+            font-size: 15px !important;
+            flex-shrink: 0 !important;
+        }
+        .company-sidebar-bottom-logout:hover i {
+            color: #ff6868 !important;
+        }
+        .company-layout.is-collapsed .company-sidebar-bottom-logout span {
+            display: none !important;
+        }
+    </style>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
-
         <div class="company-layout" id="companyLayout">
-
             <!-- ================= MOBILE OVERLAY ================= -->
             <div class="company-sidebar-overlay" id="companySidebarOverlay"></div>
-
             <!-- ================= SIDEBAR ================= -->
             <aside class="company-sidebar" id="companySidebar" aria-label="Company sidebar navigation">
-
                 <div class="company-sidebar-brand">
                     <div class="company-sidebar-logo">S</div>
                     <span class="company-sidebar-brand-text">SIMS</span>
                 </div>
-
                 <nav class="company-sidebar-menu" aria-label="Company main menu">
-
-                    <!-- MAIN -->
+                    <!-- 1. MAIN / DASHBOARD -->
                     <div class="company-sidebar-section">
-                        <div class="company-sidebar-section-title">Main</div>
-
                         <a href="<%= ResolveUrl("~/CompanyPanel/company-dashboard.aspx") %>" class="company-sidebar-link">
                             <i class="fa-solid fa-gauge-high company-sidebar-icon"></i>
                             <span class="company-sidebar-label">Dashboard</span>
-                            <span class="company-sidebar-tooltip">Dashboard</span>
                         </a>
                     </div>
-
-                    <!-- COMPANY PROFILE -->
-                    <div class="company-sidebar-section">
-                        <div class="company-sidebar-section-title">Company Profile</div>
-
-                        <a href="<%= ResolveUrl("~/CompanyPanel/company-profile.aspx") %>" class="company-sidebar-link">
-                            <i class="fa-solid fa-building company-sidebar-icon"></i>
-                            <span class="company-sidebar-label">Company Profile</span>
-                            <span class="company-sidebar-tooltip">Company Profile</span>
-                        </a>
-                    </div>
-
-                    <!-- INTERNSHIPS -->
+                    <!-- 2. INTERNSHIPS -->
                     <div class="company-sidebar-section">
                         <div class="company-sidebar-section-title">Internships</div>
-
-                        <div class="company-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuInternships">
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-internships.aspx") %>" class="company-sidebar-link">
                             <i class="fa-solid fa-briefcase company-sidebar-icon"></i>
-                            <span class="company-sidebar-label">Internships</span>
-                            <i class="fa-solid fa-chevron-down company-sidebar-caret"></i>
-                            <span class="company-sidebar-tooltip">Internships</span>
-                        </div>
-                        <div class="company-sidebar-submenu" id="submenuInternships">
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-internships.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-briefcase company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">My Internships</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-post-internship.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-plus company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Add New Internship</span>
-                            </a>
-                        </div>
+                            <span class="company-sidebar-label">My Internships</span>
+                        </a>
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-post-internship.aspx") %>" class="company-sidebar-link">
+                            <i class="fa-solid fa-circle-plus company-sidebar-icon"></i>
+                            <span class="company-sidebar-label">Add New Internship</span>
+                        </a>
                     </div>
-
-                    <!-- STUDENTS -->
+                    <!-- 3. RECRUITMENT -->
                     <div class="company-sidebar-section">
-                        <div class="company-sidebar-section-title">Students</div>
-
-                        <div class="company-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuStudents">
+                        <div class="company-sidebar-section-title">Recruitment</div>
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-applicants.aspx") %>" class="company-sidebar-link">
                             <i class="fa-solid fa-user-graduate company-sidebar-icon"></i>
-                            <span class="company-sidebar-label">Students</span>
-                            <i class="fa-solid fa-chevron-down company-sidebar-caret"></i>
-                            <span class="company-sidebar-tooltip">Students</span>
-                        </div>
-                        <div class="company-sidebar-submenu" id="submenuStudents">
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-applicants.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-user-graduate company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Applicants</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-student-profiles.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-users company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Student Profiles</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-shortlisted.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-user-check company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Shortlisted Students</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- INTERVIEWS -->
-                    <div class="company-sidebar-section">
-                        <div class="company-sidebar-section-title">Interviews</div>
-
-                        <div class="company-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuInterviews">
+                            <span class="company-sidebar-label">Applicants</span>
+                        </a>
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-shortlisted.aspx") %>" class="company-sidebar-link">
+                            <i class="fa-solid fa-user-check company-sidebar-icon"></i>
+                            <span class="company-sidebar-label">Shortlisted Students</span>
+                        </a>
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-interviews.aspx") %>" class="company-sidebar-link">
                             <i class="fa-solid fa-calendar-check company-sidebar-icon"></i>
-                            <span class="company-sidebar-label">Interviews</span>
-                            <i class="fa-solid fa-chevron-down company-sidebar-caret"></i>
-                            <span class="company-sidebar-tooltip">Interviews</span>
-                        </div>
-                        <div class="company-sidebar-submenu" id="submenuInterviews">
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-interviews.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-calendar-check company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Schedule Interview</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-interview-history.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-clock-rotate-left company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Interview History</span>
-                            </a>
-                        </div>
+                            <span class="company-sidebar-label">Schedule Interview</span>
+                        </a>
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-selected-students.aspx") %>" class="company-sidebar-link">
+                            <i class="fa-solid fa-award company-sidebar-icon"></i>
+                            <span class="company-sidebar-label">Selected Students</span>
+                        </a>
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-offer-letters.aspx") %>" class="company-sidebar-link">
+                            <i class="fa-solid fa-file-signature company-sidebar-icon"></i>
+                            <span class="company-sidebar-label">Offer Letters</span>
+                        </a>
                     </div>
-
-                    <!-- PLACEMENTS -->
+                    <!-- 4. INTERNS & WORK -->
                     <div class="company-sidebar-section">
-                        <div class="company-sidebar-section-title">Placements</div>
-
-                        <div class="company-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuPlacements">
-                            <i class="fa-solid fa-trophy company-sidebar-icon"></i>
-                            <span class="company-sidebar-label">Placements</span>
-                            <i class="fa-solid fa-chevron-down company-sidebar-caret"></i>
-                            <span class="company-sidebar-tooltip">Placements</span>
-                        </div>
-                        <div class="company-sidebar-submenu" id="submenuPlacements">
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-selected-students.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-user-check company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Selected Students</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-offer-letters.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-file-signature company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Offer Letters</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-certificates.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-certificate company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Internship Certificates</span>
-                            </a>
-                        </div>
+                        <div class="company-sidebar-section-title">Interns &amp; Work</div>
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-tasks.aspx") %>" class="company-sidebar-link">
+                            <i class="fa-solid fa-list-check company-sidebar-icon"></i>
+                            <span class="company-sidebar-label">Internship Tasks</span>
+                        </a>
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-certificates.aspx") %>" class="company-sidebar-link">
+                            <i class="fa-solid fa-certificate company-sidebar-icon"></i>
+                            <span class="company-sidebar-label">Certificates</span>
+                        </a>
                     </div>
-
-                    <!-- COMMUNICATION -->
+                    <!-- 5. COMMUNICATION -->
                     <div class="company-sidebar-section">
                         <div class="company-sidebar-section-title">Communication</div>
-
-                        <div class="company-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuCommunication">
-                            <i class="fa-solid fa-comments company-sidebar-icon"></i>
-                            <span class="company-sidebar-label">Communication</span>
-                            <i class="fa-solid fa-chevron-down company-sidebar-caret"></i>
-                            <span class="company-sidebar-tooltip">Communication</span>
-                        </div>
-                        <div class="company-sidebar-submenu" id="submenuCommunication">
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-notifications.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-bell company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Notifications</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-messages.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-envelope company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Messages</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-contact.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-comments company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Contact Admin</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-feedback.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-star company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Feedback</span>
-                            </a>
-                        </div>
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-messages.aspx") %>" class="company-sidebar-link">
+                            <i class="fa-solid fa-envelope company-sidebar-icon"></i>
+                            <span class="company-sidebar-label" style="flex:1;">Messages</span>
+                            <asp:Label ID="lblMsgBadge" runat="server" CssClass="company-badge-pill" Visible="false"></asp:Label>
+                        </a>
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-feedback.aspx") %>" class="company-sidebar-link">
+                            <i class="fa-solid fa-star company-sidebar-icon"></i>
+                            <span class="company-sidebar-label">Feedback &amp; Ratings</span>
+                        </a>
                     </div>
-
-                    <!-- REPORTS & ANALYTICS -->
+                    <!-- 6. INSIGHTS -->
                     <div class="company-sidebar-section">
-                        <div class="company-sidebar-section-title">Reports &amp; Analytics</div>
-
-                        <div class="company-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuReports">
+                        <div class="company-sidebar-section-title">Insights</div>
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-reports.aspx") %>" class="company-sidebar-link">
                             <i class="fa-solid fa-chart-line company-sidebar-icon"></i>
-                            <span class="company-sidebar-label">Reports &amp; Analytics</span>
-                            <i class="fa-solid fa-chevron-down company-sidebar-caret"></i>
-                            <span class="company-sidebar-tooltip">Reports &amp; Analytics</span>
-                        </div>
-                        <div class="company-sidebar-submenu" id="submenuReports">
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-reports.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-file-chart-column company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Reports</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-analytics.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-chart-line company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Analytics</span>
-                            </a>
-                        </div>
+                            <span class="company-sidebar-label">Report &amp; Analytics</span>
+                        </a>
                     </div>
-
-                    <!-- ACCOUNT -->
+                    <!-- 7. ACCOUNT -->
                     <div class="company-sidebar-section">
                         <div class="company-sidebar-section-title">Account</div>
-
-                        <div class="company-sidebar-parent" tabindex="0" role="button" aria-expanded="false" aria-controls="submenuAccount">
-                            <i class="fa-solid fa-gear company-sidebar-icon"></i>
-                            <span class="company-sidebar-label">Account</span>
-                            <i class="fa-solid fa-chevron-down company-sidebar-caret"></i>
-                            <span class="company-sidebar-tooltip">Account</span>
-                        </div>
-                        <div class="company-sidebar-submenu" id="submenuAccount">
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-settings.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-gear company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Settings</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-change-password.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-lock company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Change Password</span>
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-activity-history.aspx") %>" class="company-sidebar-link">
-                                <i class="fa-solid fa-clock-rotate-left company-sidebar-icon"></i>
-                                <span class="company-sidebar-label">Activity History</span>
-                            </a>
-                        </div>
+                        <a href="<%= ResolveUrl("~/CompanyPanel/company-change-password.aspx") %>" class="company-sidebar-link">
+                            <i class="fa-solid fa-lock company-sidebar-icon"></i>
+                            <span class="company-sidebar-label">Change Password</span>
+                        </a>
                     </div>
-
                 </nav>
-
                 <!-- ================= SIDEBAR BOTTOM PROFILE ================= -->
                 <div class="company-sidebar-bottom">
-                    <div class="company-sidebar-bottom-profile">
-                        <span class="company-sidebar-bottom-avatar" id="companySidebarAvatarInitials">TC</span>
+                    <a href="<%= ResolveUrl("~/CompanyPanel/company-profile.aspx") %>" class="company-sidebar-bottom-profile">
+                        <span class="company-sidebar-bottom-avatar" id="companySidebarAvatarContainer">
+                            <asp:Image ID="imgSidebarLogo" runat="server" CssClass="company-sidebar-avatar-img" Visible="false" AlternateText="Logo" />
+                            <asp:Label ID="lblSidebarAvatarInitials" runat="server" CssClass="company-sidebar-avatar-text" Text="TC"></asp:Label>
+                        </span>
                         <div class="company-sidebar-bottom-info">
-                            <div class="company-sidebar-bottom-name" id="companySidebarName">TechCorp Ltd</div>
+                            <div class="company-sidebar-bottom-name"><asp:Label ID="lblSidebarCompanyName" runat="server" Text="Company"></asp:Label></div>
                             <div class="company-sidebar-bottom-role">Company</div>
                         </div>
-                    </div>
+                    </a>
                     <a href="javascript:void(0);" onclick="return showLogoutModal(event);" class="company-sidebar-bottom-logout">
                         <i class="fa-solid fa-right-from-bracket"></i>
                         <span>Logout</span>
                     </a>
                 </div>
-
             </aside>
-
             <!-- ================= HEADER ================= -->
             <header class="company-header" id="companyHeader">
-
                 <div class="company-header-left">
-                    <button type="button" class="company-header-toggle" id="companySidebarToggle"
-                        aria-label="Toggle sidebar" aria-expanded="true" aria-controls="companySidebar">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
                     <span class="company-header-title">Company Panel</span>
                 </div>
-
                 <div class="company-header-right">
-
                     <div class="company-header-search" role="search">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <input type="text" placeholder="Search internships, students..." aria-label="Search internships, students" />
                     </div>
-
-                    <a href="<%= ResolveUrl("~/CompanyPanel/company-notifications.aspx") %>" class="company-header-notification" aria-label="Notifications">
-                        <i class="fa-solid fa-bell"></i>
-                        <span class="company-header-notification-badge" id="companyNotificationBadge">5</span>
-                    </a>
-
                     <div class="company-header-profile-wrap">
                         <button type="button" class="company-header-profile" id="companyProfileBtn"
                             aria-haspopup="true" aria-expanded="false" aria-controls="companyProfileDropdown">
-                            <asp:Label ID="lblAvatarInitials" runat="server" CssClass="company-header-avatar" Text="C"></asp:Label>
+                            <span class="company-header-avatar" id="companyHeaderAvatarWrap" style="width: 38px !important; height: 38px !important; min-width: 38px !important; min-height: 38px !important; max-width: 38px !important; max-height: 38px !important; border-radius: 50% !important; overflow: hidden !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important;">
+                                <asp:Image ID="imgHeaderLogo" runat="server" CssClass="company-header-avatar-img" Visible="false" AlternateText="Logo" Style="width: 38px !important; height: 38px !important; min-width: 38px !important; min-height: 38px !important; max-width: 38px !important; max-height: 38px !important; border-radius: 50% !important; object-fit: cover !important; display: block !important;" />
+                                <asp:Label ID="lblAvatarInitials" runat="server" CssClass="company-header-avatar-text" Text="C"></asp:Label>
+                            </span>
                             <span class="company-header-profile-info">
                                 <asp:Label ID="lblProfileName" runat="server" CssClass="company-header-profile-name" Text="Company"></asp:Label><br />
                                 <span class="company-header-profile-role">Company</span>
                             </span>
                             <i class="fa-solid fa-chevron-down company-header-profile-caret"></i>
                         </button>
-
                         <div class="company-profile-dropdown" id="companyProfileDropdown" role="menu">
                             <a href="<%= ResolveUrl("~/CompanyPanel/company-profile.aspx") %>" class="company-profile-dropdown-item" role="menuitem">
                                 <i class="fa-solid fa-building"></i> Company Profile
                             </a>
                             <a href="<%= ResolveUrl("~/CompanyPanel/company-edit-profile.aspx") %>" class="company-profile-dropdown-item" role="menuitem">
                                 <i class="fa-solid fa-pen-to-square"></i> Edit Company Profile
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-verification.aspx") %>" class="company-profile-dropdown-item" role="menuitem">
-                                <i class="fa-solid fa-circle-check"></i> Verification Status
-                            </a>
-                            <a href="<%= ResolveUrl("~/CompanyPanel/company-settings.aspx") %>" class="company-profile-dropdown-item" role="menuitem">
-                                <i class="fa-solid fa-gear"></i> Settings
                             </a>
                             <a href="<%= ResolveUrl("~/CompanyPanel/company-change-password.aspx") %>" class="company-profile-dropdown-item" role="menuitem">
                                 <i class="fa-solid fa-lock"></i> Change Password
@@ -309,47 +344,38 @@
                             </a>
                         </div>
                     </div>
-
                 </div>
             </header>
-
             <!-- ================= MAIN CONTENT ================= -->
             <main class="company-main">
                 <div class="company-content">
                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>
-
-                <!-- ================= FOOTER ================= -->
-                <footer class="company-footer">
-                    <div class="company-footer-left">&copy; 2026 SIMS</div>
-                    <div class="company-footer-center">Student Internship Management System</div>
-                    <div class="company-footer-links">
-                        <a href="company-privacy-policy.aspx">Privacy Policy</a>
-                        <a href="company-terms.aspx">Terms &amp; Conditions</a>
-                        <a href="company-contact.aspx">Contact Us</a>
-                        <a href="company-help-support.aspx">Help &amp; Support</a>
+                <!-- ===================== FOOTER ===================== -->
+                <footer class="sims-footer">
+                    <div class="sims-footer-copyright">
+                        &copy; 2026 SIMS - Smart Student Internship Management System
+                    </div>
+                    <div class="sims-footer-links">
+                        <a href="javascript:void(0);">Privacy</a>
+                        <a href="javascript:void(0);">Terms</a>
+                        <a href="javascript:void(0);">Help &amp; Support</a>
                     </div>
                 </footer>
             </main>
-
         </div>
-
         <!-- ================= LOGOUT CONFIRMATION MODAL ================= -->
         <div id="modalLogoutOverlay" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.45); z-index:10000; align-items:center; justify-content:center;">
             <div style="background:#fff; width:100%; max-width:440px; border-radius:24px; padding:36px 32px 30px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.15); position:relative; margin:16px;">
-                
                 <!-- Icon -->
                 <div style="width:72px; height:72px; background:#fde8e8; border-radius:20px; display:flex; align-items:center; justify-content:center; margin:0 auto 24px auto;">
                     <i class="fa-solid fa-arrow-right-from-bracket" style="font-size:30px; color:#ef4444;"></i>
                 </div>
-                
                 <!-- Title -->
                 <h2 style="margin:0 0 10px 0; font-size:22px; color:#0f172a; font-weight:700; letter-spacing:-0.2px;">Logout Confirmation</h2>
-                
                 <!-- Subtitle -->
                 <p style="margin:0 0 28px 0; color:#64748b; font-size:15px; line-height:1.5;">Are you sure you want to logout from SIMS<br />Company Panel?</p>
-                
                 <!-- Buttons -->
                 <div style="display:flex; gap:12px;">
                     <button type="button" onclick="closeLogoutModal()" style="flex:1; padding:13px 0; border-radius:12px; border:none; background:#eff6ff; color:#2563eb; font-weight:700; font-size:15px; cursor:pointer;">No, Stay</button>
@@ -357,7 +383,6 @@
                 </div>
             </div>
         </div>
-
         <script>
             function showLogoutModal(e) {
                 if (e && e.preventDefault) e.preventDefault();
@@ -378,11 +403,21 @@
                         if (e.target === overlay) closeLogoutModal();
                     });
                 }
+                // Active Link Highlight
+                var currentPath = window.location.pathname.toLowerCase();
+                var links = document.querySelectorAll('.company-sidebar-link');
+                links.forEach(function (lnk) {
+                    var href = lnk.getAttribute('href');
+                    if (href) {
+                        var cleanHref = href.toLowerCase().split('?')[0];
+                        if (currentPath.endsWith(cleanHref) || currentPath.indexOf(cleanHref) !== -1 && cleanHref.indexOf('.aspx') !== -1) {
+                            lnk.classList.add('is-active');
+                        }
+                    }
+                });
             });
         </script>
-
         <script src="<%= ResolveUrl("~/js/company-master.js") %>"></script>
-
         <asp:ContentPlaceHolder ID="ScriptContent" runat="server">
         </asp:ContentPlaceHolder>
     </form>

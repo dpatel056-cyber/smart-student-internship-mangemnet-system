@@ -1,33 +1,45 @@
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="admin.master.cs" Inherits="asp.net.admin" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SIMS Admin Panel</title>
-
     <!-- Google Fonts: Inter / Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
     <!-- Bootstrap 5 (grid / utilities only) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-
     <!-- Admin master styles -->
     <link rel="stylesheet" href="../css/admin-master.css" />
     <!-- Custom Dialog / Alert System -->
     <link rel="stylesheet" href="../css/sims-dialog.css" />
+    <style>
+        /* Globally hide scrollbars across all browsers while preserving scroll functionality */
+        * {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+        *::-webkit-scrollbar,
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+        html, body {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+    </style>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body class="sims-admin-body">
     <form id="form1" runat="server">
     <div class="sims-wrapper" id="simsWrapper">
-
         <!-- ===================== SIDEBAR ===================== -->
         <aside class="sims-sidebar" id="simsSidebar">
             <div class="sims-sidebar-brand">
@@ -49,36 +61,28 @@
                 </ul>
                 <div class="sims-nav-section-label">Entities</div>
                 <ul>
-                    <li class="sims-nav-item has-submenu">
-                        <a href="#" class="sims-nav-link">
+                    <li class="sims-nav-item">
+                        <a href="admin-students.aspx" class="sims-nav-link">
                             <span class="sims-nav-icon"><i class="fa-solid fa-user-graduate"></i></span>
                             <span class="sims-nav-label">Students</span>
                         </a>
-                        <ul class="sims-submenu">
-                            <li class="sims-submenu-item"><a href="admin-students.aspx" class="sims-submenu-link">Students</a></li>
-                            <li class="sims-submenu-item"><a href="admin-student-applications.aspx" class="sims-submenu-link">Student Applications</a></li>
-                        </ul>
                     </li>
-                    <li class="sims-nav-item has-submenu">
-                        <a href="#" class="sims-nav-link">
+                    <li class="sims-nav-item">
+                        <a href="admin-student-applications.aspx" class="sims-nav-link">
+                            <span class="sims-nav-icon"><i class="fa-solid fa-file-lines"></i></span>
+                            <span class="sims-nav-label">Student Applications</span>
+                        </a>
+                    </li>
+                    <li class="sims-nav-item">
+                        <a href="admin-companies.aspx" class="sims-nav-link">
                             <span class="sims-nav-icon"><i class="fa-solid fa-building"></i></span>
                             <span class="sims-nav-label">Companies</span>
                         </a>
-                        <ul class="sims-submenu">
-                            <li class="sims-submenu-item"><a href="admin-companies.aspx" class="sims-submenu-link">Companies</a></li>
-                            <li class="sims-submenu-item"><a href="admin-company-verification.aspx" class="sims-submenu-link">Company Verification</a></li>
-                        </ul>
                     </li>
                     <li class="sims-nav-item">
                         <a href="admin-internships.aspx" class="sims-nav-link">
                             <span class="sims-nav-icon"><i class="fa-solid fa-briefcase"></i></span>
                             <span class="sims-nav-label">Internships</span>
-                        </a>
-                    </li>
-                    <li class="sims-nav-item">
-                        <a href="admin-categories-skills.aspx" class="sims-nav-link">
-                            <span class="sims-nav-icon"><i class="fa-solid fa-tags"></i></span>
-                            <span class="sims-nav-label">Categories &amp; Skills</span>
                         </a>
                     </li>
                 </ul>
@@ -106,13 +110,6 @@
                         </a>
                     </li>
                     <li class="sims-nav-item">
-                        <a href="admin-notifications.aspx" class="sims-nav-link" style="display: flex; align-items: center;">
-                            <span class="sims-nav-icon"><i class="fa-solid fa-bell"></i></span>
-                            <span class="sims-nav-label" style="flex: 1;">Notifications</span>
-                            <span style="background: #EF4444; color: white; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 9999px;">24</span>
-                        </a>
-                    </li>
-                    <li class="sims-nav-item">
                         <a href="admin-messages.aspx" class="sims-nav-link">
                             <span class="sims-nav-icon"><i class="fa-solid fa-envelope"></i></span>
                             <span class="sims-nav-label">Messages</span>
@@ -125,6 +122,7 @@
                         </a>
                     </li>
                 </ul>
+
                 <div class="sims-nav-section-label">Reports &amp; Security</div>
                 <ul>
                     <li class="sims-nav-item">
@@ -133,14 +131,13 @@
                             <span class="sims-nav-label">Reports &amp; Analytics</span>
                         </a>
                     </li>
-                    
                 </ul>
             </nav>
             <div class="sims-sidebar-bottom">
                 <a href="admin-profile.aspx" class="sims-sidebar-profile">
-                    <div class="sims-avatar-sm">AD</div>
+                    <div class="sims-avatar-sm"><%= GetAdminInitials() %></div>
                     <div class="sims-profile-info">
-                        <div class="sims-profile-name">Admin</div>
+                        <div class="sims-profile-name"><%= GetAdminName() %></div>
                         <div class="sims-profile-role">Administrator</div>
                     </div>
                 </a>
@@ -150,10 +147,8 @@
                 </a>
             </div>
         </aside>
-
         <!-- Mobile overlay -->
         <div class="sims-sidebar-overlay" id="sidebarOverlay"></div>
-
         <!-- ===================== MAIN AREA ===================== -->
         <div class="sims-main">
             <!-- ===================== HEADER ===================== -->
@@ -167,15 +162,11 @@
                     </div>
                 </div>
                 <div class="sims-header-right">
-                    <a href="admin-notifications.aspx" class="sims-icon-btn" aria-label="Notifications" style="text-decoration: none;">
-                        <i class="fa-solid fa-bell"></i>
-                        <span class="sims-badge-dot">5</span>
-                    </a>
                     <div class="sims-profile-menu" id="profileMenu">
                         <div class="sims-profile-trigger" id="profileTrigger">
-                            <div class="sims-avatar">AD</div>
+                            <div class="sims-avatar"><%= GetAdminInitials() %></div>
                             <div class="sims-profile-text">
-                                <div class="sims-profile-name">Admin</div>
+                                <div class="sims-profile-name"><%= GetAdminName() %></div>
                                 <div class="sims-profile-role">Administrator</div>
                             </div>
                             <i class="fa-solid fa-chevron-down"></i>
@@ -188,42 +179,35 @@
                     </div>
                 </div>
             </header>
-
             <!-- ===================== PAGE CONTENT ===================== -->
             <main class="sims-content">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </main>
-
             <!-- ===================== FOOTER ===================== -->
             <footer class="sims-footer">
                 <div class="sims-footer-copyright">
                     &copy; 2026 SIMS - Smart Student Internship Management System
                 </div>
                 <div class="sims-footer-links">
-                    <a href="admin-privacy.aspx">Privacy</a>
-                    <a href="admin-terms.aspx">Terms</a>
-                    <a href="admin-help-support.aspx">Help &amp; Support</a>
+                    <a href="javascript:void(0);">Privacy</a>
+                    <a href="javascript:void(0);">Terms</a>
+                    <a href="javascript:void(0);">Help &amp; Support</a>
                 </div>
             </footer>
         </div>
     </div>
-
     <!-- ===================== LOGOUT MODAL ===================== -->
     <div id="modalLogoutOverlay" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.45); z-index:10000; align-items:center; justify-content:center;">
         <div style="background:#fff; width:100%; max-width:440px; border-radius:24px; padding:36px 32px 30px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.15); position:relative; margin:16px;">
-            
             <!-- Icon -->
             <div style="width:72px; height:72px; background:#fde8e8; border-radius:20px; display:flex; align-items:center; justify-content:center; margin:0 auto 24px auto;">
                 <i class="fa-solid fa-arrow-right-from-bracket" style="font-size:30px; color:#ef4444;"></i>
             </div>
-            
             <!-- Title -->
             <h2 style="margin:0 0 10px 0; font-size:22px; color:#0f172a; font-weight:700; letter-spacing:-0.2px;">Logout Confirmation</h2>
-            
             <!-- Subtitle -->
             <p style="margin:0 0 28px 0; color:#64748b; font-size:15px; line-height:1.5;">Are you sure you want to logout from SIMS<br>Admin Panel?</p>
-            
             <!-- Buttons -->
             <div style="display:flex; gap:12px;">
                 <button type="button" onclick="closeLogoutModal()" style="flex:1; padding:13px 0; border-radius:12px; border:none; background:#eff6ff; color:#2563eb; font-weight:700; font-size:15px; cursor:pointer;">No, Stay</button>
@@ -231,7 +215,6 @@
             </div>
         </div>
     </div>
-    
     <script>
         function showLogoutModal() {
             var overlay = document.getElementById('modalLogoutOverlay');
@@ -264,4 +247,3 @@
     <script src="../js/sims-dialog.js"></script>
 </body>
 </html>
-

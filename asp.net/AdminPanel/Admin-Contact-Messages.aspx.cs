@@ -17,11 +17,21 @@ namespace asp.net.AdminPanel
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
+        {            if (Session["admin"] != null)
             {
-                showcontact();
+                getcon();
+                da = new SqlDataAdapter("select * from admin_registration where Email='" + Session["admin"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
 
+                if (!IsPostBack)
+                {
+                    showcontact();
+                }
+            }
+            else
+            {
+                Response.Redirect("~/PublicPanel/login.aspx");
             }
         }
 
@@ -41,14 +51,13 @@ namespace asp.net.AdminPanel
             GridView1.DataBind();
         }
 
-
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int id = Convert.ToInt32(e.CommandArgument);
             if (e.CommandName == "ViewContact")
             {
                 getcon();
-                int id = Convert.ToInt32(e.CommandArgument);
-                da = new SqlDataAdapter("select * from cont where Id='" + id + "'",con);
+                da = new SqlDataAdapter("select * from cont where Id=" + id, con);
                 ds = new DataSet();
                 da.Fill(ds);
 
@@ -61,11 +70,10 @@ namespace asp.net.AdminPanel
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenDrawer", "openDrawer();", true);
             }
-            else if (e.CommandName == "cmd_dlt")
+            if (e.CommandName == "cmd_dlt")
             {
                 getcon();
-                int id = Convert.ToInt16(e.CommandArgument);
-                cmd = new SqlCommand("delete from cont where Id='" + id + "'", con);
+                cmd = new SqlCommand("delete from cont where Id=" + id, con);
                 cmd.ExecuteNonQuery();
                 showcontact();
             }

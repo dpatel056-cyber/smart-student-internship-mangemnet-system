@@ -1,7 +1,7 @@
 /* ============================================================
    sims-dialog.js
    Global Custom Alert / Confirm / Toast System
-   
+
    Usage:
      simsAlert("Message")
      simsAlert("Message", { type: "success"|"error"|"warning"|"info", title: "Title" })

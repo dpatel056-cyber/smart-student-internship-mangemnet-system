@@ -3,6 +3,10 @@
 </asp:Content>
 <asp:Content ID="Content5" runat="server" contentplaceholderid="ContentPlaceHolder2">
         <style>
+  html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+  }
   .fp-page-wrapper {
       background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
       padding: 60px 20px;
@@ -11,6 +15,9 @@
       align-items: center;
       justify-content: center;
       position: relative;
+      overflow: hidden;
+      width: 100%;
+      box-sizing: border-box;
   }
   .fp-page-wrapper::before {
       content: '';
@@ -110,7 +117,6 @@
       color: #2563eb;
   }
 </style>
-
 <div class="fp-page-wrapper">
   <div class="fp-premium-card" id="fpModalBox">
     <!-- Step indicator -->
@@ -124,16 +130,14 @@
       </div>
       <div class="fp-step-line" style="flex:1; height:2px; background:#cbd5e1; margin:0 10px;"></div>
       <div class="fp-step active">
-        <span class="fp-step-circle" style="background:#10b981; color:white; display:flex; align-items:center; justify-content:center; border-radius:50%;">3</span><span class="fp-step-label">Reset</span>
+        <span id="step3Circle" runat="server" class="fp-step-circle" style="background:#10b981; color:white; display:flex; align-items:center; justify-content:center; border-radius:50%;">3</span><span class="fp-step-label">Reset</span>
       </div>
     </div>
-
     <!-- ===== STEP 3: Reset Password ===== -->
-    <div class="fp-panel active" id="fpStep3">
+    <div id="divResetForm" runat="server" class="fp-panel active">
       <div class="modal-icon icon-green" style="display:flex; align-items:center; justify-content:center; border-radius:50%; background:#dcfce7; color:#10b981;"><i class="fa-solid fa-lock-open"></i></div>
       <h3 class="modal-title" style="text-align: center;">New Password</h3>
-      <p class="modal-sub" style="text-align: center;">Create a strong new password for your SIMS account.</p>
-
+      <p class="modal-sub" style="text-align: center;">Create a strong new password for your SIMS account (<asp:Label ID="litTargetEmail" runat="server"></asp:Label>).</p>
       <div class="login-form-group">
         <label for="fpNewPassword" style="font-weight: 600; color: #334155;">New Password</label>
         <div class="login-input-wrap">
@@ -141,9 +145,7 @@
           <asp:TextBox ID="fpNewPassword" ClientIDMode="Static" runat="server" TextMode="Password" placeholder="Enter new password" autocomplete="new-password"></asp:TextBox>
           <i class="fa-regular fa-eye toggle-password" data-target="fpNewPassword"></i>
         </div>
-        <span class="field-error" id="fpNewPasswordError" style="display:none; color:#ef4444;">Password must be at least 6 characters.</span>
       </div>
-
       <div class="login-form-group">
         <label for="fpConfirmPassword" style="font-weight: 600; color: #334155;">Confirm New Password</label>
         <div class="login-input-wrap">
@@ -151,30 +153,27 @@
           <asp:TextBox ID="fpConfirmPassword" ClientIDMode="Static" runat="server" TextMode="Password" placeholder="Re-enter new password" autocomplete="new-password"></asp:TextBox>
           <i class="fa-regular fa-eye toggle-password" data-target="fpConfirmPassword"></i>
         </div>
-        <span class="field-error" id="fpConfirmPasswordError" style="display:none; color:#ef4444;">Passwords do not match.</span>
       </div>
-
-      <asp:ImageButton ID="fpResetPasswordBtn" ClientIDMode="Static" runat="server" ImageUrl="~/assets/otp3.png" AlternateText="Reset Password" OnClientClick="return false;" style="margin-top: 20px; width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
+      <asp:Label ID="lblResetMsg" runat="server" style="display:block; text-align:center; color:#ef4444; margin-bottom:12px; font-weight:600;"></asp:Label>
+      <asp:ImageButton ID="fpResetPasswordBtn" ClientIDMode="Static" runat="server" ImageUrl="~/assets/otp3.png" AlternateText="Reset Password" OnClick="fpResetPasswordBtn_Click" style="margin-top: 10px; width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
     </div>
-
     <!-- ===== STEP 4: Success ===== -->
-    <div class="fp-panel" id="fpStepSuccess" style="display: none;">
-      <div class="modal-icon icon-green" style="display:flex; align-items:center; justify-content:center; border-radius:50%; background:#dcfce7; color:#10b981;"><i class="fa-solid fa-circle-check"></i></div>
-      <h3 class="modal-title" style="text-align: center;">Reset Successful!</h3>
-      <p class="modal-sub" style="text-align: center;">Your password has been changed successfully. You can now login with your new credentials.</p>
-      
-      <asp:ImageButton ID="btnLoginSuccess" runat="server" ImageUrl="~/assets/login.png" PostBackUrl="~/login.aspx" AlternateText="Login Now" style="margin-top: 30px; width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
+    <div id="divResetSuccess" runat="server" class="fp-panel active" visible="false" style="text-align: center; display: block !important;">
+      <div class="modal-icon icon-green" style="width: 70px; height: 70px; margin: 10px auto 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #dcfce7; color: #16a34a; font-size: 36px;">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h3 class="modal-title" style="text-align: center; font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">Reset Successful!</h3>
+      <p class="modal-sub" style="text-align: center; font-size: 14px; color: #64748b; margin-bottom: 26px; line-height: 1.6;">Your password has been changed successfully. You can now log in with your new credentials.</p>
+      <asp:ImageButton ID="btnLoginSuccess" runat="server" ImageUrl="~/assets/login.png" PostBackUrl="~/PublicPanel/login.aspx" AlternateText="Login Now" style="margin: 0 auto; width: 100%; max-height: 55px; object-fit: contain; cursor: pointer; display: block; background: transparent; border: none;" />
     </div>
-
   </div>
 </div>
 <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
-<script src="<%= ResolveUrl("~/js/fp-multi.js") %>"></script>       
+<script src="<%= ResolveUrl("~/js/fp-multi.js") %>"></script>
 </asp:Content>
 <asp:Content ID="Content6" runat="server" contentplaceholderid="ContentPlaceHolder1">
                 <!-- ============ HEADER ============ -->
                 <header class="site-header">
-
                     <!-- Top bar -->
                     <div class="topbar">
                         <div class="container topbar-inner">
@@ -189,7 +188,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Main nav -->
                     <div class="navbar">
                         <div class="container navbar-inner">
@@ -206,63 +204,14 @@
                                 </ul>
                             </nav>
                             <div class="navbar-actions">
-                                <button class="icon-btn" id="searchBtn" type="button" aria-label="Search">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                </button>
-                                <button class="icon-btn" id="notifBtn" type="button" aria-label="Notifications">
-                                    <i class="fa-regular fa-bell"></i><span class="badge">1</span>
-                                </button>
 <%--<a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />                               
+                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/PublicPanel/login.aspx" Width="150px" />
                                 <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>
                             </div>
                         </div>
-
-                        <!-- Expandable search bar -->
-                        <div class="search-panel" id="searchPanel">
-                            <div class="container search-panel-inner">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                <asp:TextBox ID="searchInput" ClientIDMode="Static" runat="server" placeholder="Search internships, companies, students..."></asp:TextBox>
-                                <button class="search-close" id="searchClose" type="button" aria-label="Close search">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
                         </div>
-
-                        <!-- Notification dropdown -->
-                        <div class="notif-panel" id="notifPanel">
-                            <div class="notif-header">
-                                <h4>Notifications</h4>
-                                <span class="notif-count">1 New</span>
-                            </div>
-                            <ul class="notif-list">
-                                <li class="notif-item unread"><span class="notif-icon"><i class="fa-solid fa-briefcase"></i></span>
-                                    <div>
-                                        <p>
-                                            Your internship application at <strong>TechNova Pvt Ltd</strong> was shortlisted.</p>
-                                        <span class="notif-time">2 hours ago</span>
-                                    </div>
-                                </li>
-                                <li class="notif-item"><span class="notif-icon"><i class="fa-solid fa-certificate"></i></span>
-                                    <div>
-                                        <p>
-                                            Your completion certificate is ready to download.</p>
-                                        <span class="notif-time">Yesterday</span>
-                                    </div>
-                                </li>
-                                <li class="notif-item"><span class="notif-icon"><i class="fa-solid fa-building"></i></span>
-                                    <div>
-                                        <p>
-                                            New internship posted by <strong>Bright Solutions</strong>.</p>
-                                        <span class="notif-time">2 days ago</span>
-                                    </div>
-                                </li>
-                            </ul>
-                            <a href="#" class="notif-viewall">View All Notifications</a>
                         </div>
-                    </div>
     </header>
 </asp:Content>
-

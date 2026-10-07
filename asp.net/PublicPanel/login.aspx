@@ -15,54 +15,78 @@
 </head>
 <body>
 <div id="public-header-root"></div>
-
-
 <div class="login-page">
   <div class="login-main">
-
     <!-- ============ LEFT BRAND PANEL ============ -->
     <div class="login-left">
-      <h1 class="login-welcome-title">Welcome Back!</h1>
+      <div class="auth-pill-badge">
+        <i class="fa-solid fa-graduation-cap"></i> <span>Smart Internship Ecosystem</span>
+      </div>
+      <h1 class="login-welcome-title">Welcome Back to <span>SIMS</span></h1>
       <p class="login-welcome-desc">
-        Login to your account &amp; continue your journey with SIMS.
+        Login to your account &amp; continue your internship journey with leading companies across India.
       </p>
-
       <div class="login-features">
         <div class="login-feature">
           <span class="login-feature-icon icon-blue"><i class="fa-solid fa-briefcase"></i></span>
           <div>
-            <h4>Find the Best Internships</h4>
-            <p>Explore thousands of opportunities from top companies.</p>
+            <h4>Find Top Internships</h4>
+            <p>Explore thousands of verified opportunities from top companies.</p>
           </div>
         </div>
         <div class="login-feature">
-          <span class="login-feature-icon icon-green"><i class="fa-solid fa-chart-simple"></i></span>
+          <span class="login-feature-icon icon-green"><i class="fa-solid fa-chart-line"></i></span>
           <div>
-            <h4>Track Your Progress</h4>
-            <p>Manage applications and track progress in one place.</p>
+            <h4>Track Live Progress</h4>
+            <p>Manage applications and interview updates in one place.</p>
           </div>
         </div>
         <div class="login-feature">
           <span class="login-feature-icon icon-purple"><i class="fa-solid fa-award"></i></span>
           <div>
-            <h4>Learn &amp; Grow</h4>
-            <p>Gain real-world experience and build your future.</p>
+            <h4>Learn &amp; Get Placed</h4>
+            <p>Gain real-world experience and build your dream career.</p>
           </div>
         </div>
       </div>
-
+      <!-- Website Related Illustration & Floating Cards -->
+      <div class="login-illustration-wrap login-shape-auth">
+        <div class="login-blob"></div>
+        <img src="<%= ResolveUrl("~/assets/banner_login.png") %>" alt="SIMS Secure Login" class="login-illustration-img" />
+        <div class="login-float-card pos-1">
+          <span class="login-float-icon icon-blue"><i class="fa-solid fa-briefcase"></i></span>
+          <div>
+            <strong>10K+</strong>
+            <span>Active Internships</span>
+          </div>
+        </div>
+        <div class="login-float-card pos-2">
+          <span class="login-float-icon icon-green"><i class="fa-solid fa-user-graduate"></i></span>
+          <div>
+            <strong>25K+</strong>
+            <span>Placed Students</span>
+          </div>
+        </div>
+      </div>
+      <!-- Trusted Recruiter Logos -->
+      <div class="auth-trusted-strip">
+        <span>Trusted by Top Recruiters</span>
+        <div class="auth-trusted-logos">
+          <img src="<%= ResolveUrl("~/assets/logo-google.png") %>" alt="Google" />
+          <img src="<%= ResolveUrl("~/assets/logo-microsoft.png") %>" alt="Microsoft" />
+          <img src="<%= ResolveUrl("~/assets/logo-tcs.svg") %>" alt="TCS" />
+          <img src="<%= ResolveUrl("~/assets/logo-infosys.png") %>" alt="Infosys" />
+          <img src="<%= ResolveUrl("~/assets/logo-amazon.png") %>" alt="Amazon" />
+        </div>
+      </div>
     </div>
-
     <!-- ============ RIGHT LOGIN PANEL ============ -->
     <div class="login-right">
       <div class="login-card">
-
         <h2 class="login-card-title">Login to SIMS</h2>
         <p class="login-card-sub">Please enter your credentials to access your account</p>
-
         <!-- Hidden field for active login role -->
         <asp:HiddenField ID="hfSelectedRole" runat="server" ClientIDMode="Static" Value="student" />
-
         <!-- Role tabs -->
         <div class="role-tabs" id="roleTabs">
           <div class="role-tab active" data-role="student">
@@ -75,7 +99,6 @@
             <i class="fa-solid fa-shield-halved"></i> Admin
           </div>
         </div>
-
         <div id="loginForm" class="login-form-wrapper">
           <div class="login-form-group">
             <label for="email">Email / Enrollment Number</label>
@@ -85,7 +108,6 @@
             </div>
             <span class="field-error" id="emailError">Please enter a valid email address or enrollment number.</span>
           </div>
-
           <div class="login-form-group">
             <label for="password">Password</label>
             <div class="login-input-wrap">
@@ -95,14 +117,12 @@
             </div>
             <span class="field-error" id="passwordError">Password must be at least 6 characters.</span>
           </div>
-
           <div class="login-row-between">
             <div class="remember-me-wrap" style="display: flex; align-items: center; gap: 8px;">
                 <asp:CheckBox ID="rememberMe" ClientIDMode="Static" runat="server" Checked="true" Text="Remember Me" CssClass="remember-me-chk" />
             </div>
             <a href="forgot_password.aspx" class="forgot-link" id="forgotPasswordLink">Forgot Password?</a>
           </div>
-
             <%-- <asp:LinkButton ID="loginBtn" ClientIDMode="Static" runat="server" CssClass="btn btn-primary btn-login" OnClick="loginBtn_Click">
             <span class="btn-spinner" id="loginSpinner"></span>
             <span class="btn-text">Login</span> <i class="fa-solid fa-arrow-right btn-arrow-icon"></i>
@@ -110,40 +130,29 @@
             <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/assets/login.png" Width="450px" OnClick="ImageButton2_Click" />
           <asp:Label ID="lblMsg" runat="server" Style="display:block; margin-top:12px; font-weight:600;"></asp:Label>
         </div>
-
         <div class="login-divider">or</div>
-
         <p class="login-register-text">
           Don't have an account? <a href="register.aspx" id="registerLink">Register Now</a>
         </p>
-
       </div>
     </div>
-
   </div>
-
   <div id="public-footer-root"></div>
 </div>
-
 <!-- Toast notification -->
 <div class="login-toast" id="loginToast">
   <i class="fa-solid fa-circle-check"></i>
   <span id="loginToastMsg">Login successful!</span>
 </div>
-
-
-
 <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
 <script src="<%= ResolveUrl("~/js/script.js") %>"></script>
 <script src="<%= ResolveUrl("~/js/login.js?v=2") %>"></script>
 </body>
 </html>
 </asp:Content>
-
 <asp:Content ID="Content6" runat="server" contentplaceholderid="ContentPlaceHolder1">
                 <!-- ============ HEADER ============ -->
                 <header class="site-header">
-
                     <!-- Top bar -->
                     <div class="topbar">
                         <div class="container topbar-inner">
@@ -158,7 +167,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Main nav -->
                     <div class="navbar">
                         <div class="container navbar-inner">
@@ -175,63 +183,14 @@
                                 </ul>
                             </nav>
                             <div class="navbar-actions">
-                                <button class="icon-btn" id="searchBtn" type="button" aria-label="Search">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                </button>
-                                <button class="icon-btn" id="notifBtn" type="button" aria-label="Notifications">
-                                    <i class="fa-regular fa-bell"></i><span class="badge">1</span>
-                                </button>
                                 <%--                                <a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/login.aspx" Width="150px" />      
+                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/PublicPanel/login.aspx" Width="150px" />
                                 <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>
                             </div>
                         </div>
-
-                        <!-- Expandable search bar -->
-                        <div class="search-panel" id="searchPanel">
-                            <div class="container search-panel-inner">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                <asp:TextBox ID="searchInput" ClientIDMode="Static" runat="server" placeholder="Search internships, companies, students..."></asp:TextBox>
-                                <button class="search-close" id="searchClose" type="button" aria-label="Close search">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
                         </div>
-
-                        <!-- Notification dropdown -->
-                        <div class="notif-panel" id="notifPanel">
-                            <div class="notif-header">
-                                <h4>Notifications</h4>
-                                <span class="notif-count">1 New</span>
-                            </div>
-                            <ul class="notif-list">
-                                <li class="notif-item unread"><span class="notif-icon"><i class="fa-solid fa-briefcase"></i></span>
-                                    <div>
-                                        <p>
-                                            Your internship application at <strong>TechNova Pvt Ltd</strong> was shortlisted.</p>
-                                        <span class="notif-time">2 hours ago</span>
-                                    </div>
-                                </li>
-                                <li class="notif-item"><span class="notif-icon"><i class="fa-solid fa-certificate"></i></span>
-                                    <div>
-                                        <p>
-                                            Your completion certificate is ready to download.</p>
-                                        <span class="notif-time">Yesterday</span>
-                                    </div>
-                                </li>
-                                <li class="notif-item"><span class="notif-icon"><i class="fa-solid fa-building"></i></span>
-                                    <div>
-                                        <p>
-                                            New internship posted by <strong>Bright Solutions</strong>.</p>
-                                        <span class="notif-time">2 days ago</span>
-                                    </div>
-                                </li>
-                            </ul>
-                            <a href="#" class="notif-viewall">View All Notifications</a>
                         </div>
-                    </div>
     </header>
 </asp:Content>
-

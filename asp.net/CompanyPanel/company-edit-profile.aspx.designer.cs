@@ -1,7 +1,9 @@
-﻿namespace asp.net {
+namespace asp.net {
     public partial class company_edit_profile {
         protected global::System.Web.UI.WebControls.Label lblSaveMessage;
         protected global::System.Web.UI.WebControls.Image imgProfilePreview;
+        protected global::System.Web.UI.WebControls.Label lblProfileInitials;
+        protected global::System.Web.UI.WebControls.LinkButton btnRemovePhoto;
         protected global::System.Web.UI.WebControls.FileUpload fileProfilePhoto;
         protected global::System.Web.UI.WebControls.TextBox txtCompanyName;
         protected global::System.Web.UI.WebControls.TextBox txtIndustry;

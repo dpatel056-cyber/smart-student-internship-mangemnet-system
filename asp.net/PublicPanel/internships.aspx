@@ -4,14 +4,22 @@
         .internship-datalist-wrapper {
             width: 100%;
         }
-
         .internship-card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
             width: 100%;
         }
-
+        @media (max-width: 1200px) {
+            .internship-card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 640px) {
+            .internship-card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
         .internship-card-box {
             background: #ffffff;
             border: 1px solid #e2e8f0;
@@ -26,13 +34,11 @@
             justify-content: space-between;
             min-height: 260px;
         }
-
         .internship-card-box:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 24px rgba(37, 99, 235, 0.12);
             border-color: #cbd5e1;
         }
-
         .card-top-row {
             display: flex;
             align-items: flex-start;
@@ -41,32 +47,38 @@
             position: relative;
             padding-right: 30px;
         }
-
         .company-logo-wrap {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             flex-shrink: 0;
+            padding: 6px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
         }
-
-        .company-logo-img {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
+        .company-logo-wrap img,
+        .company-logo-wrap .company-logo-img {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            object-fit: contain !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
-
         .title-company-wrap {
             display: flex;
             flex-direction: column;
             gap: 2px;
         }
-
         .internship-card-title {
             font-size: 17px;
             font-weight: 700;
@@ -78,13 +90,11 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-
         .company-card-name {
             font-size: 14px;
             font-weight: 600;
             color: #2563eb;
         }
-
         .bookmark-btn {
             position: absolute;
             right: 0;
@@ -96,11 +106,9 @@
             cursor: pointer;
             transition: color 0.2s ease;
         }
-
         .bookmark-btn:hover {
             color: #2563eb;
         }
-
         .card-details-row {
             display: flex;
             align-items: center;
@@ -111,25 +119,21 @@
             color: #64748b;
             font-weight: 500;
         }
-
         .detail-item {
             display: inline-flex;
             align-items: center;
             gap: 6px;
         }
-
         .detail-item i {
             color: #2563eb;
             font-size: 14px;
         }
-
         .card-stipend-row {
             display: flex;
             align-items: center;
             gap: 12px;
             margin-bottom: 16px;
         }
-
         .badge-paid {
             background: #dcfce7;
             color: #16a34a;
@@ -138,7 +142,6 @@
             font-size: 13px;
             font-weight: 600;
         }
-
         .badge-unpaid {
             background: #f1f5f9;
             color: #64748b;
@@ -147,13 +150,11 @@
             font-size: 13px;
             font-weight: 600;
         }
-
         .stipend-amount {
             font-size: 16px;
             font-weight: 700;
             color: #0f172a;
         }
-
         .card-footer-row {
             border-top: 1px solid #f1f5f9;
             padding-top: 14px;
@@ -164,22 +165,18 @@
             color: #64748b;
             font-weight: 500;
         }
-
         .footer-meta {
             display: inline-flex;
             align-items: center;
             gap: 6px;
         }
-
         .footer-meta i {
             color: #94a3b8;
             font-size: 14px;
         }
-
         .posted-time {
             color: #64748b;
         }
-
         .empty-state-box {
             background: #ffffff;
             border: 2px dashed #cbd5e1;
@@ -189,28 +186,87 @@
             margin-top: 20px;
             width: 100%;
         }
-
         .empty-state-icon {
             font-size: 48px;
             color: #94a3b8;
             margin-bottom: 16px;
         }
-
         .empty-state-box h3 {
             font-size: 18px;
             font-weight: 700;
             color: #0f172a;
             margin: 0 0 8px 0;
         }
-
         .empty-state-box p {
             font-size: 14px;
             color: #64748b;
             margin: 0;
         }
+        /* Pagination Styling */
+        .pg-wrap {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 10px !important;
+            margin-top: 40px !important;
+            margin-bottom: 24px !important;
+            width: 100% !important;
+        }
+        .pg-link {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-width: 42px !important;
+            height: 42px !important;
+            padding: 0 14px !important;
+            border-radius: 10px !important;
+            border: 1px solid #e2e8f0 !important;
+            background: #ffffff !important;
+            color: #334155 !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        .pg-link i {
+            color: inherit !important;
+        }
+        .pg-link:hover:not(.pg-active):not(.pg-disabled) {
+            background: #f8fafc !important;
+            color: #2563eb !important;
+            border-color: #93c5fd !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12) !important;
+            text-decoration: none !important;
+        }
+        .pg-link.pg-active {
+            background: #2563eb !important;
+            color: #ffffff !important;
+            border-color: #2563eb !important;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
+            cursor: default !important;
+        }
+        .pg-link.pg-active i {
+            color: #ffffff !important;
+        }
+        .pg-link.pg-disabled {
+            background: #f8fafc !important;
+            color: #cbd5e1 !important;
+            border-color: #f1f5f9 !important;
+            cursor: not-allowed !important;
+            box-shadow: none !important;
+            pointer-events: none !important;
+        }
+        .pg-link.pg-disabled i {
+            color: #cbd5e1 !important;
+        }
+        .pg-nav {
+            padding: 0 18px !important;
+            font-weight: 600 !important;
+        }
     </style>
 </asp:Content>
-
 <asp:Content ID="Content4" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -219,11 +275,9 @@
     <link rel="stylesheet" href="../css/internship-module.css">
     </head>
     <body>
-
         <div id="public-header-root"></div>
         <!-- ============ HEADER ============ -->
         <header class="site-header">
-
             <!-- Top bar -->
             <div class="topbar">
                 <div class="container topbar-inner">
@@ -242,7 +296,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Main nav -->
             <div class="navbar">
                 <div class="container navbar-inner">
@@ -265,97 +318,42 @@
                         </ul>
                     </nav>
                     <div class="navbar-actions">
-                        <button class="icon-btn" id="searchBtn" type="button" aria-label="Search">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                        <button class="icon-btn" id="notifBtn" type="button" aria-label="Notifications">
-                            <i class="fa-regular fa-bell"></i><span class="badge">1</span>
-                        </button>
 <%--                        <a href="login.aspx" class="btn btn-primary">Login / Register</a>--%>
-                        <asp:ImageButton ID="ImageButton3" runat="server" PostBackUrl="~/login.aspx" ImageUrl="~/assets/login register.png" Width="150px" />
-
+                        <asp:ImageButton ID="ImageButton3" runat="server" PostBackUrl="~/PublicPanel/login.aspx" ImageUrl="~/assets/login register.png" Width="150px" />
                         <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
                             <i class="fa-solid fa-bars"></i>
                         </button>
                     </div>
                 </div>
-
-                <!-- Expandable search bar -->
-                <div class="search-panel" id="searchPanel">
-                    <div class="container search-panel-inner">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <asp:TextBox ID="searchInput" ClientIDMode="Static" runat="server" placeholder="Search internships, companies, students..."></asp:TextBox>
-                        <button class="search-close" id="searchClose" type="button" aria-label="Close search">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
                 </div>
-
-                <!-- Notification dropdown -->
-                <div class="notif-panel" id="notifPanel">
-                    <div class="notif-header">
-                        <h4>Notifications</h4>
-                        <span class="notif-count">1 New</span>
-                    </div>
-                    <ul class="notif-list">
-                        <li class="notif-item unread">
-                            <span class="notif-icon"><i class="fa-solid fa-briefcase"></i></span>
-                            <div>
-                                <p>Your internship application at <strong>TechNova Pvt Ltd</strong> was shortlisted.</p>
-                                <span class="notif-time">2 hours ago</span>
-                            </div>
-                        </li>
-                        <li class="notif-item">
-                            <span class="notif-icon"><i class="fa-solid fa-certificate"></i></span>
-                            <div>
-                                <p>Your completion certificate is ready to download.</p>
-                                <span class="notif-time">Yesterday</span>
-                            </div>
-                        </li>
-                        <li class="notif-item">
-                            <span class="notif-icon"><i class="fa-solid fa-building"></i></span>
-                            <div>
-                                <p>New internship posted by <strong>Bright Solutions</strong>.</p>
-                                <span class="notif-time">2 days ago</span>
-                            </div>
-                        </li>
-                    </ul>
-                    <a href="#" class="notif-viewall">View All Notifications</a>
                 </div>
-            </div>
         </header>
 </asp:Content>
-
 <asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
     <main>
-
         <!-- ============ INTERNSHIPS BANNER ============ -->
         <section class="internships-banner">
             <div class="internships-dots"></div>
             <div class="container">
-
                 <div class="internships-banner-inner">
                     <div class="internships-banner-text">
                         <h1>Find the Perfect Internship<br>
                             <span>Kickstart Your Career Journey</span></h1>
                         <p>Explore 10,000+ internships from top companies and find the right opportunity that matches your skills and interests.</p>
                     </div>
-
                     <div class="internships-banner-media">
-                        <div class="page-banner-media about-banner-media">
+                        <div class="page-banner-media banner-shape-internships">
                             <div class="banner-blob"></div>
-                            <img src="../assets/hero-student.png" alt="Find internships" class="banner-image">
+                            <img src="<%= ResolveUrl("~/assets/banner_internships.png") %>" alt="Find internships" class="banner-image">
                         </div>
                     </div>
                 </div>
-
                 <!-- Search & quick filters -->
                 <div class="internships-searchbar">
                     <div class="companies-search-input" style="flex: 2; min-width: 220px;">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <input type="text" id="topKeywordInput" placeholder="Job title, role or keyword">
                     </div>
-
                     <div class="companies-select-wrap">
                         <i class="fa-solid fa-layer-group select-prefix-icon"></i>
                         <select id="topCategory">
@@ -363,7 +361,6 @@
                         </select>
                         <i class="fa-solid fa-chevron-down select-caret"></i>
                     </div>
-
                     <div class="companies-select-wrap">
                         <i class="fa-solid fa-location-dot select-prefix-icon"></i>
                         <select id="topLocation">
@@ -371,7 +368,6 @@
                         </select>
                         <i class="fa-solid fa-chevron-down select-caret"></i>
                     </div>
-
                     <div class="companies-select-wrap">
                         <i class="fa-regular fa-clock select-prefix-icon"></i>
                         <select id="topDuration">
@@ -379,7 +375,6 @@
                         </select>
                         <i class="fa-solid fa-chevron-down select-caret"></i>
                     </div>
-
                     <%--<button type="button" class="btn btn-primary btn-search-companies" id="topSearchBtn">
                         <i class="fa-solid fa-magnifying-glass"></i>Search Internships
                     </button>--%>
@@ -387,44 +382,36 @@
                 </div>
             </div>
         </section>
-
         <!-- ============ INTERNSHIPS SECTION ============ -->
         <section class="internships-section">
             <div class="container">
-
                 <div class="internships-layout" id="internshipsResultsTop">
-
                     <!-- ============ FILTER SIDEBAR ============ -->
                     <aside class="filters-sidebar">
                         <div class="internships-filters-head">
                             <h3><i class="fa-solid fa-sliders"></i>Filter Internships</h3>
                             <button type="button" class="clear-all-btn" id="clearAllBtn">Clear All</button>
                         </div>
-
                         <div class="filter-block">
                             <label class="block-label">Keywords</label>
                             <input type="text" id="sideKeywordInput" placeholder="Job title, skills, or company">
                         </div>
-
                         <div class="filter-block">
                             <label class="block-label">Category</label>
                             <select id="sideCategory">
                                 <option value="">Select Category</option>
                             </select>
                         </div>
-
                         <div class="filter-block">
                             <label class="block-label">Location</label>
                             <select id="sideLocation">
                                 <option value="">Select Location</option>
                             </select>
                         </div>
-
                         <div class="filter-block">
                             <label class="block-label">Duration</label>
                             <div class="checkbox-grid" id="durationChecks"></div>
                         </div>
-
                         <div class="filter-block">
                             <label class="block-label">Stipend</label>
                             <div class="checkbox-grid" id="stipendChecks">
@@ -438,12 +425,10 @@
                                 </label>
                             </div>
                         </div>
-
                         <div class="filter-block">
                             <label class="block-label">Mode</label>
                             <div class="checkbox-grid" id="modeChecks"></div>
                         </div>
-
                         <div class="filter-block">
                             <%--<button type="button" class="btn btn-primary btn-apply-filters" id="applyFiltersBtn">
                                 <i class="fa-solid fa-filter"></i>Apply Filters
@@ -451,11 +436,10 @@
                             <asp:ImageButton ID="ImageButton2" runat="server" Height="40" Width="220" ImageUrl="~/assets/filter_button.png"  />
                         </div>
                     </aside>
-
                     <!-- ============ RESULTS ============ -->
                     <div class="internships-results">
                         <div class="internships-results-top">
-                            <p class="results-count" id="resultCount">Showing internships...</p>
+                            <asp:Label ID="lblResultCount" runat="server" CssClass="results-count">Showing internships...</asp:Label>
                             <div class="sort-by-wrap">
                                 <span>Sort by:</span>
                                 <select id="sortBySelect">
@@ -466,70 +450,81 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="internship-datalist-wrapper">
-                            <asp:DataList ID="DataListPublicInternships" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" CssClass="internship-card-grid">
-                                <ItemTemplate>
-                                    <div class="internship-card-box" onclick="window.location.href='<%= ResolveUrl("~/internship-details.aspx") %>?id=<%# Eval("Id") %>';">
-                                        
-                                        <!-- Top Row: Logo, Title, Company, Bookmark -->
-                                        <div class="card-top-row">
-                                            <div class="company-logo-wrap">
-                                                <img src='<%# GetCompanyLogo(Eval("c_logo")) %>' alt="Company Logo" class="company-logo-img" onerror="this.onerror=null; this.src='<%= ResolveUrl("~/assets/default-company.png") %>';" />
-                                            </div>
-                                            <div class="title-company-wrap">
-                                                <h3 class="internship-card-title"><%# Eval("InternshipTitle") %></h3>
-                                                <span class="company-card-name"><%# GetCompanyName(Eval("c_company")) %></span>
-                                            </div>
-                                            <button type="button" class="bookmark-btn" onclick="event.stopPropagation();" title="Bookmark">
-                                                <i class="fa-regular fa-bookmark"></i>
-                                            </button>
-                                        </div>
-
-                                        <!-- Details Row: Location, Work Mode -->
-                                        <div class="card-details-row">
-                                            <span class="detail-item"><i class="fa-solid fa-location-dot"></i> <%# Eval("Location") %></span>
-                                            <span class="detail-item"><i class="fa-solid fa-building"></i> <%# Eval("WorkMode") %></span>
-                                        </div>
-
-                                        <!-- Stipend Row: Paid/Unpaid Badge & Amount -->
-                                        <div class="card-stipend-row">
-                                            <span class='<%# GetPaymentBadgeClass(Eval("PaymentStatus")) %>'>
-                                                <%# GetPaymentStatusText(Eval("PaymentStatus")) %>
-                                            </span>
-                                            <span class="stipend-amount"><%# GetStipendText(Eval("PaymentStatus"), Eval("StipendAmount")) %></span>
-                                        </div>
-
-                                        <!-- Footer Row: Duration & Posted Time -->
-                                        <div class="card-footer-row">
-                                            <span class="footer-meta"><i class="fa-regular fa-clock"></i> <%# Eval("Duration") %></span>
-                                            <span class="footer-meta posted-time">Posted <%# FormatPostedDate(Eval("PostedDate")) %></span>
-                                        </div>
-
-                                    </div>
-                                </ItemTemplate>
-                            </asp:DataList>
-                            <asp:Panel ID="pnlNoInternships" runat="server" Visible="false">
-                                <div class="empty-state-box">
-                                    <div class="empty-state-icon">
-                                        <i class="fa-solid fa-briefcase"></i>
-                                    </div>
-                                    <h3>No Internships Available Right Now</h3>
-                                    <p>Check back later or explore other career options.</p>
-                                </div>
-                            </asp:Panel>
+                                                  <asp:DataList ID="DataListPublicInternships" runat="server"
+    RepeatLayout="Flow"
+    RepeatDirection="Horizontal"
+    CssClass="internship-card-grid">
+    <ItemTemplate>
+        <div class="internship-card-box"
+            onclick="window.location.href='internship-details.aspx?id=<%# Eval("Id") %>';">
+            <!-- Top Row -->
+            <div class="card-top-row">
+                <div class="company-logo-wrap">
+                    <asp:Image ID="imgCompanyLogo" runat="server"
+                        ImageUrl='<%# GetCompanyLogo(Eval("c_logo")) %>'
+                        CssClass="company-logo-img"
+                        AlternateText="Company Logo" />
+                </div>
+                <div class="title-company-wrap">
+                    <h3 class="internship-card-title">
+                        <asp:Label ID="lblInternshipTitle" runat="server" Text='<%# Eval("InternshipTitle") %>'></asp:Label>
+                    </h3>
+                    <span class="company-card-name">
+                        <asp:Label ID="lblCompanyName" runat="server" Text='<%# Eval("c_company") %>'></asp:Label>
+                    </span>
+                </div>
+                <button type="button"
+                    class="bookmark-btn"
+                    onclick="event.stopPropagation();"
+                    title="Bookmark">
+                    <i class="fa-regular fa-bookmark"></i>
+                </button>
+            </div>
+            <!-- Details Row -->
+            <div class="card-details-row">
+                <span class="detail-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <asp:Label ID="lblLocation" runat="server" Text='<%# Eval("Location") %>'></asp:Label>
+                </span>
+                <span class="detail-item">
+                    <i class="fa-solid fa-building"></i>
+                    <asp:Label ID="lblWorkMode" runat="server" Text='<%# Eval("WorkMode") %>'></asp:Label>
+                </span>
+            </div>
+            <!-- Stipend Row -->
+            <div class="card-stipend-row">
+                <span class="badge-paid">
+                    <asp:Label ID="lblPaymentStatus" runat="server" Text='<%# Eval("PaymentStatus") %>'></asp:Label>
+                </span>
+                <span class="stipend-amount">
+                    <i class="fa-solid fa-indian-rupee-sign"></i> <asp:Label ID="lblStipendAmount" runat="server" Text='<%# Eval("StipendAmount") %>'></asp:Label>
+                </span>
+            </div>
+            <!-- Footer Row -->
+            <div class="card-footer-row">
+                <span class="footer-meta">
+                    <i class="fa-regular fa-clock"></i>
+                    <asp:Label ID="lblDuration" runat="server" Text='<%# Eval("Duration") %>'></asp:Label>
+                </span>
+              <span class="footer-meta posted-time">
+    <i class="fa-regular fa-calendar-days"></i>
+    Posted
+    <asp:Label ID="lblPostedDate" runat="server"
+        Text='<%# Convert.ToDateTime(Eval("PostedDate")).ToString("dd-MM-yyyy") %>'>
+    </asp:Label>
+</span>
+            </div>
+        </div>
+    </ItemTemplate>
+</asp:DataList>
                         </div>
-
                         <div class="no-results" id="noResults">
                             <i class="fa-solid fa-briefcase"></i>
                             <p>No internships match your filters. Try adjusting your search or filters.</p>
                         </div>
-
-                        <div class="pagination" id="pagination"></div>
                     </div>
-
                 </div>
-
                 <!-- ============ STATS BAR ============ -->
                 <div class="internships-stats-bar">
                     <div class="stat-item">
@@ -570,28 +565,20 @@
                         </a>
                     </div>
                 </div>
-
             </div>
         </section>
-
     </main>
-
     <div id="public-footer-root"></div>
-
     <!-- Toast notification -->
     <div class="login-toast" id="loginToast">
         <i class="fa-solid fa-circle-check"></i>
         <span id="loginToastMsg">Notice</span>
     </div>
-
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/style.css") %>">
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/internship-module.css") %>">
     <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
-
     <script src="<%= ResolveUrl("~/js/script.js") %>"></script>
     <script src="<%= ResolveUrl("~/js/companies-data.js") %>"></script>
     <script src="<%= ResolveUrl("~/js/internships-data.js") %>"></script>
     <script src="<%= ResolveUrl("~/js/internships.js") %>"></script>
 </asp:Content>
-
-

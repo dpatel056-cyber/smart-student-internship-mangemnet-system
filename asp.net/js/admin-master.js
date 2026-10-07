@@ -17,14 +17,16 @@
       return window.innerWidth <= 991;
     };
 
-    /* ---------- Sidebar toggle (desktop collapse / mobile off-canvas) ---------- */
+    /* ---------- Sidebar toggle (mobile off-canvas only, desktop always open) ---------- */
     function toggleSidebar() {
       if (isMobile()) {
         wrapper.classList.toggle("sidebar-mobile-open");
-      } else {
-        wrapper.classList.toggle("sidebar-collapsed");
       }
     }
+
+    // Always clear any leftover collapsed state
+    wrapper.classList.remove("sidebar-collapsed");
+    try { sessionStorage.removeItem("simsSidebarCollapsed"); } catch (e) {}
 
     if (sidebarToggleBtn) {
       sidebarToggleBtn.addEventListener("click", function (e) {
@@ -43,6 +45,7 @@
     window.addEventListener("resize", function () {
       if (!isMobile()) {
         wrapper.classList.remove("sidebar-mobile-open");
+        wrapper.classList.remove("sidebar-collapsed");
       }
     });
 
@@ -91,8 +94,6 @@
       });
     }
 
-
-
     /* ---------- Persist sidebar collapsed state (optional, session-based) ---------- */
     try {
       var savedState = sessionStorage.getItem("simsSidebarCollapsed");
@@ -126,7 +127,7 @@
     if (currentPage) {
       // Find all sidebar links
       var allLinks = document.querySelectorAll('.sims-sidebar-nav a');
-      
+
       allLinks.forEach(function(link) {
         var href = link.getAttribute('href');
         if (href && href.toLowerCase() === currentPage) {
@@ -134,13 +135,13 @@
           if (link.classList.contains('sims-submenu-link')) {
             var submenuItem = link.closest('.sims-submenu-item');
             if (submenuItem) submenuItem.classList.add('active');
-            
+
             var parentItem = link.closest('.sims-nav-item.has-submenu');
             if (parentItem) {
               parentItem.classList.add('active');
               parentItem.classList.add('open');
             }
-          } 
+          }
           // If it's a top-level link
           else if (link.classList.contains('sims-nav-link')) {
             var navItem = link.closest('.sims-nav-item');

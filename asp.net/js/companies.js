@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const PER_PAGE = 12;
+  const PER_PAGE = 9;
 
   const INDUSTRY_LABELS = {
     'it-services': 'Information Technology',

@@ -1,260 +1,346 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="admin-companies.aspx.cs" Inherits="asp.net.admin_companies" %>
+<%@ Page Title="Companies" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="admin-companies.aspx.cs" Inherits="asp.net.admin_companies" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="../css/admin-companies.css" />
+    <style>
+        /* Hide scrollbars while maintaining smooth horizontal scroll */
+        .cmp-table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none !important; /* Firefox */
+            -ms-overflow-style: none !important; /* IE and Edge */
+        }
+
+            .cmp-table-responsive::-webkit-scrollbar {
+                display: none !important; /* Chrome, Safari and Opera */
+                width: 0 !important;
+                height: 0 !important;
+            }
+
+        /* Simple clean grid styling */
+        .sims-simple-grid {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0;
+        }
+
+            .sims-simple-grid th {
+                font-size: 12.5px;
+                font-weight: 700;
+                color: #0f172a;
+                text-transform: uppercase;
+                letter-spacing: 0.03em;
+                padding: 16px 18px !important;
+                border-bottom: 2px solid #e2e8f0;
+                background-color: #f8fafc;
+                white-space: nowrap;
+                text-align: left;
+            }
+
+            .sims-simple-grid td {
+                padding: 14px 18px !important;
+                border-bottom: 1px solid #f1f5f9;
+                color: #334155;
+                font-size: 13.5px;
+                vertical-align: middle;
+                white-space: nowrap;
+            }
+
+            .sims-simple-grid tr:hover td {
+                background-color: #f8fafc;
+            }
+
+        /* View Action Button */
+        .cmp-action-view {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background-color: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #dbeafe;
+            font-weight: 600;
+            font-size: 12.5px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+            .cmp-action-view:hover {
+                background-color: #2563eb;
+                color: #ffffff !important;
+                border-color: #2563eb;
+                box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+                text-decoration: none;
+            }
+
+        /* Delete Action Button */
+        .cmp-action-delete {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background-color: #fef2f2;
+            color: #ef4444;
+            border: 1px solid #fee2e2;
+            font-weight: 600;
+            font-size: 12.5px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+            .cmp-action-delete:hover {
+                background-color: #ef4444;
+                color: #ffffff !important;
+                border-color: #ef4444;
+                box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+                text-decoration: none;
+            }
+
+        /* Status Badges */
+        .status-badge-active {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 700;
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .status-badge-blocked {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 700;
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        /* Block / Unblock Buttons */
+        .cmp-action-block {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background-color: #fff1f2;
+            color: #e11d48;
+            border: 1px solid #fecdd3;
+            font-weight: 600;
+            font-size: 12.5px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+            .cmp-action-block:hover {
+                background-color: #e11d48;
+                color: #ffffff !important;
+                border-color: #e11d48;
+                box-shadow: 0 2px 8px rgba(225, 29, 72, 0.25);
+                text-decoration: none;
+            }
+
+        .cmp-action-unblock {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background-color: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+            font-weight: 600;
+            font-size: 12.5px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+            .cmp-action-unblock:hover {
+                background-color: #16a34a;
+                color: #ffffff !important;
+                border-color: #16a34a;
+                box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25);
+                text-decoration: none;
+            }
+    </style>
 </asp:Content>
-<asp:Content ID="Content2" runat="server" contentplaceholderid="ContentPlaceHolder1">
-<div class="sims-company-main-container">
 
-    <!-- 1. TOP HEADER -->
-    <div class="cmp-page-header">
-        <div class="cmp-page-header-left">
-            <h1 class="cmp-page-title">Companies</h1>
-            <p class="cmp-page-subtitle">Manage and monitor all registered companies.</p>
-        </div>
-        <div class="cmp-page-header-right">
-            <button type="button" class="cmp-btn-outline" id="btnRefreshCompanies" title="Refresh Data">
-                <i class="fa-solid fa-rotate-right"></i>
-            </button>
-            <button type="button" class="cmp-btn-outline" id="btnExportCompanies">
-                <i class="fa-solid fa-arrow-up-from-bracket"></i> Export
-            </button>
-        </div>
-    </div>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="sims-company-main-container">
 
-    <!-- 2. 4 SUMMARY STATISTIC CARDS -->
-    <div class="cmp-stats-grid">
-        <div class="cmp-stat-card">
-            <div class="cmp-stat-icon icon-blue">
-                <i class="fa-solid fa-building"></i>
-            </div>
-            <div class="cmp-stat-body">
-                <span class="cmp-stat-label">Total Companies</span>
-                <div class="cmp-stat-num-wrap">
-                    <h3 class="cmp-stat-number" id="statTotalCompanies">248</h3>
-                    <span class="cmp-trend-badge trend-up"><i class="fa-solid fa-arrow-trend-up"></i> +12%</span>
-                </div>
-                <span class="cmp-stat-subtext">Overall registered</span>
+        <!-- 1. TOP HEADER -->
+        <div class="cmp-page-header">
+            <div class="cmp-page-header-left">
+                <h1 class="cmp-page-title">Companies</h1>
+                <p class="cmp-page-subtitle">Manage, monitor and block/unblock registered companies.</p>
             </div>
         </div>
 
-        <div class="cmp-stat-card">
-            <div class="cmp-stat-icon icon-green">
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
-            <div class="cmp-stat-body">
-                <span class="cmp-stat-label">Active Companies</span>
-                <div class="cmp-stat-num-wrap">
-                    <h3 class="cmp-stat-number" id="statActiveCompanies">210</h3>
-                    <span class="cmp-trend-badge trend-up"><i class="fa-solid fa-arrow-trend-up"></i> 84.6%</span>
-                </div>
-                <span class="cmp-stat-subtext">Actively hiring</span>
-            </div>
-        </div>
+        <!-- 2. SEARCH AND FILTER SECTION -->
+        <div class="cmp-filter-card" style="display: flex; gap: 12px; align-items: center; background: #fff; padding: 18px 20px; border-radius: 12px; margin-bottom: 24px; border: 1px solid #e2e8f0; flex-wrap: wrap;">
 
-        <div class="cmp-stat-card">
-            <div class="cmp-stat-icon icon-orange">
-                <i class="fa-solid fa-clock-rotate-left"></i>
+            <!-- Search Input -->
+            <div style="flex: 1.5; min-width: 240px; position: relative;">
+                <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px;"></i>
+                <input type="text" id="txtSearch" class="form-control" placeholder="Search company name, email, contact..." style="width: 100%; padding: 10px 14px 10px 38px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; color: #1e293b; outline: none;" />
             </div>
-            <div class="cmp-stat-body">
-                <span class="cmp-stat-label">Pending Approval</span>
-                <div class="cmp-stat-num-wrap">
-                    <h3 class="cmp-stat-number" id="statPendingCompanies">24</h3>
-                    <span class="cmp-trend-badge trend-pending"><i class="fa-solid fa-hourglass-half"></i> 9.6%</span>
-                </div>
-                <span class="cmp-stat-subtext">Requires verification</span>
-            </div>
-        </div>
 
-        <div class="cmp-stat-card">
-            <div class="cmp-stat-icon icon-red">
-                <i class="fa-solid fa-ban"></i>
+            <!-- Industry Filter Dropdown -->
+            <div style="flex: 1; min-width: 170px; position: relative;">
+                <select id="ddlIndustry" style="width: 100%; padding: 10px 36px 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; color: #1e293b; appearance: none; background: #ffffff; cursor: pointer; outline: none;">
+                    <option value="">All Industries</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Software Development">Software Development</option>
+                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    <option value="Cyber Security">Cyber Security</option>
+                    <option value="Cloud Computing">Cloud Computing</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Enterprise Software">Enterprise Software</option>
+                </select>
+                <i class="fa-solid fa-chevron-down" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 12px; pointer-events: none;"></i>
             </div>
-            <div class="cmp-stat-body">
-                <span class="cmp-stat-label">Blocked Companies</span>
-                <div class="cmp-stat-num-wrap">
-                    <h3 class="cmp-stat-number" id="statBlockedCompanies">14</h3>
-                    <span class="cmp-trend-badge trend-down"><i class="fa-solid fa-arrow-trend-down"></i> 5.8%</span>
-                </div>
-                <span class="cmp-stat-subtext">Access restricted</span>
-            </div>
-        </div>
-    </div>
 
-    <!-- 3. SEARCH AND FILTER SECTION -->
-    <div class="cmp-filter-card">
-        <div class="cmp-filter-group search-group">
-            <div class="cmp-search-wrapper">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="cmpSearchInput" class="cmp-input" placeholder="Search company name, email or ID..." />
+            <!-- Location Filter Dropdown -->
+            <div style="flex: 1; min-width: 150px; position: relative;">
+                <select id="ddlLocation" style="width: 100%; padding: 10px 36px 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; color: #1e293b; appearance: none; background: #ffffff; cursor: pointer; outline: none;">
+                    <option value="">All Locations</option>
+                    <option value="Ahmedabad">Ahmedabad</option>
+                    <option value="Bengaluru">Bengaluru</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Gandhinagar">Gandhinagar</option>
+                    <option value="Gurugram">Gurugram</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Remote">Remote</option>
+                </select>
+                <i class="fa-solid fa-chevron-down" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 12px; pointer-events: none;"></i>
             </div>
-        </div>
 
-        <div class="cmp-filter-group">
-            <label class="cmp-filter-label">Status</label>
-            <div class="cmp-select-wrapper">
-                <select id="filterCmpStatus" class="cmp-select">
-                    <option value="All">All Status</option>
+            <!-- Status Filter Dropdown -->
+            <div style="flex: 1; min-width: 140px; position: relative;">
+                <select id="ddlStatus" style="width: 100%; padding: 10px 36px 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; color: #1e293b; appearance: none; background: #ffffff; cursor: pointer; outline: none;">
+                    <option value="">All Status</option>
                     <option value="Active">Active</option>
-                    <option value="Pending">Pending</option>
                     <option value="Blocked">Blocked</option>
                 </select>
-                <i class="fa-solid fa-chevron-down select-chevron"></i>
+                <i class="fa-solid fa-chevron-down" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 12px; pointer-events: none;"></i>
             </div>
+
+            <!-- Action Buttons: Search & Clear -->
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <button type="button" style="padding: 10px 18px; background: #2563eb; color: #fff; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13.5px; border: none; cursor: pointer;">
+                    <i class="fa-solid fa-magnifying-glass"></i>Search
+                </button>
+                <button type="button" style="padding: 10px 16px; background: #f1f5f9; color: #475569; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13.5px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.15s ease;"
+                    onmouseover="this.style.background='#e2e8f0'; this.style.color='#0f172a';"
+                    onmouseout="this.style.background='#f1f5f9'; this.style.color='#475569';">
+                    <i class="fa-solid fa-xmark"></i>Clear Filters
+                </button>
+            </div>
+
         </div>
 
-        <div class="cmp-filter-group">
-            <label class="cmp-filter-label">Industry</label>
-            <div class="cmp-select-wrapper">
-                <select id="filterCmpIndustry" class="cmp-select">
-                    <option value="All">All Industries</option>
-                    <option value="Information Technology">Information Technology</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Software">Software</option>
-                    <option value="Education">Education</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Manufacturing">Manufacturing</option>
-                </select>
-                <i class="fa-solid fa-chevron-down select-chevron"></i>
-            </div>
-        </div>
+        <!-- 3. MAIN COMPANIES TABLE CARD -->
+        <div class="cmp-table-card" style="background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.03); overflow: hidden; margin-bottom: 24px;">
+            <div class="cmp-table-responsive">
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CssClass="sims-simple-grid" UseAccessibleHeader="true" GridLines="None" Width="100%" ShowHeaderWhenEmpty="true" OnRowCommand="GridView1_RowCommand">
+                    <Columns>
+                        <asp:TemplateField HeaderText="COMPANY ID">
+                            <ItemTemplate>
+                                <asp:Label ID="lblCompanyId" runat="server" Text='<%# Eval("CompanyId") %>' Style="color: #475569; font-size: 13.5px;"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
 
-        <div class="cmp-filter-group">
-            <label class="cmp-filter-label">Location</label>
-            <div class="cmp-select-wrapper">
-                <select id="filterCmpLocation" class="cmp-select">
-                    <option value="All">All Locations</option>
-                    <option value="Rajkot">Rajkot</option>
-                    <option value="Ahmedabad">Ahmedabad</option>
-                    <option value="Surat">Surat</option>
-                    <option value="Vadodara">Vadodara</option>
-                    <option value="Gandhinagar">Gandhinagar</option>
-                </select>
-                <i class="fa-solid fa-chevron-down select-chevron"></i>
-            </div>
-        </div>
+                        <asp:TemplateField HeaderText="COMPANY NAME">
+                            <ItemTemplate>
+                                <asp:Label ID="lblCompanyName" runat="server" Text='<%# Eval("c_company") %>' Style="font-weight: 700; color: #0f172a; font-size: 13.5px;"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
 
-        <div class="cmp-filter-group">
-            <label class="cmp-filter-label">Company Type</label>
-            <div class="cmp-select-wrapper">
-                <select id="filterCmpType" class="cmp-select">
-                    <option value="All">All Types</option>
-                    <option value="Private Limited">Private Limited</option>
-                    <option value="Public Limited">Public Limited</option>
-                    <option value="Partnership">Partnership</option>
-                    <option value="Proprietorship">Proprietorship</option>
-                    <option value="Startup">Startup</option>
-                </select>
-                <i class="fa-solid fa-chevron-down select-chevron"></i>
-            </div>
-        </div>
+                        <asp:TemplateField HeaderText="EMAIL">
+                            <ItemTemplate>
+                                <asp:Label ID="lblEmail" runat="server" Text='<%# Eval("c_email") %>' Style="color: #475569; font-size: 13.5px;"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
 
-        <div class="cmp-filter-group">
-            <label class="cmp-filter-label">Registration Date</label>
-            <div class="cmp-select-wrapper">
-                <select id="filterCmpRegDate" class="cmp-select">
-                    <option value="All">All Time</option>
-                    <option value="Today">Today</option>
-                    <option value="This Month">This Month</option>
-                    <option value="2026">2026</option>
-                </select>
-                <i class="fa-solid fa-chevron-down select-chevron"></i>
-            </div>
-        </div>
+                        <asp:TemplateField HeaderText="PHONE">
+                            <ItemTemplate>
+                                <asp:Label ID="lblPhone" runat="server" Text='<%# Eval("c_contact") %>' Style="color: #475569; font-size: 13.5px;"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
 
-        <div class="cmp-filter-group action-group">
-            <button type="button" id="btnClearCmpFilters" class="cmp-btn-clear">
-                <i class="fa-solid fa-xmark"></i> Clear Filters
-            </button>
-        </div>
-    </div>
-    <!-- 4. MAIN COMPANIES TABLE CARD -->
-    <div class="cmp-table-card">
-        <div class="cmp-table-responsive">
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"
-                CssClass="cmp-data-table" UseAccessibleHeader="true"
-                GridLines="None"
-                Width="100%"
-                OnRowCommand="GridView1_RowCommand">
-                <HeaderStyle CssClass="cmp-table-header" />
-                <RowStyle CssClass="cmp-table-row" />
-                <AlternatingRowStyle CssClass="cmp-table-row-alt" />
-                <Columns>
-                    <asp:BoundField DataField="CompanyId" HeaderText="ID" />
-                    <asp:BoundField DataField="c_company" HeaderText="Company Name" />
-                    <asp:BoundField DataField="c_email" HeaderText="Email" />
-                    <asp:BoundField DataField="c_contact" HeaderText="Mobile" />
-                    <asp:BoundField DataField="c_website" HeaderText="Website" />
-                    <asp:BoundField DataField="c_industry" HeaderText="Industry" />
-                    <asp:BoundField DataField="c_size" HeaderText="Size" />
-                    <asp:BoundField DataField="c_location" HeaderText="Location" />
-                    <asp:TemplateField HeaderText="Actions">
-                        <ItemTemplate>
-                            <div style="display:flex; gap:10px; align-items:center;">
-                                <asp:LinkButton ID="btnView" runat="server" CommandArgument='<%# Eval("CompanyId") %>' CommandName="cmd_view" CssClass="btn-action-view" CausesValidation="false">
-                                    <i class="fa-regular fa-eye"></i> View
-                                </asp:LinkButton>
-                                <asp:LinkButton ID="btnDelete" runat="server" CommandArgument='<%# Eval("CompanyId") %>' CommandName="cmd_del" CssClass="btn-action-delete" CausesValidation="false">
-                                    <i class="fa-solid fa-trash-can"></i> Delete
-                                </asp:LinkButton>
+                        <asp:TemplateField HeaderText="INDUSTRY">
+                            <ItemTemplate>
+                                <asp:Label ID="lblIndustry" runat="server" Text='<%# Eval("c_industry") %>' Style="font-weight: 700; color: #1e293b; font-size: 13px;"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="LOCATION">
+                            <ItemTemplate>
+                                <asp:Label ID="lblLocation" runat="server" Text='<%# Eval("c_location") %>' Style="color: #475569; font-size: 13.5px;"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="SIZE">
+                            <ItemTemplate>
+                                <asp:Label ID="lblSize" runat="server" Text='<%# Eval("c_size") %>' Style="color: #475569; font-size: 13.5px;"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="STATUS">
+                            <ItemTemplate>
+                                <span class='<%# Convert.ToBoolean(Eval("IsBlocked")) ? "status-badge-blocked" : "status-badge-active" %>'>
+                                    <i class='fa-solid <%# Convert.ToBoolean(Eval("IsBlocked")) ? "fa-ban" : "fa-circle-check" %>'></i>
+                                    <%# Convert.ToBoolean(Eval("IsBlocked")) ? "Blocked" : "Active" %>
+                                </span>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="ACTIONS">
+                            <HeaderStyle CssClass="text-center" />
+                            <ItemStyle CssClass="text-center" />
+                            <ItemTemplate>
+                                <div style="display: flex; gap: 8px; align-items: center; justify-content: center;">
+                                    <asp:LinkButton ID="btnView" runat="server" CommandName="cmd_view" CommandArgument='<%# Eval("CompanyId") %>' CssClass="cmp-action-view" ToolTip="View company details" CausesValidation="false"> <i class="fa-regular fa-eye"></i> View </asp:LinkButton>
+                                    <asp:LinkButton ID="btnBlockCompany" runat="server" CommandName="cmd_toggle_block" CommandArgument='<%# Eval("CompanyId") %>'
+                                        CssClass='<%# Convert.ToBoolean(Eval("IsBlocked")) ? "cmp-action-unblock" : "cmp-action-block" %>'
+                                        CausesValidation="false">
+                                        <i class='fa-solid <%# Convert.ToBoolean(Eval("IsBlocked")) ? "fa-circle-check" : "fa-ban" %>'></i>
+                                        <%# Convert.ToBoolean(Eval("IsBlocked")) ? "Unblock" : "Block" %>
+                                    </asp:LinkButton>
+                                    <asp:LinkButton ID="btnDelete" runat="server" CommandName="cmd_del" CommandArgument='<%# Eval("CompanyId") %>' CssClass="cmp-action-delete" ToolTip="Delete company" CausesValidation="false"> <i class="fa-solid fa-trash-can"></i> Delete </asp:LinkButton>
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+
+                    <EmptyDataTemplate>
+                        <div style="padding: 48px 24px; text-align: center;">
+                            <div style="font-size: 40px; color: #94a3b8; margin-bottom: 12px;">
+                                <i class="fa-solid fa-building-circle-xmark"></i>
                             </div>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>
-        </div>
-
-
-
-        <!-- 5. PAGINATION -->
-        <div class="cmp-pagination-bar">
-            <div class="cmp-entries-info" id="cmpEntriesInfo">
-                Showing 1â€“10 of 248 companies
-            </div>
-            <div class="cmp-pagination-controls">
-                <div class="cmp-rows-per-page">
-                    <span>Rows per page:</span>
-                    <div class="cmp-select-mini-wrap">
-                        <select id="cmpPageSize" class="cmp-select-mini">
-                            <option value="10" selected>10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                        </select>
-                        <i class="fa-solid fa-chevron-down select-mini-chevron"></i>
-                    </div>
-                </div>
-
-                <div class="cmp-pagination-nav" id="cmpPaginationNav">
-                </div>
+                            <h3 style="font-size: 18px; font-weight: 700; color: #1e293b; margin-bottom: 6px;">No Companies Found</h3>
+                            <p style="color: #64748b; font-size: 14px; margin: 0;">There are no registered companies at the moment.</p>
+                        </div>
+                    </EmptyDataTemplate>
+                </asp:GridView>
             </div>
         </div>
     </div>
-
-
-</div>
-<!-- 9. BLOCK COMPANY CONFIRMATION MODAL -->
-<div class="cmp-modal-overlay" id="modalBlockCompany">
-    <div class="cmp-modal-box cmp-modal-sm">
-        <div class="cmp-modal-icon-header icon-warning">
-            <i class="fa-solid fa-ban"></i>
-        </div>
-        <h3 class="cmp-modal-center-title" id="blockCmpModalTitle">Block Company?</h3>
-        <p class="cmp-modal-center-text" id="blockCmpModalText">
-            Are you sure you want to block <strong id="blockCompanyName">ABC Technologies</strong>? The company will no longer be able to access the platform.
-        </p>
-        <div class="cmp-modal-center-actions">
-            <button type="button" class="cmp-btn-outline" data-close="modalBlockCompany">Cancel</button>
-            <button type="button" class="cmp-btn-danger" id="btnConfirmBlockCompany">Block Company</button>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- Toast notification popup -->
-<div id="cmpToast" class="cmp-toast" style="display: none;"></div>
-
-
-<!-- Client side script -->
-<script src="../js/admin-companies.js"></script>
 </asp:Content>
-

@@ -1,0 +1,455 @@
+/* ==========================================================================
+   SIMS COMPANY DASHBOARD STYLESHEET
+   ========================================================================== */
+* {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+*::-webkit-scrollbar,
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+html, body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+:root {
+    --co-navy: #0F1B33;
+    --co-blue: #2563EB;
+    --co-blue-hover: #1D4ED8;
+    --co-blue-light: #EFF6FF;
+    --co-bg: #F8FAFC;
+    --co-card-bg: #FFFFFF;
+    --co-text: #0F172A;
+    --co-muted: #64748B;
+    --co-border: #E2E8F0;
+    --co-success: #16A34A;
+    --co-success-bg: #F0FDF4;
+    --co-warning: #F59E0B;
+    --co-warning-bg: #FFFBEB;
+    --co-danger: #EF4444;
+    --co-danger-bg: #FEF2F2;
+    --co-purple: #7C3AED;
+    --co-purple-bg: #F5F3FF;
+    --co-indigo: #4F46E5;
+    --co-indigo-bg: #EEF2FF;
+    --co-pink: #EC4899;
+    --co-pink-bg: #FDF2F8;
+    --co-teal: #0D9488;
+    --co-teal-bg: #F0FDFA;
+    --co-radius: 12px;
+    --co-radius-lg: 16px;
+    --co-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+    --co-shadow-hover: 0 10px 25px -4px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.03);
+    --co-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* 1. Welcome Banner */
+.welcome-banner {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #3b82f6 100%);
+    border-radius: var(--co-radius-lg);
+    padding: 30px 36px;
+    color: #ffffff;
+    box-shadow: 0 12px 30px -6px rgba(37, 99, 235, 0.3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+.welcome-banner::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    right: -10%;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+.welcome-banner h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.4px;
+    color: #ffffff;
+}
+.welcome-banner p {
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 8px 0;
+    max-width: 620px;
+    line-height: 1.5;
+}
+.welcome-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+/* Buttons in Banner */
+.welcome-banner .btn {
+    padding: 11px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: var(--co-transition);
+    cursor: pointer;
+}
+.welcome-banner .btn-primary {
+    background: #ffffff;
+    color: #1e3a8a !important;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.welcome-banner .btn-primary:hover {
+    background: #f8fafc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.welcome-banner .btn-ghost {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(4px);
+}
+.welcome-banner .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+}
+/* 2. Top KPI Stat Cards Grid (4 cols, same height & width as Admin Panel) */
+.sims-stat-grid-v2,
+.co-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+@media (max-width: 1200px) {
+    .sims-stat-grid-v2,
+    .co-stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 576px) {
+    .sims-stat-grid-v2,
+    .co-stat-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.sims-stat-card-v2,
+.co-stat-card {
+    background: #ffffff;
+    border: 1px solid #e6e9f0;
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
+    transition: box-shadow 0.22s ease, transform 0.22s ease;
+}
+.sims-stat-card-v2:hover,
+.co-stat-card:hover {
+    box-shadow: 0 6px 20px rgba(16, 24, 40, 0.1);
+    transform: translateY(-2px);
+}
+.sims-stat-icon-v2,
+.co-stat-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+.sims-bg-purple, .co-stat-icon.purple       { background: #ede9fe; color: #7c3aed; }
+.sims-bg-blue, .co-stat-icon.blue           { background: #dbeafe; color: #2563eb; }
+.sims-bg-green, .co-stat-icon.green         { background: #d1fae5; color: #059669; }
+.sims-bg-orange, .co-stat-icon.orange       { background: #ffedd5; color: #ea580c; }
+.sims-bg-yellow, .co-stat-icon.yellow       { background: #fef9c3; color: #ca8a04; }
+.sims-bg-purple-light, .co-stat-icon.purple-light { background: #f3e8ff; color: #9333ea; }
+.sims-bg-teal, .co-stat-icon.teal           { background: #ccfbf1; color: #0f766e; }
+.sims-bg-pink, .co-stat-icon.pink           { background: #fce7f3; color: #db2777; }
+.sims-bg-red, .co-stat-icon.red             { background: #fee2e2; color: #dc2626; }
+.sims-stat-info-v2,
+.co-stat-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+.sims-stat-title-v2,
+.co-stat-info p {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+    margin: 0;
+}
+.sims-stat-num-v2,
+.co-stat-info h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a2233;
+    line-height: 1.2;
+    margin: 0 0 2px 0;
+}
+/* 3. Panels & Grids */
+.co-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+@media (max-width: 991px) {
+    .co-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+.co-panel {
+    background: var(--co-card-bg);
+    border: 1px solid var(--co-border);
+    border-radius: var(--co-radius-lg);
+    padding: 24px;
+    box-shadow: var(--co-shadow);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+}
+.co-right-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.co-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--co-border);
+}
+.co-panel-header h3 {
+    font-size: 16.5px;
+    font-weight: 700;
+    color: var(--co-text);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.co-panel-header a {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--co-blue);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+.co-panel-header a:hover {
+    color: var(--co-blue-hover);
+    text-decoration: underline;
+}
+/* 4. Tables */
+.co-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+.co-table th {
+    background: #f8fafc;
+    padding: 12px 14px;
+    font-weight: 600;
+    color: var(--co-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1.5px solid var(--co-border);
+    text-align: left;
+    white-space: nowrap;
+}
+.co-table td {
+    padding: 14px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    color: var(--co-text);
+    vertical-align: middle;
+}
+.co-table tr:hover td {
+    background: #f8fafc;
+}
+.co-applicant-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.co-applicant-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12.5px;
+    flex-shrink: 0;
+}
+.co-applicant-name {
+    font-weight: 600;
+    color: var(--co-text);
+    line-height: 1.3;
+}
+.co-applicant-email {
+    font-size: 12px;
+    color: var(--co-muted);
+}
+/* Status Badges */
+.badge-status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.st-applied { background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; }
+.st-shortlisted { background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; }
+.st-selected { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+.st-rejected { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
+/* 5. Interviews List */
+.co-interview-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+    background: #f8fafc;
+    margin-bottom: 10px;
+    transition: var(--co-transition);
+}
+.co-interview-item:hover {
+    background: #ffffff;
+    border-color: #cbd5e1;
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+.co-date-box {
+    width: 46px;
+    height: 48px;
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.co-date-box .day {
+    font-size: 16px;
+    font-weight: 800;
+    color: #2563eb;
+    line-height: 1;
+}
+.co-date-box .mon {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--co-muted);
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+.co-interview-info {
+    flex: 1;
+    min-width: 0;
+}
+.co-interview-info h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--co-text);
+    margin: 0 0 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.co-interview-info p {
+    font-size: 12.5px;
+    color: var(--co-muted);
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.co-mode {
+    font-size: 11.5px;
+    color: #4f46e5;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+/* 6. Notifications List */
+.co-notif-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.co-notif-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    transition: var(--co-transition);
+}
+.co-notif-item:hover {
+    background: #ffffff;
+    border-color: #cbd5e1;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+.co-notif-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.co-notif-item p {
+    font-size: 13px;
+    color: #334155;
+    margin: 0 0 3px 0;
+    line-height: 1.4;
+}
+.co-notif-item p strong {
+    color: var(--co-text);
+    font-weight: 600;
+}
+.co-notif-item span {
+    font-size: 11.5px;
+    color: var(--co-muted);
+}
