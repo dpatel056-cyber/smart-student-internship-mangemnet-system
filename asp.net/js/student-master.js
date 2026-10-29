@@ -173,3 +173,46 @@
         });
     }
 })();
+
+// ==================================================
+// LOGOUT MODAL & ACTIVE LINK HELPERS
+// ==================================================
+function showLogoutModal(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    var overlay = document.getElementById('modalLogoutOverlay');
+    if (overlay) overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    return false;
+}
+function closeLogoutModal() {
+    var overlay = document.getElementById('modalLogoutOverlay');
+    if (overlay) overlay.style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+window.showLogoutModal = showLogoutModal;
+window.closeLogoutModal = closeLogoutModal;
+
+document.addEventListener('DOMContentLoaded', function () {
+    var overlay = document.getElementById('modalLogoutOverlay');
+    if (overlay) {
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) closeLogoutModal();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' || e.key === 'Esc') closeLogoutModal();
+        });
+    }
+    // Active Link Highlight
+    var currentPath = window.location.pathname.toLowerCase();
+    var links = document.querySelectorAll('.student-sidebar-link');
+    links.forEach(function (lnk) {
+        var href = lnk.getAttribute('href');
+        if (href) {
+            var cleanHref = href.toLowerCase().split('?')[0];
+            if (currentPath.endsWith(cleanHref) || (currentPath.indexOf(cleanHref) !== -1 && cleanHref.indexOf('.aspx') !== -1)) {
+                lnk.classList.add('is-active');
+            }
+        }
+    });
+});

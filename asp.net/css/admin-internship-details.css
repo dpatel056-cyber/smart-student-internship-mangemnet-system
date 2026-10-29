@@ -1,0 +1,187 @@
+/* =====================================================
+   STYLESHEET FOR admin-internship-details.aspx
+   ===================================================== */
+.back-nav { margin-bottom: 24px; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 10px 18px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(15,23,42,.05);
+            transition: all .2s ease;
+        }
+        .back-link:hover {
+            background: #f8fafc;
+            color: #2563eb;
+            border-color: #cbd5e1;
+            transform: translateX(-3px);
+            box-shadow: 0 4px 12px rgba(37,99,235,.1);
+            text-decoration: none;
+        }
+
+        /* Header */
+        .imd-header { margin-bottom: 28px; }
+        .imd-logo {
+            width: 86px;
+            height: 86px;
+            padding: 3px;
+            background: #fff;
+            border-radius: 50% !important;
+            overflow: hidden !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,.08);
+        }
+        .imd-title { margin-top: 12px; }
+        .imd-company {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .company-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #2563eb;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .imd-section-title i { color: #2563eb; margin-right: 8px; }
+
+        /* Company logo + info box */
+        .company-logo-avatar {
+            display: block;
+            width: 60px;
+            height: 60px;
+            border: 2px solid #e2e8f0;
+            border-radius: 50% !important;
+            overflow: hidden !important;
+            object-fit: cover;
+            background: #f8fafc;
+        }
+        .company-info-box {
+            margin-top: 24px;
+            padding: 24px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: 0 4px 14px rgba(0,0,0,.03);
+        }
+        .company-info-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .company-name { margin: 0; font-size: 19px; font-weight: 700; color: #0f172a; }
+        .company-meta { margin: 4px 0 0; font-size: 13.5px; color: #64748b; }
+        .company-about { margin-bottom: 20px; font-size: 14px; line-height: 1.6; color: #334155; }
+
+        /* Buttons */
+        .btn-view-company {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 22px;
+            background: #2563eb;
+            color: #fff !important;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 10px;
+            text-decoration: none !important;
+            box-shadow: 0 4px 12px rgba(37,99,235,.2);
+            transition: all .2s ease;
+        }
+        .btn-view-company:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37,99,235,.3);
+        }
+
+        .imd-actions { display: flex; flex-direction: column; gap: 12px; }
+
+        .btn-admin-danger,
+        .btn-admin-toggle-active,
+        .btn-admin-toggle-inactive {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 10px;
+            text-decoration: none !important;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        .btn-admin-danger {
+            background: #ef4444;
+            color: #fff !important;
+            border: none;
+            box-shadow: 0 4px 14px rgba(239,68,68,.25);
+        }
+        .btn-admin-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(239,68,68,.35);
+        }
+        .btn-admin-toggle-active {
+            background: #f0fdf4;
+            color: #16a34a !important;
+            border: 1px solid #bbf7d0;
+        }
+        .btn-admin-toggle-active:hover { background: #16a34a; color: #fff !important; }
+        .btn-admin-toggle-inactive {
+            background: #fff1f2;
+            color: #e11d48 !important;
+            border: 1px solid #fecdd3;
+        }
+        .btn-admin-toggle-inactive:hover { background: #e11d48; color: #fff !important; }
+
+        /* Status badges */
+        .status-badge-active,
+        .status-badge-inactive {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .status-badge-active { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+        .status-badge-inactive { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
+
+
+.imd-wrapper {
+    padding: 10px 0;
+}
+.back-nav {
+    margin-bottom: 20px;
+}
+
+/* =====================================================
+   VIEW & DELETE BUTTON HOVER SWAP VIA CSS PATH
+   ===================================================== */
+input[type="image"][src*="btn_admin_view"]:hover,
+.admin-img-btn-view:hover {
+    content: url('../image_button/btn_admin_view_hover.png') !important;
+    transform: translateY(-1px) !important;
+}
+
+input[type="image"][src*="btn_admin_delete"]:hover,
+input[type="image"][src*="btn_admin_del"]:hover,
+.admin-img-btn-delete:hover {
+    content: url('../image_button/btn_admin_delete_hover.png') !important;
+    transform: translateY(-1px) !important;
+}

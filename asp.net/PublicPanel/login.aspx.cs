@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,8 +11,6 @@ namespace asp.net
         SqlConnection con;
         SqlDataAdapter da;
         DataSet ds;
-        SqlCommand cmd;
-        int i;
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -23,9 +21,7 @@ namespace asp.net
         void getcon()
         {
             con = new SqlConnection(s);
-
             con.Open();
-
         }
 
         protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
@@ -37,9 +33,10 @@ namespace asp.net
                 if (role == "admin")
                 {
                     getcon();
-                    da = new SqlDataAdapter("select * from admin_registration where Email='" + txtemail.Text + "' and Password='" + txtpassword.Text + "'", con);
+                    da = new SqlDataAdapter("SELECT Email FROM admin_registration WHERE Email = '" + txtemail.Text + "' AND Password = '" + txtpassword.Text + "'", con);
                     ds = new DataSet();
                     da.Fill(ds);
+
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         Session["admin"] = ds.Tables[0].Rows[0]["Email"].ToString();
@@ -52,12 +49,28 @@ namespace asp.net
                 }
                 else if (role == "student")
                 {
-                    cmd = new SqlCommand("select count(*) from Students where (Email='" + txtemail.Text + "' or EnrollmentNo='" + txtemail.Text + "') and Password='" + txtpassword.Text + "'", con);
-                    i = Convert.ToInt32(cmd.ExecuteScalar());
-                    if (i > 0)
+                    getcon();
+                    da = new SqlDataAdapter("SELECT Email, ISNULL(IsBlocked, 0) AS IsBlocked, ISNULL(Status, 'Active') AS Status FROM Students WHERE (Email = '" + txtemail.Text + "' OR EnrollmentNo = '" + txtemail.Text + "') AND Password = '" + txtpassword.Text + "'", con);
+                    ds = new DataSet();
+                    da.Fill(ds);
+
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        Session["student"] = txtemail.Text;
-                        Response.Redirect("StudentPanel/student-dashboard.aspx");
+                        bool isBlocked = false;
+
+                        if (ds.Tables[0].Rows[0]["IsBlocked"].ToString() == "True" || ds.Tables[0].Rows[0]["Status"].ToString() == "Blocked")
+                        {
+                            isBlocked = true;
+                        }
+
+                        if (isBlocked)
+                        {
+                            lblMsg.Text = "Your account has been blocked by Admin. Please contact support.";
+                            return;
+                        }
+
+                        Session["student"] = ds.Tables[0].Rows[0]["Email"].ToString();
+                        Response.Redirect("~/StudentPanel/student-dashboard.aspx");
                     }
                     else
                     {
@@ -66,12 +79,28 @@ namespace asp.net
                 }
                 else if (role == "company")
                 {
-                    cmd = new SqlCommand("select count(*) from c_registration where c_email='" + txtemail.Text + "' and c_password='" + txtpassword.Text + "'", con);
-                    i = Convert.ToInt32(cmd.ExecuteScalar());
-                    if (i > 0)
+                    getcon();
+                    da = new SqlDataAdapter("SELECT c_email, ISNULL(IsBlocked, 0) AS IsBlocked, ISNULL(Status, 'Active') AS Status FROM c_registration WHERE c_email = '" + txtemail.Text + "' AND c_password = '" + txtpassword.Text + "'", con);
+                    ds = new DataSet();
+                    da.Fill(ds);
+
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        Session["company"] = txtemail.Text;
-                        Response.Redirect("CompanyPanel/company-dashboard.aspx");
+                        bool isBlocked = false;
+
+                        if (ds.Tables[0].Rows[0]["IsBlocked"].ToString() == "True" || ds.Tables[0].Rows[0]["Status"].ToString() == "Blocked")
+                        {
+                            isBlocked = true;
+                        }
+
+                        if (isBlocked)
+                        {
+                            lblMsg.Text = "Your company account has been blocked by Admin. Please contact support.";
+                            return;
+                        }
+
+                        Session["company"] = ds.Tables[0].Rows[0]["c_email"].ToString();
+                        Response.Redirect("~/CompanyPanel/company-dashboard.aspx");
                     }
                     else
                     {

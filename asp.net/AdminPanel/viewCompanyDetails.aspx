@@ -1,65 +1,32 @@
 <%@ Page Title="Company Details" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="viewCompanyDetails.aspx.cs" Inherits="asp.net.viewCompanyDetails" %>
-
 <asp:Content ID="Content0" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/company-profile.css") %>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <style>
-        .company-profile-page { max-width: 1180px; margin: 0 auto; padding: 24px 28px 56px; color: #172554; }
-        .back-nav { margin-bottom: 20px; }
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            padding: 10px 18px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            color: #334155;
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            box-shadow: 0 2px 8px rgba(15,23,42,.05);
-            transition: all .2s ease;
-        }
-        .back-link:hover {
-            background: #f8fafc;
-            color: #2563eb;
-            border-color: #cbd5e1;
-            transform: translateX(-3px);
-            box-shadow: 0 4px 12px rgba(37,99,235,.1);
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/viewCompanyDetails.css" />
 </asp:Content>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-<div class="company-profile-page">
-
+    <div class="company-profile-page">
     <!-- Back Button -->
     <div class="back-nav">
-        <a href="admin-companies.aspx" class="back-link">
-            <i class="fa-solid fa-arrow-left"></i> Back to Companies List
-        </a>
+        <asp:HyperLink ID="hlBackToCompanies" runat="server" NavigateUrl="admin-companies.aspx" ImageUrl="~/assets/btn_back_companies_list.png" CssClass="admin-img-btn back-btn-img" Height="38" />
     </div>
-
-    <asp:Panel ID="pnlNotFound" runat="server" Visible="false" CssClass="profile-section-card" style="text-align:center; padding: 50px;">
-        <i class="fa-solid fa-building-circle-xmark" style="font-size:48px; color:#ef4444; margin-bottom:15px;"></i>
+    <div id="pnlNotFound" runat="server" visible="false" class="profile-section-card pnl-not-found">
+        <i class="fa-solid fa-building-circle-xmark not-found-icon"></i>
         <h2>Company Not Found</h2>
-        <p style="color:#64748b;">The requested company details could not be found or the ID is invalid.</p>
-    </asp:Panel>
-
-    <asp:Panel ID="pnlDetails" runat="server" Visible="true">
-
+        <p class="not-found-desc">The requested company details could not be found or the ID is invalid.</p>
+    </div>
+    <div id="pnlDetails" runat="server" visible="true">
         <!-- ===================== HEADER CARD ===================== -->
-        <asp:Panel ID="pnlHero" runat="server" CssClass="profile-header-card">
+        <div id="pnlHero" runat="server" class="profile-header-card">
             <div class="profile-header-top">
                 <div class="profile-main-info">
-                    <div class="profile-photo" aria-label="Company logo" style="border-radius: 50% !important; overflow: hidden !important;">
-                        <asp:Image ID="imgCompanyLogo" runat="server" CssClass="company-profile-logo" Visible="false" AlternateText="Company Logo" Style="width:100%; height:100%; border-radius:50% !important; object-fit:cover; display:block;" />
-                        <asp:Panel ID="pnlLogoInitials" runat="server" Style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border-radius: 50%;">
-                            <asp:Label ID="lblCompanyInitials" runat="server" Text="TC" />
-                        </asp:Panel>
+                    <div class="profile-photo" aria-label="Company logo">
+                        <asp:DataList ID="DataListCompanyLogo" runat="server" RepeatLayout="Flow" ShowHeader="false" ShowFooter="false">
+                            <ItemTemplate>
+                                <asp:Image ID="imgCompanyLogo" runat="server" CssClass="company-profile-logo" ImageUrl='<%# Eval("c_logo") %>' />
+                            </ItemTemplate>
+                        </asp:DataList>
+
                     </div>
                     <div class="profile-info-2x2">
                         <div class="contact-item">
@@ -93,7 +60,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="profile-contact-row">
                 <div class="contact-item">
                     <div class="contact-icon"><i class="fa-solid fa-user"></i></div>
@@ -117,7 +83,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="social-links">
                 <asp:HyperLink ID="hlWebsiteSocial" runat="server" Target="_blank" Rel="noopener" CssClass="social-link" NavigateUrl="#">
                     <i class="fa-solid fa-globe"></i> Website
@@ -129,8 +94,7 @@
                     <i class="fa-solid fa-phone"></i> Call Us
                 </asp:HyperLink>
             </div>
-        </asp:Panel>
-
+        </div>
         <!-- ===================== STATISTICS CARDS ===================== -->
         <div class="profile-stats-grid">
             <div class="profile-stat-card">
@@ -162,7 +126,6 @@
                 </div>
             </div>
         </div>
-
         <!-- ===================== TABS NAVIGATION ===================== -->
         <section class="profile-tabs-card" aria-label="Company Profile sections">
             <div class="profile-tabs" role="tablist">
@@ -173,7 +136,6 @@
                 <button type="button" class="profile-tab" onclick="openCompanyTab('profile-completion', this)"><i class="fa-solid fa-chart-line"></i><span>Activity</span></button>
             </div>
         </section>
-
         <!-- ===================== TAB 1: OVERVIEW ===================== -->
         <section id="company-info" class="profile-tab-content active">
             <div class="profile-section-card">
@@ -183,7 +145,6 @@
                         <p>View key organizational overview and company specs</p>
                     </div>
                 </div>
-
                 <div class="profile-subtitle"><i class="fa-solid fa-id-card"></i>Company Overview</div>
                 <div class="profile-info-grid">
                     <div class="info-field">
@@ -221,7 +182,6 @@
                 </div>
             </div>
         </section>
-
         <!-- ===================== TAB 2: COMPANY INFORMATION ===================== -->
         <section id="about-company" class="profile-tab-content">
             <div class="profile-section-card">
@@ -231,7 +191,6 @@
                         <p>Overview, specialization, mission, and vision of your company</p>
                     </div>
                 </div>
-
                 <div class="profile-subtitle"><i class="fa-solid fa-bullseye"></i>Company Specialization &amp; Vision</div>
                 <div class="profile-info-grid">
                     <div class="info-field">
@@ -253,7 +212,6 @@
                 </div>
             </div>
         </section>
-
         <!-- ===================== TAB 3: CONTACT ===================== -->
         <section id="contact-info" class="profile-tab-content">
             <div class="profile-section-card">
@@ -263,7 +221,6 @@
                         <p>Company contact information, HR details, and online presence</p>
                     </div>
                 </div>
-
                 <div class="profile-subtitle"><i class="fa-solid fa-building"></i>Company Contact</div>
                 <div class="profile-info-grid">
                     <div class="info-field">
@@ -291,7 +248,6 @@
                         <asp:Label ID="lblPincode" runat="server" CssClass="info-value" Text="-" />
                     </div>
                 </div>
-
                 <div class="profile-subtitle"><i class="fa-solid fa-user-tie"></i>HR / Recruiter</div>
                 <div class="profile-info-grid">
                     <div class="info-field">
@@ -311,9 +267,8 @@
                         <asp:Label ID="lblHRContactNumber" runat="server" CssClass="info-value" Text="-" />
                     </div>
                 </div>
-
                 <div class="profile-subtitle"><i class="fa-solid fa-globe"></i>Online Presence</div>
-                <div class="profile-info-grid" style="grid-template-columns: 1fr;">
+                <div class="profile-info-grid single-col-grid">
                     <div class="info-field">
                         <span class="info-label">LinkedIn</span>
                         <asp:HyperLink ID="hlLinkedIn" runat="server" CssClass="info-value" NavigateUrl="#" Target="_blank">-</asp:HyperLink>
@@ -321,7 +276,6 @@
                 </div>
             </div>
         </section>
-
         <!-- ===================== TAB 4: INTERNSHIP PREFERENCES ===================== -->
         <section id="verification-status" class="profile-tab-content">
             <div class="profile-section-card">
@@ -331,7 +285,6 @@
                         <p>Hiring criteria, preferred domains, qualifications, and work modes</p>
                     </div>
                 </div>
-
                 <div class="profile-subtitle"><i class="fa-solid fa-sliders"></i>Preferences &amp; Eligibility Criteria</div>
                 <div class="profile-info-grid">
                     <div class="info-field">
@@ -369,7 +322,6 @@
                 </div>
             </div>
         </section>
-
         <!-- ===================== TAB 5: ACTIVITY ===================== -->
         <section id="profile-completion" class="profile-tab-content">
             <div class="profile-section-card">
@@ -379,7 +331,6 @@
                         <p>Summary of internship postings, student applications, and placement metrics</p>
                     </div>
                 </div>
-
                 <div class="profile-subtitle"><i class="fa-solid fa-chart-pie"></i>Activity Metrics &amp; Engagement</div>
                 <div class="profile-info-grid">
                     <div class="info-field">
@@ -409,28 +360,7 @@
                 </div>
             </div>
         </section>
-
-    </asp:Panel>
-
-</div>
-
-<script>
-    function openCompanyTab(tabId, tabBtn) {
-        var contents = document.querySelectorAll('.profile-tab-content');
-        contents.forEach(function(content) {
-            content.classList.remove('active');
-        });
-        var tabs = document.querySelectorAll('.profile-tab');
-        tabs.forEach(function(tab) {
-            tab.classList.remove('active');
-        });
-        var target = document.getElementById(tabId);
-        if (target) {
-            target.classList.add('active');
-        }
-        if (tabBtn) {
-            tabBtn.classList.add('active');
-        }
-    }
-</script>
+    </div>
+    </div>
+    <script src="../js/viewCompanyDetails.js"></script>
 </asp:Content>

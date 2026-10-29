@@ -1,7 +1,6 @@
 /* ==========================================================================
    SIMS MODULE 5: INTERVIEW & PLACEMENT MANAGEMENT STYLES
    ========================================================================== */
-
 /* --------------------------------------------------------------------------
    1. INTERVIEW SCHEDULE CARDS
 -------------------------------------------------------------------------- */
@@ -97,7 +96,6 @@
 .iv-badge.scheduled { background: #eff6ff; color: #2563eb; }
 .iv-badge.completed { background: #f0fdf4; color: #16a34a; }
 .iv-badge.cancelled { background: #fef2f2; color: #ef4444; }
-
 /* --------------------------------------------------------------------------
    2. OFFER LETTER PREVIEW
 -------------------------------------------------------------------------- */
@@ -216,7 +214,6 @@
     flex-direction: column;
     gap: 12px;
 }
-
 /* --------------------------------------------------------------------------
    3. UPCOMING DEADLINES CALENDAR & REMINDERS
 -------------------------------------------------------------------------- */
@@ -229,7 +226,6 @@
 @media (max-width: 900px) {
     .dl-layout { grid-template-columns: 1fr; }
 }
-
 /* Calendar Grid */
 .dl-calendar-card {
     background: #fff;
@@ -305,7 +301,6 @@
     gap: 4px;
     flex-wrap: wrap;
 }
-
 /* Reminder Cards */
 .dl-reminder-list {
     display: flex;
@@ -365,7 +360,6 @@
 .dl-card-priority.high { background: #fef2f2; color: #ef4444; }
 .dl-card-priority.medium { background: #fffbeb; color: #d97706; }
 .dl-card-priority.low { background: #f0fdf4; color: #16a34a; }
-
 .dl-card-actions {
     display: flex;
     gap: 8px;

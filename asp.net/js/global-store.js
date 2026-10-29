@@ -208,7 +208,7 @@ window.GlobalStore = {
         if (idx !== -1) {
             users[idx] = { ...users[idx], ...updates };
             this.saveUsers(users);
-            
+
             // If updating current session user, update session too
             let session = {};
             try { session = JSON.parse(localStorage.getItem('simsSession')); } catch(e){}
@@ -299,7 +299,7 @@ window.GlobalStore = {
         intvs.push(interview);
         localStorage.setItem('SIMS_INTERVIEWS_DATA', JSON.stringify(intvs));
         window.dispatchEvent(new Event('storage'));
-        
+
         // Notify Student
         this.addNotification({
             userId: interview.studentEmail,
@@ -593,10 +593,8 @@ window.StudentProfileSync = (function () {
                 'Logout',
                 '<i class="fa-solid fa-right-from-bracket"></i>',
                 () => {
-                    if (confirm('Are you sure you want to logout?')) {
-                        localStorage.removeItem('simsSession');
-                        window.location.href = 'index.html';
-                    }
+                    localStorage.removeItem('simsSession');
+                    window.location.href = 'index.html';
                 }
             );
 

@@ -1,0 +1,505 @@
+/* ==========================================================================
+   Company Applicants Stylesheet (company-applicants.css)
+   SIMS - Student Internship Management System
+   ========================================================================== */
+
+/* Page Header */
+.page-header-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.page-header-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 2px 0;
+}
+
+.page-header-desc {
+    font-size: 13.5px;
+    color: #64748b;
+    margin: 0;
+}
+
+/* Filter Bar Card - Single Row Layout (Admin Panel Style) */
+.filter-bar-card,
+.co-filter-bar {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    padding: 16px 20px !important;
+    margin-bottom: 24px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+    overflow-x: auto !important;
+}
+
+.co-search-wrap {
+    flex: 1 1 auto !important;
+    min-width: 220px !important;
+    max-width: none !important;
+    width: 100% !important;
+    position: relative !important;
+}
+
+.co-search-wrap input,
+.co-search-wrap input[type="text"] {
+    width: 100% !important;
+    height: 40px !important;
+    padding: 0 16px 0 38px !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    font-size: 13.5px !important;
+    color: #1e293b !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    line-height: 40px !important;
+    transition: all 0.2s ease !important;
+}
+
+.co-search-wrap input:focus {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+}
+
+.co-search-wrap .search-icon {
+    position: absolute !important;
+    left: 14px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-size: 14px !important;
+    color: #94a3b8 !important;
+    pointer-events: none !important;
+    z-index: 2 !important;
+}
+
+.co-select-wrap {
+    position: relative !important;
+    flex-shrink: 0 !important;
+}
+
+.co-select-wrap.co-status-wrap {
+    flex: 0 0 160px !important;
+    min-width: 130px !important;
+    max-width: 180px !important;
+}
+
+.co-select-wrap.co-internship-wrap {
+    flex: 0 0 210px !important;
+    min-width: 160px !important;
+    max-width: 250px !important;
+}
+
+.co-select-wrap select {
+    width: 100% !important;
+    height: 40px !important;
+    padding: 0 36px 0 14px !important;
+    background: #ffffff !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    font-size: 13.5px !important;
+    color: #1e293b !important;
+    appearance: none !important;
+    cursor: pointer !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    line-height: 40px !important;
+    transition: all 0.2s ease !important;
+}
+
+.co-select-wrap select:focus {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+}
+
+.co-select-wrap .chevron-icon {
+    position: absolute !important;
+    right: 14px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-size: 12px !important;
+    color: #94a3b8 !important;
+    pointer-events: none !important;
+    z-index: 2 !important;
+}
+
+.co-filter-actions {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-shrink: 0 !important;
+}
+
+.co-filter-actions .admin-img-btn,
+.co-filter-actions input[type="image"] {
+    height: 40px !important;
+    width: auto !important;
+    flex-shrink: 0 !important;
+    vertical-align: middle !important;
+}
+
+/* Button Hover Rules */
+input[type="image"][src*="btn_admin_search"]:hover,
+.admin-img-btn-search:hover {
+    transform: translateY(-1px) !important;
+    filter: brightness(1.05) drop-shadow(0 3px 8px rgba(37, 99, 235, 0.25)) !important;
+}
+
+input[type="image"][src*="btn_admin_clear"]:hover,
+.admin-img-btn-clear:hover {
+    transform: translateY(-1px) !important;
+    filter: brightness(1.04) drop-shadow(0 3px 8px rgba(0, 0, 0, 0.12)) !important;
+}
+
+.admin-img-btn {
+    height: 36px !important;
+    width: auto !important;
+    object-fit: contain;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    vertical-align: middle;
+    transition: transform 0.15s ease, filter 0.15s ease;
+    display: inline-block;
+}
+
+.admin-img-btn:hover:not(:disabled):not([disabled]):not(.aspNetDisabled) {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+}
+
+/* Disabled State for Image Buttons */
+.admin-img-btn:disabled,
+.admin-img-btn[disabled],
+.admin-img-btn.aspNetDisabled,
+input[type="image"]:disabled,
+input[type="image"][disabled],
+input[type="image"].aspNetDisabled {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+    filter: grayscale(85%) !important;
+    pointer-events: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Applicants Panel */
+.co-panel {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(16, 24, 40, 0.04);
+    margin-bottom: 20px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.co-panel-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.co-panel-header h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Table and Cell Styles */
+.co-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.co-table th {
+    background: #f8fafc;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.co-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 13.5px;
+    color: #334155;
+    vertical-align: middle;
+}
+
+.co-table tr:hover td {
+    background-color: #f8fafc;
+}
+
+/* Applicant Cell & Avatar */
+.co-applicant-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.co-applicant-avatar {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px;
+    min-height: 36px;
+    max-width: 36px;
+    max-height: 36px;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 1.5px solid #e2e8f0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.applicant-name {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 13.5px;
+}
+
+.applicant-email {
+    font-size: 13px;
+    color: #475569;
+}
+
+.internship-title-text {
+    font-weight: 600;
+    color: #1e293b;
+    display: block;
+    font-size: 13.5px;
+}
+
+.applied-date-text {
+    font-size: 13px;
+    color: #64748b;
+}
+
+/* Status Badges */
+.badge-status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+.st-applied {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+
+.st-shortlisted {
+    background: #f5f3ff;
+    color: #7c3aed;
+    border: 1px solid #ddd6fe;
+}
+
+.st-selected {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+}
+
+.st-rejected {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+/* Edit Status Controls */
+.table-status-select {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 7px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    color: #1e293b;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.table-status-select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.table-status-select:hover {
+    border-color: #94a3b8;
+}
+
+.action-link {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-right: 4px;
+}
+
+.action-link.edit-btn {
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+    transition: all 0.15s ease;
+}
+
+.action-link.edit-btn:hover {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.btn-view-applicant {
+    padding: 5px 12px;
+    font-size: 12px;
+    text-decoration: none;
+    border-radius: 7px;
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s ease;
+}
+
+.btn-view-applicant:hover {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+}
+
+/* Empty State */
+.empty-applicants-box {
+    text-align: center;
+    padding: 40px 10px;
+}
+
+.empty-applicants-icon {
+    font-size: 38px;
+    color: #cbd5e1;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.empty-applicants-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 4px;
+}
+
+.empty-applicants-desc {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+}
+
+/* Pagination Matching Admin Panel Exactly */
+.pagination {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
+    width: 100% !important;
+}
+
+.pagination-pages,
+.pagination span[id*="lblPages"] {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    padding: 0 16px !important;
+    border-radius: 10px !important;
+    font-family: 'Poppins', 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #475569 !important;
+    background: #ffffff !important;
+    border: 1.5px solid #e2e8f0 !important;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+    white-space: nowrap !important;
+    user-select: none !important;
+    box-sizing: border-box !important;
+}
+
+.pagination input[type="image"]:disabled,
+.pagination input[type="image"][disabled],
+.pagination input[type="image"].aspNetDisabled {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+    filter: grayscale(85%) !important;
+    pointer-events: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Generate Report Button */
+.btn-report {
+    background: linear-gradient(135deg, #0155e3 0%, #1e40af 100%) !important;
+    color: #ffffff !important;
+    height: 40px !important;
+    padding: 0 16px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 6px rgba(1, 85, 227, 0.28) !important;
+    flex-shrink: 0 !important;
+    outline: none !important;
+    text-decoration: none !important;
+    line-height: 40px !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-report:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(1, 85, 227, 0.35) !important;
+    filter: brightness(1.05) !important;
+}

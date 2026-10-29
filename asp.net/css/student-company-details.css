@@ -1,0 +1,172 @@
+
+
+/* Extracted Page Styles */
+.company-profile-page {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 10px 0 40px 0;
+            color: #172554;
+        }
+        .back-nav {
+            margin-bottom: 20px;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 10px 18px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(15,23,42,.05);
+            transition: all .2s ease;
+        }
+        .back-link:hover {
+            background: #f8fafc;
+            color: #2563eb;
+            border-color: #cbd5e1;
+            transform: translateX(-3px);
+            box-shadow: 0 4px 12px rgba(37,99,235,.1);
+            text-decoration: none;
+        }
+        .internship-item-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            gap: 16px;
+        }
+        .internship-item-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37,99,235,0.08);
+            border-color: #3b82f6;
+        }
+        .internship-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 6px;
+        }
+        .internship-meta-row {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: #64748b;
+            flex-wrap: wrap;
+        }
+        .internship-meta-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-view-internship {
+            padding: 9px 20px;
+            background: #2563eb;
+            color: #ffffff !important;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .btn-view-internship:hover {
+            background: #1d4ed8;
+        }
+
+
+
+/* Converted Inline Utility Styles */
+.scmp-u1 {
+    text-align:center !important;
+    padding: 50px !important;
+}
+
+.scmp-u2 {
+    font-size:48px !important;
+    color:#ef4444 !important;
+    margin-bottom:15px !important;
+}
+
+.scmp-u3 {
+    color:#64748b !important;
+}
+
+.scmp-u4 {
+    margin-top: 20px !important;
+}
+
+.scmp-u5 {
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+}
+
+.scmp-u6 {
+    width:100% !important;
+    height:100% !important;
+    border-radius:50% !important;
+    object-fit:cover !important;
+    display:block !important;
+}
+
+.scmp-u7 {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50% !important;
+}
+
+.scmp-u8 {
+    grid-column: 1 / -1 !important;
+}
+
+.scmp-u9 {
+    margin-top: 24px !important;
+}
+
+.scmp-u10 {
+    color:#2563eb !important;
+}
+
+.scmp-u11 {
+    color:#16a34a !important;
+}
+
+.scmp-u12 {
+    color:#f59e0b !important;
+}
+
+.scmp-u13 {
+    text-align:center !important;
+    padding:40px 20px !important;
+}
+
+.scmp-u14 {
+    font-size:36px !important;
+    color:#94a3b8 !important;
+    margin-bottom:10px !important;
+}
+
+.scmp-u15 {
+    color:#64748b !important;
+    font-size:14px !important;
+    margin:0 !important;
+}

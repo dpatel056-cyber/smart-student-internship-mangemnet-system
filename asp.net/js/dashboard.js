@@ -170,19 +170,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const avatarImage = savedProfile.photo ? `<img src="${savedProfile.photo}" alt="${STUDENT_PROFILE.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">` : null;
   const dashAvatarSm = document.getElementById('dashAvatarSm');
   if (dashAvatarSm) dashAvatarSm.innerHTML = avatarImage || initials;
-  
+
   const dashAvatarLg = document.getElementById('dashAvatarLg');
   if (dashAvatarLg) dashAvatarLg.innerHTML = avatarImage || initials;
-  
+
   const profileName = document.getElementById('profileName');
   if (profileName) profileName.textContent = STUDENT_PROFILE.name;
-  
+
   const profileEmail = document.getElementById('profileEmail');
   if (profileEmail) profileEmail.textContent = STUDENT_PROFILE.email;
-  
+
   const profileEnrollment = document.getElementById('profileEnrollment');
   if (profileEnrollment) profileEnrollment.textContent = STUDENT_PROFILE.enrollment;
-  
+
   const profileCourse = document.getElementById('profileCourse');
   const profileCollege = document.getElementById('profileCollege');
   if (profileCourse) profileCourse.textContent = [savedProfile.course, savedProfile.department].filter(Boolean).join(', ');

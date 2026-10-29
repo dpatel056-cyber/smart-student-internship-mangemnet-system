@@ -10,20 +10,68 @@ function openProfileTab(tabName, clickedButton) {
         if (btn) btn.classList.add('active');
     }
     try { sessionStorage.setItem('activeProfileTab', tabName); } catch (e) { }
+    if (tabName === 'projects') {
+        formatTechnologyTags();
+    }
 }
 
-function openResumeUpload() { document.getElementById('resumeFile').click(); }
-function replaceResume() { openResumeUpload(); }
-function validateResume(input) {
-    if (!input.files || !input.files.length) return;
-    var file = input.files[0];
-    if (file.type !== 'application/pdf') { alert('Please select a PDF file only.'); input.value = ''; return; }
-    if (file.size > 5 * 1024 * 1024) { alert('Resume file size must be less than 5 MB.'); input.value = ''; return; }
-    alert('Resume selected successfully. Actual upload will be connected later.');
+function formatTechnologyTags() {
+    var techContainers = document.querySelectorAll('.technology-tags');
+    techContainers.forEach(function (container) {
+        if (container.getAttribute('data-formatted') === 'true') {
+            return;
+        }
+        var rawText = container.textContent || '';
+        rawText = rawText.trim();
+        if (!rawText) return;
+
+        var tags = rawText.split(/[,،]+/).map(function (item) {
+            return item.trim();
+        }).filter(function (item) {
+            return item.length > 0;
+        });
+
+        if (tags.length > 0) {
+            container.innerHTML = '';
+            tags.forEach(function (tag) {
+                var span = document.createElement('span');
+                span.className = 'tech-tag';
+                span.textContent = tag;
+                container.appendChild(span);
+            });
+            container.setAttribute('data-formatted', 'true');
+        }
+    });
 }
-function viewResume() { alert('Resume View will be connected later.'); }
-function downloadResume() { alert('Resume Download will be connected later.'); }
-function deleteResume() { var resume = document.querySelector('#resume .resume-current-card'); if (resume) openDeleteConfirm(resume); }
+
+function openResumeUpload() {
+    var fu = document.querySelector('[id$="fuResume"]') || document.getElementById('fuResume') || document.getElementById('resumeFile');
+    if (fu) {
+        fu.value = '';
+        fu.click();
+    }
+}
+function replaceResume() {
+    openResumeUpload();
+}
+function autoUploadResume(input) {
+    if (!input || !input.files || !input.files.length) return;
+    var file = input.files[0];
+    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+        showProfileToast('Please select a PDF file only (.pdf).', 'error');
+        input.value = '';
+        return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+        showProfileToast('Resume file size must be less than 5 MB.', 'error');
+        input.value = '';
+        return;
+    }
+    var submitBtn = document.querySelector('[id$="btnUploadResumeSubmit"]') || document.getElementById('btnUploadResumeSubmit');
+    if (submitBtn) {
+        submitBtn.click();
+    }
+}
 function openEditProfile() { document.getElementById('editProfileModal').classList.add('show'); document.body.style.overflow = 'hidden'; }
 function closeEditProfile() { document.getElementById('editProfileModal').classList.remove('show'); document.body.style.overflow = ''; }
 function saveProfile() { alert('Profile changes will be saved to database in the next step.'); closeEditProfile(); }
@@ -65,6 +113,90 @@ function openAddProjectForm() {
     if (lblTitle) lblTitle.textContent = 'Add Project';
 
     openProjectModal();
+}
+
+function openEditProjectForm(btn) {
+    if (!btn) return;
+    if (!btn.getAttribute('data-id') && btn.closest) {
+        btn = btn.closest('[data-id]') || btn;
+    }
+
+    var id = btn.getAttribute('data-id') || '';
+    var name = btn.getAttribute('data-name') || '';
+    var type = btn.getAttribute('data-type') || '';
+    var desc = btn.getAttribute('data-desc') || '';
+    var tech = btn.getAttribute('data-tech') || '';
+    var link = btn.getAttribute('data-link') || '';
+
+    var hdn = document.querySelector('[id$="hdnProjectId"]');
+    if (hdn) hdn.value = id;
+
+    var txtName = document.querySelector('[id$="txtProjectName"]');
+    if (txtName) txtName.value = name;
+
+    var ddlType = document.querySelector('[id$="ddlProjectType"]');
+    if (ddlType) {
+        var matched = false;
+        var cleanType = (type || '').trim();
+        for (var i = 0; i < ddlType.options.length; i++) {
+            if (ddlType.options[i].value.trim().toLowerCase() === cleanType.toLowerCase() ||
+                ddlType.options[i].text.trim().toLowerCase() === cleanType.toLowerCase()) {
+                ddlType.selectedIndex = i;
+                matched = true;
+                break;
+            }
+        }
+        if (!matched && cleanType) {
+            var opt = new Option(cleanType, cleanType, true, true);
+            ddlType.add(opt);
+            ddlType.value = cleanType;
+        }
+    }
+
+    var txtDesc = document.querySelector('[id$="txtProjectDesc"]');
+    if (txtDesc) {
+        txtDesc.value = desc;
+        updateProjectCharCount(txtDesc);
+    }
+
+    var txtTech = document.querySelector('[id$="txtProjectTech"]');
+    if (txtTech) txtTech.value = tech;
+
+    var txtLink = document.querySelector('[id$="txtProjectLink"]');
+    if (txtLink) txtLink.value = link;
+
+    var lblTitle = document.querySelector('[id$="lblProjectModalTitle"]');
+    if (lblTitle) lblTitle.textContent = 'Edit Project';
+
+    openProjectModal();
+}
+
+function validateProjectForm() {
+    var txtName = document.querySelector('[id$="txtProjectName"]');
+    if (!txtName || !txtName.value.trim()) {
+        alert('Please enter a project name.');
+        if (txtName) txtName.focus();
+        return false;
+    }
+    var ddlType = document.querySelector('[id$="ddlProjectType"]');
+    if (!ddlType || !ddlType.value) {
+        alert('Please select a project type.');
+        if (ddlType) ddlType.focus();
+        return false;
+    }
+    var txtDesc = document.querySelector('[id$="txtProjectDesc"]');
+    if (!txtDesc || !txtDesc.value.trim()) {
+        alert('Please enter project description.');
+        if (txtDesc) txtDesc.focus();
+        return false;
+    }
+    var txtTech = document.querySelector('[id$="txtProjectTech"]');
+    if (!txtTech || !txtTech.value.trim()) {
+        alert('Please enter technologies used.');
+        if (txtTech) txtTech.focus();
+        return false;
+    }
+    return true;
 }
 
 function openProjectModal() {
@@ -190,11 +322,13 @@ document.addEventListener('DOMContentLoaded', function () {
             openProfileTab(savedTab);
         }
     } catch (e) { }
+    formatTechnologyTags();
     setupProfileCrud();
 });
 
 function setupProfileCrud() {
     normalizeEducationFields();
+    formatTechnologyTags();
     var skillAddButton = document.querySelector('#skills .add-skill-btn');
     if (skillAddButton) skillAddButton.onclick = openSkillForm;
 
@@ -209,11 +343,83 @@ function normalizeEducationFields() {
     // Keep server controls intact
 }
 
-
 var deleteTargetCard = null;
-function openDeleteConfirm(card) { deleteTargetCard = card; document.getElementById('deleteConfirmModal').classList.add('show'); document.body.style.overflow = 'hidden'; }
-function closeDeleteConfirm() { deleteTargetCard = null; document.getElementById('deleteConfirmModal').classList.remove('show'); document.body.style.overflow = ''; }
-function confirmDeleteCard() { if (deleteTargetCard) deleteTargetCard.remove(); closeDeleteConfirm(); }
+var pendingCustomDeleteCallback = null;
+
+function showDeleteModal(title, message, callback) {
+    var modal = document.getElementById('deleteConfirmModal');
+    if (!modal) return;
+    var titleEl = document.getElementById('deleteConfirmTitle');
+    var msgEl = document.getElementById('deleteConfirmMessage');
+    if (titleEl) titleEl.textContent = title || 'Delete Confirmation';
+    if (msgEl) msgEl.textContent = message || 'Are you sure you want to delete this item?';
+    pendingCustomDeleteCallback = callback;
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeDeleteConfirm() {
+    pendingCustomDeleteCallback = null;
+    deleteTargetCard = null;
+    var modal = document.getElementById('deleteConfirmModal');
+    if (modal) modal.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+function executeCustomDelete() {
+    if (typeof pendingCustomDeleteCallback === 'function') {
+        var fn = pendingCustomDeleteCallback;
+        pendingCustomDeleteCallback = null;
+        closeDeleteConfirm();
+        fn();
+    } else if (deleteTargetCard) {
+        deleteTargetCard.remove();
+        closeDeleteConfirm();
+    } else {
+        closeDeleteConfirm();
+    }
+}
+
+function confirmDeleteResumeCustom() {
+    showDeleteModal('Delete Resume', 'Are you sure you want to delete your uploaded resume?', function () {
+        var btn = document.querySelector('[id$="btnHiddenDeleteResume"]');
+        if (btn) btn.click();
+    });
+}
+
+function confirmDeleteProjectCustom(btn) {
+    if (btn && btn.getAttribute('data-confirmed') === 'true') {
+        btn.removeAttribute('data-confirmed');
+        return true;
+    }
+    showDeleteModal('Delete Project', 'Are you sure you want to delete this project?', function () {
+        if (btn) {
+            btn.setAttribute('data-confirmed', 'true');
+            btn.click();
+        }
+    });
+    return false;
+}
+
+function showProfileToast(message, type) {
+    var toast = document.getElementById('profileToast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'profileToast';
+        toast.className = 'profile-toast';
+        document.body.appendChild(toast);
+    }
+    var icon = type === 'error' ? '<i class="fa-solid fa-circle-exclamation"></i>' : '<i class="fa-solid fa-circle-check"></i>';
+    toast.innerHTML = icon + '<span>' + message + '</span>';
+    toast.className = 'profile-toast show ' + (type || 'success');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(function () {
+        toast.classList.remove('show');
+    }, 3500);
+}
+
+function openDeleteConfirm(card) { deleteTargetCard = card; showDeleteModal('Delete Item', 'Are you sure you want to delete this item?'); }
+function confirmDeleteCard() { executeCustomDelete(); }
 function deleteCard(card) { if (card) openDeleteConfirm(card); }
 function editProject(card) { openCrudForm('project', card); }
 function addProjectCard() { openCrudForm('project'); }
@@ -335,3 +541,9 @@ function projectMarkup(data) { return '<div class="project-card-header"><div cla
 function updateProjectCard(card, data) { card.querySelector('h3').textContent=data.title; card.querySelector('.project-description p').textContent=data.description; card.querySelector('.technology-tags').innerHTML=''; (data.technologies || '').split(',').forEach(function(t){if(t.trim()){var s=document.createElement('span');s.textContent=t.trim();card.querySelector('.technology-tags').appendChild(s);}}); card.querySelector('.role-value').textContent=data.role || ''; card.querySelector('.start-value').textContent=data.startDate || ''; card.querySelector('.end-value').textContent=data.endDate || ''; card.querySelector('.github-link').href=data.github || '#'; card.querySelector('.demo-link').href=data.demo || '#'; }
 function addProjectCardFromData(data) { var card=document.createElement('div'); card.className='project-card'; card.innerHTML=projectMarkup(data); document.querySelector('#projects .add-project-placeholder').before(card); updateProjectCard(card,data); card.querySelector('[title="Edit"]').onclick=function(){editProject(card);}; card.querySelector('[title="Delete"]').onclick=function(){deleteCard(card);}; }
 function addCertificateCardFromData(data) { var card=document.createElement('div'); card.className='certificate-card'; card.innerHTML='<div class="certificate-main"><div class="certificate-icon"><i class="fa-solid fa-award"></i></div><div class="certificate-content"><div class="certificate-title-row"><div><h3></h3><p class="certificate-issuer"></p></div><span class="certificate-status">Verified</span></div><div class="certificate-actions"><button type="button" class="certificate-action primary">View Certificate</button><button type="button" class="certificate-action">Download</button><button type="button" class="certificate-icon-btn" title="Edit"><i class="fa-solid fa-pen"></i></button><button type="button" class="certificate-icon-btn delete" title="Delete"><i class="fa-solid fa-trash"></i></button></div></div></div>'; card.querySelector('h3').textContent=data.title; card.querySelector('.certificate-issuer').textContent=data.issuer; document.querySelector('#certifications .add-certificate-placeholder').before(card); card.querySelector('[title="Edit"]').onclick=function(){editCertificate(card);}; card.querySelector('[title="Delete"]').onclick=function(){deleteCard(card);}; card.querySelector('.primary').onclick=function(){viewCertificate(card);}; card.querySelector('.certificate-action:not(.primary)').onclick=function(){downloadCertificate(card);}; }
+
+function editProfile() { openEditProfile(); }
+        if (typeof formatTechnologyTags === 'function') { formatTechnologyTags(); }
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof formatTechnologyTags === 'function') { formatTechnologyTags(); }
+        });

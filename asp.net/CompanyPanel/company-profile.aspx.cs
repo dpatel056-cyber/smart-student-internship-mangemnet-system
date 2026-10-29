@@ -2,8 +2,7 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.IO;
 
 namespace asp.net
 {
@@ -16,36 +15,44 @@ namespace asp.net
 
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (Session["company"] == null)
-            {
-                Response.Redirect("~/PublicPanel/login.aspx");
-            }
-
-            if (!IsPostBack)
-            {
-                companyfilldata();
-            }
-        }
-
         void getcon()
         {
             con = new SqlConnection(s);
             con.Open();
         }
 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session["company"] != null)
+            {
+                getcon();
+                da = new SqlDataAdapter("select * from c_registration where c_email='" + Session["company"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
+
+                if (!IsPostBack)
+                {
+                    companyfilldata();
+                }
+            }
+            else
+            {
+                Response.Redirect("~/PublicPanel/login.aspx");
+            }
+        }
+
         void companyfilldata()
         {
             getcon();
 
-            da = new SqlDataAdapter("select * from c_registration where c_email='" + Session["company"] + "'", con);
+            da = new SqlDataAdapter("SELECT * FROM c_registration WHERE c_email='" + Session["company"] + "'", con);
             ds = new DataSet();
             da.Fill(ds);
 
             if (ds.Tables[0].Rows.Count > 0)
             {
-                // Hero Header Details
+                int cId = Convert.ToInt32(ds.Tables[0].Rows[0]["CompanyId"]);
+
                 lblCompanyName.Text = ds.Tables[0].Rows[0]["c_company"].ToString();
                 lblIndustry.Text = ds.Tables[0].Rows[0]["c_industry"].ToString();
                 lblLocation.Text = ds.Tables[0].Rows[0]["c_city"].ToString() + ", " + ds.Tables[0].Rows[0]["c_state"].ToString();
@@ -57,17 +64,9 @@ namespace asp.net
                 lblHeroEmail.Text = ds.Tables[0].Rows[0]["c_email"].ToString();
                 lblHeroPhone.Text = ds.Tables[0].Rows[0]["c_contact"].ToString();
 
-                string logo = ds.Tables[0].Rows[0]["c_logo"].ToString();
-                if (!string.IsNullOrEmpty(logo))
-                {
-                    if (!logo.StartsWith("~") && !logo.StartsWith("/"))
-                    {
-                        logo = "~/CompanyUploads/" + logo;
-                    }
-                    imgCompanyLogo.ImageUrl = ResolveUrl(logo);
-                    imgCompanyLogo.Visible = true;
-                    pnlLogoInitials.Visible = false;
-                }
+                // Logo DataList (Bound directly with Eval)
+                DataListCompanyLogo.DataSource = ds;
+                DataListCompanyLogo.DataBind();
 
                 // Tab 1: Overview
                 lblFieldCompanyName.Text = ds.Tables[0].Rows[0]["c_company"].ToString();
@@ -110,16 +109,41 @@ namespace asp.net
                 lblPreferredCourses.Text = ds.Tables[0].Rows[0]["c_preferred_courses"].ToString();
                 lblPreferredSemester.Text = ds.Tables[0].Rows[0]["c_preferred_semester"].ToString();
                 lblMinimumCGPA.Text = ds.Tables[0].Rows[0]["c_min_cgpa"].ToString();
+                // ==========================================
+                // DYNAMIC STAT CARDS & ACTIVITY CALCULATIONS
+                // ==========================================
 
-                //// Tab 5: Activity Overview
-                //lblActivityTotalPosts.Text = ds.Tables[0].Rows[0]["c_total_posts"].ToString();
-                //lblActivityActiveInternships.Text = ds.Tables[0].Rows[0]["c_active_posts"].ToString();
-                //lblActivityTotalApplications.Text = ds.Tables[0].Rows[0]["c_total_apps"].ToString();
-                //lblActivityStudentsSelected.Text = ds.Tables[0].Rows[0]["c_selected_apps"].ToString();
-                //lblActivityCurrentInterns.Text = ds.Tables[0].Rows[0]["c_current_interns"].ToString();
-                //lblActivityCompletedInternships.Text = ds.Tables[0].Rows[0]["c_completed_interns"].ToString();
+                // 1. Total Internships
+                cmd = new SqlCommand("SELECT COUNT(*) FROM internship WHERE CompanyId = " + cId, con);
+                string totalInternships = cmd.ExecuteScalar().ToString();
+                lblTotalInternships.Text = totalInternships;
+                lblActivityTotalPosts.Text = totalInternships;
+
+                // 2. Active Internships
+                cmd = new SqlCommand("SELECT COUNT(*) FROM internship WHERE CompanyId = " + cId + " AND (Status IS NULL OR (Status <> 'Inactive' AND Status <> 'Draft'))", con);
+                string activeInternships = cmd.ExecuteScalar().ToString();
+                lblActiveInternships.Text = activeInternships;
+                lblActivityActiveInternships.Text = activeInternships;
+
+                // 3. Total Applications
+                cmd = new SqlCommand("SELECT COUNT(*) FROM StudentApplications a INNER JOIN internship i ON a.InternshipId = i.Id WHERE i.CompanyId = " + cId, con);
+                string totalApps = cmd.ExecuteScalar().ToString();
+                lblTotalApplications.Text = totalApps;
+                lblActivityTotalApplications.Text = totalApps;
+
+                // 4. Students Selected
+                cmd = new SqlCommand("SELECT COUNT(*) FROM StudentApplications a INNER JOIN internship i ON a.InternshipId = i.Id WHERE i.CompanyId = " + cId + " AND (a.Status = 'Selected' OR a.Status = 'Accepted')", con);
+                string selectedCount = cmd.ExecuteScalar().ToString();
+                lblStudentsSelected.Text = selectedCount;
+                lblActivityStudentsSelected.Text = selectedCount;
+
+                // 5. Current Interns
+                lblActivityCurrentInterns.Text = selectedCount;
+
+                // 6. Completed Internships
+                cmd = new SqlCommand("SELECT COUNT(*) FROM CompanyCertificates WHERE CompanyId = " + cId, con);
+                lblActivityCompletedInternships.Text = cmd.ExecuteScalar().ToString();
             }
-
         }
     }
 }

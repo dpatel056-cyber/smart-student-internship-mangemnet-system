@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace asp.net
 {
@@ -15,11 +16,29 @@ namespace asp.net
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["admin"] != null)
             {
-                studentfilldata();
-                LoadSkills();
-                LoadProjects();
+                getcon();
+                da = new SqlDataAdapter("select * from admin_registration where Email='" + Session["admin"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
+
+                if (Request.QueryString["download"] == "1")
+                {
+                    DownloadStudentResume(Request.QueryString["id"]);
+                    return;
+                }
+
+                if (!IsPostBack)
+                {
+                    studentfilldata();
+                    LoadSkills();
+                    LoadProjects();
+                }
+            }
+            else
+            {
+                Response.Redirect("~/PublicPanel/login.aspx");
             }
         }
 
@@ -29,131 +48,153 @@ namespace asp.net
             con.Open();
         }
 
-        string getStudentId()
-        {
-            return Request.QueryString["id"];
-        }
-
         void studentfilldata()
         {
             getcon();
-
-            da = new SqlDataAdapter("select * from Students where StudentId='" + Request.QueryString["id"] + "'",con);
-
+            da = new SqlDataAdapter("SELECT StudentId, FullName, DateOfBirth, Gender, Email, ContactNo, Address, City, State, Pincode, AboutMe, PreferredDomain, PreferredRole, PreferredLocation, WorkMode, Availability, LinkedIn, GitHub, Portfolio, EnrollmentNo, College, Course, Department, CurrentSemester, CGPA, GraduationYear, Password, ConfirmPassword, Resume, IsBlocked, Status, RegistrationDate, CASE WHEN ProfilePhoto LIKE '~/%' THEN ProfilePhoto WHEN ProfilePhoto LIKE 'student_images/%' THEN '~/' + ProfilePhoto WHEN ProfilePhoto IS NOT NULL AND ProfilePhoto <> '' THEN '~/student_images/' + ProfilePhoto ELSE '~/student_images/default-avatar.png' END AS ProfilePhoto FROM Students WHERE StudentId='" + Request.QueryString["id"] + "'", con);
             ds = new DataSet();
             da.Fill(ds);
 
-            if (ds.Tables[0].Rows.Count > 0)
+            lblStudentId.Text = ds.Tables[0].Rows[0]["StudentId"].ToString();
+            lblFullName.Text = ds.Tables[0].Rows[0]["FullName"].ToString();
+            lblFullNameInfo.Text = ds.Tables[0].Rows[0]["FullName"].ToString();
+
+            // Photo (DataList bound with Eval)
+            DataListStudentPhoto.DataSource = ds;
+            DataListStudentPhoto.DataBind();
+
+            // Basic Details
+            lblEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
+            lblEmailInfo.Text = ds.Tables[0].Rows[0]["Email"].ToString();
+            lblContact.Text = ds.Tables[0].Rows[0]["ContactNo"].ToString();
+            lblContactInfo.Text = ds.Tables[0].Rows[0]["ContactNo"].ToString();
+            lblDob.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"]).ToString("dd MMM yyyy");
+            lblGender.Text = ds.Tables[0].Rows[0]["Gender"].ToString();
+            lblAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
+
+            // Education
+            lblEnrollment.Text = ds.Tables[0].Rows[0]["EnrollmentNo"].ToString();
+            lblEnrollmentInfo.Text = ds.Tables[0].Rows[0]["EnrollmentNo"].ToString();
+            lblCollege.Text = ds.Tables[0].Rows[0]["College"].ToString();
+            lblCollegeHeader.Text = ds.Tables[0].Rows[0]["College"].ToString();
+            lblCourse.Text = ds.Tables[0].Rows[0]["Course"].ToString();
+            lblCourseHeader.Text = ds.Tables[0].Rows[0]["Course"].ToString();
+            lblDepartment.Text = ds.Tables[0].Rows[0]["Department"].ToString();
+            lblSemester.Text = ds.Tables[0].Rows[0]["CurrentSemester"].ToString();
+            lblGraduationYear.Text = ds.Tables[0].Rows[0]["GraduationYear"].ToString();
+            lblCgpa.Text = ds.Tables[0].Rows[0]["CGPA"].ToString();
+            lblCgpaInfo.Text = ds.Tables[0].Rows[0]["CGPA"].ToString();
+
+            // Address
+            lblCity.Text = ds.Tables[0].Rows[0]["City"].ToString();
+            lblState.Text = ds.Tables[0].Rows[0]["State"].ToString();
+            lblPincode.Text = ds.Tables[0].Rows[0]["Pincode"].ToString();
+
+            // About
+            lblAboutMe.Text = ds.Tables[0].Rows[0]["AboutMe"].ToString();
+
+            // Preferences
+            lblPreferredDomain.Text = ds.Tables[0].Rows[0]["PreferredDomain"].ToString();
+            lblPreferredRole.Text = ds.Tables[0].Rows[0]["PreferredRole"].ToString();
+            lblPreferredLocation.Text = ds.Tables[0].Rows[0]["PreferredLocation"].ToString();
+            lblWorkMode.Text = ds.Tables[0].Rows[0]["WorkMode"].ToString();
+            lblAvailability.Text = ds.Tables[0].Rows[0]["Availability"].ToString();
+
+            // Social Links
+            lblLinkedInText.Text = ds.Tables[0].Rows[0]["LinkedIn"].ToString();
+            lblGitHubText.Text = ds.Tables[0].Rows[0]["GitHub"].ToString();
+            lblPortfolioText.Text = ds.Tables[0].Rows[0]["Portfolio"].ToString();
+            hlLinkedIn.NavigateUrl = ds.Tables[0].Rows[0]["LinkedIn"].ToString();
+            hlGitHub.NavigateUrl = ds.Tables[0].Rows[0]["GitHub"].ToString();
+            hlPortfolio.NavigateUrl = ds.Tables[0].Rows[0]["Portfolio"].ToString();
+            hlHeaderLinkedIn.NavigateUrl = ds.Tables[0].Rows[0]["LinkedIn"].ToString();
+            hlHeaderGitHub.NavigateUrl = ds.Tables[0].Rows[0]["GitHub"].ToString();
+            hlHeaderPortfolio.NavigateUrl = ds.Tables[0].Rows[0]["Portfolio"].ToString();
+
+            // Resume
+            string resume = ds.Tables[0].Rows[0]["Resume"].ToString();
+
+            if (resume != "")
             {
-                lblStudentId.Text = ds.Tables[0].Rows[0]["StudentId"].ToString();
-                lblFullName.Text = ds.Tables[0].Rows[0]["FullName"].ToString();
-                lblFullNameInfo.Text = ds.Tables[0].Rows[0]["FullName"].ToString();
+                pnlResumeData.Visible = true;
+                lblNoResume.Visible = false;
 
-                string photo = ds.Tables[0].Rows[0]["ProfilePhoto"].ToString();
-                if (!string.IsNullOrEmpty(photo))
-                {
-                    if (!photo.StartsWith("~") && !photo.StartsWith("/"))
-                    {
-                        photo = "~/StudentUploads/" + photo;
-                    }
-                    imgStudentPhoto.ImageUrl = ResolveUrl(photo);
-                    imgStudentPhoto.Visible = true;
-                    lblInitials.Visible = false;
-                }
+                lblResumeFileName.Text = resume;
+                lblResumeDate.Text = "Verified PDF";
 
-                lblEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
-                lblEmailInfo.Text = ds.Tables[0].Rows[0]["Email"].ToString();
+                hlViewResume.NavigateUrl = "~/resume_upload/" + resume;
+                hlViewResume.Target = "_blank";
 
-                lblContact.Text = ds.Tables[0].Rows[0]["ContactNo"].ToString();
-                lblContactInfo.Text = ds.Tables[0].Rows[0]["ContactNo"].ToString();
-
-                lblDob.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
-                lblGender.Text = ds.Tables[0].Rows[0]["Gender"].ToString();
-                lblAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
-
-                lblEnrollment.Text = ds.Tables[0].Rows[0]["EnrollmentNo"].ToString();
-                lblEnrollmentInfo.Text = ds.Tables[0].Rows[0]["EnrollmentNo"].ToString();
-
-                lblCollege.Text = ds.Tables[0].Rows[0]["College"].ToString();
-                lblCollegeHeader.Text = ds.Tables[0].Rows[0]["College"].ToString();
-
-                lblCourse.Text = ds.Tables[0].Rows[0]["Course"].ToString();
-                lblCourseHeader.Text = ds.Tables[0].Rows[0]["Course"].ToString();
-
-                lblDepartment.Text = ds.Tables[0].Rows[0]["Department"].ToString();
-                lblSemester.Text = ds.Tables[0].Rows[0]["CurrentSemester"].ToString();
-                lblGraduationYear.Text = ds.Tables[0].Rows[0]["GraduationYear"].ToString();
-
-                lblCgpa.Text = ds.Tables[0].Rows[0]["CGPA"].ToString();
-                lblCgpaInfo.Text = ds.Tables[0].Rows[0]["CGPA"].ToString();
-
-                lblCity.Text = ds.Tables[0].Rows[0]["City"].ToString();
-                lblState.Text = ds.Tables[0].Rows[0]["State"].ToString();
-                lblPincode.Text = ds.Tables[0].Rows[0]["Pincode"].ToString();
-
-                lblAboutMe.Text = ds.Tables[0].Rows[0]["AboutMe"].ToString();
-
-                lblPreferredDomain.Text = ds.Tables[0].Rows[0]["PreferredDomain"].ToString();
-                lblPreferredRole.Text = ds.Tables[0].Rows[0]["PreferredRole"].ToString();
-                lblPreferredLocation.Text = ds.Tables[0].Rows[0]["PreferredLocation"].ToString();
-                lblWorkMode.Text = ds.Tables[0].Rows[0]["WorkMode"].ToString();
-                lblAvailability.Text = ds.Tables[0].Rows[0]["Availability"].ToString();
-
-                lblLinkedInText.Text = ds.Tables[0].Rows[0]["LinkedIn"].ToString();
-                lblGitHubText.Text = ds.Tables[0].Rows[0]["GitHub"].ToString();
-                lblPortfolioText.Text = ds.Tables[0].Rows[0]["Portfolio"].ToString();
-
-                hlLinkedIn.NavigateUrl = ds.Tables[0].Rows[0]["LinkedIn"].ToString();
-                hlGitHub.NavigateUrl = ds.Tables[0].Rows[0]["GitHub"].ToString();
-                hlPortfolio.NavigateUrl = ds.Tables[0].Rows[0]["Portfolio"].ToString();
-
-                hlHeaderLinkedIn.NavigateUrl = ds.Tables[0].Rows[0]["LinkedIn"].ToString();
-                hlHeaderGitHub.NavigateUrl = ds.Tables[0].Rows[0]["GitHub"].ToString();
-                hlHeaderPortfolio.NavigateUrl = ds.Tables[0].Rows[0]["Portfolio"].ToString();
+                hlDownloadResume.NavigateUrl = "viewStudentDetails.aspx?id=" + Request.QueryString["id"] + "&download=1";
+                hlDownloadResume.Attributes["download"] = resume;
             }
-
-            con.Close();
+            else
+            {
+                pnlResumeData.Visible = false;
+                lblNoResume.Visible = true;
+                lblNoResume.Text = "No resume uploaded by the student.";
+            }
         }
 
         void LoadSkills()
         {
             getcon();
-
-            da = new SqlDataAdapter("select * from StudentSkills where StudentId='" + getStudentId() + "' and SkillCategory='technical'", con);
+            da = new SqlDataAdapter("select * from StudentSkills where StudentId='" + Request.QueryString["id"] + "' and SkillCategory='technical'", con);
             ds = new DataSet();
             da.Fill(ds);
             gvTechSkills.DataSource = ds;
             gvTechSkills.DataBind();
-            gvTechSkills.Visible = ds.Tables[0].Rows.Count > 0;
-            lblNoTechSkills.Visible = ds.Tables[0].Rows.Count == 0;
 
-            da = new SqlDataAdapter("select * from StudentSkills where StudentId='" + getStudentId() + "' and SkillCategory='soft'", con);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                gvTechSkills.Visible = true;
+                lblNoTechSkills.Visible = false;
+            }
+            else
+            {
+                gvTechSkills.Visible = false;
+                lblNoTechSkills.Visible = true;
+            }
+
+            da = new SqlDataAdapter("select * from StudentSkills where StudentId='" + Request.QueryString["id"] + "' and SkillCategory='soft'", con);
             ds = new DataSet();
             da.Fill(ds);
             gvSoftSkills.DataSource = ds;
             gvSoftSkills.DataBind();
-            gvSoftSkills.Visible = ds.Tables[0].Rows.Count > 0;
-            lblNoSoftSkills.Visible = ds.Tables[0].Rows.Count == 0;
 
-            da = new SqlDataAdapter("select * from StudentSkills where StudentId='" + getStudentId() + "' and SkillCategory='other'", con);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                gvSoftSkills.Visible = true;
+                lblNoSoftSkills.Visible = false;
+            }
+            else
+            {
+                gvSoftSkills.Visible = false;
+                lblNoSoftSkills.Visible = true;
+            }
+
+            da = new SqlDataAdapter("select * from StudentSkills where StudentId='" + Request.QueryString["id"] + "' and SkillCategory='other'", con);
             ds = new DataSet();
             da.Fill(ds);
             gvOtherSkills.DataSource = ds;
             gvOtherSkills.DataBind();
-            gvOtherSkills.Visible = ds.Tables[0].Rows.Count > 0;
-            lblNoOtherSkills.Visible = ds.Tables[0].Rows.Count == 0;
 
-
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                gvOtherSkills.Visible = true;
+                lblNoOtherSkills.Visible = false;
+            }
+            else
+            {
+                gvOtherSkills.Visible = false;
+                lblNoOtherSkills.Visible = true;
+            }
         }
 
         void LoadProjects()
         {
             getcon();
-
-            da = new SqlDataAdapter(
-                "select * from StudentProjects where StudentId='" + getStudentId() + "'",
-                con);
-
+            da = new SqlDataAdapter("select * from StudentProjects where StudentId='" + Request.QueryString["id"] + "'", con);
             ds = new DataSet();
             da.Fill(ds);
 
@@ -161,55 +202,38 @@ namespace asp.net
             {
                 gvProjects.DataSource = ds;
                 gvProjects.DataBind();
+
                 gvProjects.Visible = true;
                 lblNoProjects.Visible = false;
             }
             else
             {
                 gvProjects.Visible = false;
+
                 lblNoProjects.Text = "No projects available.";
-                lblNoProjects.CssClass = "no-projects-text";
                 lblNoProjects.Visible = true;
             }
         }
 
-        //public string FormatTechTags(object techObj)
-        //{
-        //    if (techObj == null || techObj == DBNull.Value || string.IsNullOrWhiteSpace(techObj.ToString()))
-        //        return "";
+void DownloadStudentResume(string studentId)
+        {
+            getcon();
 
-        //    string techStr = techObj.ToString();
-        //    string[] tags = techStr.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+            da = new SqlDataAdapter("select Resume from Students where StudentId='" + studentId + "'", con);
+            ds = new DataSet();
+            da.Fill(ds);
 
-        //    if (tags.Length == 0)
-        //        return "";
+            string resume = ds.Tables[0].Rows[0]["Resume"].ToString();
 
-        //    System.Text.StringBuilder sb = new System.Text.StringBuilder();
-        //    sb.Append("<div class=\"project-info\"><div class=\"project-info-label\"><i class=\"fa-solid fa-microchip\"></i> Technologies Used</div><div class=\"technology-tags\">");
-        //    foreach (string tag in tags)
-        //    {
-        //        sb.Append("<span class=\"tech-tag\">" + Server.HtmlEncode(tag.Trim()) + "</span>");
-        //    }
-        //    sb.Append("</div></div>");
-        //    return sb.ToString();
-        //}
+            if (resume != "")
+            {
+                string path = Server.MapPath("~/resume_upload/" + resume);
 
-        //public string FormatProjectLink(object linkObj)
-        //{
-        //    if (linkObj == null || linkObj == DBNull.Value || string.IsNullOrWhiteSpace(linkObj.ToString()))
-        //        return "";
-
-        //    string link = linkObj.ToString().Trim();
-        //    if (string.IsNullOrEmpty(link))
-        //        return "";
-
-        //    string targetUrl = link;
-        //    if (!targetUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase) && !targetUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-        //    {
-        //        targetUrl = "http://" + targetUrl;
-        //    }
-
-        //    return "<div class=\"project-links\"><a href=\"" + Server.HtmlEncode(targetUrl) + "\" target=\"_blank\" class=\"project-link-btn\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> " + Server.HtmlEncode(link) + "</a></div>";
-        //}
+                Response.ContentType = "application/pdf";
+                Response.AppendHeader("Content-Disposition", "attachment; filename=" + resume);
+                Response.TransmitFile(path);
+                Response.End();
+            }
+        }
     }
 }

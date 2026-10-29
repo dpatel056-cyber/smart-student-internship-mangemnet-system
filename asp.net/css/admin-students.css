@@ -1,7 +1,6 @@
 /* ==========================================================================
    SIMS Admin Student Management Stylesheet - High-Fidelity Modern SaaS UI
    ========================================================================== */
-
 :root {
     --stu-primary: #2563eb;
     --stu-primary-hover: #1d4ed8;
@@ -13,7 +12,6 @@
     --stu-text-main: #0f172a;
     --stu-text-muted: #64748b;
     --stu-text-sub: #94a3b8;
-
     /* Status badge colors */
     --status-active-bg: #ecfdf5;
     --status-active-text: #059669;
@@ -22,7 +20,6 @@
     --status-pending-bg: #fffbeb;
     --status-pending-text: #d97706;
 }
-
 .sims-student-main-container {
     width: 100%;
     max-width: 100%;
@@ -32,7 +29,6 @@
     color: var(--stu-text-main);
     box-sizing: border-box;
 }
-
 /* ==========================================================================
    1. PAGE HEADER
    ========================================================================== */
@@ -44,7 +40,6 @@
     flex-wrap: wrap;
     gap: 16px;
 }
-
 .stu-page-title {
     font-size: 24px;
     font-weight: 800;
@@ -52,19 +47,16 @@
     margin: 0 0 4px 0;
     letter-spacing: -0.5px;
 }
-
 .stu-page-subtitle {
     font-size: 14px;
     color: var(--stu-text-muted);
     margin: 0;
 }
-
 .stu-page-header-right {
     display: flex;
     align-items: center;
     gap: 12px;
 }
-
 .stu-btn-outline {
     height: 40px;
     padding: 0 16px;
@@ -81,13 +73,11 @@
     cursor: pointer;
     transition: all 0.15s ease;
 }
-
 .stu-btn-outline:hover {
     background: #f8fafc;
     border-color: #cbd5e1;
     color: #0f172a;
 }
-
 .stu-btn-primary {
     height: 40px;
     padding: 0 20px;
@@ -105,12 +95,10 @@
     box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2);
     transition: all 0.15s ease;
 }
-
 .stu-btn-primary:hover {
     background: var(--stu-primary-hover);
     box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
 }
-
 .stu-btn-danger {
     height: 40px;
     padding: 0 20px;
@@ -123,11 +111,9 @@
     cursor: pointer;
     transition: background 0.15s ease;
 }
-
 .stu-btn-danger:hover {
     background: #dc2626;
 }
-
 /* ==========================================================================
    2. 4 SUMMARY STATISTIC CARDS
    ========================================================================== */
@@ -137,7 +123,6 @@
     gap: 20px;
     margin-bottom: 24px;
 }
-
 .stu-stat-card {
     background: var(--stu-card-bg);
     border: 1px solid var(--stu-border);
@@ -149,12 +134,10 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .stu-stat-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
 }
-
 .stu-stat-icon {
     width: 54px;
     height: 54px;
@@ -165,32 +148,27 @@
     font-size: 22px;
     flex-shrink: 0;
 }
-
 .stu-stat-icon.icon-blue { background: #dbeafe; color: #2563eb; }
 .stu-stat-icon.icon-green { background: #d1fae5; color: #059669; }
 .stu-stat-icon.icon-red { background: #fee2e2; color: #dc2626; }
 .stu-stat-icon.icon-purple { background: #f3e8ff; color: #7c3aed; }
-
 .stu-stat-body {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
-
 .stu-stat-label {
     font-size: 13px;
     font-weight: 500;
     color: var(--stu-text-muted);
     margin-bottom: 4px;
 }
-
 .stu-stat-num-wrap {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: 8px;
 }
-
 .stu-stat-number {
     font-size: 26px;
     font-weight: 800;
@@ -199,7 +177,6 @@
     margin: 0;
     letter-spacing: -0.5px;
 }
-
 .stu-trend-badge {
     display: inline-flex;
     align-items: center;
@@ -209,16 +186,13 @@
     font-size: 11.5px;
     font-weight: 700;
 }
-
 .stu-trend-badge.trend-up { background: #ecfdf5; color: #059669; }
 .stu-trend-badge.trend-down { background: #fef2f2; color: #dc2626; }
-
 .stu-stat-subtext {
     font-size: 12px;
     color: var(--stu-text-sub);
     margin-top: 4px;
 }
-
 /* ==========================================================================
    3. SEARCH AND FILTER BAR
    ========================================================================== */
@@ -226,38 +200,19 @@
     background: var(--stu-card-bg);
     border: 1px solid var(--stu-border);
     border-radius: 16px;
-    padding: 18px 24px;
+    padding: 16px 20px;
     display: flex;
-    align-items: flex-end;
-    gap: 16px;
+    align-items: center;
+    gap: 12px;
     margin-bottom: 24px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
-
-.stu-filter-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.stu-filter-group.search-group {
-    flex: 1.6;
-    min-width: 240px;
-}
-
-.stu-filter-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #334155;
-    margin: 0;
-}
-
 .stu-search-wrapper {
     position: relative;
-    width: 100%;
+    flex: 1;
+    min-width: 180px;
 }
-
 .stu-search-wrapper .search-icon {
     position: absolute;
     left: 14px;
@@ -267,7 +222,6 @@
     font-size: 14px;
     pointer-events: none;
 }
-
 .stu-input {
     width: 100%;
     height: 42px;
@@ -281,17 +235,15 @@
     transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
 }
-
 .stu-input:focus {
     border-color: var(--stu-primary);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
-
 .stu-select-wrapper {
     position: relative;
-    min-width: 135px;
+    flex: 0 0 150px;
+    width: 150px;
 }
-
 .stu-select {
     width: 100%;
     height: 42px;
@@ -308,12 +260,10 @@
     transition: border-color 0.2s;
     box-sizing: border-box;
 }
-
 .stu-select:focus {
     border-color: var(--stu-primary);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
-
 .select-chevron {
     position: absolute;
     right: 12px;
@@ -323,11 +273,12 @@
     font-size: 11px;
     pointer-events: none;
 }
-
-.stu-filter-group.action-group {
-    margin-left: auto;
+.stu-action-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
 }
-
 .stu-btn-clear {
     height: 42px;
     padding: 0 18px;
@@ -344,13 +295,11 @@
     transition: all 0.2s ease;
     white-space: nowrap;
 }
-
 .stu-btn-clear:hover {
     background: #f8fafc;
     border-color: #cbd5e1;
     color: #0f172a;
 }
-
 /* ==========================================================================
    4. MAIN STUDENT TABLE
    ========================================================================== */
@@ -362,20 +311,17 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     margin-bottom: 24px;
 }
-
 .stu-table-responsive {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
-
 .stu-data-table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
     background-color: #ffffff;
 }
-
 .stu-data-table th,
 .stu-data-table thead th,
 .stu-table-header,
@@ -391,7 +337,6 @@
     letter-spacing: 0.03em;
     text-transform: uppercase;
 }
-
 .stu-data-table tr,
 .stu-data-table tbody tr,
 .stu-table-row,
@@ -399,14 +344,12 @@
     border-bottom: 1px solid var(--stu-border-light);
     transition: background-color 0.15s ease;
 }
-
 .stu-data-table tr:hover,
 .stu-data-table tbody tr:hover,
 .stu-table-row:hover,
 .stu-table-row-alt:hover {
     background-color: #f8fafc;
 }
-
 .stu-data-table td,
 .stu-data-table tbody td,
 .stu-table-row td,
@@ -417,7 +360,6 @@
     vertical-align: middle;
     white-space: nowrap;
 }
-
 /* View Action Button */
 .stu-data-table td a.stu-action-view {
     display: inline-flex;
@@ -433,14 +375,12 @@
     text-decoration: none;
     transition: all 0.2s ease;
 }
-
 .stu-data-table td a.stu-action-view:hover {
     background-color: #2563eb;
     color: #ffffff;
     border-color: #2563eb;
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
 }
-
 /* Delete Action Button */
 .stu-data-table td a.stu-action-delete,
 .stu-data-table td a:not(.stu-action-view) {
@@ -457,7 +397,6 @@
     text-decoration: none;
     transition: all 0.2s ease;
 }
-
 .stu-data-table td a.stu-action-delete:hover,
 .stu-data-table td a:not(.stu-action-view):hover {
     background-color: #ef4444;
@@ -465,14 +404,12 @@
     border-color: #ef4444;
     box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
 }
-
 /* User cell */
 .stu-user-cell {
     display: flex;
     align-items: center;
     gap: 12px;
 }
-
 .stu-avatar {
     width: 36px;
     height: 36px;
@@ -481,21 +418,18 @@
     background: #e2e8f0;
     flex-shrink: 0;
 }
-
 .stu-user-name {
     font-weight: 600;
     color: var(--stu-text-main);
     display: block;
     font-size: 13.5px;
 }
-
 .stu-id-text {
     font-family: monospace;
     font-weight: 600;
     color: #475569;
     font-size: 12.5px;
 }
-
 /* Status Pills */
 .stu-status-pill {
     display: inline-flex;
@@ -507,17 +441,14 @@
     font-weight: 600;
     white-space: nowrap;
 }
-
 .stu-status-pill.status-active { background: var(--status-active-bg); color: var(--status-active-text); }
 .stu-status-pill.status-blocked { background: var(--status-blocked-bg); color: var(--status-blocked-text); }
 .stu-status-pill.status-pending { background: var(--status-pending-bg); color: var(--status-pending-text); }
-
 /* Three Dots Action Dropdown */
 .stu-action-menu-wrap {
     position: relative;
     display: inline-block;
 }
-
 .stu-btn-more {
     background: transparent;
     border: none;
@@ -528,12 +459,10 @@
     border-radius: 6px;
     transition: all 0.15s ease;
 }
-
 .stu-btn-more:hover {
     background: #f1f5f9;
     color: #0f172a;
 }
-
 .stu-action-dropdown {
     position: absolute;
     right: 0;
@@ -548,11 +477,9 @@
     flex-direction: column;
     padding: 6px 0;
 }
-
 .stu-action-dropdown.active {
     display: flex;
 }
-
 .stu-dropdown-item {
     padding: 8px 16px;
     font-size: 13px;
@@ -567,20 +494,16 @@
     transition: background 0.15s;
     width: 100%;
 }
-
 .stu-dropdown-item:hover {
     background: #f8fafc;
     color: #0f172a;
 }
-
 .stu-dropdown-item.item-danger {
     color: #dc2626;
 }
-
 .stu-dropdown-item.item-danger:hover {
     background: #fef2f2;
 }
-
 /* ==========================================================================
    5. PAGINATION BAR
    ========================================================================== */
@@ -595,19 +518,16 @@
     background: #fff;
     border-radius: 0 0 16px 16px;
 }
-
 .stu-entries-info {
     font-size: 13px;
     color: var(--stu-text-muted);
     font-weight: 500;
 }
-
 .stu-pagination-controls {
     display: flex;
     align-items: center;
     gap: 16px;
 }
-
 .stu-rows-per-page {
     display: flex;
     align-items: center;
@@ -615,11 +535,9 @@
     font-size: 13px;
     color: var(--stu-text-muted);
 }
-
 .stu-select-mini-wrap {
     position: relative;
 }
-
 .stu-select-mini {
     height: 32px;
     border: 1px solid var(--stu-border);
@@ -633,7 +551,6 @@
     appearance: none;
     cursor: pointer;
 }
-
 .select-mini-chevron {
     position: absolute;
     right: 8px;
@@ -643,13 +560,11 @@
     color: #64748b;
     pointer-events: none;
 }
-
 .stu-pagination-nav {
     display: flex;
     align-items: center;
     gap: 5px;
 }
-
 .page-btn {
     min-width: 32px;
     height: 32px;
@@ -666,11 +581,9 @@
     cursor: pointer;
     transition: all 0.15s ease;
 }
-
 .page-btn:hover { background: #f1f5f9; color: #0f172a; }
 .page-btn.active { background: var(--stu-primary); color: #fff; }
 .page-btn.page-nav-btn { color: #64748b; font-size: 11px; }
-
 /* ==========================================================================
    6. VIEW STUDENT DETAIL DRAWER
    ========================================================================== */
@@ -685,9 +598,7 @@
     display: flex;
     justify-content: flex-end;
 }
-
 .stu-drawer-overlay.active { opacity: 1; visibility: visible; }
-
 .stu-drawer {
     width: 100%;
     max-width: 520px;
@@ -699,9 +610,7 @@
     transform: translateX(100%);
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .stu-drawer-overlay.active .stu-drawer { transform: translateX(0); }
-
 .stu-drawer-header {
     padding: 20px 24px;
     border-bottom: 1px solid var(--stu-border);
@@ -719,33 +628,28 @@
 .stu-verified-badge, .stu-completion-badge { padding:4px 8px; border-radius:999px; font-size:10px !important; font-weight:700; white-space:nowrap !important; }
 .stu-verified-badge { background:#dcfce7; color:#15803d; }
 .stu-completion-badge { background:#eef2ff; color:#4338ca; }
-
 .stu-drawer-user-header {
     display: flex;
     align-items: center;
     gap: 14px;
 }
-
 .stu-drawer-avatar {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
 }
-
 .stu-drawer-title-meta h3 {
     margin: 0 0 4px 0;
     font-size: 18px;
     font-weight: 700;
     color: var(--stu-text-main);
 }
-
 .stu-drawer-tags {
     display: flex;
     align-items: center;
     gap: 8px;
 }
-
 .stu-id-tag {
     font-size: 11.5px;
     font-weight: 700;
@@ -755,7 +659,6 @@
     border-radius: 6px;
     font-family: monospace;
 }
-
 .stu-drawer-close {
     background: none;
     border: none;
@@ -769,9 +672,7 @@
     align-items: center;
     justify-content: center;
 }
-
 .stu-drawer-close:hover { background: #f1f5f9; color: #0f172a; }
-
 .stu-drawer-quick-actions {
     padding: 12px 24px;
     background: #f8fafc;
@@ -779,7 +680,6 @@
     display: flex;
     gap: 10px;
 }
-
 .stu-action-btn-drawer {
     padding: 6px 14px;
     border-radius: 8px;
@@ -794,11 +694,9 @@
     color: #334155;
     transition: all 0.15s;
 }
-
 .stu-action-btn-drawer:hover { background: #f1f5f9; }
 .btn-block-drawer { color: #d97706; }
 .btn-delete-drawer { color: #dc2626; }
-
 .stu-drawer-tabs {
     display: flex;
     border-bottom: 1px solid var(--stu-border);
@@ -806,7 +704,6 @@
     background: #fff;
     overflow-x: auto;
 }
-
 .drawer-tab-btn {
     padding: 12px 14px;
     font-size: 13px;
@@ -818,48 +715,39 @@
     cursor: pointer;
     white-space: nowrap;
 }
-
 .drawer-tab-btn.active {
     color: var(--stu-primary);
     border-bottom-color: var(--stu-primary);
 }
-
 .stu-drawer-body {
     padding: 24px;
     overflow-y: auto;
     flex: 1;
 }
-
 .drawer-tab-pane {
     display: none;
 }
-
 .drawer-tab-pane.active {
     display: block;
 }
-
 .stu-info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 18px;
 }
-
 .stu-info-item {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
-
 .stu-info-item.stu-info-full {
     grid-column: 1 / -1;
 }
-
 .stu-info-label {
     font-size: 12px;
     font-weight: 600;
     color: var(--stu-text-muted);
 }
-
 .stu-info-value {
     font-size: 13.5px;
     font-weight: 600;
@@ -905,7 +793,6 @@
 .stu-activity-stat-grid strong { display:block; color:var(--stu-primary); font-size:16px; }
 .stu-activity-stat-grid span { display:block; color:var(--stu-text-muted); font-size:9px; line-height:1.2; }
 @media (max-width: 480px) { .stu-drawer-mini-grid, .stu-drawer-activity-grid { grid-template-columns:1fr; } }
-
 .stu-docs-list {
     display: flex;
     flex-direction: column;
@@ -916,7 +803,6 @@
 .stu-document-actions button:hover { background:#eef2ff; }
 .stu-document-actions .btn-doc-download { color:#334155; }
 @media (max-width: 480px) { .stu-document-actions { width:100%; margin-left:0; } .stu-document-actions button { flex:1; } }
-
 .stu-doc-item {
     display: flex;
     align-items: center;
@@ -926,19 +812,15 @@
     border: 1px solid var(--stu-border);
     border-radius: 10px;
 }
-
 .icon-pdf { color: #ef4444; font-size: 20px; }
 .icon-img { color: #3b82f6; font-size: 20px; }
-
 .stu-doc-info {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
-
 .doc-name { font-weight: 600; font-size: 13px; color: var(--stu-text-main); }
 .doc-meta { font-size: 11.5px; color: var(--stu-text-muted); }
-
 .btn-doc-download {
     background: none;
     border: none;
@@ -946,7 +828,6 @@
     font-size: 15px;
     cursor: pointer;
 }
-
 .stu-activity-timeline {
     display: flex;
     flex-direction: column;
@@ -954,11 +835,9 @@
     position: relative;
     padding-left: 20px;
 }
-
 .timeline-item {
     position: relative;
 }
-
 .timeline-dot {
     position: absolute;
     left: -20px;
@@ -967,14 +846,11 @@
     height: 10px;
     border-radius: 50%;
 }
-
 .dot-green { background: #10b981; }
 .dot-blue { background: #3b82f6; }
 .dot-purple { background: #8b5cf6; }
-
 .timeline-title { font-size: 13px; font-weight: 600; color: var(--stu-text-main); display: block; }
 .timeline-time { font-size: 11.5px; color: var(--stu-text-muted); }
-
 /* ==========================================================================
    7. MODALS (Add, Edit, Block, Delete)
    ========================================================================== */
@@ -991,9 +867,7 @@
     transition: opacity 0.2s ease, visibility 0.2s ease;
     padding: 20px;
 }
-
 .stu-modal-overlay.active { opacity: 1; visibility: visible; }
-
 .stu-modal-box {
     background: #fff;
     border-radius: 16px;
@@ -1004,10 +878,8 @@
     flex-direction: column;
     overflow: hidden;
 }
-
 .stu-modal-lg { max-width: 720px; }
 .stu-modal-sm { max-width: 440px; padding: 24px; text-align: center; }
-
 .stu-modal-header {
     padding: 20px 24px;
     border-bottom: 1px solid var(--stu-border);
@@ -1015,9 +887,7 @@
     justify-content: space-between;
     align-items: center;
 }
-
 .stu-modal-title { margin: 0; font-size: 18px; font-weight: 700; color: var(--stu-text-main); }
-
 .stu-modal-close {
     background: none;
     border: none;
@@ -1025,13 +895,11 @@
     font-size: 18px;
     cursor: pointer;
 }
-
 .stu-modal-body {
     padding: 24px;
     overflow-y: auto;
     flex: 1;
 }
-
 .stu-modal-footer {
     padding: 16px 24px;
     border-top: 1px solid var(--stu-border);
@@ -1040,12 +908,10 @@
     gap: 12px;
     background: #f8fafc;
 }
-
 /* Form Layout in Modals */
 .stu-form-section {
     margin-bottom: 20px;
 }
-
 .stu-form-section-title {
     font-size: 14px;
     font-weight: 700;
@@ -1055,34 +921,27 @@
     align-items: center;
     gap: 8px;
 }
-
 .stu-form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
 }
-
 .stu-form-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
-
 .stu-form-group.stu-form-full { grid-column: 1 / -1; }
-
 .stu-form-group label {
     font-size: 12.5px;
     font-weight: 600;
     color: #334155;
 }
-
 .req { color: #ef4444; }
-
 .stu-form-group .stu-input,
 .stu-form-group .stu-select {
     padding-left: 14px;
 }
-
 /* Center Prompt Modals */
 .stu-modal-icon-header {
     width: 60px;
@@ -1094,30 +953,25 @@
     font-size: 26px;
     margin: 0 auto 16px auto;
 }
-
 .stu-modal-icon-header.icon-warning { background: #fef3c7; color: #d97706; }
 .stu-modal-icon-header.icon-danger { background: #fee2e2; color: #ef4444; }
-
 .stu-modal-center-title {
     font-size: 18px;
     font-weight: 800;
     color: var(--stu-text-main);
     margin: 0 0 8px 0;
 }
-
 .stu-modal-center-text {
     font-size: 14px;
     color: var(--stu-text-muted);
     line-height: 1.5;
     margin: 0 0 20px 0;
 }
-
 .stu-modal-center-actions {
     display: flex;
     justify-content: center;
     gap: 12px;
 }
-
 /* Toast */
 .stu-toast {
     position: fixed;
@@ -1132,7 +986,656 @@
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     z-index: 99999;
 }
-
 @media (max-width: 1200px) {
     .stu-stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* =====================================================
+   IN-PAGE STYLES & OVERRIDES MIGRATED FROM admin-students.aspx
+   ===================================================== */
+.sims-student-main-container {
+            width: 100%;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .stu-page-header {
+            margin-bottom: 24px;
+        }
+
+        .stu-page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 6px 0;
+        }
+
+        .stu-page-subtitle {
+            font-size: 14px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        /* Filter Card - Single Horizontal Row */
+        .stu-filter-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: nowrap !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .stu-search-wrapper {
+            position: relative;
+            flex: 1 1 auto;
+            min-width: 220px;
+        }
+
+        .stu-select-wrapper {
+            position: relative;
+            flex: 0 0 160px;
+            width: 160px;
+        }
+
+        .stu-action-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .stu-search-wrapper .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .stu-input {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 0 14px 0 38px;
+            font-size: 13.5px;
+            color: #0f172a;
+            background: #fff;
+            outline: none;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+            .stu-input:focus {
+                border-color: #2563eb;
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            }
+
+        .stu-select {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 0 34px 0 14px;
+            font-size: 13.5px;
+            color: #334155;
+            background: #ffffff;
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+            .stu-select:focus {
+                border-color: #2563eb;
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            }
+
+        .select-chevron {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 11px;
+            pointer-events: none;
+        }
+
+        .stu-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            height: 42px;
+            padding: 0 20px;
+            background: #2563eb;
+            color: #ffffff !important;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+            .stu-btn-primary:hover {
+                background: #1d4ed8;
+                box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+            }
+
+        .stu-btn-clear {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            height: 42px;
+            padding: 0 18px;
+            background: #f8fafc;
+            color: #475569 !important;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+            .stu-btn-clear:hover {
+                background: #e2e8f0;
+                color: #0f172a !important;
+            }
+
+        /* Table Card & Responsive Scroll */
+        .stu-table-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+            margin-bottom: 24px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .stu-table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+            .stu-table-responsive::-webkit-scrollbar {
+                height: 7px;
+            }
+
+            .stu-table-responsive::-webkit-scrollbar-track {
+                background: #f8fafc;
+            }
+
+            .stu-table-responsive::-webkit-scrollbar-thumb {
+                background: #cbd5e1;
+                border-radius: 4px;
+            }
+
+                .stu-table-responsive::-webkit-scrollbar-thumb:hover {
+                    background: #94a3b8;
+                }
+
+        .stu-data-table {
+            width: 100%;
+            min-width: 1100px;
+            border-collapse: collapse;
+            text-align: left;
+            background-color: #ffffff;
+        }
+
+        .stu-table-header th {
+            padding: 16px 18px !important;
+            font-size: 12px;
+            font-weight: 700;
+            color: #475569;
+            background-color: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .stu-table-row td, .stu-table-row-alt td {
+            padding: 14px 18px !important;
+            font-size: 13.5px;
+            color: #334155;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+            white-space: nowrap;
+        }
+
+        .stu-table-row:hover td, .stu-table-row-alt:hover td {
+            background-color: #f8fafc;
+        }
+
+        /* Status Badges */
+        .status-badge-active {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 700;
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .status-badge-blocked {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 700;
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        /* Action Buttons */
+        .stu-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stu-action-view {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background-color: #eff6ff;
+            color: #2563eb !important;
+            border: 1px solid #dbeafe;
+            font-weight: 600;
+            font-size: 12.5px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+            .stu-action-view:hover {
+                background-color: #2563eb;
+                color: #ffffff !important;
+                border-color: #2563eb;
+                box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+            }
+
+        .stu-action-block {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background-color: #fff1f2;
+            color: #e11d48 !important;
+            border: 1px solid #fecdd3;
+            font-weight: 600;
+            font-size: 12.5px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+            .stu-action-block:hover {
+                background-color: #e11d48;
+                color: #ffffff !important;
+                border-color: #e11d48;
+                box-shadow: 0 2px 8px rgba(225, 29, 72, 0.25);
+            }
+
+        .stu-action-unblock {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background-color: #f0fdf4;
+            color: #16a34a !important;
+            border: 1px solid #bbf7d0;
+            font-weight: 600;
+            font-size: 12.5px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+            .stu-action-unblock:hover {
+                background-color: #16a34a;
+                color: #ffffff !important;
+                border-color: #16a34a;
+                box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25);
+            }
+
+        .stu-action-delete {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background-color: #fef2f2;
+            color: #dc2626 !important;
+            border: 1px solid #fee2e2;
+            font-weight: 600;
+            font-size: 12.5px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+            .stu-action-delete:hover {
+                background-color: #ef4444;
+                color: #ffffff !important;
+                border-color: #ef4444;
+                box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+            }
+
+        .empty-students-box {
+            padding: 48px 24px;
+            text-align: center;
+            color: #64748b;
+        }
+
+            .empty-students-box i {
+                font-size: 44px;
+                color: #cbd5e1;
+                margin-bottom: 12px;
+                display: block;
+            }
+
+            .empty-students-box h3 {
+                font-size: 18px;
+                color: #1e293b;
+                margin: 0 0 6px;
+                font-weight: 700;
+            }
+
+            .empty-students-box p {
+                font-size: 14px;
+                color: #64748b;
+                margin: 0;
+            }
+
+        /* ============ PAGINATION STYLING ============ */
+        .pagination {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 12px !important;
+            margin-top: 25px !important;
+            margin-bottom: 25px !important;
+            width: 100% !important;
+        }
+
+        .page-btn {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            min-width: 42px !important;
+            height: 42px !important;
+            padding: 0 18px !important;
+            border-radius: 10px !important;
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            text-decoration: none !important;
+            cursor: pointer !important;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            box-sizing: border-box !important;
+            background: #ffffff !important;
+            border: 1.5px solid #e2e8f0 !important;
+            color: #334155 !important;
+        }
+
+        .page-btn:hover {
+            border-color: #2563eb !important;
+            color: #2563eb !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12) !important;
+            text-decoration: none !important;
+        }
+
+        .page-btn.previous {
+            background: #f8fafc !important;
+            border: 1.5px solid #e2e8f0 !important;
+            color: #94a3b8 !important;
+            padding: 0 18px !important;
+            font-weight: 500 !important;
+        }
+
+        .page-btn.previous:hover {
+            background: #f1f5f9 !important;
+            color: #64748b !important;
+            border-color: #cbd5e1 !important;
+            box-shadow: none !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .page-btn.previous i {
+            font-size: 13px !important;
+            color: #94a3b8 !important;
+        }
+
+        .page-btn.next {
+            background: #ffffff !important;
+            border: 1.5px solid #60a5fa !important;
+            color: #2563eb !important;
+            padding: 0 18px !important;
+            font-weight: 600 !important;
+        }
+
+        .page-btn.next:hover {
+            background: #2563eb !important;
+            color: #ffffff !important;
+            border-color: #2563eb !important;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important;
+        }
+
+        .page-btn.next i {
+            font-size: 13px !important;
+            color: inherit !important;
+        }
+
+        .page-btn[disabled], .page-btn.aspNetDisabled {
+            opacity: 0.45 !important;
+            cursor: not-allowed !important;
+            pointer-events: none !important;
+            background: #f8fafc !important;
+            border-color: #e2e8f0 !important;
+            color: #94a3b8 !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+
+/* =====================================================
+   VIEW & DELETE BUTTON HOVER SWAP VIA CSS PATH
+   ===================================================== */
+input[type="image"][src*="btn_admin_view"]:hover,
+.admin-img-btn-view:hover {
+    content: url('../image_button/btn_admin_view_hover.png') !important;
+    transform: translateY(-1px) !important;
+}
+
+input[type="image"][src*="btn_admin_delete"]:hover,
+input[type="image"][src*="btn_admin_del"]:hover,
+.admin-img-btn-delete:hover {
+    content: url('../image_button/btn_admin_delete_hover.png') !important;
+    transform: translateY(-1px) !important;
+}
+
+/* =====================================================
+   SEARCH & CLEAR BUTTON HOVER EFFECT
+   ===================================================== */
+input[type="image"][src*="btn_admin_search"]:hover,
+.admin-img-btn-search:hover {
+    transform: translateY(-1px) !important;
+    filter: brightness(1.05) drop-shadow(0 3px 8px rgba(37, 99, 235, 0.25)) !important;
+}
+
+input[type="image"][src*="btn_admin_clear"]:hover,
+.admin-img-btn-clear:hover {
+    transform: translateY(-1px) !important;
+    filter: brightness(1.04) drop-shadow(0 3px 8px rgba(0, 0, 0, 0.12)) !important;
+}
+
+
+/* =====================================================
+   FULL BOX FILTER & EXPANDED SEARCH BAR (SINGLE ROW)
+   ===================================================== */
+.stu-main-container {
+    padding: 4px 0 20px 0 !important;
+}
+
+.stu-page-header {
+    margin-bottom: 18px !important;
+}
+
+.stu-stats-grid {
+    margin-bottom: 18px !important;
+}
+
+.stu-filter-card {
+    padding: 14px 20px !important;
+    margin-bottom: 18px !important;
+    gap: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.stu-search-wrapper {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 240px !important;
+    position: relative !important;
+}
+
+.stu-action-buttons {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+}
+
+.stu-action-buttons .admin-img-btn,
+.stu-action-buttons input[type="image"] {
+    height: 40px !important;
+    width: auto !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    flex-shrink: 0 !important;
+}
+
+/* Also decrease gap between table columns in students table */
+.stu-table th,
+.stu-table td {
+    padding: 12px 10px !important;
+}
+
+.stu-table td:last-child,
+.stu-table th:last-child {
+    padding-right: 18px !important;
+}
+
+/* ONE ROW STRICT LAYOUT FOR SEARCH & FILTERS */
+.stu-filter-card {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+.stu-search-wrapper {
+    flex: 1 1 auto !important;
+    min-width: 160px !important;
+}
+.stu-select-wrapper {
+    flex: 0 0 150px !important;
+    min-width: 125px !important;
+}
+.stu-action-buttons {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-shrink: 0 !important;
+}
+.stu-action-buttons .admin-img-btn,
+.stu-action-buttons input[type="image"] {
+    height: 40px !important;
+    width: auto !important;
+    flex-shrink: 0 !important;
+}
+
+/* =====================================================
+   GENERATE REPORT BUTTON (SIMS BRAND BLUE COLOR)
+   ===================================================== */
+.btn-report {
+    background: linear-gradient(135deg, #0155e3 0%, #1e40af 100%) !important;
+    color: #ffffff !important;
+    height: 40px !important;
+    padding: 0 16px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 6px rgba(1, 85, 227, 0.28) !important;
+    flex-shrink: 0 !important;
+    outline: none !important;
+    text-decoration: none !important;
+    line-height: 40px !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s ease !important;
+}
+.btn-report:hover {
+    background: linear-gradient(135deg, #1a73f8 0%, #0155e3 100%) !important;
+    box-shadow: 0 4px 12px rgba(1, 85, 227, 0.4) !important;
+    transform: translateY(-1px) !important;
+    color: #ffffff !important;
+}
+.btn-report:active {
+    transform: translateY(0) !important;
+}
+

@@ -1,309 +1,544 @@
 <%@ Page Title="Company Dashboard" Language="C#" MasterPageFile="~/CompanyPanel/company.Master" AutoEventWireup="true" CodeBehind="company-dashboard.aspx.cs" Inherits="asp.net.Companydashboard" %>
+
+<%@ Register Assembly="System.Web.DataVisualization"
+    Namespace="System.Web.UI.DataVisualization.Charting"
+    TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link rel="stylesheet" href="../css/company-dashboard.css" />
+    <style>
+        /* Force 2 Charts in 1 Single Row (50% - 50% width) */
+        .dash-analytics-grid {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            gap: 20px !important;
+            width: 100% !important;
+            margin-bottom: 26px !important;
+            box-sizing: border-box !important;
+        }
+
+        .dash-analytics-grid > .dash-card {
+            flex: 1 1 50% !important;
+            width: calc(50% - 10px) !important;
+            max-width: calc(50% - 10px) !important;
+            min-width: 0 !important;
+            box-sizing: border-box !important;
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 16px !important;
+            padding: 20px 22px !important;
+            box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02) !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        .dash-card-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-bottom: 12px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid #f1f5f9 !important;
+        }
+
+        .dash-card-title {
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            color: #0f172a !important;
+            margin: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            letter-spacing: -0.2px !important;
+        }
+
+        .dash-chart-wrap {
+            position: relative !important;
+            width: 100% !important;
+            min-height: 285px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            overflow: hidden !important;
+        }
+
+        .dash-chart-wrap img {
+            max-width: 100% !important;
+            width: 100% !important;
+            height: auto !important;
+            display: block !important;
+            margin: 0 auto !important;
+        }
+
+        /* Force Quick Actions in 1 Row with 5 Columns */
+        .dash-quick-actions-row {
+            display: grid !important;
+            grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+            gap: 14px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .dash-quick-actions-row .dash-action {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 16px 14px !important;
+            border-radius: 14px !important;
+            border: 1px solid #e2e8f0 !important;
+            background: #ffffff !important;
+            text-decoration: none !important;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            box-sizing: border-box !important;
+            min-height: 112px !important;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03) !important;
+        }
+
+        .dash-quick-actions-row .dash-action:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
+            background: var(--ac-hover-bg) !important;
+            border-color: var(--ac-hover-border) !important;
+        }
+
+        .dash-quick-actions-row .dash-action-left {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            flex: 1 !important;
+            min-width: 0 !important;
+        }
+
+        .dash-quick-actions-row .dash-action-icon {
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 10px !important;
+            background: var(--ac-bg) !important;
+            color: var(--ac-color) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 16px !important;
+            flex-shrink: 0 !important;
+        }
+
+        .dash-quick-actions-row .dash-action-title {
+            font-weight: 700 !important;
+            font-size: 13.5px !important;
+            color: #0f172a !important;
+            line-height: 1.3 !important;
+            margin-bottom: 4px !important;
+            white-space: normal !important;
+            word-break: normal !important;
+        }
+
+        .dash-quick-actions-row .dash-action-desc {
+            font-size: 11.5px !important;
+            color: #64748b !important;
+            line-height: 1.35 !important;
+            white-space: normal !important;
+            word-break: normal !important;
+        }
+
+        .dash-quick-actions-row .dash-action-arrow {
+            width: 26px !important;
+            height: 26px !important;
+            border-radius: 50% !important;
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: var(--ac-color) !important;
+            font-size: 11px !important;
+            flex-shrink: 0 !important;
+            margin-left: 8px !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .dash-quick-actions-row .dash-action:hover .dash-action-arrow {
+            background: var(--ac-color) !important;
+            color: #ffffff !important;
+            border-color: var(--ac-color) !important;
+            transform: translateX(2px) !important;
+        }
+
+        .dash-action-blue {
+            --ac-bg: #dbeafe;
+            --ac-color: #2563eb;
+            --ac-hover-bg: #eff6ff;
+            --ac-hover-border: #93c5fd;
+        }
+
+        .dash-action-purple {
+            --ac-bg: #ede9fe;
+            --ac-color: #7c3aed;
+            --ac-hover-bg: #f5f3ff;
+            --ac-hover-border: #c4b5fd;
+        }
+
+        .dash-action-green {
+            --ac-bg: #dcfce7;
+            --ac-color: #16a34a;
+            --ac-hover-bg: #f0fdf4;
+            --ac-hover-border: #86efac;
+        }
+
+        .dash-action-amber {
+            --ac-bg: #fef3c7;
+            --ac-color: #d97706;
+            --ac-hover-bg: #fffbeb;
+            --ac-hover-border: #fde68a;
+        }
+
+        .dash-action-teal {
+            --ac-bg: #ccfbf1;
+            --ac-color: #0d9488;
+            --ac-hover-bg: #f0fdfa;
+            --ac-hover-border: #99f6e4;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <!-- Breadcrumb -->
-    <div class="pm-breadcrumb" id="breadcrumbNav"></div>
-
-    <!-- Welcome Banner -->
-    <div class="welcome-banner" style="margin-bottom:26px;">
+    <!-- Page Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
         <div>
-            <h2>Welcome back, <asp:Literal ID="litWelcomeCompanyName" runat="server" Text="Company Partner" />! 👋</h2>
-            <p>You have <strong>5 new applications</strong> and <strong>2 interviews</strong> scheduled this week. Keep the momentum going!</p>
-            <div class="welcome-date" id="welcomeDate"><asp:Literal ID="litToday" runat="server" /></div>
+            <h1 style="font-size: 24px; font-weight: 700; color: #0f172a; margin: 0 0 4px 0;">Dashboard</h1>
+            <p style="font-size: 14px; color: #64748b; margin: 0;">Overall stats, recent applicants, and application status overview.</p>
         </div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <a href="<%= ResolveUrl("~/CompanyPanel/company-post-internship.aspx") %>" class="btn btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
-                <i class="fa-solid fa-plus"></i> Post Internship
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="<%= ResolveUrl("~/CompanyPanel/company-post-internship.aspx") %>" style="padding: 10px 18px; background: #2563eb; color: #fff; border-radius: 8px; font-size: 13.5px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; transition: background 0.15s ease;">
+                <i class="fa-solid fa-circle-plus"></i> Post Internship
             </a>
-            <a href="<%= ResolveUrl("~/CompanyPanel/company-profile.aspx") %>" class="btn btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
+            <a href="<%= ResolveUrl("~/CompanyPanel/company-profile.aspx") %>" style="padding: 10px 18px; background: #ffffff; color: #334155; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; transition: background 0.15s ease;">
                 <i class="fa-solid fa-building"></i> View Profile
             </a>
         </div>
     </div>
 
-    <!-- Stat Cards -->
-    <div class="co-stat-grid">
-        <div class="co-stat-card">
-            <div class="co-stat-icon blue"><i class="fa-solid fa-briefcase"></i></div>
-            <div class="co-stat-info">
-                <h3>24</h3>
-                <p>Total Internships Posted</p>
-                <small class="up"><i class="fa-solid fa-arrow-trend-up"></i> 4 this month</small>
+    <!-- ===================== 1. TOP KPI STAT CARDS (2 ROWS OF 4 COLS = 8 CARDS) ===================== -->
+    <div class="sims-stat-grid-v2">
+        <!-- Card 1: Total Internships -->
+        <div class="sims-stat-card-v2">
+            <div class="sims-stat-icon-v2 sims-bg-blue">
+                <i class="fa-solid fa-briefcase"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-title-v2">Total Internships</span>
+                <span class="sims-stat-num-v2"><asp:Label ID="lblTotalInternships" runat="server"></asp:Label></span>
             </div>
         </div>
-        <div class="co-stat-card">
-            <div class="co-stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
-            <div class="co-stat-info">
-                <h3>8</h3>
-                <p>Active Internships</p>
-                <small class="up"><i class="fa-solid fa-arrow-trend-up"></i> 2 new this week</small>
+
+        <!-- Card 2: Active Internships -->
+        <div class="sims-stat-card-v2">
+            <div class="sims-stat-icon-v2 sims-bg-green">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-title-v2">Active Internships</span>
+                <span class="sims-stat-num-v2"><asp:Label ID="lblActiveInternships" runat="server"></asp:Label></span>
             </div>
         </div>
-        <div class="co-stat-card">
-            <div class="co-stat-icon purple"><i class="fa-solid fa-file-lines"></i></div>
-            <div class="co-stat-info">
-                <h3>312</h3>
-                <p>Total Applications</p>
-                <small class="up"><i class="fa-solid fa-arrow-trend-up"></i> 28 this week</small>
+
+        <!-- Card 3: Total Applications -->
+        <div class="sims-stat-card-v2">
+            <div class="sims-stat-icon-v2 sims-bg-purple">
+                <i class="fa-solid fa-file-lines"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-title-v2">Total Applications</span>
+                <span class="sims-stat-num-v2"><asp:Label ID="lblTotalApplications" runat="server"></asp:Label></span>
             </div>
         </div>
-        <div class="co-stat-card">
-            <div class="co-stat-icon orange"><i class="fa-solid fa-star"></i></div>
-            <div class="co-stat-info">
-                <h3>47</h3>
-                <p>Shortlisted Students</p>
-                <small class="up"><i class="fa-solid fa-arrow-trend-up"></i> 6 added today</small>
+
+        <!-- Card 4: Shortlisted Students -->
+        <div class="sims-stat-card-v2">
+            <div class="sims-stat-icon-v2 sims-bg-orange">
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-title-v2">Shortlisted</span>
+                <span class="sims-stat-num-v2"><asp:Label ID="lblShortlistedCount" runat="server"></asp:Label></span>
             </div>
         </div>
-        <div class="co-stat-card">
-            <div class="co-stat-icon teal"><i class="fa-solid fa-user-check"></i></div>
-            <div class="co-stat-info">
-                <h3>19</h3>
-                <p>Selected Students</p>
-                <small class="up"><i class="fa-solid fa-arrow-trend-up"></i> 3 this month</small>
+
+        <!-- Card 5: Selected Students -->
+        <div class="sims-stat-card-v2">
+            <div class="sims-stat-icon-v2 sims-bg-teal">
+                <i class="fa-solid fa-user-check"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-title-v2">Selected</span>
+                <span class="sims-stat-num-v2"><asp:Label ID="lblSelectedCount" runat="server"></asp:Label></span>
             </div>
         </div>
-        <div class="co-stat-card">
-            <div class="co-stat-icon red"><i class="fa-solid fa-user-xmark"></i></div>
-            <div class="co-stat-info">
-                <h3>58</h3>
-                <p>Rejected Students</p>
-                <small class="down"><i class="fa-solid fa-arrow-trend-down"></i> -5 vs last month</small>
+
+        <!-- Card 6: Rejected Students -->
+        <div class="sims-stat-card-v2">
+            <div class="sims-stat-icon-v2 sims-bg-red">
+                <i class="fa-solid fa-user-xmark"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-title-v2">Rejected</span>
+                <span class="sims-stat-num-v2"><asp:Label ID="lblRejectedCount" runat="server"></asp:Label></span>
             </div>
         </div>
-        <div class="co-stat-card">
-            <div class="co-stat-icon indigo"><i class="fa-solid fa-calendar-check"></i></div>
-            <div class="co-stat-info">
-                <h3>14</h3>
-                <p>Interviews Scheduled</p>
-                <small class="up"><i class="fa-solid fa-arrow-trend-up"></i> 2 today</small>
+
+        <!-- Card 7: Interviews Scheduled -->
+        <div class="sims-stat-card-v2">
+            <div class="sims-stat-icon-v2 sims-bg-purple-light">
+                <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-title-v2">Interviews Scheduled</span>
+                <span class="sims-stat-num-v2"><asp:Label ID="lblInterviewsCount" runat="server"></asp:Label></span>
             </div>
         </div>
-        <div class="co-stat-card">
-            <div class="co-stat-icon pink"><i class="fa-solid fa-chart-pie"></i></div>
-            <div class="co-stat-info">
-                <h3>92%</h3>
-                <p>Hiring Success Rate</p>
-                <small class="up"><i class="fa-solid fa-arrow-trend-up"></i> +4% this month</small>
+
+        <!-- Card 8: Offer Letters Issued -->
+        <div class="sims-stat-card-v2">
+            <div class="sims-stat-icon-v2 sims-bg-yellow">
+                <i class="fa-solid fa-file-signature"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-title-v2">Offers Issued</span>
+                <span class="sims-stat-num-v2"><asp:Label ID="lblOffersCount" runat="server"></asp:Label></span>
             </div>
         </div>
     </div>
 
-    <!-- Quick Actions -->
-    <div class="co-panel" style="margin-bottom:26px;">
+    <!-- ===================== 2. ANALYTICS CHARTS (APPLICATION STATUS + INTERVIEW STATUS IN 1 ROW 50% 50%) ===================== -->
+    <div class="dash-analytics-grid">
+        <!-- LEFT: APPLICATION STATUS OVERVIEW (DOUGHNUT CHART - 50%) -->
+        <div class="dash-card">
+            <div class="dash-card-header">
+                <h2 class="dash-card-title">
+                    <i class="fa-solid fa-chart-pie" style="color: #2563eb; font-size: 18px;"></i>
+                    Application Status Overview
+                </h2>
+            </div>
+            <div class="dash-chart-wrap">
+                <asp:Chart ID="companyApplicationPieChart" runat="server"
+                    Width="550px" Height="290px"
+                    BackColor="White"
+                    Palette="None"
+                    AntiAliasing="All"
+                    TextAntiAliasingQuality="High"
+                    ImageType="Png"
+                    RenderType="ImageTag">
+
+                    <Series>
+                        <asp:Series Name="Applications"
+                            ChartType="Doughnut"
+                            XValueMember="Status"
+                            YValueMembers="Total"
+                            IsValueShownAsLabel="false"
+                            Font="Segoe UI, 10pt"
+                            ChartArea="ApplicationArea"
+                            Legend="ApplicationLegend"
+                            CustomProperties="DoughnutRadius=62, PieLabelStyle=Disabled, PieStartAngle=270">
+                        </asp:Series>
+                    </Series>
+
+                    <ChartAreas>
+                        <asp:ChartArea Name="ApplicationArea" BackColor="White">
+                            <Position Height="75" Width="94" X="3" Y="2" />
+                        </asp:ChartArea>
+                    </ChartAreas>
+
+                    <Legends>
+                        <asp:Legend Name="ApplicationLegend"
+                            Docking="Bottom"
+                            Alignment="Center"
+                            BackColor="White"
+                            Font="Segoe UI, 8.5pt, style=Bold"
+                            ForeColor="#334155"
+                            LegendStyle="Table"
+                            TableStyle="Wide"
+                            IsTextAutoFit="false">
+                            <Position Height="20" Width="98" X="1" Y="78" />
+                        </asp:Legend>
+                    </Legends>
+                </asp:Chart>
+            </div>
+        </div>
+
+        <!-- RIGHT: INTERVIEW STATUS OVERVIEW (COLUMN CHART - 50%) -->
+        <div class="dash-card">
+            <div class="dash-card-header">
+                <h2 class="dash-card-title">
+                    <i class="fa-solid fa-chart-column" style="color: #7c3aed; font-size: 18px;"></i>
+                    Interview Status Overview
+                </h2>
+            </div>
+            <div class="dash-chart-wrap">
+                <asp:Chart ID="companyInterviewBarChart" runat="server"
+                    Width="550px" Height="290px"
+                    BackColor="White"
+                    Palette="None"
+                    AntiAliasing="All"
+                    TextAntiAliasingQuality="High"
+                    ImageType="Png"
+                    RenderType="ImageTag">
+
+                    <Series>
+                        <asp:Series Name="Interviews"
+                            ChartType="Column"
+                            XValueMember="Status"
+                            YValueMembers="Total"
+                            IsValueShownAsLabel="false"
+                            Font="Segoe UI, 10pt, style=Bold"
+                            ChartArea="InterviewArea"
+                            CustomProperties="PointWidth=0.36, DrawSideBySide=True">
+                        </asp:Series>
+                    </Series>
+
+                    <ChartAreas>
+                        <asp:ChartArea Name="InterviewArea" BackColor="White">
+                            <Position Height="85" Width="90" X="5" Y="5" />
+                            <AxisX LineColor="#cbd5e1" Interval="1" IsLabelAutoFit="false">
+                                <MajorGrid Enabled="false" />
+                                <MajorTickMark Enabled="false" />
+                                <LabelStyle Font="Segoe UI, 10pt, style=Bold" ForeColor="#475569" />
+                            </AxisX>
+                            <AxisY LineColor="Transparent" Interval="1" Minimum="0" IsLabelAutoFit="false">
+                                <MajorGrid LineColor="#f1f5f9" LineWidth="1" />
+                                <MajorTickMark Enabled="false" />
+                                <LabelStyle Font="Segoe UI, 9.5pt" ForeColor="#94a3b8" />
+                            </AxisY>
+                        </asp:ChartArea>
+                    </ChartAreas>
+                </asp:Chart>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== 3. RECENT APPLICATIONS (FULL WIDTH) ===================== -->
+    <div class="co-panel" style="margin-bottom: 26px; width: 100%;">
         <div class="co-panel-header">
-            <h3><i class="fa-solid fa-bolt" style="color:#f59e0b;margin-right:8px;"></i>Quick Actions</h3>
+            <h3><i class="fa-solid fa-user-group" style="color: #2563eb; margin-right: 8px;"></i> Recent Applications</h3>
+            <a href="<%= ResolveUrl("~/CompanyPanel/company-applicants.aspx") %>" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+                View All <i class="fa-solid fa-arrow-right" style="font-size: 11px;"></i>
+            </a>
         </div>
-        <div class="co-quick-grid">
-            <a href="<%= ResolveUrl("~/CompanyPanel/company-post-internship.aspx") %>" class="co-quick-card">
-                <div class="co-quick-card-icon blue"><i class="fa-solid fa-plus-circle"></i></div>
-                <span>Post Internship</span>
-            </a>
-            <a href="<%= ResolveUrl("~/CompanyPanel/company-manage-internships.aspx") %>" class="co-quick-card">
-                <div class="co-quick-card-icon" style="background:#f0fdf4;color:#16a34a;"><i class="fa-solid fa-layer-group"></i></div>
-                <span>Manage Internships</span>
-            </a>
-            <a href="<%= ResolveUrl("~/CompanyPanel/company-applications.aspx") %>" class="co-quick-card">
-                <div class="co-quick-card-icon" style="background:#f5f3ff;color:#7c3aed;"><i class="fa-solid fa-file-lines"></i></div>
-                <span>View Applications</span>
-            </a>
-            <a href="<%= ResolveUrl("~/CompanyPanel/company-profile.aspx") %>" class="co-quick-card">
-                <div class="co-quick-card-icon" style="background:#fff7ed;color:#ea580c;"><i class="fa-solid fa-building"></i></div>
-                <span>Company Profile</span>
-            </a>
-            <a href="<%= ResolveUrl("~/CompanyPanel/company-analytics.aspx") %>" class="co-quick-card">
-                <div class="co-quick-card-icon" style="background:#f0fdfa;color:#0d9488;"><i class="fa-solid fa-chart-bar"></i></div>
-                <span>Reports</span>
-            </a>
+        <div style="overflow-x: auto; width: 100%;">
+            <asp:GridView ID="gvRecentApps" runat="server" AutoGenerateColumns="False" CssClass="co-table" GridLines="None" ShowHeaderWhenEmpty="true" Width="100%">
+                <Columns>
+                    <asp:TemplateField HeaderText="Name" HeaderStyle-Width="20%">
+                        <ItemTemplate>
+                            <div class="co-applicant-cell">
+                                <asp:Image ID="imgStudentPhoto" runat="server" CssClass="co-applicant-avatar" Width="36" Height="36" ImageUrl='<%# Eval("ProfilePhoto") %>' onerror="this.onerror=null;this.src='../student_images/default-avatar.png';" />
+                                <asp:Label ID="lblFullName" runat="server" Style="font-weight: 700; color: #0f172a;" Text='<%# Eval("FullName") %>'></asp:Label>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Email" HeaderStyle-Width="22%">
+                        <ItemTemplate>
+                            <asp:Label ID="lblStudentEmail" runat="server" Style="font-size: 13.5px; color: #475569;" Text='<%# Eval("StudentEmail") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Internship Title" HeaderStyle-Width="26%">
+                        <ItemTemplate>
+                            <asp:Label ID="lblInternshipTitle" runat="server" Style="font-weight: 600; color: #1e293b;" Text='<%# Eval("InternshipTitle") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Date" HeaderStyle-Width="14%">
+                        <ItemTemplate>
+                            <asp:Label ID="lblAppliedDate" runat="server" Style="font-size: 13px; color: #64748b;" Text='<%# Eval("AppliedDate", "{0:dd MMM yyyy}") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Status" HeaderStyle-Width="10%">
+                        <ItemTemplate>
+                            <asp:Label ID="lblStatus" runat="server" Text='<%# GetStatusBadge(Eval("Status")) %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-end" ItemStyle-CssClass="text-end">
+                        <ItemTemplate>
+                            <a href='<%= ResolveUrl("~/CompanyPanel/company-student-details.aspx") %>?id=<%# Eval("StudentId") %>&appId=<%# Eval("ApplicationId") %>'
+                                style="padding: 6px 14px; font-size: 12.5px; text-decoration: none; border-radius: 8px; background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; transition: all 0.15s ease;">
+                                <i class="fa-solid fa-eye"></i> View
+                            </a>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+            <asp:PlaceHolder ID="pnlNoApps" runat="server" Visible="false">
+                <div style="text-align:center; padding:30px 10px;">
+                    <p style="font-size:13.5px; color:#64748b; margin:0;">No applications received yet.</p>
+                </div>
+            </asp:PlaceHolder>
         </div>
     </div>
 
-    <!-- Charts Row -->
-    <div class="co-grid-2-equal" style="margin-bottom:26px;">
-
-        <!-- Monthly Applications Bar Chart -->
-        <div class="co-panel">
-            <div class="co-panel-header">
-                <h3>Monthly Applications</h3>
-                <span style="font-size:12px;color:var(--text-muted);">2026</span>
-            </div>
-            <div class="co-chart-container" id="barChart">
-                <!-- Injected via JavaScript -->
-            </div>
+    <!-- ===================== 4. QUICK ACTIONS (LAST IN DASHBOARD, 1 ROW 5 COLS) ===================== -->
+    <div class="dash-card dash-card-full" style="margin-bottom: 26px;">
+        <div class="dash-card-header">
+            <h2 class="dash-card-title">
+                <i class="fa-solid fa-bolt" style="color: #f59e0b; font-size: 18px;"></i>
+                Quick Actions
+            </h2>
         </div>
-
-        <!-- Selection Ratio Donut -->
-        <div class="co-panel">
-            <div class="co-panel-header">
-                <h3>Student Selection Ratio</h3>
-                <span style="font-size:12px;color:var(--text-muted);">Overall</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;padding-top:10px;">
-                <svg width="150" height="150" viewBox="0 0 150 150" class="co-donut-svg">
-                    <circle cx="75" cy="75" r="60" fill="none" stroke="#f1f5f9" stroke-width="20"/>
-                    <circle cx="75" cy="75" r="60" fill="none" stroke="#2563eb" stroke-width="20"
-                        stroke-dasharray="90 287" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 75 75)"/>
-                    <circle cx="75" cy="75" r="60" fill="none" stroke="#7c3aed" stroke-width="20"
-                        stroke-dasharray="36 341" stroke-dashoffset="-90" stroke-linecap="round" transform="rotate(-90 75 75)"/>
-                    <circle cx="75" cy="75" r="60" fill="none" stroke="#ef4444" stroke-width="20"
-                        stroke-dasharray="111 266" stroke-dashoffset="-126" stroke-linecap="round" transform="rotate(-90 75 75)"/>
-                    <text x="75" y="70" text-anchor="middle" font-size="20" font-weight="800" fill="#1e293b">312</text>
-                    <text x="75" y="88" text-anchor="middle" font-size="11" fill="#64748b">Total</text>
-                </svg>
-                <div class="co-donut-legend">
-                    <div class="co-donut-legend-item"><span class="co-legend-dot" style="background:#2563eb;"></span> Shortlisted <strong style="margin-left:auto;">47</strong></div>
-                    <div class="co-donut-legend-item"><span class="co-legend-dot" style="background:#7c3aed;"></span> Selected <strong style="margin-left:auto;">19</strong></div>
-                    <div class="co-donut-legend-item"><span class="co-legend-dot" style="background:#ef4444;"></span> Rejected <strong style="margin-left:auto;">58</strong></div>
-                    <div class="co-donut-legend-item"><span class="co-legend-dot" style="background:#f1f5f9;border:1px solid #e2e8f0;"></span> Pending <strong style="margin-left:auto;">188</strong></div>
+        <p class="dash-subtitle" style="font-size: 13px; color: #64748b; margin: 0 0 16px 0;">Fast access to recruitment and management workflows</p>
+        <div class="dash-quick-actions-row">
+            <!-- 1. Post New Internship -->
+            <a href="<%= ResolveUrl("~/CompanyPanel/company-post-internship.aspx") %>" class="dash-action dash-action-blue">
+                <div class="dash-action-left">
+                    <div class="dash-action-icon"><i class="fa-solid fa-circle-plus"></i></div>
+                    <div>
+                        <div class="dash-action-title">Post New Internship</div>
+                        <div class="dash-action-desc">Create and publish new opportunities</div>
+                    </div>
                 </div>
-            </div>
-        </div>
+                <div class="dash-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </a>
 
+            <!-- 2. Review Applicants -->
+            <a href="<%= ResolveUrl("~/CompanyPanel/company-applicants.aspx") %>" class="dash-action dash-action-purple">
+                <div class="dash-action-left">
+                    <div class="dash-action-icon"><i class="fa-solid fa-users"></i></div>
+                    <div>
+                        <div class="dash-action-title">Review Applicants</div>
+                        <div class="dash-action-desc">Shortlist, select or reject candidates</div>
+                    </div>
+                </div>
+                <div class="dash-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+
+            <!-- 3. Manage Internships -->
+            <a href="<%= ResolveUrl("~/CompanyPanel/company-internships.aspx") %>" class="dash-action dash-action-green">
+                <div class="dash-action-left">
+                    <div class="dash-action-icon"><i class="fa-solid fa-briefcase"></i></div>
+                    <div>
+                        <div class="dash-action-title">Manage Internships</div>
+                        <div class="dash-action-desc">Edit, view status & track active posts</div>
+                    </div>
+                </div>
+                <div class="dash-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+
+            <!-- 4. Schedule Interviews -->
+            <a href="<%= ResolveUrl("~/CompanyPanel/company-interviews.aspx") %>" class="dash-action dash-action-amber">
+                <div class="dash-action-left">
+                    <div class="dash-action-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                    <div>
+                        <div class="dash-action-title">Schedule Interviews</div>
+                        <div class="dash-action-desc">Conduct and manage candidate interviews</div>
+                    </div>
+                </div>
+                <div class="dash-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+
+            <!-- 5. Reports & Analytics -->
+            <a href="<%= ResolveUrl("~/CompanyPanel/company-applicants.aspx") %>" class="dash-action dash-action-teal">
+                <div class="dash-action-left">
+                    <div class="dash-action-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                    <div>
+                        <div class="dash-action-title">Reports & Analytics</div>
+                        <div class="dash-action-desc">View recruitment data and export reports</div>
+                    </div>
+                </div>
+                <div class="dash-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+        </div>
     </div>
-
-    <!-- Recent Applications + Upcoming Interviews -->
-    <div class="co-grid-2" style="margin-bottom:26px;">
-
-        <!-- Recent Applications Table -->
-        <div class="co-panel">
-            <div class="co-panel-header">
-                <h3>Recent Applications</h3>
-                <a href="<%= ResolveUrl("~/CompanyPanel/company-applications.aspx") %>">View All</a>
-            </div>
-            <div style="overflow-x:auto;">
-                <table class="co-table">
-                    <thead>
-                        <tr>
-                            <th>Applicant</th>
-                            <th>Role</th>
-                            <th>Applied</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><div class="co-applicant-cell"><div class="co-applicant-avatar av1">AP</div><div><div class="co-applicant-name">Aarav Patel</div><div class="co-applicant-email">aarav@sims.com</div></div></div></td>
-                            <td>Frontend Developer Intern</td>
-                            <td>15 Jul 2026</td>
-                            <td><span class="co-badge co-badge-review">Under Review</span></td>
-                            <td><button type="button" class="btn btn-ghost" style="padding:5px 12px;font-size:12px;">Review</button></td>
-                        </tr>
-                        <tr>
-                            <td><div class="co-applicant-cell"><div class="co-applicant-avatar av2">PS</div><div><div class="co-applicant-name">Priya Shah</div><div class="co-applicant-email">priya@sims.com</div></div></div></td>
-                            <td>Data Analyst Intern</td>
-                            <td>14 Jul 2026</td>
-                            <td><span class="co-badge co-badge-shortlist">Shortlisted</span></td>
-                            <td><button type="button" class="btn btn-ghost" style="padding:5px 12px;font-size:12px;">Review</button></td>
-                        </tr>
-                        <tr>
-                            <td><div class="co-applicant-cell"><div class="co-applicant-avatar av3">RK</div><div><div class="co-applicant-name">Rohit Kumar</div><div class="co-applicant-email">rohit@sims.com</div></div></div></td>
-                            <td>Backend Developer Intern</td>
-                            <td>13 Jul 2026</td>
-                            <td><span class="co-badge co-badge-interview">Interview</span></td>
-                            <td><button type="button" class="btn btn-ghost" style="padding:5px 12px;font-size:12px;">Review</button></td>
-                        </tr>
-                        <tr>
-                            <td><div class="co-applicant-cell"><div class="co-applicant-avatar av4">MG</div><div><div class="co-applicant-name">Meera Gupta</div><div class="co-applicant-email">meera@sims.com</div></div></div></td>
-                            <td>UI/UX Design Intern</td>
-                            <td>12 Jul 2026</td>
-                            <td><span class="co-badge co-badge-pending">Pending</span></td>
-                            <td><button type="button" class="btn btn-ghost" style="padding:5px 12px;font-size:12px;">Review</button></td>
-                        </tr>
-                        <tr>
-                            <td><div class="co-applicant-cell"><div class="co-applicant-avatar av5">NJ</div><div><div class="co-applicant-name">Neel Joshi</div><div class="co-applicant-email">neel@sims.com</div></div></div></td>
-                            <td>Marketing Intern</td>
-                            <td>11 Jul 2026</td>
-                            <td><span class="co-badge co-badge-selected">Selected</span></td>
-                            <td><button type="button" class="btn btn-ghost" style="padding:5px 12px;font-size:12px;">Review</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Right Rail: Interviews + Notifications -->
-        <div>
-            <!-- Upcoming Interviews -->
-            <div class="co-panel" style="margin-bottom:20px;">
-                <div class="co-panel-header">
-                    <h3>Upcoming Interviews</h3>
-                    <a href="<%= ResolveUrl("~/CompanyPanel/company-interview-schedule.aspx") %>">View All</a>
-                </div>
-                <div>
-                    <div class="co-interview-item">
-                        <div class="co-date-box"><span class="day">22</span><span class="mon">Jul</span></div>
-                        <div class="co-interview-info">
-                            <h4>Aarav Patel</h4>
-                            <p>Frontend Developer Intern &bull; 11:00 AM</p>
-                            <span class="co-mode"><i class="fa-solid fa-video"></i> Google Meet</span>
-                        </div>
-                    </div>
-                    <div class="co-interview-item">
-                        <div class="co-date-box"><span class="day">24</span><span class="mon">Jul</span></div>
-                        <div class="co-interview-info">
-                            <h4>Priya Shah</h4>
-                            <p>Data Analyst Intern &bull; 3:00 PM</p>
-                            <span class="co-mode"><i class="fa-solid fa-building"></i> In-person, Ahmedabad</span>
-                        </div>
-                    </div>
-                    <div class="co-interview-item">
-                        <div class="co-date-box"><span class="day">27</span><span class="mon">Jul</span></div>
-                        <div class="co-interview-info">
-                            <h4>Rohit Kumar</h4>
-                            <p>Backend Developer Intern &bull; 10:30 AM</p>
-                            <span class="co-mode"><i class="fa-solid fa-phone"></i> Phone Call</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Notifications -->
-            <div class="co-panel">
-                <div class="co-panel-header">
-                    <h3>Notifications</h3>
-                    <a href="<%= ResolveUrl("~/CompanyPanel/company-notifications.aspx") %>">View All</a>
-                </div>
-                <div class="co-notif-list">
-                    <div class="co-notif-item">
-                        <div class="co-notif-icon" style="background:#eff6ff;color:#2563eb;"><i class="fa-solid fa-file-lines"></i></div>
-                        <div><p><strong>5 new applications</strong> received for Frontend Developer Intern.</p><span>2 hours ago</span></div>
-                    </div>
-                    <div class="co-notif-item">
-                        <div class="co-notif-icon" style="background:#f0fdf4;color:#16a34a;"><i class="fa-solid fa-calendar-check"></i></div>
-                        <div><p>Interview with <strong>Priya Shah</strong> confirmed for 24 Jul.</p><span>5 hours ago</span></div>
-                    </div>
-                    <div class="co-notif-item">
-                        <div class="co-notif-icon" style="background:#f5f3ff;color:#7c3aed;"><i class="fa-solid fa-star"></i></div>
-                        <div><p><strong>Neel Joshi</strong> has been marked as Selected.</p><span>Yesterday</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const barData = [
-                { label: 'Jan', val: 28 }, { label: 'Feb', val: 35 }, { label: 'Mar', val: 42 },
-                { label: 'Apr', val: 30 }, { label: 'May', val: 55 }, { label: 'Jun', val: 48 },
-                { label: 'Jul', val: 62 }, { label: 'Aug', val: 38 }, { label: 'Sep', val: 70 },
-                { label: 'Oct', val: 52 }, { label: 'Nov', val: 44 }, { label: 'Dec', val: 60 }
-            ];
-            const maxVal = Math.max(...barData.map(d => d.val));
-            const container = document.getElementById('barChart');
-            if (!container) return;
-            container.innerHTML = barData.map(d => {
-                const pct = Math.round((d.val / maxVal) * 120);
-                return `<div class="co-bar-group">
-            <div class="co-bar-val">${d.val}</div>
-            <div class="co-bar" style="height:${pct}px;" title="${d.label}: ${d.val} applications"></div>
-            <div class="co-bar-label">${d.label}</div>
-          </div>`;
-            }).join('');
-        });
-    </script>
 </asp:Content>
-

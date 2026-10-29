@@ -1,12 +1,11 @@
 <%@ Page Title="Edit Profile" Language="C#" MasterPageFile="~/StudentPanel/student.Master" AutoEventWireup="true" CodeFile="student-edit-profile.aspx.cs" Inherits="asp.net.js.student_edit_profile" %>
 <asp:Content ID="HeadContentEditProfile" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="<%= ResolveUrl("~/css/student-edit-profile.css") %>" />
-</asp:Content>
+    <link rel="stylesheet" href="../css/student-edit-profile.css" />
+    </asp:Content>
 <asp:Content ID="MainContentEditProfile" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 <section class="student-edit-page" aria-labelledby="editProfileTitle">
   <header class="edit-page-header">
       <div>
-
           <h1 id="editProfileTitle">Edit Profile</h1>
           <p>Keep your personal and academic details up to date.</p>
       </div>
@@ -14,9 +13,7 @@
           <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Profile
       </asp:HyperLink>
   </header>
-
   <div class="edit-form-stack">
-
     <!-- Personal Information Card -->
     <article class="edit-card">
       <header class="edit-card-header">
@@ -25,22 +22,24 @@
               <p>Manage your basic and professional personal details</p>
           </div>
       </header>
-
       <!-- Profile Photo Upload -->
-      <div class="photo-upload-row">
+      <div class="photo-upload-row sedit-u1" >
           <div class="photo-preview-wrap">
-              <asp:Image ID="imgProfilePreview" runat="server" ImageUrl="~/Assets/Images/students/default-avatar.png" AlternateText="Profile photo preview" CssClass="photo-preview" />
+              <asp:Image ID="imgProfilePreview" ClientIDMode="Static" runat="server" CssClass="photo-preview sedit-u2"  />
+              <asp:Label ID="lblProfileInitials" ClientIDMode="Static" runat="server" CssClass="photo-preview-initials sedit-u3" Text="ST" ></asp:Label>
           </div>
-          <div class="photo-upload-copy">
-              <h3>Profile Photo</h3>
-              <p>Use a clear JPG, PNG or WebP image up to 2 MB.</p>
-              <label class="photo-upload-trigger" for="<%= fileProfilePhoto.ClientID %>">
-                  <i class="fa-solid fa-camera" aria-hidden="true"></i> Choose photo
-              </label>
-              <asp:FileUpload ID="fileProfilePhoto" runat="server" CssClass="file-input-hidden" accept="image/png,image/jpeg,image/webp" />
+          <div class="photo-upload-copy sedit-u4" >
+              <table class="upload-table sedit-u5" >
+                  <tr>
+                      <td  class="sedit-u6">Image:</td>
+                      <td  class="sedit-u7">
+                          <asp:FileUpload ID="FileUpload1" ClientIDMode="Static" runat="server" CssClass="form-control-file" />
+                          <asp:ImageButton ID="btnRemovePhoto" runat="server" ImageUrl="~/assets/btn_remove_photo.png" Height="36" CssClass="student-img-btn" OnClick="btnRemovePhoto_Click" CausesValidation="false" />
+                      </td>
+                  </tr>
+              </table>
           </div>
       </div>
-
       <!-- 1. Basic Information -->
       <div class="edit-section-subtitle">
           <i class="fa-solid fa-id-card" aria-hidden="true"></i> Basic Information
@@ -86,9 +85,7 @@
                 <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-input" placeholder="Enter contact number" />
             </div>
         </div>
-        
       </div>
-
       <!-- 2. Address Information -->
       <div class="edit-section-subtitle">
           <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Address Information
@@ -123,7 +120,6 @@
             </div>
         </div>
       </div>
-
       <!-- 3. About Me -->
       <div class="edit-section-subtitle">
           <i class="fa-solid fa-user-pen" aria-hidden="true"></i> About Me
@@ -136,7 +132,6 @@
             </div>
         </div>
       </div>
-
       <!-- 4. Internship Preferences -->
       <div class="edit-section-subtitle">
           <i class="fa-solid fa-briefcase" aria-hidden="true"></i> Internship Preferences
@@ -187,7 +182,6 @@
             </div>
         </div>
       </div>
-
       <!-- 5. Professional Links -->
       <div class="edit-section-subtitle">
           <i class="fa-solid fa-link" aria-hidden="true"></i> Professional Links
@@ -216,7 +210,6 @@
         </div>
       </div>
     </article>
-
     <!-- Academic Information Card -->
     <article class="edit-card">
       <header class="edit-card-header">
@@ -233,7 +226,7 @@
             <asp:Label ID="lblEnrollmentNumberField" runat="server" AssociatedControlID="txtEnrollmentNumber" CssClass="field-label">ENROLLMENT NUMBER</asp:Label>
             <div class="input-shell">
                 <i class="fa-solid fa-id-card" aria-hidden="true"></i>
-                <asp:TextBox ID="txtEnrollmentNumber" runat="server" CssClass="form-input" placeholder="Enter enrollment number" />
+                <asp:TextBox ID="txtEnrollmentNumber" runat="server" CssClass="form-input" placeholder="e.g. 24FOTCA11001" />
             </div>
         </div>
         <div class="form-field">
@@ -244,10 +237,22 @@
             </div>
         </div>
         <div class="form-field">
-            <asp:Label ID="lblCourseField" runat="server" AssociatedControlID="txtCourse" CssClass="field-label">COURSE / DEGREE <span>*</span></asp:Label>
+            <asp:Label ID="lblCourseField" runat="server" AssociatedControlID="ddlCourse" CssClass="field-label">COURSE / DEGREE <span>*</span></asp:Label>
             <div class="input-shell">
                 <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
-                <asp:TextBox ID="txtCourse" runat="server" CssClass="form-input" placeholder="e.g. BCA, BTech" />
+                <asp:DropDownList ID="ddlCourse" runat="server" CssClass="form-input form-select">
+                    <asp:ListItem Value="">Select Course</asp:ListItem>
+                    <asp:ListItem Value="BCA" Text="BCA"></asp:ListItem>
+                    <asp:ListItem Value="MCA" Text="MCA"></asp:ListItem>
+                    <asp:ListItem Value="B.Tech" Text="B.Tech"></asp:ListItem>
+                    <asp:ListItem Value="M.Tech" Text="M.Tech"></asp:ListItem>
+                    <asp:ListItem Value="B.Sc IT" Text="B.Sc IT"></asp:ListItem>
+                    <asp:ListItem Value="M.Sc IT" Text="M.Sc IT"></asp:ListItem>
+                    <asp:ListItem Value="B.Sc CS" Text="B.Sc CS"></asp:ListItem>
+                    <asp:ListItem Value="M.Sc CS" Text="M.Sc CS"></asp:ListItem>
+                    <asp:ListItem Value="Diploma Engineering" Text="Diploma Engineering"></asp:ListItem>
+                    <asp:ListItem Value="MBA" Text="MBA"></asp:ListItem>
+                </asp:DropDownList>
             </div>
         </div>
         <div class="form-field">
@@ -280,28 +285,13 @@
         </div>
       </div>
     </article>
-
   </div>
-
   <footer class="edit-actions">
       <asp:HyperLink ID="hlCancel" runat="server" NavigateUrl="~/StudentPanel/student-profile.aspx" CssClass="edit-btn edit-btn-secondary">Cancel</asp:HyperLink>
-      <asp:Button ID="btnSaveChanges" runat="server" CssClass="edit-btn edit-btn-primary" Text="Save Changes" OnClick="btnSaveChanges_Click" />
+      <asp:ImageButton ID="btnSaveChanges" runat="server" ImageUrl="~/assets/btn_save_changes.png" Height="42" CssClass="student-img-btn" OnClick="btnSaveChanges_Click" />
   </footer>
 </section>
-
-<script>
-(function(){
-    var i = document.getElementById('<%= fileProfilePhoto.ClientID %>'),
-        p = document.getElementById('<%= imgProfilePreview.ClientID %>');
-    if(!i || !p) return;
-    i.addEventListener('change', function(){
-        var f = this.files && this.files[0];
-        if(!f || !/^image\//i.test(f.type)) return;
-        var r = new FileReader();
-        r.onload = function(e){ p.src = e.target.result; };
-        r.readAsDataURL(f);
-    });
-}());
-</script>
 </asp:Content>
-
+<asp:Content ID="ScriptContent_sedit" ContentPlaceHolderID="ScriptContent" runat="server">
+    <script src="../js/student-edit-profile.js"></script>
+</asp:Content>

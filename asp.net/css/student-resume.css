@@ -2,7 +2,6 @@
    SIMS STUDENT RESUME MANAGEMENT STYLESHEET
    Scoped under .student-resume-page namespace.
    ========================================================================== */
-
 :root {
     --student-navy: #0F1B33;
     --student-blue: #2F6FED;
@@ -13,20 +12,17 @@
     --student-text: #17233D;
     --student-muted: #718096;
     --student-border: #E2E8F0;
-    
     --student-success: #16A34A;
     --student-success-bg: #F0FDF4;
     --student-warning: #F59E0B;
     --student-warning-bg: #FFFBEB;
     --student-danger: #EF4444;
     --student-danger-bg: #FEF2F2;
-
     --student-radius: 12px;
     --student-radius-lg: 16px;
     --student-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
     --student-transition: all 0.2s ease;
 }
-
 /* Page Container */
 .student-resume-page {
     display: flex;
@@ -36,7 +32,6 @@
     color: var(--student-text);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
-
 /* ==========================================================================
    1. PAGE HEADER
    ========================================================================== */
@@ -47,7 +42,6 @@
     flex-wrap: wrap;
     gap: 16px;
 }
-
 .student-resume-title {
     font-size: 26px;
     font-weight: 700;
@@ -55,13 +49,11 @@
     margin: 0 0 4px 0;
     letter-spacing: -0.3px;
 }
-
 .student-resume-subtitle {
     font-size: 14px;
     color: var(--student-muted);
     margin: 0;
 }
-
 .student-resume-header-btn {
     display: inline-flex;
     align-items: center;
@@ -76,12 +68,10 @@
     text-decoration: none;
     transition: var(--student-transition);
 }
-
 .student-resume-header-btn:hover {
     background-color: var(--student-blue-light);
     border-color: var(--student-blue);
 }
-
 /* ==========================================================================
    2. CARDS COMMON STYLING
    ========================================================================== */
@@ -95,7 +85,6 @@
     flex-direction: column;
     gap: 20px;
 }
-
 .student-resume-card-title {
     font-size: 17px;
     font-weight: 700;
@@ -107,12 +96,10 @@
     padding-bottom: 14px;
     border-bottom: 1px solid var(--student-border);
 }
-
 .student-resume-card-title i {
     color: var(--student-blue);
     font-size: 16px;
 }
-
 /* ==========================================================================
    3. CURRENT RESUME CARD
    ========================================================================== */
@@ -127,13 +114,11 @@
     flex-wrap: wrap;
     gap: 20px;
 }
-
 .student-resume-file-info-wrap {
     display: flex;
     align-items: center;
     gap: 18px;
 }
-
 .student-resume-file-icon {
     width: 52px;
     height: 52px;
@@ -146,20 +131,17 @@
     font-size: 26px;
     flex-shrink: 0;
 }
-
 .student-resume-file-details {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
-
 .student-resume-file-name {
     font-size: 16px;
     font-weight: 700;
     color: var(--student-navy);
     margin: 0;
 }
-
 .student-resume-file-meta {
     font-size: 13px;
     color: var(--student-muted);
@@ -169,7 +151,6 @@
     gap: 12px;
     flex-wrap: wrap;
 }
-
 .student-resume-status-badge {
     display: inline-flex;
     align-items: center;
@@ -179,29 +160,24 @@
     font-size: 12.5px;
     font-weight: 700;
 }
-
 .badge-active {
     background-color: var(--student-success-bg);
     color: var(--student-success);
 }
-
 .badge-missing {
     background-color: var(--student-warning-bg);
     color: var(--student-warning);
 }
-
 .badge-invalid {
     background-color: var(--student-danger-bg);
     color: var(--student-danger);
 }
-
 .student-resume-actions {
     display: flex;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
 }
-
 .btn-action-outline {
     display: inline-flex;
     align-items: center;
@@ -217,24 +193,20 @@
     cursor: pointer;
     transition: var(--student-transition);
 }
-
 .btn-action-outline:hover {
     border-color: var(--student-blue);
     color: var(--student-blue);
 }
-
 .btn-action-danger {
     color: var(--student-danger);
     border-color: rgba(239, 68, 68, 0.3);
     background-color: #FFFFFF;
 }
-
 .btn-action-danger:hover {
     background-color: var(--student-danger-bg);
     border-color: var(--student-danger);
     color: var(--student-danger);
 }
-
 /* ==========================================================================
    4. UPLOAD RESUME DROPZONE
    ========================================================================== */
@@ -252,31 +224,26 @@
     gap: 12px;
     cursor: pointer;
 }
-
 .student-resume-dropzone:hover,
 .student-resume-dropzone.drag-over {
     border-color: var(--student-blue);
     background-color: var(--student-blue-light);
 }
-
 .student-resume-dropzone-icon {
     font-size: 42px;
     color: var(--student-blue);
 }
-
 .student-resume-dropzone-title {
     font-size: 16px;
     font-weight: 700;
     color: var(--student-navy);
     margin: 0;
 }
-
 .student-resume-dropzone-sub {
     font-size: 13.5px;
     color: var(--student-muted);
     margin: 0;
 }
-
 .student-resume-browse-btn {
     display: inline-flex;
     align-items: center;
@@ -290,11 +257,9 @@
     cursor: pointer;
     transition: var(--student-transition);
 }
-
 .student-resume-browse-btn:hover {
     background-color: var(--student-blue-hover);
 }
-
 .student-resume-file-selected-box {
     display: none;
     align-items: center;
@@ -307,7 +272,6 @@
     max-width: 450px;
     box-sizing: border-box;
 }
-
 .student-resume-file-selected-info {
     display: flex;
     align-items: center;
@@ -316,14 +280,12 @@
     font-weight: 600;
     color: var(--student-navy);
 }
-
 .student-resume-file-remove {
     cursor: pointer;
     color: var(--student-danger);
     font-size: 16px;
     transition: var(--student-transition);
 }
-
 .student-resume-upload-btn {
     display: inline-flex;
     align-items: center;
@@ -341,11 +303,9 @@
     align-self: flex-start;
     box-shadow: 0 4px 12px rgba(47, 111, 237, 0.25);
 }
-
 .student-resume-upload-btn:hover {
     background-color: var(--student-blue-hover);
 }
-
 /* ==========================================================================
    5. TWO-COLUMN (REQUIREMENTS & PROFILE STATUS)
    ========================================================================== */
@@ -354,14 +314,12 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
-
 .student-resume-req-list,
 .student-resume-completion-info {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
-
 .student-resume-req-item {
     display: flex;
     align-items: center;
@@ -370,26 +328,22 @@
     font-weight: 600;
     color: var(--student-text);
 }
-
 .student-resume-req-item i {
     color: var(--student-success);
     font-size: 15px;
 }
-
 /* ==========================================================================
    6. RESUME HISTORY TABLE
    ========================================================================== */
 .student-resume-table-wrap {
     overflow-x: auto;
 }
-
 .student-resume-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;
     text-align: left;
 }
-
 .student-resume-table th {
     background-color: var(--student-bg);
     color: var(--student-navy);
@@ -397,17 +351,14 @@
     padding: 12px 16px;
     border-bottom: 1px solid var(--student-border);
 }
-
 .student-resume-table td {
     padding: 14px 16px;
     border-bottom: 1px solid var(--student-border);
     color: var(--student-text);
 }
-
 .student-resume-table tr:last-child td {
     border-bottom: none;
 }
-
 /* ==========================================================================
    7. MODALS (REPLACE & DELETE CONFIRMATION)
    ========================================================================== */
@@ -425,7 +376,6 @@
     z-index: 9999;
     padding: 20px;
 }
-
 .student-resume-modal-box {
     background-color: #FFFFFF;
     border-radius: var(--student-radius-lg);
@@ -438,12 +388,10 @@
     gap: 16px;
     animation: modalSlideIn 0.25s ease-out;
 }
-
 @keyframes modalSlideIn {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
 .student-resume-modal-icon {
     width: 50px;
     height: 50px;
@@ -453,31 +401,26 @@
     justify-content: center;
     font-size: 22px;
 }
-
 .modal-icon-danger {
     background-color: var(--student-danger-bg);
     color: var(--student-danger);
 }
-
 .modal-icon-warning {
     background-color: var(--student-warning-bg);
     color: var(--student-warning);
 }
-
 .student-resume-modal-title {
     font-size: 18px;
     font-weight: 700;
     color: var(--student-navy);
     margin: 0;
 }
-
 .student-resume-modal-desc {
     font-size: 14px;
     color: var(--student-muted);
     margin: 0;
     line-height: 1.5;
 }
-
 .student-resume-modal-actions {
     display: flex;
     justify-content: flex-end;
@@ -485,7 +428,6 @@
     gap: 12px;
     margin-top: 8px;
 }
-
 .btn-modal-cancel {
     padding: 10px 18px;
     background-color: var(--student-bg);
@@ -496,7 +438,6 @@
     font-weight: 600;
     cursor: pointer;
 }
-
 .btn-modal-danger {
     padding: 10px 20px;
     background-color: var(--student-danger);
@@ -507,7 +448,6 @@
     font-weight: 700;
     cursor: pointer;
 }
-
 .btn-modal-primary {
     padding: 10px 20px;
     background-color: var(--student-blue);
@@ -518,7 +458,6 @@
     font-weight: 700;
     cursor: pointer;
 }
-
 /* ==========================================================================
    8. RESPONSIVE BREAKPOINTS
    ========================================================================== */
@@ -526,26 +465,21 @@
     .student-resume-two-col {
         grid-template-columns: 1fr;
     }
-
     .student-resume-current-box {
         flex-direction: column;
         align-items: flex-start;
     }
-
     .student-resume-actions {
         width: 100%;
     }
-
     .btn-action-outline {
         flex-grow: 1;
         justify-content: center;
     }
-
     .student-resume-header {
         flex-direction: column;
         align-items: flex-start;
     }
-
     .student-resume-header-btn {
         width: 100%;
         justify-content: center;

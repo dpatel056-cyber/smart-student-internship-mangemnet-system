@@ -5,42 +5,20 @@
 (function () {
     "use strict";
 
-    var STORAGE_KEY = "sims_company_sidebar_collapsed";
-
     document.addEventListener("DOMContentLoaded", function () {
-        initSidebarCollapse();
+        var layout = document.querySelector(".company-layout");
+        if (layout) {
+            layout.classList.remove("is-collapsed");
+        }
+        try {
+            localStorage.removeItem("sims_company_sidebar_collapsed");
+        } catch (e) { }
+
         initMobileDrawer();
         initSubmenus();
         setActiveMenuFromUrl();
         initProfileDropdown();
     });
-
-    // --------------------------------------------------
-    // Sidebar collapse (desktop) with localStorage
-    // --------------------------------------------------
-    function initSidebarCollapse() {
-        var layout = document.querySelector(".company-layout");
-        var toggleBtn = document.getElementById("companySidebarToggle");
-        if (!layout || !toggleBtn) return;
-
-        var isCollapsed = localStorage.getItem(STORAGE_KEY) === "true";
-        if (isCollapsed) {
-            layout.classList.add("is-collapsed");
-        }
-        toggleBtn.setAttribute("aria-expanded", String(!isCollapsed));
-
-        toggleBtn.addEventListener("click", function () {
-            // On mobile, toggle acts as drawer opener instead of collapse
-            if (window.innerWidth <= 991) {
-                toggleMobileDrawer();
-                return;
-            }
-
-            var collapsed = layout.classList.toggle("is-collapsed");
-            localStorage.setItem(STORAGE_KEY, String(collapsed));
-            toggleBtn.setAttribute("aria-expanded", String(!collapsed));
-        });
-    }
 
     // --------------------------------------------------
     // Mobile off-canvas drawer
@@ -173,3 +151,40 @@
         });
     }
 })();
+
+
+// ==================================================
+// Logout Modal & Active Link (Extracted from Master)
+// ==================================================
+function showLogoutModal(e) {
+                if (e && e.preventDefault) e.preventDefault();
+                var overlay = document.getElementById('modalLogoutOverlay');
+                if (overlay) overlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                return false;
+            }
+            function closeLogoutModal() {
+                var overlay = document.getElementById('modalLogoutOverlay');
+                if (overlay) overlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                var overlay = document.getElementById('modalLogoutOverlay');
+                if (overlay) {
+                    overlay.addEventListener('click', function (e) {
+                        if (e.target === overlay) closeLogoutModal();
+                    });
+                }
+                // Active Link Highlight
+                var currentPath = window.location.pathname.toLowerCase();
+                var links = document.querySelectorAll('.company-sidebar-link');
+                links.forEach(function (lnk) {
+                    var href = lnk.getAttribute('href');
+                    if (href) {
+                        var cleanHref = href.toLowerCase().split('?')[0];
+                        if (currentPath.endsWith(cleanHref) || currentPath.indexOf(cleanHref) !== -1 && cleanHref.indexOf('.aspx') !== -1) {
+                            lnk.classList.add('is-active');
+                        }
+                    }
+                });
+            });

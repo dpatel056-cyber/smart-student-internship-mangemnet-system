@@ -1,27 +1,16 @@
-<%@ Page Title="Add New Internship" Language="C#" MasterPageFile="~/CompanyPanel/company.Master" AutoEventWireup="true" CodeFile="company-post-internship.aspx.cs" Inherits="asp.net.company_post_internship" %>
+<%@ Page Title="Add New Internship" Language="C#" MasterPageFile="~/CompanyPanel/company.Master" AutoEventWireup="true" CodeBehind="company-post-internship.aspx.cs" Inherits="asp.net.company_post_internship" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/company-post-internship.css") %>" />
-    <style>
-        .radio-group, .checkbox-group { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 8px; }
-        .radio-group label, .checkbox-group label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: #334155; font-weight: 500; }
-        .radio-group input[type="radio"], .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: #2563eb; }
-        .bottom-actions { display: flex; gap: 15px; justify-content: flex-end; margin-top: 30px; }
-        .btn-cancel { padding: 12px 24px; background: white; border: 1px solid #cbd5e1; color: #475569; border-radius: 8px; font-weight: 600; cursor: pointer; text-decoration: none; }
-        .btn-draft { padding: 12px 24px; background: #f1f5f9; border: 1px solid #cbd5e1; color: #0f172a; border-radius: 8px; font-weight: 600; cursor: pointer; }
-        .btn-publish { padding: 12px 24px; background: #2563eb; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(37,99,235,0.2); }
-        .btn-publish:hover { background: #1d4ed8; }
-        #stipendAmountField { transition: all 0.3s ease; }
-    </style>
+    <link rel="stylesheet" href="../css/company-post-internship.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 <section class="company-edit-page">
     <header class="edit-page-header">
         <div>
-            <h1>Add New Internship</h1>
-            <p>Post a new internship opportunity to attract top talent.</p>
+            <h1 id="lblPageTitle" runat="server">Add New Internship</h1>
+            <p id="lblPageSubTitle" runat="server">Post a new internship opportunity to attract top talent.</p>
         </div>
     </header>
-
     <div class="edit-form-stack">
         <!-- 1. Internship Basic Details -->
         <article class="edit-card">
@@ -83,7 +72,6 @@
                 </div>
             </div>
         </article>
-
         <!-- 2. Duration & Schedule -->
         <article class="edit-card">
             <header class="edit-card-header">
@@ -122,7 +110,6 @@
                 </div>
             </div>
         </article>
-
         <!-- 3. Stipend & Openings -->
         <article class="edit-card">
             <header class="edit-card-header">
@@ -140,7 +127,7 @@
                 </div>
                 <div class="form-field" id="stipendAmountField">
                     <asp:Label AssociatedControlID="txtStipendAmount" runat="server" CssClass="field-label">STIPEND AMOUNT</asp:Label>
-                    <div class="input-shell"><asp:TextBox ID="txtStipendAmount" runat="server" CssClass="form-input" placeholder="e.g. ₹10,000 / Month" /></div>
+                    <div class="input-shell"><asp:TextBox ID="txtStipendAmount" runat="server" CssClass="form-input" placeholder="e.g. 10,000 / Month" /></div>
                 </div>
                 <div class="form-field">
                     <asp:Label AssociatedControlID="txtOpenings" runat="server" CssClass="field-label">NUMBER OF OPENINGS <span>*</span></asp:Label>
@@ -151,16 +138,8 @@
                     <div class="input-shell"><asp:TextBox ID="txtDeadline" runat="server" TextMode="Date" CssClass="form-input" /></div>
                 </div>
             </div>
-            <script>
-                function toggleStipend(isPaid) {
-                    var stipendField = document.getElementById('stipendAmountField');
-                    if(stipendField) {
-                        stipendField.style.display = isPaid ? 'block' : 'none';
-                    }
-                }
-            </script>
-        </article>
-
+    <script src="../js/company-post-internship.js"></script>
+</article>
         <!-- 4. Eligibility -->
         <article class="edit-card">
             <header class="edit-card-header">
@@ -197,7 +176,6 @@
                 </div>
             </div>
         </article>
-
         <!-- 5. Skills & Responsibilities -->
         <article class="edit-card">
             <header class="edit-card-header">
@@ -224,7 +202,6 @@
                 </div>
             </div>
         </article>
-
         <!-- 6. Benefits & Perks -->
         <article class="edit-card">
             <header class="edit-card-header">
@@ -253,7 +230,6 @@
                 </div>
             </div>
         </article>
-
         <!-- 7. Company Information -->
         <article class="edit-card">
             <header class="edit-card-header">
@@ -292,15 +268,12 @@
                 </div>
             </div>
         </article>
-
         <!-- Bottom Action -->
         <div class="bottom-actions">
             <asp:HyperLink ID="hlCancel" runat="server" NavigateUrl="~/CompanyPanel/company-dashboard.aspx" CssClass="btn-cancel">Cancel</asp:HyperLink>
-            <asp:Button ID="btnSaveDraft" runat="server" Text="Save as Draft" CssClass="btn-draft" OnClick="btnSaveDraft_Click" />
             <asp:Button ID="btnPublish" runat="server" Text="Publish Internship" CssClass="btn-publish" OnClick="btnPublish_Click" />
         </div>
         <asp:Label ID="lblMessage" runat="server" Visible="false" CssClass="save-message" style="margin-top: 15px; display: block; text-align: right; color: #16a34a; font-weight: 600;"></asp:Label>
-
     </div>
 </section>
 </asp:Content>

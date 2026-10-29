@@ -1,5 +1,7 @@
 namespace asp.net {
     public partial class company_post_internship {
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblPageTitle;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblPageSubTitle;
         protected global::System.Web.UI.WebControls.TextBox txtTitle;
         protected global::System.Web.UI.WebControls.DropDownList ddlDomain;
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
@@ -41,6 +43,5 @@ namespace asp.net {
         protected global::System.Web.UI.WebControls.TextBox txtCompanyWebsite;
         protected global::System.Web.UI.WebControls.Label lblMessage;
         protected global::System.Web.UI.WebControls.Button btnPublish;
-        protected global::System.Web.UI.WebControls.Button btnSaveDraft;
     }
 }

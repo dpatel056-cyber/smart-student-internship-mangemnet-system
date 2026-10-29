@@ -1,7 +1,6 @@
 /* ==========================================================================
    SIMS MODULE 6: COMMUNICATION MODULE STYLES
    ========================================================================== */
-
 /* --------------------------------------------------------------------------
    1. NOTIFICATIONS
 -------------------------------------------------------------------------- */
@@ -43,7 +42,6 @@
     padding: 0 5px;
 }
 .nt-tab:not(.active) .nt-count { background: #f1f5f9; color: var(--text-muted); }
-
 .nt-toolbar {
     display: flex;
     justify-content: space-between;
@@ -73,7 +71,6 @@
     color: var(--navy-900, #0b1437);
 }
 .nt-search i { color: var(--text-muted); font-size: 14px; }
-
 .nt-list {
     display: flex;
     flex-direction: column;
@@ -151,7 +148,6 @@
 }
 .nt-action-btn:hover { border-color: var(--blue-200); color: var(--blue-600); }
 .nt-action-btn.danger:hover { border-color: #fca5a5; color: #ef4444; }
-
 /* --------------------------------------------------------------------------
    2. MESSAGES / CHAT
 -------------------------------------------------------------------------- */
@@ -169,7 +165,6 @@
     .msg-layout { grid-template-columns: 1fr; height: auto; }
     .msg-sidebar { max-height: 300px; }
 }
-
 .msg-sidebar {
     border-right: 1px solid var(--border-light, #e5e9f2);
     display: flex;
@@ -204,7 +199,6 @@
     color: var(--navy-900);
 }
 .msg-search i { color: var(--text-muted); font-size: 13px; }
-
 .msg-contact-list {
     flex: 1;
     overflow-y: auto;
@@ -276,7 +270,6 @@
     background: var(--blue-600);
     flex-shrink: 0;
 }
-
 /* Chat Window */
 .msg-chat {
     display: flex;
@@ -329,7 +322,6 @@
 }
 .msg-bubble-wrap.sent .msg-bubble-time { color: rgba(255,255,255,0.7); justify-content: flex-end; }
 .msg-seen-icon { font-size: 10px; }
-
 .msg-chat-input {
     display: flex;
     align-items: center;
@@ -370,7 +362,6 @@
     border: 1px solid var(--border-light);
 }
 .msg-emoji-btn:hover, .msg-attach-btn:hover { color: var(--blue-600); border-color: var(--blue-200); }
-
 /* Emoji Picker */
 .msg-emoji-picker {
     position: absolute;
@@ -400,7 +391,6 @@
     transition: background 0.15s;
 }
 .msg-emoji-item:hover { background: #f1f5f9; }
-
 /* --------------------------------------------------------------------------
    3. FEEDBACK & RATING
 -------------------------------------------------------------------------- */
@@ -458,7 +448,6 @@
     transition: color 0.15s;
 }
 .fb-cat-star.active { color: #f59e0b; }
-
 .fb-textarea {
     width: 100%;
     min-height: 120px;
@@ -473,7 +462,6 @@
     transition: border-color 0.2s;
 }
 .fb-textarea:focus { border-color: var(--blue-400); }
-
 /* Previous Feedback List */
 .fb-review {
     display: flex;
@@ -506,7 +494,6 @@
 .fb-review-date { font-size: 12px; color: #94a3b8; }
 .fb-review-stars { color: #f59e0b; font-size: 14px; margin-bottom: 6px; }
 .fb-review-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin: 0; }
-
 /* --------------------------------------------------------------------------
    4. HELP & SUPPORT
 -------------------------------------------------------------------------- */
@@ -538,7 +525,6 @@
 }
 .hs-contact-card h4 { font-size: 15px; font-weight: 600; color: var(--navy-900); margin: 0 0 4px; }
 .hs-contact-card p { font-size: 13px; color: var(--text-muted); margin: 0; }
-
 /* FAQ Accordion */
 .hs-faq-list { margin-bottom: 32px; }
 .hs-faq-item {
@@ -575,7 +561,6 @@
     max-height: 300px;
     padding: 0 20px 16px;
 }
-
 /* Support Form */
 .hs-form-card {
     background: #fff;
