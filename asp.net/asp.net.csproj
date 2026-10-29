@@ -661,10 +661,6 @@
 
 
 
-    <Content Include="js\admin-dashboard.js" />
-
-
-
     <Content Include="js\admin-feedback-ratings.js" />
 
 
@@ -693,10 +689,6 @@
 
 
 
-    <Content Include="js\admin-reports-analytics.js" />
-
-
-
     <Content Include="css\viewCompanyDetails.css" />
 
 
@@ -718,10 +710,6 @@
 
 
     <Content Include="css\admin-offer-letter-view.css" />
-
-
-
-    <Content Include="js\admin-offer-letters.js" />
 
 
 
@@ -777,10 +765,6 @@
 
 
 
-    <Content Include="Database\alter_company_certificates.sql" />
-
-
-
     <Content Include="css\admin-feedback-ratings.css" />
 
 
@@ -805,10 +789,6 @@
 
 
 
-    <Content Include="css\communication-module.css" />
-
-
-
     <Content Include="css\company-master.css" />
 
 
@@ -830,18 +810,6 @@
 
 
     <Content Include="css\internship-module.css" />
-
-
-
-    <Content Include="css\interview-module.css" />
-
-
-
-    <Content Include="css\profile-module.css" />
-
-
-
-    <Content Include="css\resume-module.css" />
 
 
 
@@ -897,14 +865,6 @@
 
 
 
-    <Content Include="css\student-profile-completion.css" />
-
-
-
-    <Content Include="css\student-resume.css" />
-
-
-
     <Content Include="css\student-saved-internships.css" />
 
 
@@ -949,14 +909,6 @@
 
 
 
-    <Content Include="js\student-profile-completion.js" />
-
-
-
-    <Content Include="js\student-resume.js" />
-
-
-
     <Content Include="js\student-tasks.js" />
 
 
@@ -965,19 +917,12 @@
 
 
 
-    <Content Include="css\student-education.css" />
-
-
-
-    <Content Include="css\student-skills.css" />
-
-
-
     <Content Include="css\student-profile.css" />
 
 
 
     <Content Include="css\style.css" />
+    <Content Include="css\sims-dialog.css" />
 
 
 
@@ -1021,19 +966,7 @@
 
 
 
-    <Content Include="js\admin-dashboard-charts.js" />
-
-
-
     <Content Include="js\admin-master.js" />
-
-
-
-    <Content Include="js\certificates-documents.js" />
-
-
-
-    <Content Include="js\companies-data.js" />
 
 
 
@@ -1044,7 +977,6 @@
     <Content Include="js\company-applicants.js" />
     <Content Include="js\company-certificates.js" />
     <Content Include="js\company-change-password.js" />
-    <Content Include="js\company-dashboard.js" />
     <Content Include="js\company-edit-profile.js" />
     <Content Include="js\company-feedback.js" />
     <Content Include="js\company-interviews.js" />
@@ -1065,14 +997,6 @@
 
 
 
-    <Content Include="js\dashboard.js" />
-
-
-
-    <Content Include="js\faq-data.js" />
-
-
-
     <Content Include="js\faq.js" />
 
 
@@ -1082,10 +1006,6 @@
 
 
     <Content Include="js\global-store.js" />
-
-
-
-    <Content Include="js\internships-data.js" />
 
 
 
@@ -1101,43 +1021,12 @@
 
 
 
-    <Content Include="js\messages.js" />
-
-
-
-    <Content Include="js\notifications.js" />
-
-
-
-    <Content Include="js\profile-completion.js" />
-
-
-
-    <Content Include="js\profile-shared.js" />
-
-
-
     <Content Include="js\register.js" />
 
 
 
-    <Content Include="js\resume-preview.js" />
-
-
-
-    <Content Include="js\resume-shared.js" />
-
-
-
     <Content Include="js\script.js" />
-
-
-
-    <Content Include="js\skills-management.js" />
-
-
-
-    <Content Include="js\store-extensions.js" />
+    <Content Include="js\sims-dialog.js" />
 
 
 
@@ -1145,27 +1034,11 @@
 
 
 
-    <Content Include="js\student-layout.js" />
-
-
-
     <Content Include="js\student-master.js" />
 
 
 
-    <Content Include="js\student-education.js" />
-
-
-
-    <Content Include="js\student-skills.js" />
-
-
-
     <Content Include="js\student-profile.js" />
-
-
-
-    <Content Include="js\upload-resume.js" />
 
 
 
