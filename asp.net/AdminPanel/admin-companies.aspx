@@ -1,260 +1,142 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="admin-companies.aspx.cs" Inherits="asp.net.admin_companies" %>
+<%@ Page Title="Companies" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="admin-companies.aspx.cs" Inherits="asp.net.admin_companies" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="../css/admin-companies.css" />
+    <link rel="stylesheet" href="../css/admin-companies.css?v=205" />
 </asp:Content>
-<asp:Content ID="Content2" runat="server" contentplaceholderid="ContentPlaceHolder1">
-<div class="sims-company-main-container">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="sims-company-main-container">
+        <!-- 1. TOP HEADER -->
+        <div class="cmp-page-header">
+            <div class="cmp-page-header-left">
+                <h1 class="cmp-page-title">Companies</h1>
+                <p class="cmp-page-subtitle">Manage, monitor and block/unblock registered companies.</p>
+            </div>
+        </div>
+        <!-- 2. SEARCH AND FILTER SECTION -->
+        <div class="cmp-filter-card">
+            <!-- Search Input -->
+            <div class="cmp-search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <asp:TextBox ID="txtSearch" runat="server" CssClass="cmp-input-search" placeholder="Search company name, email, contact..."></asp:TextBox>
+            </div>
+            <!-- Industry Filter Dropdown -->
+            <div class="cmp-select-box">
+                <asp:DropDownList ID="ddlIndustry" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlIndustry_SelectedIndexChanged" CssClass="cmp-select">
+                    <asp:ListItem Text="All Industries" Value="" />
+                    <asp:ListItem Text="Artificial Intelligence &amp; Data" Value="Artificial Intelligence &amp; Data" />
+                    <asp:ListItem Text="Cloud Infrastructure" Value="Cloud Infrastructure" />
+                    <asp:ListItem Text="Cyber Security" Value="Cyber Security" />
+                    <asp:ListItem Text="Information Technology" Value="Information Technology" />
+                    <asp:ListItem Text="Product Development" Value="Product Development" />
+                </asp:DropDownList>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <!-- Location Filter Dropdown -->
+            <div class="cmp-select-box">
+                <asp:DropDownList ID="ddlLocation" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlLocation_SelectedIndexChanged" CssClass="cmp-select">
+                    <asp:ListItem Text="All Locations" Value="" />
+                    <asp:ListItem Text="Ahmedabad" Value="Ahmedabad" />
+                    <asp:ListItem Text="Bangalore" Value="Bangalore" />
+                    <asp:ListItem Text="Gandhinagar" Value="Gandhinagar" />
+                    <asp:ListItem Text="Hyderabad" Value="Hyderabad" />
+                    <asp:ListItem Text="Pune" Value="Pune" />
+                </asp:DropDownList>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <!-- Status Filter Dropdown -->
+            <div class="cmp-select-box">
+                <asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" CssClass="cmp-select">
+                    <asp:ListItem Text="All Status" Value="" />
+                    <asp:ListItem Text="Active" Value="Active" />
+                    <asp:ListItem Text="Blocked" Value="Blocked" />
+                </asp:DropDownList>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <!-- Action Buttons: Search & Clear -->
+            <div class="cmp-filter-actions">
+                <asp:ImageButton ID="btnSearch" runat="server" OnClick="btnSearch_Click" ImageUrl="~/image_button/btn_admin_search.png" Height="40" CssClass="admin-img-btn admin-img-btn-search" />
+                <asp:ImageButton ID="btnClearFilters" runat="server" OnClick="btnClearFilters_Click" ImageUrl="~/image_button/btn_admin_clear_filters.png" Height="40" CssClass="admin-img-btn admin-img-btn-clear" />
+                <asp:Button ID="btnGenerateReport" runat="server" Text="Generate Report" CssClass="btn-report" OnClick="btnGenerateReport_Click" CausesValidation="false" style="background: linear-gradient(135deg, #0155e3 0%, #1e40af 100%) !important; color: #ffffff !important; height: 40px !important; padding: 0 16px !important; border: none !important; border-radius: 8px !important; font-weight: 600 !important; font-size: 13px !important; cursor: pointer !important; white-space: nowrap !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; box-shadow: 0 2px 6px rgba(1, 85, 227, 0.28) !important; flex-shrink: 0 !important; outline: none !important; text-decoration: none !important; line-height: 40px !important;" />
+            </div>
+        </div>
+        <!-- 3. MAIN COMPANIES TABLE CARD -->
+        <div class="cmp-table-card">
+            <div class="cmp-table-responsive">
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CssClass="cmp-data-table" UseAccessibleHeader="true" GridLines="None" Width="100%" ShowHeaderWhenEmpty="true" OnRowCommand="GridView1_RowCommand">
+                    <HeaderStyle CssClass="cmp-table-header" />
+                    <RowStyle CssClass="cmp-table-row" />
+                    <AlternatingRowStyle CssClass="cmp-table-row-alt" />
+                    <Columns>
+                        <asp:TemplateField HeaderText="ID" HeaderStyle-CssClass="col-id" ItemStyle-CssClass="col-id">
+                            <ItemTemplate>
+                                <asp:Label ID="lblCompanyId" runat="server" Text='<%# Eval("CompanyId") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="COMPANY NAME" HeaderStyle-CssClass="col-name" ItemStyle-CssClass="col-name">
+                            <ItemTemplate>
+                                <asp:Label ID="lblCompanyName" runat="server" Text='<%# Eval("c_company") %>' CssClass="cmp-company-name"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="EMAIL" HeaderStyle-CssClass="col-email" ItemStyle-CssClass="col-email">
+                            <ItemTemplate>
+                                <asp:Label ID="lblEmail" runat="server" Text='<%# Eval("c_email") %>' CssClass="cmp-email-text"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="INDUSTRY" HeaderStyle-CssClass="col-industry" ItemStyle-CssClass="col-industry">
+                            <ItemTemplate>
+                                <asp:Label ID="lblIndustry" runat="server" Text='<%# Eval("c_industry") %>' CssClass="cmp-industry-text"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="LOCATION" HeaderStyle-CssClass="col-location" ItemStyle-CssClass="col-location">
+                            <ItemTemplate>
+                                <asp:Label ID="lblLocation" runat="server" Text='<%# Eval("c_location") %>' CssClass="cmp-location-text"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="STATUS" HeaderStyle-CssClass="col-status" ItemStyle-CssClass="col-status">
+                            <ItemTemplate>
+                                <span class='<%# (bool)Eval("IsBlocked") ? "status-badge-blocked" : "status-badge-active" %>'>
+                                    <i class='<%# (bool)Eval("IsBlocked") ? "fa-solid fa-ban" : "fa-solid fa-circle-check" %>'></i>
+                                    <%# (bool)Eval("IsBlocked") ? "Blocked" : "Active" %>
+                                </span>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="ACTIONS" HeaderStyle-CssClass="col-actions" ItemStyle-CssClass="col-actions">
+                            <ItemTemplate>
+                                <div class="cmp-actions-wrap">
+                                    <asp:ImageButton ID="btnView" runat="server" CommandName="cmd_view" CommandArgument='<%# Eval("CompanyId") %>' ImageUrl="~/image_button/btn_admin_view.png" CausesValidation="false" Height="25" CssClass="admin-img-btn admin-img-btn-view" />
 
-    <!-- 1. TOP HEADER -->
-    <div class="cmp-page-header">
-        <div class="cmp-page-header-left">
-            <h1 class="cmp-page-title">Companies</h1>
-            <p class="cmp-page-subtitle">Manage and monitor all registered companies.</p>
-        </div>
-        <div class="cmp-page-header-right">
-            <button type="button" class="cmp-btn-outline" id="btnRefreshCompanies" title="Refresh Data">
-                <i class="fa-solid fa-rotate-right"></i>
-            </button>
-            <button type="button" class="cmp-btn-outline" id="btnExportCompanies">
-                <i class="fa-solid fa-arrow-up-from-bracket"></i> Export
-            </button>
-        </div>
-    </div>
+                                    <asp:ImageButton ID="btnBlockCompany" runat="server"
+                                        CommandName="cmd_toggle_block"
+                                        CommandArgument='<%# Eval("CompanyId") %>'
+                                        ImageUrl='<%# Convert.ToBoolean(Eval("IsBlocked")) ? "~/image_button/btn_admin_unblock.png" : "~/image_button/btn_admin_block.png" %>'
 
-    <!-- 2. 4 SUMMARY STATISTIC CARDS -->
-    <div class="cmp-stats-grid">
-        <div class="cmp-stat-card">
-            <div class="cmp-stat-icon icon-blue">
-                <i class="fa-solid fa-building"></i>
-            </div>
-            <div class="cmp-stat-body">
-                <span class="cmp-stat-label">Total Companies</span>
-                <div class="cmp-stat-num-wrap">
-                    <h3 class="cmp-stat-number" id="statTotalCompanies">248</h3>
-                    <span class="cmp-trend-badge trend-up"><i class="fa-solid fa-arrow-trend-up"></i> +12%</span>
-                </div>
-                <span class="cmp-stat-subtext">Overall registered</span>
-            </div>
-        </div>
+                                        CausesValidation="false"
+                                        Height="25"
+                                        CssClass="admin-img-btn" />
 
-        <div class="cmp-stat-card">
-            <div class="cmp-stat-icon icon-green">
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
-            <div class="cmp-stat-body">
-                <span class="cmp-stat-label">Active Companies</span>
-                <div class="cmp-stat-num-wrap">
-                    <h3 class="cmp-stat-number" id="statActiveCompanies">210</h3>
-                    <span class="cmp-trend-badge trend-up"><i class="fa-solid fa-arrow-trend-up"></i> 84.6%</span>
-                </div>
-                <span class="cmp-stat-subtext">Actively hiring</span>
-            </div>
-        </div>
+                                    <asp:ImageButton ID="btnDelete" runat="server" CommandName="cmd_del" CommandArgument='<%# Eval("CompanyId") %>' ImageUrl="~/image_button/btn_admin_delete.png" CausesValidation="false" Height="25" CssClass="admin-img-btn admin-img-btn-delete" />
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
 
-        <div class="cmp-stat-card">
-            <div class="cmp-stat-icon icon-orange">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-            </div>
-            <div class="cmp-stat-body">
-                <span class="cmp-stat-label">Pending Approval</span>
-                <div class="cmp-stat-num-wrap">
-                    <h3 class="cmp-stat-number" id="statPendingCompanies">24</h3>
-                    <span class="cmp-trend-badge trend-pending"><i class="fa-solid fa-hourglass-half"></i> 9.6%</span>
-                </div>
-                <span class="cmp-stat-subtext">Requires verification</span>
-            </div>
-        </div>
-
-        <div class="cmp-stat-card">
-            <div class="cmp-stat-icon icon-red">
-                <i class="fa-solid fa-ban"></i>
-            </div>
-            <div class="cmp-stat-body">
-                <span class="cmp-stat-label">Blocked Companies</span>
-                <div class="cmp-stat-num-wrap">
-                    <h3 class="cmp-stat-number" id="statBlockedCompanies">14</h3>
-                    <span class="cmp-trend-badge trend-down"><i class="fa-solid fa-arrow-trend-down"></i> 5.8%</span>
-                </div>
-                <span class="cmp-stat-subtext">Access restricted</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. SEARCH AND FILTER SECTION -->
-    <div class="cmp-filter-card">
-        <div class="cmp-filter-group search-group">
-            <div class="cmp-search-wrapper">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="cmpSearchInput" class="cmp-input" placeholder="Search company name, email or ID..." />
-            </div>
-        </div>
-
-        <div class="cmp-filter-group">
-            <label class="cmp-filter-label">Status</label>
-            <div class="cmp-select-wrapper">
-                <select id="filterCmpStatus" class="cmp-select">
-                    <option value="All">All Status</option>
-                    <option value="Active">Active</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Blocked">Blocked</option>
-                </select>
-                <i class="fa-solid fa-chevron-down select-chevron"></i>
-            </div>
-        </div>
-
-        <div class="cmp-filter-group">
-            <label class="cmp-filter-label">Industry</label>
-            <div class="cmp-select-wrapper">
-                <select id="filterCmpIndustry" class="cmp-select">
-                    <option value="All">All Industries</option>
-                    <option value="Information Technology">Information Technology</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Software">Software</option>
-                    <option value="Education">Education</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Manufacturing">Manufacturing</option>
-                </select>
-                <i class="fa-solid fa-chevron-down select-chevron"></i>
-            </div>
-        </div>
-
-        <div class="cmp-filter-group">
-            <label class="cmp-filter-label">Location</label>
-            <div class="cmp-select-wrapper">
-                <select id="filterCmpLocation" class="cmp-select">
-                    <option value="All">All Locations</option>
-                    <option value="Rajkot">Rajkot</option>
-                    <option value="Ahmedabad">Ahmedabad</option>
-                    <option value="Surat">Surat</option>
-                    <option value="Vadodara">Vadodara</option>
-                    <option value="Gandhinagar">Gandhinagar</option>
-                </select>
-                <i class="fa-solid fa-chevron-down select-chevron"></i>
-            </div>
-        </div>
-
-        <div class="cmp-filter-group">
-            <label class="cmp-filter-label">Company Type</label>
-            <div class="cmp-select-wrapper">
-                <select id="filterCmpType" class="cmp-select">
-                    <option value="All">All Types</option>
-                    <option value="Private Limited">Private Limited</option>
-                    <option value="Public Limited">Public Limited</option>
-                    <option value="Partnership">Partnership</option>
-                    <option value="Proprietorship">Proprietorship</option>
-                    <option value="Startup">Startup</option>
-                </select>
-                <i class="fa-solid fa-chevron-down select-chevron"></i>
-            </div>
-        </div>
-
-        <div class="cmp-filter-group">
-            <label class="cmp-filter-label">Registration Date</label>
-            <div class="cmp-select-wrapper">
-                <select id="filterCmpRegDate" class="cmp-select">
-                    <option value="All">All Time</option>
-                    <option value="Today">Today</option>
-                    <option value="This Month">This Month</option>
-                    <option value="2026">2026</option>
-                </select>
-                <i class="fa-solid fa-chevron-down select-chevron"></i>
-            </div>
-        </div>
-
-        <div class="cmp-filter-group action-group">
-            <button type="button" id="btnClearCmpFilters" class="cmp-btn-clear">
-                <i class="fa-solid fa-xmark"></i> Clear Filters
-            </button>
-        </div>
-    </div>
-    <!-- 4. MAIN COMPANIES TABLE CARD -->
-    <div class="cmp-table-card">
-        <div class="cmp-table-responsive">
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"
-                CssClass="cmp-data-table" UseAccessibleHeader="true"
-                GridLines="None"
-                Width="100%"
-                OnRowCommand="GridView1_RowCommand">
-                <HeaderStyle CssClass="cmp-table-header" />
-                <RowStyle CssClass="cmp-table-row" />
-                <AlternatingRowStyle CssClass="cmp-table-row-alt" />
-                <Columns>
-                    <asp:BoundField DataField="CompanyId" HeaderText="ID" />
-                    <asp:BoundField DataField="c_company" HeaderText="Company Name" />
-                    <asp:BoundField DataField="c_email" HeaderText="Email" />
-                    <asp:BoundField DataField="c_contact" HeaderText="Mobile" />
-                    <asp:BoundField DataField="c_website" HeaderText="Website" />
-                    <asp:BoundField DataField="c_industry" HeaderText="Industry" />
-                    <asp:BoundField DataField="c_size" HeaderText="Size" />
-                    <asp:BoundField DataField="c_location" HeaderText="Location" />
-                    <asp:TemplateField HeaderText="Actions">
-                        <ItemTemplate>
-                            <div style="display:flex; gap:10px; align-items:center;">
-                                <asp:LinkButton ID="btnView" runat="server" CommandArgument='<%# Eval("CompanyId") %>' CommandName="cmd_view" CssClass="btn-action-view" CausesValidation="false">
-                                    <i class="fa-regular fa-eye"></i> View
-                                </asp:LinkButton>
-                                <asp:LinkButton ID="btnDelete" runat="server" CommandArgument='<%# Eval("CompanyId") %>' CommandName="cmd_del" CssClass="btn-action-delete" CausesValidation="false">
-                                    <i class="fa-solid fa-trash-can"></i> Delete
-                                </asp:LinkButton>
+                    <EmptyDataTemplate>
+                        <div class="empty-companies-box">
+                            <div class="empty-companies-icon">
+                                <i class="fa-solid fa-building-circle-xmark"></i>
                             </div>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>
-        </div>
-
-
-
-        <!-- 5. PAGINATION -->
-        <div class="cmp-pagination-bar">
-            <div class="cmp-entries-info" id="cmpEntriesInfo">
-                Showing 1â€“10 of 248 companies
-            </div>
-            <div class="cmp-pagination-controls">
-                <div class="cmp-rows-per-page">
-                    <span>Rows per page:</span>
-                    <div class="cmp-select-mini-wrap">
-                        <select id="cmpPageSize" class="cmp-select-mini">
-                            <option value="10" selected>10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                        </select>
-                        <i class="fa-solid fa-chevron-down select-mini-chevron"></i>
-                    </div>
-                </div>
-
-                <div class="cmp-pagination-nav" id="cmpPaginationNav">
-                </div>
+                            <h3 class="empty-companies-title">No Companies Found</h3>
+                            <p class="empty-companies-desc">There are no registered companies at the moment.</p>
+                        </div>
+                    </EmptyDataTemplate>
+                </asp:GridView>
             </div>
         </div>
-    </div>
 
-
-</div>
-<!-- 9. BLOCK COMPANY CONFIRMATION MODAL -->
-<div class="cmp-modal-overlay" id="modalBlockCompany">
-    <div class="cmp-modal-box cmp-modal-sm">
-        <div class="cmp-modal-icon-header icon-warning">
-            <i class="fa-solid fa-ban"></i>
-        </div>
-        <h3 class="cmp-modal-center-title" id="blockCmpModalTitle">Block Company?</h3>
-        <p class="cmp-modal-center-text" id="blockCmpModalText">
-            Are you sure you want to block <strong id="blockCompanyName">ABC Technologies</strong>? The company will no longer be able to access the platform.
-        </p>
-        <div class="cmp-modal-center-actions">
-            <button type="button" class="cmp-btn-outline" data-close="modalBlockCompany">Cancel</button>
-            <button type="button" class="cmp-btn-danger" id="btnConfirmBlockCompany">Block Company</button>
+        <!-- Pagination -->
+        <div class="pagination">
+            <asp:ImageButton ID="btnPrevious" runat="server" ImageUrl="~/image_button/btn_previous.png" Height="42" OnClick="btnPrevious_Click" CssClass="admin-img-btn" />
+            <asp:Label ID="lblPages" runat="server" CssClass="pagination-pages" />
+            <asp:ImageButton ID="btnNext" runat="server" ImageUrl="~/image_button/btn_next.png" Height="42" OnClick="btnNext_Click" CssClass="admin-img-btn" />
         </div>
     </div>
-</div>
-
-
-
-<!-- Toast notification popup -->
-<div id="cmpToast" class="cmp-toast" style="display: none;"></div>
-
-
-<!-- Client side script -->
-<script src="../js/admin-companies.js"></script>
 </asp:Content>
-

@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentPath = window.location.pathname.split('/').pop() || 'student-dashboard.aspx';
     const links = sidebarEl.querySelectorAll('.sidebar-link');
     let foundActive = false;
-    
+
     links.forEach(link => {
       link.classList.remove('active');
       if (link.getAttribute('href') === currentPath) {
@@ -177,15 +177,15 @@ document.addEventListener('DOMContentLoaded', () => {
   } catch (e) {
     session = null;
   }
-  
+
   if (!session || session.role !== 'student') {
     window.location.href = 'login.aspx';
     return;
   }
-  
+
   const studentEmail = session.email;
   let currentStudentName = session.name || 'Student';
-  
+
   function updateProfileUI() {
     let savedProfile = {};
     try {
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const layoutAvatarSm = document.getElementById('layoutAvatarSm');
     const layoutNameTop = document.getElementById('layoutNameTop');
     const welcomeHeading = document.getElementById('welcomeHeading');
-    
+
     if (layoutAvatarSm) layoutAvatarSm.innerHTML = avatarImage || initials;
     if (layoutNameTop) layoutNameTop.innerHTML = `${studentName}<span>Student</span>`;
     if (welcomeHeading) {
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
       welcomeHeading.innerHTML = `Welcome back, ${firstName}! 👋`;
     }
   }
-  
+
   // Call initially
   updateProfileUI();
 
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.sidebar-link[data-page="notifications"] .badge-count').forEach(el => {
         el.textContent = unreadCount > 0 ? unreadCount : '';
     });
-    
+
     const topbarBadge = document.getElementById('topbarNotifBadge');
     if (topbarBadge) topbarBadge.textContent = unreadCount > 0 ? unreadCount : '';
   }
@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
   const sidebarBackdrop = document.getElementById('sidebarBackdrop');
   const sidebarCollapseBtn = document.getElementById('sidebarCollapseBtn');
-  
+
   function openSidebar() {
     if(sidebar) sidebar.classList.add('open');
     if(sidebarBackdrop) sidebarBackdrop.classList.add('show');
@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(sidebar) sidebar.classList.remove('open');
     if(sidebarBackdrop) sidebarBackdrop.classList.remove('show');
   }
-  
+
   if (sidebarToggleBtn) sidebarToggleBtn.addEventListener('click', () => {
     sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
   });

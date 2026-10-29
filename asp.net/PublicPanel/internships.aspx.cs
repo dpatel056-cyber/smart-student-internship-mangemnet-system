@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,151 +9,139 @@ namespace asp.net
 {
     public partial class internships : System.Web.UI.Page
     {
-        SqlConnection con;
-        SqlDataAdapter da;
-        DataSet ds;
-
-        string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
+        publicpanel pub = new publicpanel();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            startcon();
             if (!IsPostBack)
             {
-                showInternships();
+                ViewState["page"] = 0;
+                fillgrid();
             }
         }
 
-        void getcon()
+        void startcon()
         {
-            con = new SqlConnection(s);
-
-                con.Open();
-
+            pub = new publicpanel();
+            pub.getcon();
         }
 
-        void showInternships()
+        void fillgrid()
         {
-            try
-            {
-                getcon();
-                string query = "select i.*, c.c_company, c.c_logo from internship i left join c_registration c on i.CompanyId = c.CompanyId order by i.Id desc";
-                if (Request.QueryString["companyId"] != null && !string.IsNullOrEmpty(Request.QueryString["companyId"]))
-                {
-                    string cid = Request.QueryString["companyId"].Trim();
-                    query = "select i.*, c.c_company, c.c_logo from internship i left join c_registration c on i.CompanyId = c.CompanyId where i.CompanyId='" + cid + "' order by i.Id desc";
-                }
-                da = new SqlDataAdapter(query, con);
-                ds = new DataSet();
-                da.Fill(ds);
+            pub = new publicpanel();
+            DataTable dt = pub.select_internship().Tables[0];
 
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    DataListPublicInternships.DataSource = ds;
-                    DataListPublicInternships.DataBind();
-                    DataListPublicInternships.Visible = true;
-                    if (pnlNoInternships != null) pnlNoInternships.Visible = false;
-                }
-                else
-                {
-                    DataListPublicInternships.Visible = false;
-                    if (pnlNoInternships != null) pnlNoInternships.Visible = true;
-                }
+            lblTotalInternships.Text = "Total Internships: " + dt.Rows.Count;
 
-                con.Close();
-            }
-            catch (Exception ex)
+            int page = Convert.ToInt32(ViewState["page"]);
+
+            int totalPages = (int)Math.Ceiling(dt.Rows.Count / 12.0);
+
+            if (totalPages > 0 && page >= totalPages)
             {
-                // Graceful fallback
+                page = totalPages - 1;
+                ViewState["page"] = page;
             }
+
+            DataListPublicInternships.DataSource = pub.Internship_pagination(dt, page);
+            DataListPublicInternships.DataBind();
+
+            lblPages.Text = "Page " + (page + 1) + " of " + totalPages;
+
+            btnPrevious.Enabled = page > 0;
+            btnNext.Enabled = page < totalPages - 1;
         }
 
-        public string GetCompanyLogo(object logoObj, object logoObj2 = null)
+        void filtergrid(DataTable dt)
         {
-            object targetLogo = (logoObj != null && logoObj != DBNull.Value && !string.IsNullOrEmpty(logoObj.ToString())) ? logoObj : logoObj2;
-            if (targetLogo != null && targetLogo != DBNull.Value && !string.IsNullOrEmpty(targetLogo.ToString()))
-            {
-                string logo = targetLogo.ToString();
-                if (logo.StartsWith("~") || logo.StartsWith("/"))
-                {
-                    return ResolveUrl(logo);
-                }
-                return ResolveUrl("~/CompanyUploads/" + logo);
-            }
-            return ResolveUrl("~/assets/default-company.png");
+            ViewState["page"] = 0;
+            lblTotalInternships.Text = "Total Internships: " + (dt != null ? dt.Rows.Count : 0);
+            DataListPublicInternships.DataSource = pub.Internship_pagination(dt, 0);
+            DataListPublicInternships.DataBind();
+            int totalPages = dt != null ? (int)Math.Ceiling(dt.Rows.Count / 12.0) : 0;
+            lblPages.Text = "Page 1 of " + (totalPages > 0 ? totalPages : 1);
+            btnPrevious.Enabled = false;
+            btnNext.Enabled = totalPages > 1;
         }
 
-        public string GetCompanyName(object nameObj, object companyNameObj = null)
+        // Search Button Click
+        protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
         {
-            if (nameObj != null && nameObj != DBNull.Value && !string.IsNullOrEmpty(nameObj.ToString()))
-            {
-                return nameObj.ToString();
-            }
-            if (companyNameObj != null && companyNameObj != DBNull.Value && !string.IsNullOrEmpty(companyNameObj.ToString()))
-            {
-                return companyNameObj.ToString();
-            }
-            return "Company";
+            pub = new publicpanel();
+            //DataListPublicInternships.DataSource = pub.search_internship(searchInput.Text);
+            //DataListPublicInternships.DataBind();
+
+            filtergrid(pub.search_internship(searchInput.Text).Tables[0]);
         }
 
-        public string GetPaymentStatusText(object status1, object status2 = null)
+        // Category / Domain DropDownList SelectedIndexChanged
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (status1 != null && status1 != DBNull.Value && !string.IsNullOrEmpty(status1.ToString()))
-            {
-                return status1.ToString();
-            }
-            if (status2 != null && status2 != DBNull.Value && !string.IsNullOrEmpty(status2.ToString()))
-            {
-                return status2.ToString();
-            }
-            return "Paid";
+            pub = new publicpanel();
+            //DataListPublicInternships.DataSource = pub.select_internship_by_category(ddlCategory.SelectedValue);
+            //DataListPublicInternships.DataBind
+
+            filtergrid(pub.select_internship_by_category(ddlCategory.SelectedValue).Tables[0]);
         }
 
-        public string GetPaymentBadgeClass(object status1, object status2 = null)
+        // Location / City DropDownList SelectedIndexChanged
+        protected void ddlLocation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string status = GetPaymentStatusText(status1, status2);
-            if (status.ToLower() == "paid")
-            {
-                return "badge-paid";
-            }
-            return "badge-unpaid";
+            pub = new publicpanel();
+            //DataListPublicInternships.DataSource = pub.select_internship_by_city(ddlLocation.SelectedValue);
+            //DataListPublicInternships.DataBind();
+
+            filtergrid(pub.select_internship_by_city(ddlLocation.SelectedValue).Tables[0]);
         }
 
-        public string GetStipendText(object status1, object amountObj)
+        // Duration DropDownList SelectedIndexChanged
+        protected void ddlDuration_SelectedIndexChanged(object sender, EventArgs e)
         {
-            return GetStipendText(status1, null, amountObj);
+            pub = new publicpanel();
+            //DataListPublicInternships.DataSource = pub.select_internship_by_duration(ddlDuration.SelectedValue);
+            //DataListPublicInternships.DataBind();
+
+            filtergrid(pub.select_internship_by_duration(ddlDuration.SelectedValue).Tables[0]);
         }
 
-        public string GetStipendText(object status1, object status2, object amountObj)
+        // Sort By DropDownList SelectedIndexChanged
+        protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string status = GetPaymentStatusText(status1, status2);
-            if (status.Equals("Unpaid", StringComparison.OrdinalIgnoreCase))
-            {
-                return "";
-            }
-            string amount = amountObj != null && amountObj != DBNull.Value ? amountObj.ToString().Trim() : "";
-            if (string.IsNullOrEmpty(amount) || amount == "0")
-            {
-                return "";
-            }
-            return "&#8377; " + amount + " / month";
+            pub = new publicpanel();
+            //DataListPublicInternships.DataSource = pub.sort_internship(ddlSortBy.SelectedValue);
+            //DataListPublicInternships.DataBind();
+
+            filtergrid(pub.sort_internship(ddlSortBy.SelectedValue).Tables[0]);
         }
 
-        public string FormatPostedDate(object date1, object date2 = null)
+        // Reset Button Click
+        protected void btnReset_Click(object sender, ImageClickEventArgs e)
         {
-            object dateObj = (date1 != null && date1 != DBNull.Value) ? date1 : date2;
-            if (dateObj != null && dateObj != DBNull.Value)
+            searchInput.Text = "";
+            ddlCategory.SelectedIndex = 0;
+            ddlLocation.SelectedIndex = 0;
+            ddlDuration.SelectedIndex = 0;
+            ddlSortBy.SelectedIndex = 0;
+            ViewState["page"] = 0;
+            fillgrid();
+        }
+
+        // Pagination Click Events
+        protected void btnPrevious_Click(object sender, ImageClickEventArgs e)
+        {
+            int page = Convert.ToInt32(ViewState["page"]);
+            if (page > 0)
             {
-                DateTime dt;
-                if (DateTime.TryParse(dateObj.ToString(), out dt))
-                {
-                    TimeSpan ts = DateTime.Now - dt;
-                    if (ts.TotalDays < 1) return "today";
-                    if (ts.TotalDays < 2) return "1 day ago";
-                    if (ts.TotalDays < 30) return (int)ts.TotalDays + " days ago";
-                    return dt.ToString("dd MMM yyyy");
-                }
+                ViewState["page"] = page - 1;
             }
-            return "recently";
+            fillgrid();
+        }
+
+        protected void btnNext_Click(object sender, ImageClickEventArgs e)
+        {
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) + 1;
+            fillgrid();
         }
     }
 }

@@ -2,14 +2,12 @@
    SIMS - Module 3 : Resume & Documents Management
    Shared stylesheet for: resume-dashboard / upload-resume /
    resume-preview / certificates-documents / internship-certificate.
-
    Reuses --blue-600 / --navy-900 / .btn / .modal-* / .pm-card /
    .pm-breadcrumb / .pm-form-group / .pm-item-card etc. from
    style.css + profile-module.css. Only NEW component classes
    needed for Module 3 live here, so style.css and
    profile-module.css never have to be touched.
 ============================================================ */
-
 /* ---- Status hero banner (Resume Dashboard) ---- */
 .rd-hero{
   background:linear-gradient(120deg,var(--navy-900), var(--blue-700));
@@ -43,7 +41,6 @@
 .rd-hero p{font-size:13px; color:#d7ddf5;}
 .rd-hero-right{position:relative; text-align:right;}
 .rd-hero-right .btn{margin-left:auto;}
-
 /* ---- Resume status pill (reuses colours of pm-resume-status) ---- */
 .rd-status-pill{
   display:inline-flex; align-items:center; gap:6px;
@@ -51,7 +48,6 @@
 }
 .rd-status-pill.uploaded{background:rgba(34,197,94,.18); color:#bbf7d0;}
 .rd-status-pill.missing{background:rgba(239,68,68,.2); color:#fecaca;}
-
 /* ---- Feature / action card grid (Resume Dashboard) ---- */
 .rd-card-grid{
   display:grid;
@@ -79,7 +75,6 @@
 .rd-action-card .btn{align-self:flex-start; padding:9px 18px; font-size:13px;}
 .rd-action-card .btn-danger{background:#fee2e2; color:#ef4444;}
 .rd-action-card .btn-danger:hover{background:#fecaca;}
-
 /* ---- Drag & drop upload zone ---- */
 .rd-dropzone{
   border:2px dashed var(--border-light);
@@ -101,7 +96,6 @@
 .rd-dropzone h3{font-size:16px; color:var(--navy-900); margin-bottom:6px;}
 .rd-dropzone p{font-size:12.5px; color:var(--text-muted);}
 .rd-dropzone .rd-browse-link{color:var(--blue-600); font-weight:700; text-decoration:underline; cursor:pointer;}
-
 .rd-upload-rules{
   display:flex; flex-wrap:wrap; gap:10px 22px;
   margin-top:18px;
@@ -111,7 +105,6 @@
   font-size:12.5px; color:var(--text-muted);
 }
 .rd-upload-rule i{color:var(--blue-600); font-size:13px;}
-
 /* ---- Selected file row ---- */
 .rd-file-row{
   display:flex; align-items:center; gap:14px;
@@ -134,7 +127,6 @@
   transition:all .2s;
 }
 .rd-file-row .rd-file-remove:hover{background:#fee2e2; color:#ef4444;}
-
 /* ---- Upload progress bar ---- */
 .rd-progress-wrap{margin-top:20px; display:none;}
 .rd-progress-wrap.show{display:block;}
@@ -143,10 +135,8 @@
 .rd-progress-top strong{font-size:13px; color:var(--blue-600);}
 .rd-progress-track{width:100%; height:10px; background:#e5e9f2; border-radius:20px; overflow:hidden;}
 .rd-progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--blue-600),var(--blue-700)); border-radius:20px; transition:width .25s linear;}
-
 .rd-upload-actions{display:flex; gap:12px; margin-top:24px; justify-content:flex-end;}
 .rd-upload-actions .btn{min-width:150px; justify-content:center;}
-
 /* ---- PDF preview card (Resume Preview) ---- */
 .rd-preview-layout{
   display:grid;
@@ -170,11 +160,9 @@
 .rd-pdf-placeholder p{font-size:12.5px;}
 .rd-pdf-card .rd-pdf-name{font-size:14px; font-weight:700; color:var(--navy-900); margin-bottom:4px; word-break:break-all;}
 .rd-pdf-card .rd-pdf-meta{font-size:12px; color:var(--text-muted);}
-
 .rd-info-list{display:flex; flex-direction:column; gap:0;}
 .rd-info-list .pm-info-item{padding:12px 0; border-bottom:1px solid var(--border-light);}
 .rd-info-list .pm-info-item:last-child{border-bottom:none;}
-
 .rd-empty-resume{
   background:#fff; border-radius:16px; padding:60px 30px; text-align:center;
   box-shadow:0 10px 30px rgba(15,23,42,.05);
@@ -182,14 +170,12 @@
 .rd-empty-resume i{font-size:54px; color:#cbd5e1; margin-bottom:18px; display:block;}
 .rd-empty-resume h3{font-size:17px; color:var(--navy-900); margin-bottom:8px;}
 .rd-empty-resume p{font-size:13px; color:var(--text-muted); margin-bottom:22px; max-width:380px; margin-left:auto; margin-right:auto;}
-
 /* ---- Certificates & Documents ---- */
 .rd-doc-toolbar{
   display:flex; align-items:center; justify-content:space-between; gap:14px;
   flex-wrap:wrap; margin-bottom:20px;
 }
 .rd-doc-toolbar-actions{display:flex; gap:10px; flex-wrap:wrap;}
-
 .rd-doc-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
@@ -220,7 +206,6 @@
 }
 .rd-cat-badge.cat-certificate{background:#fff4e2; color:#b45309;}
 .rd-cat-badge.cat-academic{background:#f3e8ff; color:#9333ea;}
-
 /* ---- File type select cards inside upload document modal ---- */
 .rd-radio-cards{display:flex; gap:12px; margin-bottom:18px; flex-wrap:wrap;}
 .rd-radio-card{
@@ -231,7 +216,6 @@
 .rd-radio-card input{accent-color:var(--blue-600);}
 .rd-radio-card.active{border-color:var(--blue-600); background:var(--blue-50);}
 .rd-radio-card span{font-size:13px; font-weight:600; color:var(--text-dark);}
-
 /* ---- Internship Certificate ---- */
 .rd-cert-wrap{
   background:#fff; border-radius:16px; padding:20px;
@@ -265,7 +249,6 @@
 }
 .rd-cert-body{font-size:14px; color:var(--text-dark); line-height:1.9; max-width:640px; margin:0 auto 26px;}
 .rd-cert-body strong{color:var(--navy-900);}
-
 .rd-cert-details{
   display:grid; grid-template-columns:repeat(3, 1fr); gap:18px;
   max-width:640px; margin:0 auto 30px;
@@ -273,7 +256,6 @@
 }
 .rd-cert-detail-label{font-size:10.5px; text-transform:uppercase; letter-spacing:.4px; color:var(--text-muted); margin-bottom:4px;}
 .rd-cert-detail-value{font-size:13.5px; font-weight:700; color:var(--navy-900);}
-
 .rd-cert-footer{
   display:flex; align-items:flex-end; justify-content:space-between; gap:20px;
   max-width:720px; margin:0 auto; flex-wrap:wrap;
@@ -292,10 +274,8 @@
   background:var(--blue-50); color:var(--blue-600);
   font-size:10.5px; font-weight:700; padding:5px 12px; border-radius:20px;
 }
-
 .rd-cert-actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
 .rd-cert-actions .btn{min-width:170px; justify-content:center;}
-
 /* ---- Responsive ---- */
 @media (max-width:1100px){
   .rd-card-grid{grid-template-columns:repeat(2, 1fr);}
@@ -316,7 +296,6 @@
   .rd-cert-footer{flex-direction:column; align-items:center; text-align:center;}
   .rd-doc-toolbar{flex-direction:column; align-items:stretch;}
 }
-
 /* ---- Print styles: only the certificate should print ---- */
 @media print{
   body *{visibility:hidden;}

@@ -18,10 +18,22 @@ namespace asp.net.AdminPanel
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["admin"] != null)
             {
-                showcontact();
+                getcon();
+                da = new SqlDataAdapter("select * from admin_registration where Email='" + Session["admin"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
 
+                if (!IsPostBack)
+                {
+                    ViewState["page"] = 0;
+                    contactfillgrid();
+                }
+            }
+            else
+            {
+                Response.Redirect("~/PublicPanel/login.aspx");
             }
         }
 
@@ -31,24 +43,71 @@ namespace asp.net.AdminPanel
             con.Open();
         }
 
-        void showcontact()
+        AdminClass admin = new AdminClass();
+
+        void contactfillgrid()
         {
-            getcon();
-            da = new SqlDataAdapter("select * from cont", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            GridView1.DataSource = ds;
+            admin = new AdminClass();
+            DataTable dt = admin.select_contact_messages().Tables[0];
+            int page = Convert.ToInt32(ViewState["page"]);
+            int totalPages = (int)Math.Ceiling(dt.Rows.Count / 5.0);
+            if (totalPages > 0 && page >= totalPages)
+            {
+                page = totalPages - 1;
+                ViewState["page"] = page;
+            }
+            GridView1.DataSource = admin.contact_message_pagination(dt, page);
             GridView1.DataBind();
+            lblPages.Text = "Page " + (page + 1) + " of " + (totalPages > 0 ? totalPages : 1);
+            btnPrevious.Enabled = page > 0;
+            btnNext.Enabled = (page + 1) * 5 < dt.Rows.Count;
         }
 
+        void filtergrid(DataTable dt)
+        {
+            ViewState["page"] = 0;
+            GridView1.DataSource = admin.contact_message_pagination(dt, 0);
+            GridView1.DataBind();
+            int totalPages = dt != null ? (int)Math.Ceiling(dt.Rows.Count / 5.0) : 0;
+            lblPages.Text = "Page 1 of " + (totalPages > 0 ? totalPages : 1);
+            btnPrevious.Enabled = false;
+            btnNext.Enabled = dt != null && dt.Rows.Count > 5;
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            admin = new AdminClass();
+            filtergrid(admin.search_contact_messages(txtSearch.Text).Tables[0]);
+        }
+
+        protected void btnClearFilters_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = "";
+            ViewState["page"] = 0;
+            contactfillgrid();
+        }
+
+        // Pagination Click Events
+
+        protected void btnPrevious_Click(object sender, EventArgs e)
+        {
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) - 1;
+            contactfillgrid();
+        }
+
+        protected void btnNext_Click(object sender, EventArgs e)
+        {
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) + 1;
+            contactfillgrid();
+        }
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int id = Convert.ToInt32(e.CommandArgument);
             if (e.CommandName == "ViewContact")
             {
                 getcon();
-                int id = Convert.ToInt32(e.CommandArgument);
-                da = new SqlDataAdapter("select * from cont where Id='" + id + "'",con);
+                da = new SqlDataAdapter("select * from cont where Id=" + id, con);
                 ds = new DataSet();
                 da.Fill(ds);
 
@@ -61,13 +120,12 @@ namespace asp.net.AdminPanel
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenDrawer", "openDrawer();", true);
             }
-            else if (e.CommandName == "cmd_dlt")
+            if (e.CommandName == "cmd_dlt")
             {
                 getcon();
-                int id = Convert.ToInt16(e.CommandArgument);
-                cmd = new SqlCommand("delete from cont where Id='" + id + "'", con);
+                cmd = new SqlCommand("delete from cont where Id=" + id, con);
                 cmd.ExecuteNonQuery();
-                showcontact();
+                contactfillgrid();
             }
         }
     }

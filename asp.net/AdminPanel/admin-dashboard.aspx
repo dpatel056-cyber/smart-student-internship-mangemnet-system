@@ -1,351 +1,401 @@
 <%@ Page Title="Admin Dashboard" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="admin-dashboard.aspx.cs" Inherits="asp.net.admin_dashboard" %>
+
+<%@ Register Assembly="System.Web.DataVisualization"
+    Namespace="System.Web.UI.DataVisualization.Charting"
+    TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script src="../js/admin-dashboard-charts.js" defer></script>
+    <link rel="stylesheet" href="../css/admin-dashboard.css" />
 </asp:Content>
-<asp:Content ID="Content2" runat="server" contentplaceholderid="ContentPlaceHolder1">
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="sims-dashboard">
+        <!-- ===================== 1. WELCOME SECTION ===================== -->
+        <div class="sims-dashboard-header">
+            <div class="sims-dashboard-header-text">
+                <h1 class="sims-dashboard-title">Dashboard</h1>
+                <p class="sims-dashboard-subtitle">Welcome back, Admin. Here's what's happening with your internship management system.</p>
+            </div>
+        </div>
 
-    <!-- ===================== 1. WELCOME SECTION ===================== -->
-    <div class="sims-dashboard-header">
-        <div class="sims-dashboard-header-text">
-            <h1 class="sims-dashboard-title">Dashboard</h1>
-            <p class="sims-dashboard-subtitle">Welcome back, Admin. Here's what's happening with your internship management system.</p>
+        <!-- ===================== 2. TOP KPI STAT CARDS (4x2 GRID) ===================== -->
+        <div class="sims-stat-grid-v2">
+            <!-- Card 1: Total Students -->
+            <div class="sims-stat-card-v2">
+                <div class="sims-stat-icon-v2 sims-bg-purple">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div class="sims-stat-info-v2">
+                    <span class="sims-stat-title-v2">Total Students</span>
+                    <span class="sims-stat-num-v2">
+                        <asp:Label ID="lblTotalStudents" runat="server"></asp:Label></span>
+                </div>
+            </div>
+
+            <!-- Card 2: Total Companies -->
+            <div class="sims-stat-card-v2">
+                <div class="sims-stat-icon-v2 sims-bg-blue">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+                <div class="sims-stat-info-v2">
+                    <span class="sims-stat-title-v2">Total Companies</span>
+                    <span class="sims-stat-num-v2">
+                        <asp:Label ID="lblTotalCompanies" runat="server"></asp:Label></span>
+                </div>
+            </div>
+
+            <!-- Card 3: Total Internships -->
+            <div class="sims-stat-card-v2">
+                <div class="sims-stat-icon-v2 sims-bg-green">
+                    <i class="fa-solid fa-briefcase"></i>
+                </div>
+                <div class="sims-stat-info-v2">
+                    <span class="sims-stat-title-v2">Total Internships</span>
+                    <span class="sims-stat-num-v2">
+                        <asp:Label ID="lblTotalInternships" runat="server"></asp:Label></span>
+                </div>
+            </div>
+
+            <!-- Card 4: Total Applications -->
+            <div class="sims-stat-card-v2">
+                <div class="sims-stat-icon-v2 sims-bg-orange">
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+                <div class="sims-stat-info-v2">
+                    <span class="sims-stat-title-v2">Total Applications</span>
+                    <span class="sims-stat-num-v2">
+                        <asp:Label ID="lblTotalApplications" runat="server"></asp:Label></span>
+                </div>
+            </div>
+
+            <!-- Card 5: Pending Applications -->
+            <div class="sims-stat-card-v2">
+                <div class="sims-stat-icon-v2 sims-bg-yellow">
+                    <i class="fa-solid fa-hourglass-half"></i>
+                </div>
+                <div class="sims-stat-info-v2">
+                    <span class="sims-stat-title-v2">Pending Applications</span>
+                    <span class="sims-stat-num-v2">
+                        <asp:Label ID="lblPendingApps" runat="server"></asp:Label></span>
+                </div>
+            </div>
+
+            <!-- Card 6: Upcoming Interviews -->
+            <div class="sims-stat-card-v2">
+                <div class="sims-stat-icon-v2 sims-bg-purple-light">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+                <div class="sims-stat-info-v2">
+                    <span class="sims-stat-title-v2">Upcoming Interviews</span>
+                    <span class="sims-stat-num-v2">
+                        <asp:Label ID="lblUpcomingInterviews" runat="server"></asp:Label></span>
+                </div>
+            </div>
+
+            <!-- Card 7: Certificates Issued -->
+            <div class="sims-stat-card-v2">
+                <div class="sims-stat-icon-v2 sims-bg-teal">
+                    <i class="fa-solid fa-certificate"></i>
+                </div>
+                <div class="sims-stat-info-v2">
+                    <span class="sims-stat-title-v2">Certificates Issued</span>
+                    <span class="sims-stat-num-v2">
+                        <asp:Label ID="lblCertificatesIssued" runat="server"></asp:Label></span>
+                </div>
+            </div>
+
+            <!-- Card 8: Total Inquiries -->
+            <div class="sims-stat-card-v2">
+                <div class="sims-stat-icon-v2 sims-bg-pink">
+                    <i class="fa-solid fa-comments"></i>
+                </div>
+                <div class="sims-stat-info-v2">
+                    <span class="sims-stat-title-v2">Total Inquiries</span>
+                    <span class="sims-stat-num-v2">
+                        <asp:Label ID="lblTotalFeedback" runat="server"></asp:Label></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== 3. APPLICATION ANALYTICS (2 CARDS) ===================== -->
+        <div class="dash-analytics-grid">
+            <div class="dash-card">
+                <div class="dash-card-header">
+                    <h2 class="dash-card-title">
+                        <i class="fa-solid fa-chart-pie dash-icon-blue"></i>
+                        Application Overview
+                    </h2>
+                </div>
+
+                <div class="dash-chart-wrap">
+                    <asp:Chart ID="adminApplicationPieChart" runat="server"
+                        Width="440px" Height="270px"
+                        BackColor="White"
+                        Palette="None"
+                        AntiAliasing="All"
+                        ImageType="Png"
+                        RenderType="ImageTag">
+
+                        <Series>
+                            <asp:Series Name="Applications"
+                                ChartType="Doughnut"
+                                XValueMember="Status"
+                                YValueMembers="Total"
+                                IsValueShownAsLabel="true"
+                                Font="Segoe UI, 9pt"
+                                YValueType="Int32"
+                                ChartArea="ApplicationArea"
+                                Legend="ApplicationLegend">
+                            </asp:Series>
+                        </Series>
+
+                        <ChartAreas>
+                            <asp:ChartArea Name="ApplicationArea"
+                                BackColor="White">
+                            </asp:ChartArea>
+                        </ChartAreas>
+
+                        <Legends>
+                            <asp:Legend Name="ApplicationLegend"
+                                Docking="Right"
+                                Alignment="Center"
+                                BackColor="White"
+                                Font="Segoe UI, 10px, style=Bold"
+                                ForeColor="#334155">
+                            </asp:Legend>
+                        </Legends>
+                    </asp:Chart>
+                </div>
+            </div>
+
+            <!-- RIGHT: APPLICATION STATUS BREAKDOWN -->
+            <div class="dash-card">
+                <div class="dash-card-header">
+                    <h2 class="dash-card-title">
+                        <i class="fa-solid fa-list-check dash-icon-blue"></i>Application Status
+                    </h2>
+                    <asp:HyperLink ID="lnkStatusViewAll" runat="server" NavigateUrl="admin-student-applications.aspx" CssClass="dash-link">View All &rarr;</asp:HyperLink>
+                </div>
+                <div class="dash-status-list">
+                    <!-- Selected -->
+                    <div class="dash-status-row dash-status-selected">
+                        <div class="dash-status-left">
+                            <span class="dash-status-pill"><i class="fa-solid fa-check"></i>Selected</span>
+                            <span>Selected Candidates</span>
+                        </div>
+                        <span class="dash-status-count">
+                            <asp:Label ID="lblStatusSelected" runat="server"></asp:Label></span>
+                    </div>
+
+                    <!-- Shortlisted -->
+                    <div class="dash-status-row dash-status-shortlisted">
+                        <div class="dash-status-left">
+                            <span class="dash-status-pill"><i class="fa-solid fa-list-check"></i>Shortlisted</span>
+                            <span>Shortlisted for Review</span>
+                        </div>
+                        <span class="dash-status-count">
+                            <asp:Label ID="lblStatusShortlisted" runat="server"></asp:Label></span>
+                    </div>
+
+                    <!-- Pending -->
+                    <div class="dash-status-row dash-status-pending">
+                        <div class="dash-status-left">
+                            <span class="dash-status-pill"><i class="fa-solid fa-clock"></i>Pending</span>
+                            <span>Applications Under Review</span>
+                        </div>
+                        <span class="dash-status-count">
+                            <asp:Label ID="lblStatusPending" runat="server"></asp:Label></span>
+                    </div>
+
+                    <!-- Rejected -->
+                    <div class="dash-status-row dash-status-rejected">
+                        <div class="dash-status-left">
+                            <span class="dash-status-pill"><i class="fa-solid fa-xmark"></i>Rejected</span>
+                            <span>Rejected Applications</span>
+                        </div>
+                        <span class="dash-status-count">
+                            <asp:Label ID="lblStatusRejected" runat="server"></asp:Label></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== 4. RECENT APPLICATIONS (FULL WIDTH) ===================== -->
+        <div class="dash-card dash-card-full">
+            <div class="dash-card-header dash-card-header-tight">
+                <h2 class="dash-card-title">
+                    <i class="fa-solid fa-file-lines dash-icon-blue"></i>Recent Applications
+                </h2>
+                <asp:HyperLink ID="lnkApplicationsViewAll" runat="server" NavigateUrl="admin-student-applications.aspx" CssClass="dash-link dash-link-icon">View All Applications <i class="fa-solid fa-arrow-right"></i></asp:HyperLink>
+            </div>
+            <p class="dash-subtitle">Latest internship applications submitted by students</p>
+            <div class="dash-table-box">
+                <div class="dash-table-scroll">
+                    <asp:GridView ID="gvRecentApplications" runat="server" AutoGenerateColumns="False" CssClass="dash-grid" GridLines="None" ShowHeaderWhenEmpty="true" Width="100%">
+                        <Columns>
+                            <asp:TemplateField HeaderText="STUDENT">
+                                <ItemTemplate>
+                                    <div class="dash-cell dash-cell-student">
+                                        <asp:Label ID="lblStudentName" runat="server" Text='<%# Eval("FullName") %>' CssClass="dash-student-name"></asp:Label>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="EMAIL">
+                                <ItemTemplate>
+                                    <div class="dash-cell">
+                                        <i class="fa-regular fa-envelope"></i>
+                                        <asp:Label ID="lblStudentEmail" runat="server" Text='<%# Eval("StudentEmail") %>'></asp:Label>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="INTERNSHIP">
+                                <ItemTemplate>
+                                    <div class="dash-cell dash-cell-internship">
+                                        <i class="fa-solid fa-laptop-code"></i>
+                                        <asp:Label ID="lblInternshipTitle" runat="server" Text='<%# Eval("InternshipTitle") %>' CssClass="dash-internship-title"></asp:Label>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="COMPANY">
+                                <ItemTemplate>
+                                    <div class="dash-cell dash-cell-company">
+                                        <i class="fa-solid fa-building"></i>
+                                        <asp:Label ID="lblCompanyName" runat="server" Text='<%# Eval("c_company") %>'></asp:Label>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="APPLIED DATE">
+                                <ItemTemplate>
+                                    <div class="dash-cell dash-cell-date">
+                                        <i class="fa-regular fa-calendar"></i>
+                                        <asp:Label ID="lblAppliedDate" runat="server" Text='<%# Eval("AppliedDate", "{0:dd MMM yyyy}") %>'></asp:Label>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="STATUS">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblStatus" runat="server"
+                                        Text='<%# GetStatusBadge(Eval("Status").ToString()) %>'>
+                                    </asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <EmptyDataTemplate>
+                            <div class="dash-empty">
+                                <i class="fa-regular fa-folder-open"></i>
+                                No recent applications found.
+                            </div>
+                        </EmptyDataTemplate>
+                    </asp:GridView>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== 5. RECENT COMPANIES (50%) & QUICK ACTIONS (50%) ===================== -->
+        <div class="dash-bottom-grid">
+            <!-- LEFT: RECENT COMPANIES -->
+            <div class="dash-card dash-card-sm">
+                <div class="dash-card-header dash-card-header-sm">
+                    <h2 class="dash-card-title dash-card-title-sm">
+                        <i class="fa-solid fa-building dash-icon-blue"></i>Recent Companies
+                    </h2>
+                    <asp:HyperLink ID="lnkCompaniesViewAll" runat="server" NavigateUrl="admin-companies.aspx" CssClass="dash-link dash-link-sm">View All &rarr;</asp:HyperLink>
+                </div>
+                <p class="dash-subtitle dash-subtitle-sm">Newly registered companies</p>
+                <div class="dash-company-list">
+                    <asp:GridView ID="gvRecentCompanies" runat="server" AutoGenerateColumns="False" GridLines="None" ShowHeader="false" Width="100%">
+                        <Columns>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <div class="dash-company-item">
+                                        <div class="dash-company-left">
+                                            <asp:Image ID="imgCompanyLogo" runat="server" ImageUrl='<%# Eval("c_logo") %>' CssClass="dash-company-logo" />
+                                            <div>
+                                                <span class="dash-company-name">
+                                                    <asp:Label ID="lblCompanyName" runat="server" Text='<%# Eval("c_company") %>'></asp:Label>
+                                                </span>
+                                                <span class="dash-company-meta">
+                                                    <asp:Label ID="lblCompanyIndustry" runat="server" Text='<%# Eval("c_industry") %>'></asp:Label>
+                                                    &middot;
+                                                    <asp:Label ID="lblCompanyLocation" runat="server" Text='<%# Eval("c_location") %>'></asp:Label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <asp:HyperLink ID="lnkViewCompany" runat="server" NavigateUrl='<%# "viewCompanyDetails.aspx?id=" + Eval("CompanyId") %>' CssClass="dash-company-view">View <i class="fa-solid fa-chevron-right"></i></asp:HyperLink>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <EmptyDataTemplate>
+                            <div class="dash-empty dash-empty-sm">No recent companies found.</div>
+                        </EmptyDataTemplate>
+                    </asp:GridView>
+                </div>
+            </div>
+
+            <!-- RIGHT: QUICK ACTIONS -->
+            <div class="dash-card dash-card-sm">
+                <div class="dash-card-header dash-card-header-sm">
+                    <h2 class="dash-card-title dash-card-title-sm">
+                        <i class="fa-solid fa-bolt dash-icon-amber"></i>Quick Actions
+                    </h2>
+                </div>
+                <p class="dash-subtitle dash-subtitle-sm">Fast access to management and master records</p>
+                <div class="dash-actions">
+                    <!-- Action 1: All Students -->
+                    <asp:HyperLink ID="lnkAllStudents" runat="server" NavigateUrl="admin-students.aspx" CssClass="dash-action dash-action-purple">
+                        <div class="dash-action-left">
+                            <div class="dash-action-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                            <div>
+                                <div class="dash-action-title">All Students</div>
+                                <div class="dash-action-desc">Manage profiles, search & enrollments</div>
+                            </div>
+                        </div>
+                        <div class="dash-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    </asp:HyperLink>
+
+                    <!-- Action 2: All Companies -->
+                    <asp:HyperLink ID="lnkAllCompanies" runat="server" NavigateUrl="admin-companies.aspx" CssClass="dash-action dash-action-blue">
+                        <div class="dash-action-left">
+                            <div class="dash-action-icon"><i class="fa-solid fa-building"></i></div>
+                            <div>
+                                <div class="dash-action-title">All Companies</div>
+                                <div class="dash-action-desc">Browse employers & verification</div>
+                            </div>
+                        </div>
+                        <div class="dash-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    </asp:HyperLink>
+
+                    <!-- Action 3: All Internships -->
+                    <asp:HyperLink ID="lnkAllInternships" runat="server" NavigateUrl="admin-internships.aspx" CssClass="dash-action dash-action-green">
+                        <div class="dash-action-left">
+                            <div class="dash-action-icon"><i class="fa-solid fa-briefcase"></i></div>
+                            <div>
+                                <div class="dash-action-title">All Internships</div>
+                                <div class="dash-action-desc">View openings & active listings</div>
+                            </div>
+                        </div>
+                        <div class="dash-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    </asp:HyperLink>
+
+                    <!-- Action 4: All Applications -->
+                    <asp:HyperLink ID="lnkAllApplications" runat="server" NavigateUrl="admin-student-applications.aspx" CssClass="dash-action dash-action-amber">
+                        <div class="dash-action-left">
+                            <div class="dash-action-icon"><i class="fa-solid fa-file-signature"></i></div>
+                            <div>
+                                <div class="dash-action-title">All Applications</div>
+                                <div class="dash-action-desc">Track student submissions & status</div>
+                            </div>
+                        </div>
+                        <div class="dash-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    </asp:HyperLink>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- ===================== 2. TOP KPI STAT CARDS (4x2 GRID) ===================== -->
-    <div class="sims-stat-grid-v2">
-
-        <!-- Card 1: Total Students -->
-        <div class="sims-stat-card-v2">
-            <div class="sims-stat-icon-v2 sims-bg-purple">
-                <i class="fa-solid fa-user-graduate"></i>
-            </div>
-            <div class="sims-stat-info-v2">
-                <span class="sims-stat-title-v2">Total Students</span>
-                <span class="sims-stat-num-v2">1,245</span>
-            </div>
-        </div>
-
-        <!-- Card 2: Total Companies -->
-        <div class="sims-stat-card-v2">
-            <div class="sims-stat-icon-v2 sims-bg-blue">
-                <i class="fa-solid fa-building"></i>
-            </div>
-            <div class="sims-stat-info-v2">
-                <span class="sims-stat-title-v2">Total Companies</span>
-                <span class="sims-stat-num-v2">128</span>
-            </div>
-        </div>
-
-        <!-- Card 3: Total Internships -->
-        <div class="sims-stat-card-v2">
-            <div class="sims-stat-icon-v2 sims-bg-green">
-                <i class="fa-solid fa-briefcase"></i>
-            </div>
-            <div class="sims-stat-info-v2">
-                <span class="sims-stat-title-v2">Total Internships</span>
-                <span class="sims-stat-num-v2">356</span>
-            </div>
-        </div>
-
-        <!-- Card 4: Total Applications -->
-        <div class="sims-stat-card-v2">
-            <div class="sims-stat-icon-v2 sims-bg-orange">
-                <i class="fa-solid fa-file-lines"></i>
-            </div>
-            <div class="sims-stat-info-v2">
-                <span class="sims-stat-title-v2">Total Applications</span>
-                <span class="sims-stat-num-v2">2,845</span>
-            </div>
-        </div>
-
-        <!-- Card 5: Pending Verification -->
-        <div class="sims-stat-card-v2">
-            <div class="sims-stat-icon-v2 sims-bg-yellow">
-                <i class="fa-solid fa-user-clock"></i>
-            </div>
-            <div class="sims-stat-info-v2">
-                <span class="sims-stat-title-v2">Pending Verification</span>
-                <span class="sims-stat-num-v2">12</span>
-            </div>
-        </div>
-
-        <!-- Card 6: Upcoming Interviews -->
-        <div class="sims-stat-card-v2">
-            <div class="sims-stat-icon-v2 sims-bg-purple-light">
-                <i class="fa-solid fa-calendar-days"></i>
-            </div>
-            <div class="sims-stat-info-v2">
-                <span class="sims-stat-title-v2">Upcoming Interviews</span>
-                <span class="sims-stat-num-v2">84</span>
-            </div>
-        </div>
-
-        <!-- Card 7: Certificates Issued -->
-        <div class="sims-stat-card-v2">
-            <div class="sims-stat-icon-v2 sims-bg-teal">
-                <i class="fa-solid fa-certificate"></i>
-            </div>
-            <div class="sims-stat-info-v2">
-                <span class="sims-stat-title-v2">Certificates Issued</span>
-                <span class="sims-stat-num-v2">216</span>
-            </div>
-        </div>
-
-        <!-- Card 8: Average Rating -->
-        <div class="sims-stat-card-v2">
-            <div class="sims-stat-icon-v2 sims-bg-pink">
-                <i class="fa-solid fa-star"></i>
-            </div>
-            <div class="sims-stat-info-v2">
-                <span class="sims-stat-title-v2">Average Rating</span>
-                <span class="sims-stat-num-v2">4.6 / 5</span>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ===================== 3. MIDDLE WIDGETS ROW (3 COLUMNS) ===================== -->
-    <div class="sims-widgets-grid-v2">
-
-        <!-- Column 1: Registration Overview -->
-        <div class="sims-widget-card-v2">
-            <div class="sims-widget-header-v2">
-                <h2 class="sims-widget-title-v2">Registration Overview</h2>
-                <select class="sims-widget-select-v2">
-                    <option>Last 6 Months</option>
-                    <option>Last 3 Months</option>
-                    <option>This Year</option>
-                </select>
-            </div>
-            <div class="sims-widget-legend-v2">
-                <span class="sims-legend-item-v2"><span class="sims-dot-v2 sims-dot-purple"></span> Students</span>
-                <span class="sims-legend-item-v2"><span class="sims-dot-v2 sims-dot-cyan"></span> Companies</span>
-            </div>
-            <div class="sims-chart-container-v2">
-                <canvas id="simsRegistrationChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Column 2: Application Status -->
-        <div class="sims-widget-card-v2">
-            <div class="sims-widget-header-v2">
-                <h2 class="sims-widget-title-v2">Application Status</h2>
-            </div>
-            <div class="sims-status-donut-flex-v2">
-                <div class="sims-donut-wrap-v2">
-                    <canvas id="simsApplicationStatusDonut"></canvas>
-                    <div class="sims-donut-center-v2">
-                        <span class="sims-donut-total-v2">2,845</span>
-                        <span class="sims-donut-lbl-v2">Total</span>
-                    </div>
-                </div>
-                <ul class="sims-donut-legend-v2">
-                    <li><span class="sims-dot-v2 sims-dot-yellow"></span> Applied <span class="sims-donut-val-v2">1,245 (43.8%)</span></li>
-                    <li><span class="sims-dot-v2 sims-dot-blue"></span> Shortlisted <span class="sims-donut-val-v2">645 (22.7%)</span></li>
-                    <li><span class="sims-dot-v2 sims-dot-purple"></span> Interview <span class="sims-donut-val-v2">485 (17.1%)</span></li>
-                    <li><span class="sims-dot-v2 sims-dot-green"></span> Selected <span class="sims-donut-val-v2">325 (11.4%)</span></li>
-                    <li><span class="sims-dot-v2 sims-dot-red"></span> Rejected <span class="sims-donut-val-v2">145 (5.0%)</span></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Column 3: Internship Overview -->
-        <div class="sims-widget-card-v2">
-            <div class="sims-widget-header-v2">
-                <h2 class="sims-widget-title-v2">Internship Overview</h2>
-            </div>
-            <div class="sims-progress-bars-v2">
-                
-                <div class="sims-pbar-item-v2">
-                    <div class="sims-pbar-head-v2">
-                        <span>Active Internships</span>
-                        <strong>120</strong>
-                    </div>
-                    <div class="sims-pbar-track-v2">
-                        <div class="sims-pbar-fill-v2 sims-fill-green-v2" style="width: 78%;"></div>
-                    </div>
-                </div>
-
-                <div class="sims-pbar-item-v2">
-                    <div class="sims-pbar-head-v2">
-                        <span>Pending Approval</span>
-                        <strong>35</strong>
-                    </div>
-                    <div class="sims-pbar-track-v2">
-                        <div class="sims-pbar-fill-v2 sims-fill-orange-v2" style="width: 25%;"></div>
-                    </div>
-                </div>
-
-                <div class="sims-pbar-item-v2">
-                    <div class="sims-pbar-head-v2">
-                        <span>Completed</span>
-                        <strong>72</strong>
-                    </div>
-                    <div class="sims-pbar-track-v2">
-                        <div class="sims-pbar-fill-v2 sims-fill-blue-v2" style="width: 48%;"></div>
-                    </div>
-                </div>
-
-                <div class="sims-pbar-item-v2">
-                    <div class="sims-pbar-head-v2">
-                        <span>Expired</span>
-                        <strong>18</strong>
-                    </div>
-                    <div class="sims-pbar-track-v2">
-                        <div class="sims-pbar-fill-v2 sims-fill-red-v2" style="width: 15%;"></div>
-                    </div>
-                </div>
-
-                <div class="sims-pbar-item-v2">
-                    <div class="sims-pbar-head-v2">
-                        <span>Rejected</span>
-                        <strong>11</strong>
-                    </div>
-                    <div class="sims-pbar-track-v2">
-                        <div class="sims-pbar-fill-v2 sims-fill-slate-v2" style="width: 9%;"></div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="sims-widget-footer-v2">
-                <a href="admin-internships.aspx" class="sims-footer-link-v2">View All Internships &rarr;</a>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ===================== 4. RECENT TABLES ROW ===================== -->
-    <div class="sims-recent-row-v2">
-
-        <!-- Recent Applications -->
-        <div class="sims-widget-card-v2">
-            <div class="sims-widget-header-v2">
-                <h2 class="sims-widget-title-v2">Recent Applications</h2>
-                <a href="admin-applications.aspx" class="sims-footer-link-v2">View All Applications &rarr;</a>
-            </div>
-            <p class="sims-recent-sub-v2">Latest internship applications submitted by students</p>
-            <div class="sims-table-responsive-v2">
-                <table class="sims-recent-table-v2">
-                    <thead>
-                        <tr>
-                            <th>STUDENT</th>
-                            <th>INTERNSHIP</th>
-                            <th>COMPANY</th>
-                            <th>APPLIED DATE</th>
-                            <th>STATUS</th>
-                            <th>ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="sims-avatar-cell-v2">
-                                    <span class="sims-avatar-v2 sims-av-purple">DP</span>
-                                    Dhruvi Patel
-                                </div>
-                            </td>
-                            <td class="sims-link-cell-v2"><a href="#">Web Developer Intern</a></td>
-                            <td>ABC Technologies</td>
-                            <td>18 Aug 2026</td>
-                            <td><span class="sims-badge-v2 sims-badge-pending">Pending</span></td>
-                            <td><a href="#" class="sims-action-icon-v2" title="View"><i class="fa-regular fa-eye"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="sims-avatar-cell-v2">
-                                    <span class="sims-avatar-v2 sims-av-blue">RS</span>
-                                    Rahul Shah
-                                </div>
-                            </td>
-                            <td class="sims-link-cell-v2"><a href="#">.NET Developer Intern</a></td>
-                            <td>TechSoft Pvt Ltd</td>
-                            <td>17 Aug 2026</td>
-                            <td><span class="sims-badge-v2 sims-badge-selected">Selected</span></td>
-                            <td><a href="#" class="sims-action-icon-v2" title="View"><i class="fa-regular fa-eye"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="sims-avatar-cell-v2">
-                                    <span class="sims-avatar-v2 sims-av-green">PM</span>
-                                    Priya Mehta
-                                </div>
-                            </td>
-                            <td class="sims-link-cell-v2"><a href="#">UI/UX Design Intern</a></td>
-                            <td>Innovate Labs</td>
-                            <td>17 Aug 2026</td>
-                            <td><span class="sims-badge-v2 sims-badge-shortlisted">Shortlisted</span></td>
-                            <td><a href="#" class="sims-action-icon-v2" title="View"><i class="fa-regular fa-eye"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="sims-avatar-cell-v2">
-                                    <span class="sims-avatar-v2 sims-av-orange">AP</span>
-                                    Aarav Patel
-                                </div>
-                            </td>
-                            <td class="sims-link-cell-v2"><a href="#">Data Analyst Intern</a></td>
-                            <td>DataTech Solutions</td>
-                            <td>16 Aug 2026</td>
-                            <td><span class="sims-badge-v2 sims-badge-rejected">Rejected</span></td>
-                            <td><a href="#" class="sims-action-icon-v2" title="View"><i class="fa-regular fa-eye"></i></a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Recent Companies -->
-        <div class="sims-widget-card-v2 sims-recent-companies-v2">
-            <div class="sims-widget-header-v2">
-                <h2 class="sims-widget-title-v2">Recent Companies</h2>
-                <a href="admin-companies.aspx" class="sims-footer-link-v2">View All Companies &rarr;</a>
-            </div>
-            <p class="sims-recent-sub-v2">Newly registered companies</p>
-            <div class="sims-company-list-v2">
-
-                <div class="sims-company-item-v2">
-                    <div class="sims-company-logo-v2"><i class="fa-solid fa-building"></i></div>
-                    <div class="sims-company-info-v2">
-                        <span class="sims-company-name-v2">ABC Technologies</span>
-                        <span class="sims-company-meta-v2">Information Technology &middot; 18 Aug 2026</span>
-                    </div>
-                    <span class="sims-badge-v2 sims-badge-selected">Verified</span>
-                </div>
-
-                <div class="sims-company-item-v2">
-                    <div class="sims-company-logo-v2"><i class="fa-solid fa-building"></i></div>
-                    <div class="sims-company-info-v2">
-                        <span class="sims-company-name-v2">TechSoft Pvt Ltd</span>
-                        <span class="sims-company-meta-v2">Software Development &middot; 17 Aug 2026</span>
-                    </div>
-                    <span class="sims-badge-v2 sims-badge-selected">Verified</span>
-                </div>
-
-                <div class="sims-company-item-v2">
-                    <div class="sims-company-logo-v2"><i class="fa-solid fa-building"></i></div>
-                    <div class="sims-company-info-v2">
-                        <span class="sims-company-name-v2">Innovate Labs</span>
-                        <span class="sims-company-meta-v2">Technology &middot; 16 Aug 2026</span>
-                    </div>
-                    <span class="sims-badge-v2 sims-badge-pending">Pending</span>
-                </div>
-
-                <div class="sims-company-item-v2">
-                    <div class="sims-company-logo-v2"><i class="fa-solid fa-building"></i></div>
-                    <div class="sims-company-info-v2">
-                        <span class="sims-company-name-v2">DataTech Solutions</span>
-                        <span class="sims-company-meta-v2">Data Analytics &middot; 15 Aug 2026</span>
-                    </div>
-                    <span class="sims-badge-v2 sims-badge-selected">Verified</span>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-</div>
 </asp:Content>

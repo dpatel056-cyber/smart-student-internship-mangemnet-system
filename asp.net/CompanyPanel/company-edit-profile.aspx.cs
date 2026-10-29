@@ -14,22 +14,9 @@ namespace asp.net
         SqlDataAdapter da;
         DataSet ds;
         SqlCommand cmd;
-        string fnm;
+        string path, fnm;
 
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (Session["company"] == null)
-            {
-                Response.Redirect("~/PublicPanel/login.aspx");
-            }
-
-            if (!IsPostBack)
-            {
-                companyfilldata();
-            }
-        }
 
         void getcon()
         {
@@ -37,21 +24,37 @@ namespace asp.net
             con.Open();
         }
 
-        void imgupload()
+        protected void Page_Load(object sender, EventArgs e)
         {
-            if (fileProfilePhoto.HasFile)
+            if (Session["company"] != null)
             {
-                string path = Server.MapPath("~/CompanyUploads/");
-                if (!Directory.Exists(path))
+                getcon();
+                da = new SqlDataAdapter("select * from c_registration where c_email='" + Session["company"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
+
+                if (!IsPostBack)
                 {
-                    Directory.CreateDirectory(path);
+                    companyfilldata();
                 }
-                fnm = "~/CompanyUploads/" + fileProfilePhoto.FileName;
-                fileProfilePhoto.SaveAs(Server.MapPath(fnm));
             }
             else
             {
-                fnm = null;
+                Response.Redirect("~/PublicPanel/login.aspx");
+            }
+        }
+
+        void imgupload()
+        {
+            path = Path.GetExtension(FileUpload1.FileName);
+            if (path == ".jpg" || path == ".jpeg" || path == ".png" || path == ".webp" || path == ".JPG" || path == ".PNG")
+            {
+                fnm = "~/compnay_images/" + FileUpload1.FileName;
+                FileUpload1.SaveAs(Server.MapPath(fnm));
+            }
+            else if (path != "")
+            {
+                Response.Write("<script>alert('please select valid image')</script>");
             }
         }
 
@@ -66,12 +69,10 @@ namespace asp.net
             if (ds.Tables[0].Rows.Count > 0)
             {
                 // Basic Details
-                txtCompanyName.Text = ds.Tables[0].Rows[0]["c_company"].ToString();
+                txtCompanyName.Text= ds.Tables[0].Rows[0]["c_company"].ToString();
                 txtIndustry.Text = ds.Tables[0].Rows[0]["c_industry"].ToString();
 
-
                 ddlCompanyType.SelectedValue = ds.Tables[0].Rows[0]["c_type"].ToString();
-
 
                 ddlCompanySize.SelectedValue = ds.Tables[0].Rows[0]["c_size"].ToString();
 
@@ -104,9 +105,7 @@ namespace asp.net
                 // Internship Preferences
                 txtInternshipDomains.Text = ds.Tables[0].Rows[0]["c_internship_domains"].ToString();
 
-
                 ddlInternshipType.SelectedValue = ds.Tables[0].Rows[0]["c_internship_type"].ToString();
-
 
                 ddlPreferredWorkMode.SelectedValue = ds.Tables[0].Rows[0]["c_work_mode"].ToString();
 
@@ -117,21 +116,31 @@ namespace asp.net
                 txtMinimumCGPA.Text = ds.Tables[0].Rows[0]["c_min_cgpa"].ToString();
 
                 string logo = ds.Tables[0].Rows[0]["c_logo"].ToString();
-                if (!string.IsNullOrEmpty(logo))
+                if (logo != "")
                 {
-                    if (!logo.StartsWith("~") && !logo.StartsWith("/"))
-                    {
-                        logo = "~/CompanyUploads/" + logo;
-                    }
                     imgProfilePreview.ImageUrl = ResolveUrl(logo);
+                    btnRemovePhoto.Visible = true;
+                }
+                else
+                {
+                    imgProfilePreview.ImageUrl = ResolveUrl("~/student_images/default-avatar.png");
+                    btnRemovePhoto.Visible = false;
                 }
             }
         }
 
-        protected void btnSaveProfile_Click(object sender, EventArgs e)
+        protected void btnRemovePhoto_Click(object sender, EventArgs e)
         {
             getcon();
+            cmd = new SqlCommand("update c_registration set c_logo = NULL where c_email='" + Session["company"] + "'", con);
+            cmd.ExecuteNonQuery();
+            Response.Redirect("company-edit-profile.aspx");
+        }
+
+        protected void btnSaveProfile_Click(object sender, EventArgs e)
+        {
             imgupload();
+            getcon();
 
             if (fnm != null)
             {

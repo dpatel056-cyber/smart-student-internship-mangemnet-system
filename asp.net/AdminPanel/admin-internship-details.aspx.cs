@@ -18,9 +18,21 @@ namespace asp.net
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["admin"] != null)
             {
-                loadInternshipDetails();
+                getcon();
+                da = new SqlDataAdapter("select * from admin_registration where Email='" + Session["admin"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
+
+                if (!IsPostBack)
+                {
+                    loadInternshipDetails();
+                }
+            }
+            else
+            {
+                Response.Redirect("~/PublicPanel/login.aspx");
             }
         }
 
@@ -30,11 +42,10 @@ namespace asp.net
             con.Open();
         }
 
-
         void loadInternshipDetails()
         {
             getcon();
-            da = new SqlDataAdapter("select i.*, c.c_company, c.c_logo, c.c_industry, c.c_location, c.c_city, c.c_state, c.c_about, c.c_email, c.c_contact, c.c_hr_name from internship i left join c_registration c on i.CompanyId = c.CompanyId where i.Id='" + Request.QueryString["id"] + "'", con);
+            da = new SqlDataAdapter("SELECT i.*, ISNULL(c.c_company, 'Company') AS c_company, CASE WHEN c.c_logo LIKE '~/%' THEN c.c_logo WHEN c.c_logo IS NOT NULL AND c.c_logo <> '' THEN '~/compnay_images/' + c.c_logo ELSE '~/compnay_images/default-company.png' END AS c_logo, ISNULL(c.c_industry, i.InternshipDomain) AS c_industry, c.c_location, c.c_website, c.c_about, c.c_email, c.c_contact FROM internship i INNER JOIN c_registration c ON i.CompanyId = c.CompanyId WHERE i.Id='" + Request.QueryString["id"] + "'", con);
             ds = new DataSet();
             da.Fill(ds);
             DataListInternshipDetail.DataSource = ds;
@@ -46,24 +57,10 @@ namespace asp.net
             if (e.CommandName == "DeleteInternship")
             {
                 getcon();
-                cmd = new SqlCommand("delete from internship where Id='" + e.CommandArgument.ToString() + "'",con);
+                cmd = new SqlCommand("delete from internship where Id='" + e.CommandArgument + "'", con);
                 cmd.ExecuteNonQuery();
                 Response.Redirect("admin-internships.aspx");
             }
-        }
-
-        public string GetCompanyLogo(object logoObj)
-        {
-            if (logoObj != null && logoObj != DBNull.Value && !string.IsNullOrEmpty(logoObj.ToString()))
-            {
-                string logo = logoObj.ToString();
-                if (logo.StartsWith("~") || logo.StartsWith("/"))
-                {
-                    return ResolveUrl(logo);
-                }
-                return ResolveUrl("~/CompanyUploads/" + logo);
-            }
-            return ResolveUrl("~/assets/default-company.png");
         }
     }
 }

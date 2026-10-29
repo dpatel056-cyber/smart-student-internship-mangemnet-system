@@ -2,7 +2,6 @@
    company-profile.css
    High-fidelity Company Profile matching student-profile.aspx
    ========================================================= */
-
 .company-profile-page {
     max-width: 1180px;
     margin: 0 auto;
@@ -10,7 +9,6 @@
     color: #172554;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
-
 /* Header Card */
 .profile-header-card {
     background: #fff;
@@ -20,21 +18,18 @@
     margin-bottom: 25px;
     box-shadow: 0 6px 25px rgba(15,23,42,.08);
 }
-
 .profile-header-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 25px;
 }
-
 .profile-main-info {
     display: flex;
     align-items: center;
     gap: 22px;
     flex: 1;
 }
-
 .profile-photo {
     width: 105px;
     height: 105px;
@@ -50,16 +45,30 @@
     flex-shrink: 0;
     overflow: hidden !important;
     position: relative;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
 }
-
+.profile-photo:hover,
+.profile-photo * {
+    transform: none !important;
+    animation: none !important;
+}
 .company-profile-logo {
     width: 100% !important;
     height: 100% !important;
     border-radius: 50% !important;
     object-fit: cover !important;
     display: block !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    image-orientation: from-image !important;
 }
-
+.company-profile-logo:hover {
+    transform: none !important;
+    animation: none !important;
+}
 .profile-info-2x2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -67,7 +76,6 @@
     margin-top: 5px;
     flex: 1;
 }
-
 .contact-item {
     display: flex;
     align-items: center;
@@ -77,7 +85,6 @@
     border-radius: 11px;
     min-width: 0;
 }
-
 .contact-icon {
     width: 35px;
     height: 35px;
@@ -88,18 +95,15 @@
     color: #2563eb;
     flex-shrink: 0;
 }
-
 .contact-text {
     min-width: 0;
 }
-
 .contact-label {
     display: block;
     font-size: 11px;
     color: #94a3b8;
     margin-bottom: 2px;
 }
-
 .contact-value {
     display: block;
     font-size: 13px;
@@ -109,7 +113,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 .edit-profile-btn {
     background: #2563eb;
     color: #fff !important;
@@ -126,17 +129,14 @@
     transition: all 0.2s ease;
     white-space: nowrap;
 }
-
 .edit-profile-btn i {
     margin-right: 4px;
 }
-
 .edit-profile-btn:hover {
     background: #1d4ed8;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(37,99,235,.25);
 }
-
 .profile-contact-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -145,14 +145,12 @@
     padding-top: 22px;
     border-top: 1px solid #edf1f7;
 }
-
 .social-links {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
 }
-
 .social-link {
     text-decoration: none;
     padding: 9px 14px;
@@ -166,13 +164,11 @@
     gap: 7px;
     transition: all 0.2s ease;
 }
-
 .social-link:hover {
     border-color: #2563eb;
     color: #2563eb !important;
     background: #f8fbff;
 }
-
 /* Verification Badge */
 .badge-verification {
     display: inline-flex;
@@ -184,25 +180,21 @@
     border-radius: 20px;
     margin-left: 6px;
 }
-
 .badge-verified {
     background: #ecfdf5;
     color: #16a34a;
     border: 1px solid #bbf7d0;
 }
-
 .badge-pending {
     background: #fffbeb;
     color: #d97706;
     border: 1px solid #fde68a;
 }
-
 .badge-rejected {
     background: #fef2f2;
     color: #dc2626;
     border: 1px solid #fecaca;
 }
-
 /* Statistics summary cards */
 .profile-stats-grid {
     display: grid;
@@ -210,7 +202,6 @@
     gap: 15px;
     margin-bottom: 25px;
 }
-
 .profile-stat-card {
     background: #fff;
     border: 1px solid #e8edf5;
@@ -221,7 +212,6 @@
     gap: 15px;
     box-shadow: 0 5px 20px rgba(15,23,42,.05);
 }
-
 .stat-icon {
     width: 46px;
     height: 46px;
@@ -231,16 +221,13 @@
     font-size: 19px;
     flex-shrink: 0;
 }
-
 .stat-icon-blue { background: #e8f0ff; color: #2563eb; }
 .stat-icon-green { background: #ecfdf5; color: #16a34a; }
 .stat-icon-purple { background: #f3e8ff; color: #9333ea; }
 .stat-icon-orange { background: #fff7ed; color: #ea580c; }
-
 .stat-text { display: flex; flex-direction: column; }
 .stat-value { font-size: 20px; font-weight: 700; color: #172554; }
 .stat-label { font-size: 12px; color: #64748b; font-weight: 500; }
-
 /* Tabs Card */
 .profile-tabs-card {
     background: #fff;
@@ -250,13 +237,11 @@
     margin-bottom: 25px;
     box-shadow: 0 5px 20px rgba(15,23,42,.06);
 }
-
 .profile-tabs {
     display: flex;
     gap: 5px;
     overflow-x: auto;
 }
-
 .profile-tab {
     flex: 1;
     min-width: 140px;
@@ -275,26 +260,21 @@
     white-space: nowrap;
     transition: all 0.2s ease;
 }
-
 .profile-tab:hover {
     background: #f1f5f9;
     color: #2563eb;
 }
-
 .profile-tab.active {
     background: #2563eb;
     color: #fff;
     box-shadow: 0 4px 10px rgba(37,99,235,.2);
 }
-
 .profile-tab-content {
     display: none;
 }
-
 .profile-tab-content.active {
     display: block;
 }
-
 /* Section Cards & Fields */
 .profile-section-card {
     background: #fff;
@@ -304,7 +284,6 @@
     box-shadow: 0 6px 25px rgba(15,23,42,.06);
     margin-bottom: 25px;
 }
-
 .section-header {
     display: flex;
     align-items: center;
@@ -313,7 +292,6 @@
     padding-bottom: 22px;
     border-bottom: 1px solid #edf1f7;
 }
-
 .section-header h2 {
     margin: 0 0 6px;
     color: #172554;
@@ -323,18 +301,15 @@
     align-items: center;
     gap: 8px;
 }
-
 .section-header h2 i, .profile-subtitle i {
     color: #2563eb;
     margin-right: 8px;
 }
-
 .section-header p {
     margin: 0;
     color: #64748b;
     font-size: 13px;
 }
-
 .profile-subtitle {
     margin: 27px 0 16px;
     color: #334155;
@@ -344,13 +319,11 @@
     align-items: center;
     gap: 8px;
 }
-
 .profile-info-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
 }
-
 .info-field {
     background: #f8fafc;
     border: 1px solid #edf1f5;
@@ -358,7 +331,6 @@
     padding: 14px 16px;
     min-height: 62px;
 }
-
 .info-label {
     display: block;
     color: #94a3b8;
@@ -368,54 +340,45 @@
     text-transform: uppercase;
     letter-spacing: .3px;
 }
-
 .info-value {
     display: block;
     color: #334155;
     font-size: 14px;
     font-weight: 500;
 }
-
 .full-width {
     grid-column: 1 / -1;
 }
-
 .about-box {
     background: #f8fafc;
     border: 1px solid #edf1f5;
     border-radius: 11px;
     padding: 17px 18px;
 }
-
 .about-box p, .about-text {
     margin: 0;
     color: #475569;
     font-size: 14px;
     line-height: 1.7;
 }
-
 /* Verification Cards */
 .verification-box {
     padding: 20px;
     border-radius: 14px;
     margin-top: 15px;
 }
-
 .verification-verified {
     background: #ecfdf5;
     border: 1px solid #bbf7d0;
 }
-
 .verification-pending {
     background: #fffbeb;
     border: 1px solid #fde68a;
 }
-
 .verification-rejected {
     background: #fef2f2;
     border: 1px solid #fecaca;
 }
-
 .verification-heading {
     display: flex;
     align-items: center;
@@ -424,24 +387,20 @@
     font-weight: 700;
     margin-bottom: 8px;
 }
-
 .verification-verified .verification-heading { color: #15803d; }
 .verification-pending .verification-heading { color: #b45309; }
 .verification-rejected .verification-heading { color: #b91c1c; }
-
 .verification-message {
     font-size: 13px;
     color: #475569;
     margin: 0 0 6px;
 }
-
 .verification-date {
     font-size: 12px;
     color: #64748b;
     margin: 0;
     font-weight: 500;
 }
-
 /* Completion Bar */
 .completion-header {
     display: flex;
@@ -449,13 +408,11 @@
     justify-content: space-between;
     margin-bottom: 12px;
 }
-
 .completion-percent {
     font-size: 18px;
     font-weight: 700;
     color: #2563eb;
 }
-
 .completion-bar-track {
     width: 100%;
     height: 10px;
@@ -464,20 +421,17 @@
     overflow: hidden;
     margin-bottom: 14px;
 }
-
 .completion-bar-fill {
     height: 100%;
     background: linear-gradient(90deg, #2563eb, #3b82f6);
     border-radius: 20px;
     transition: width 0.4s ease;
 }
-
 .completion-subtext {
     font-size: 13px;
     color: #64748b;
     margin: 0 0 16px;
 }
-
 .completion-missing {
     background: #f8fafc;
     border: 1px solid #edf1f5;
@@ -485,7 +439,6 @@
     padding: 16px;
     margin-bottom: 20px;
 }
-
 .completion-missing-label {
     display: block;
     font-size: 12px;
@@ -493,18 +446,15 @@
     color: #475569;
     margin-bottom: 8px;
 }
-
 .completion-missing-list {
     margin: 0;
     padding-left: 20px;
     font-size: 13px;
     color: #64748b;
 }
-
 .completion-missing-list li {
     margin-bottom: 4px;
 }
-
 .btn-primary-sims {
     background: #2563eb;
     color: #fff !important;
@@ -520,18 +470,15 @@
     text-decoration: none;
     transition: all 0.2s ease;
 }
-
 .btn-primary-sims:hover {
     background: #1d4ed8;
 }
-
 /* Responsive */
 @media (max-width: 900px) {
     .profile-stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
-
 @media (max-width: 850px) {
     .profile-header-top {
         align-items: flex-start;
@@ -545,7 +492,6 @@
         grid-template-columns: 1fr;
     }
 }
-
 @media (max-width: 650px) {
     .company-profile-page {
         padding: 16px 12px;

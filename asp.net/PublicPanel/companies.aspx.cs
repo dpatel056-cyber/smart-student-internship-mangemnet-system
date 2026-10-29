@@ -1,7 +1,5 @@
-using System;
-using System.Configuration;
+﻿using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -9,104 +7,125 @@ namespace asp.net
 {
     public partial class companies : System.Web.UI.Page
     {
-        SqlConnection con;
-        SqlDataAdapter da;
-        DataSet ds;
+        publicpanel pub = new publicpanel();
 
-        string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
+        private const int PageSize = 4;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            startcon();
+
             if (!IsPostBack)
             {
-                bindCompanies();
+                ViewState["page"] = 0;
+                fillgrid();
             }
         }
 
-        void getcon()
+        void startcon()
         {
-            con = new SqlConnection(s);
-
-                con.Open();
-
+            pub = new publicpanel();
+            pub.getcon();
         }
 
-        void bindCompanies()
+        void fillgrid()
         {
+            pub = new publicpanel();
+            DataTable dt = pub.select().Tables[0];
 
-                getcon();
-                da = new SqlDataAdapter( "select c.*, (select count(*) from internship i where i.CompanyId = c.CompanyId) as TotalOpenings from c_registration c order by c.CompanyId desc",con);
+            int page = Convert.ToInt32(ViewState["page"]);
+            int totalPages = (int)Math.Ceiling(dt.Rows.Count / (double)PageSize);
 
+            lblTotalCompanies.Text = "Total Companies : " + dt.Rows.Count;
 
-                ds = new DataSet();
-                da.Fill(ds);
+            DataListPublicCompanies.DataSource = pub.pagination(dt, page);
+            DataListPublicCompanies.DataBind();
 
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    DataListPublicCompanies.DataSource = ds;
-                    DataListPublicCompanies.DataBind();
-                    DataListPublicCompanies.Visible = true;
-                    if (pnlNoCompanies != null) pnlNoCompanies.Visible = false;
-                }
-                else
-                {
-                    DataListPublicCompanies.Visible = false;
-                    if (pnlNoCompanies != null) pnlNoCompanies.Visible = true;
-                }
+            lblPages.Text = "Page " + (page + 1) + " of " + totalPages;
 
+            btnPrevious.Enabled = page > 0;
+            btnNext.Enabled = page < totalPages - 1;
         }
 
-        public string GetCompanyLogo(object logoObj)
+        void filtergrid(DataTable dt)
         {
-            if (logoObj != null && logoObj != DBNull.Value && !string.IsNullOrEmpty(logoObj.ToString()))
-            {
-                string logo = logoObj.ToString();
-                if (logo.StartsWith("~") || logo.StartsWith("/"))
-                {
-                    return ResolveUrl(logo);
-                }
-                return ResolveUrl("~/CompanyUploads/" + logo);
-            }
-            return ResolveUrl("~/assets/default-company.png");
+            ViewState["page"] = 0;
+
+            int totalPages = (int)Math.Ceiling(dt.Rows.Count / (double)PageSize);
+
+            lblTotalCompanies.Text = "Total Companies : " + dt.Rows.Count;
+
+            DataListPublicCompanies.DataSource = pub.pagination(dt, 0);
+            DataListPublicCompanies.DataBind();
+
+            lblPages.Text = "Page 1 of " + totalPages;
+
+            btnPrevious.Enabled = false;
+            btnNext.Enabled = totalPages > 1;
         }
 
-        public string GetCompanyName(object nameObj)
+        // Search Button Click
+        protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
         {
-            if (nameObj != null && nameObj != DBNull.Value && !string.IsNullOrEmpty(nameObj.ToString()))
-            {
-                return nameObj.ToString();
-            }
-            return "Company";
+            pub = new publicpanel();
+            filtergrid(pub.search(searchInput.Text).Tables[0]);
         }
 
-        public string GetCompanyIndustry(object indObj, object domainObj = null)
+        // Industry DropDownList SelectedIndexChanged
+        protected void ddlIndustry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (indObj != null && indObj != DBNull.Value && !string.IsNullOrEmpty(indObj.ToString()))
-            {
-                return indObj.ToString();
-            }
-            if (domainObj != null && domainObj != DBNull.Value && !string.IsNullOrEmpty(domainObj.ToString()))
-            {
-                return domainObj.ToString();
-            }
-            return "Technology, Internet";
+            pub = new publicpanel();
+            filtergrid(pub.selectbyindustry(ddlIndustry.SelectedValue).Tables[0]);
         }
 
-        public string GetCompanyLocation(object locObj, object cityObj = null, object stateObj = null)
+        // Location / City DropDownList SelectedIndexChanged
+        protected void ddlLocation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (locObj != null && locObj != DBNull.Value && !string.IsNullOrEmpty(locObj.ToString()))
+            pub = new publicpanel();
+            filtergrid(pub.selectbycity(ddlLocation.SelectedValue).Tables[0]);
+        }
+
+        // Size DropDownList SelectedIndexChanged
+        protected void ddlSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pub = new publicpanel();
+            filtergrid(pub.selectbysize(ddlSize.SelectedValue).Tables[0]);
+        }
+
+        // Sort By DropDownList SelectedIndexChanged
+        protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pub = new publicpanel();
+            filtergrid(pub.sortby(ddlSortBy.SelectedValue).Tables[0]);
+        }
+
+        // Reset Button Click
+        protected void btnReset_Click(object sender, ImageClickEventArgs e)
+        {
+            searchInput.Text = "";
+            ddlIndustry.SelectedIndex = 0;
+            ddlLocation.SelectedIndex = 0;
+            ddlSize.SelectedIndex = 0;
+            ddlSortBy.SelectedIndex = 0;
+
+            ViewState["page"] = 0;
+            fillgrid();
+        }
+
+        protected void btnPrevious_Click(object sender, ImageClickEventArgs e)
+        {
+            if (Convert.ToInt32(ViewState["page"]) > 0)
             {
-                return locObj.ToString();
+                ViewState["page"] = Convert.ToInt32(ViewState["page"]) - 1;
             }
-            string city = cityObj != null && cityObj != DBNull.Value ? cityObj.ToString().Trim() : "";
-            string state = stateObj != null && stateObj != DBNull.Value ? stateObj.ToString().Trim() : "";
-            if (!string.IsNullOrEmpty(city) && !string.IsNullOrEmpty(state))
-            {
-                return city + ", " + state;
-            }
-            if (!string.IsNullOrEmpty(city)) return city;
-            if (!string.IsNullOrEmpty(state)) return state;
-            return "India";
+
+            fillgrid();
+        }
+
+        protected void btnNext_Click(object sender, ImageClickEventArgs e)
+        {
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) + 1;
+            fillgrid();
         }
     }
 }

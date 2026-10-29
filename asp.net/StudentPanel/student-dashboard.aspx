@@ -1,489 +1,315 @@
-<%@ Page Title="Student Dashboard" Language="C#" MasterPageFile="~/StudentPanel/student.Master" AutoEventWireup="true" CodeFile="student-dashboard.aspx.cs" Inherits="asp.net.student_dashboard" %>
-
+<%@ Page Title="Student Dashboard" Language="C#" MasterPageFile="~/StudentPanel/student.Master" AutoEventWireup="true" CodeBehind="student-dashboard.aspx.cs" Inherits="asp.net.student_dashboard" %>
 <asp:Content ID="ContentHead" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="<%= ResolveUrl("~/css/student-dashboard.css") %>" />
+    <link rel="stylesheet" href="../css/student-dashboard.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </asp:Content>
-
 <asp:Content ID="ContentMain" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="student-dashboard">
-      
-        <!-- ===================== 1. PAGE HEADER ===================== -->
-        <div class="student-dashboard-header">
-            <div>
-                <h1 class="student-dashboard-title">Student Dashboard</h1>
-                <p class="student-dashboard-subtitle">Welcome back! Here's an overview of your internship activities.</p>
+    <!-- Page Header (Identical to Company Dashboard with student actions) -->
+    <div  class="sdash-u1">
+        <div>
+            <h1  class="sdash-u2">Dashboard</h1>
+            <p  class="sdash-u3">Welcome back, <asp:Label ID="litWelcomeName" runat="server" Text="Student" />! Here's your internship & career progress overview.</p>
+        </div>
+        <div  class="sdash-u4">
+            <a href="<%= ResolveUrl("~/StudentPanel/student-internships.aspx") %>"  class="sdash-nav-btn-1">
+                <i class="fa-solid fa-magnifying-glass"></i> Browse Internships
+            </a>
+            <a href="<%= ResolveUrl("~/StudentPanel/student-profile.aspx") %>"  class="sdash-nav-btn-2">
+                <i class="fa-solid fa-user"></i> View Profile
+            </a>
+        </div>
+    </div>
+    <!-- 8 Top KPI Stat Cards Grid (Exactly same layout & styling as Company Panel `sims-stat-grid-v2`) -->
+    <div class="sims-stat-grid-v2 sdash-u5" >
+        <!-- Card 1: Total Applied -->
+        <a href="student-my-applications.aspx" class="sims-stat-card-v2 sdash-u6" >
+            <div class="sims-stat-icon-v2 sims-bg-blue">
+                <i class="fa-solid fa-paper-plane"></i>
             </div>
-            <div>
-                <a href="student-profile.aspx" class="student-header-btn">
-                    <i class="fa-solid fa-user"></i> View Profile
-                </a>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-num-v2"><asp:Label ID="lblTotalApplied" runat="server" Text="0"></asp:Label></span>
+                <span class="sims-stat-title-v2">Total Applications</span>
+            </div>
+        </a>
+        <!-- Card 2: Under Review / Pending -->
+        <a href="student-my-applications.aspx" class="sims-stat-card-v2 sdash-u6" >
+            <div class="sims-stat-icon-v2 sims-bg-orange">
+                <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-num-v2"><asp:Label ID="lblPendingCount" runat="server" Text="0"></asp:Label></span>
+                <span class="sims-stat-title-v2">Under Review</span>
+            </div>
+        </a>
+        <!-- Card 3: Shortlisted -->
+        <a href="student-my-applications.aspx" class="sims-stat-card-v2 sdash-u6" >
+            <div class="sims-stat-icon-v2 sims-bg-purple">
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-num-v2"><asp:Label ID="lblShortlistedCount" runat="server" Text="0"></asp:Label></span>
+                <span class="sims-stat-title-v2">Shortlisted</span>
+            </div>
+        </a>
+        <!-- Card 4: Selected / Offers -->
+        <a href="student-my-applications.aspx" class="sims-stat-card-v2 sdash-u6" >
+            <div class="sims-stat-icon-v2 sims-bg-green">
+                <i class="fa-solid fa-user-check"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-num-v2"><asp:Label ID="lblSelectedCount" runat="server" Text="0"></asp:Label></span>
+                <span class="sims-stat-title-v2">Selected / Offers</span>
+            </div>
+        </a>
+        <!-- Card 5: Interviews Scheduled -->
+        <a href="student-interviews.aspx" class="sims-stat-card-v2 sdash-u6" >
+            <div class="sims-stat-icon-v2 sims-bg-yellow">
+                <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-num-v2"><asp:Label ID="lblInterviewsCount" runat="server" Text="0"></asp:Label></span>
+                <span class="sims-stat-title-v2">Interviews Scheduled</span>
+            </div>
+        </a>
+        <!-- Card 6: Offers Received -->
+        <a href="student-offer-letters.aspx" class="sims-stat-card-v2 sdash-u6" >
+            <div class="sims-stat-icon-v2 sims-bg-purple-light">
+                <i class="fa-solid fa-file-signature"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-num-v2"><asp:Label ID="lblOffersCount" runat="server" Text="0"></asp:Label></span>
+                <span class="sims-stat-title-v2">Offer Letters</span>
+            </div>
+        </a>
+        <!-- Card 7: Assigned Tasks / Quizzes -->
+        <a href="student-tasks.aspx" class="sims-stat-card-v2 sdash-u6" >
+            <div class="sims-stat-icon-v2 sims-bg-teal">
+                <i class="fa-solid fa-list-check"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-num-v2"><asp:Label ID="lblTasksCount" runat="server" Text="0"></asp:Label></span>
+                <span class="sims-stat-title-v2">Tasks & Quizzes</span>
+            </div>
+        </a>
+        <!-- Card 8: Saved / Bookmarked Internships -->
+        <a href="student-saved-internships.aspx" class="sims-stat-card-v2 sdash-u6" >
+            <div class="sims-stat-icon-v2 sims-bg-pink">
+                <i class="fa-solid fa-bookmark"></i>
+            </div>
+            <div class="sims-stat-info-v2">
+                <span class="sims-stat-num-v2"><asp:Label ID="lblSavedCount" runat="server" Text="0"></asp:Label></span>
+                <span class="sims-stat-title-v2">Saved Internships</span>
+            </div>
+        </a>
+    </div>
+    <!-- Charts Row: 2 Column Panels (Application Status Overview & Interview Status Overview) -->
+    <div class="co-grid-2 sdash-u7" >
+        <!-- Application Status Donut Chart -->
+        <div class="co-panel">
+            <div class="co-panel-header">
+                <h3><i class="fa-solid fa-chart-pie sdash-u8" ></i> Application Status Overview</h3>
+            </div>
+            <div  class="sdash-u9">
+                <canvas id="studentStatusChart"
+                        data-selected='<%= totalSelected %>'
+                        data-pending='<%= totalPending %>'
+                        data-rejected='<%= totalRejected %>'></canvas>
             </div>
         </div>
-
-        <!-- ===================== 2. WELCOME CARD & PROFILE COMPLETION ===================== -->
-        <div class="student-welcome-card">
-            <div class="student-welcome-top">
-                <div>
-                    <h2 class="student-welcome-greeting">
-                        👋 Welcome back,<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>!
-                    </h2>
-                    <p class="student-welcome-desc">
-                        Keep your profile updated to improve your internship opportunities and AI recommendations.
-                    </p>
-                </div>
-                <span class="student-welcome-badge">
-                    <i class="fa-solid fa-circle-check"></i> Account Verified
-                </span>
+        <!-- Interview Status Overview Chart (Bar Chart) -->
+        <div class="co-panel">
+            <div class="co-panel-header">
+                <h3><i class="fa-solid fa-chart-column sdash-u10" ></i> Interview Status Overview</h3>
             </div>
+            <div  class="sdash-u9">
+                <canvas id="studentInterviewChart"
+                        data-scheduled='<%= intScheduled %>'
 
-            <div class="student-progress-wrapper">
-                <div class="student-progress-info">
-                    <span>Profile Completion</span>
-                    <span><asp:Literal ID="litProfileCompletion" runat="server" Text="85" />%</span>
-                </div>
-                <div class="student-progress-track">
-                    <div class="student-progress-fill" id="profileProgressFill" style="width: 0%;" data-percentage="85%"></div>
-                </div>
-                <div class="student-progress-foot">
-                    <span class="student-progress-note">
-                        Complete your profile to improve internship opportunities. Missing: Resume, Secondary Skills.
-                    </span>
-                    <a href="student-profile-completion.aspx" class="student-welcome-btn">
-                        <i class="fa-solid fa-user-pen"></i> Complete Profile
+                        data-cancelled='<%= intCancelled %>'></canvas>
+            </div>
+        </div>
+    </div>
+    <!-- ===================== RECENT APPLICATIONS (FULL WIDTH TABLE) ===================== -->
+    <div class="co-panel sdash-u11" >
+        <div class="co-panel-header">
+            <h3><i class="fa-solid fa-file-lines sdash-u12" ></i> My Recent Applications</h3>
+            <a href="<%= ResolveUrl("~/StudentPanel/student-my-applications.aspx") %>"  class="sdash-nav-btn-3">
+                View All <i class="fa-solid fa-arrow-right sdash-u13" ></i>
+            </a>
+        </div>
+        <div  class="sdash-u14">
+            <asp:GridView ID="gvRecentApps" runat="server" AutoGenerateColumns="False" CssClass="co-table" GridLines="None" ShowHeaderWhenEmpty="true" Width="100%">
+                <Columns>
+                    <asp:TemplateField HeaderText="Company" HeaderStyle-Width="25%">
+                        <ItemTemplate>
+                            <div class="co-applicant-cell">
+                                <div class="co-applicant-avatar av1">
+                                    <%# GetCompanyLogoHtml(Eval("c_logo"), Eval("c_company")) %>
+                                </div>
+                                <div>
+                                    <div  class="sdash-u15"><%# Server.HtmlEncode(Eval("c_company") != null ? Eval("c_company").ToString() : "Partner Company") %></div>
+                                    <div  class="sdash-u16"><%# Server.HtmlEncode(Eval("Location") != null ? Eval("Location").ToString() : "Remote") %></div>
+                                </div>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Internship Position" HeaderStyle-Width="27%">
+                        <ItemTemplate>
+                            <div  class="sdash-u17"><%# Server.HtmlEncode(Eval("InternshipTitle") != null ? Eval("InternshipTitle").ToString() : "Internship") %></div>
+                            <span  class="sdash-u16"><%# Server.HtmlEncode(Eval("WorkMode") != null ? Eval("WorkMode").ToString() : "Full Time") %></span>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Applied Date" HeaderStyle-Width="18%">
+                        <ItemTemplate>
+                            <span  class="sdash-u18"><i class="fa-regular fa-calendar sdash-u19" ></i><%# FormatDate(Eval("AppliedDate")) %></span>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Status" HeaderStyle-Width="15%">
+                        <ItemTemplate>
+                            <%# GetStatusBadge(Eval("Status")) %>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="15%" HeaderStyle-CssClass="text-end" ItemStyle-CssClass="text-end">
+                        <ItemTemplate>
+                            <a href='<%= ResolveUrl("~/StudentPanel/student-internship-details.aspx") %>?id=<%# Eval("InternshipId") %>'
+                                class="sdash-nav-btn-4">
+                                <i class="fa-solid fa-eye"></i> View Details
+                            </a>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+            <asp:PlaceHolder ID="pnlNoApps" runat="server" Visible="false">
+                <div  class="sdash-u20">
+                    <i class="fa-solid fa-folder-open sdash-u21" ></i>
+                    <p  class="sdash-u22">No internship applications submitted yet.</p>
+                    <a href="student-internships.aspx"  class="sdash-u23">
+                        <i class="fa-solid fa-magnifying-glass"></i> Explore Internships
                     </a>
                 </div>
+            </asp:PlaceHolder>
+        </div>
+    </div>
+    <!-- ===================== UPCOMING INTERVIEWS (50%) & QUICK ACTIONS (50%) ===================== -->
+    <div class="co-grid-2 sdash-u24" >
+        <!-- LEFT: UPCOMING INTERVIEWS -->
+        <div class="co-panel">
+            <div class="co-panel-header">
+                <h3><i class="fa-solid fa-calendar-days sdash-u25" ></i> Upcoming Interviews</h3>
+                <a href="<%= ResolveUrl("~/StudentPanel/student-interviews.aspx") %>"  class="sdash-nav-btn-5">
+                    View All <i class="fa-solid fa-arrow-right sdash-u13" ></i>
+                </a>
+            </div>
+            <div  class="sdash-u26">
+                <asp:DataList ID="dlInterviews" runat="server" Width="100%" RepeatLayout="Flow">
+                    <ItemTemplate>
+                        <div class="co-interview-item sdash-u27" >
+                            <div class="co-date-box"><span class="day"><asp:Label ID="lblDay" runat="server" Text='<%# FormatDay(Eval("InterviewDate")) %>'></asp:Label></span><span class="mon"><asp:Label ID="lblMon" runat="server" Text='<%# FormatMonth(Eval("InterviewDate")) %>'></asp:Label></span></div>
+                            <div class="co-interview-info">
+                                <h4><asp:Label ID="lblCompany" runat="server" Text='<%# Eval("c_company") %>'></asp:Label></h4>
+                                <p><asp:Label ID="lblTitle" runat="server" Text='<%# Eval("InternshipTitle") %>'></asp:Label> &bull; <i class="fa-regular fa-clock sdash-u28" ></i><asp:Label ID="lblTime" runat="server" Text='<%# Eval("InterviewTime") %>'></asp:Label></p>
+                                <div  class="sdash-u29">
+                                    <span class="co-mode"><i class="fa-solid fa-video"></i> <asp:Label ID="lblMode" runat="server" Text='<%# Eval("InterviewType") %>'></asp:Label></span>
+                                    <asp:Label ID="litMeetingBtn" runat="server" Text='<%# FormatMeetingBtn(Eval("MeetingLink"), Eval("Location"), Eval("InterviewType")) %>'></asp:Label>
+                                </div>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:DataList>
+                <asp:PlaceHolder ID="pnlNoInterviews" runat="server" Visible="false">
+                    <div  class="sdash-u20">
+                        <i class="fa-regular fa-calendar-xmark sdash-u30" ></i>
+                        <p  class="sdash-u31">No upcoming interviews scheduled.</p>
+                    </div>
+                </asp:PlaceHolder>
             </div>
         </div>
-
-        <!-- ===================== 3. QUICK STATISTICS ===================== -->
-        <div class="student-statistics">
-            
-            <!-- CARD 1: Applied -->
-            <a href="student-my-applications.aspx" class="student-stat-card">
-                <div class="student-stat-info">
-                    <span class="student-stat-label">Applied</span>
-                    <span class="student-stat-value"><asp:Literal ID="litAppliedCount" runat="server" Text="12" /></span>
-                    <span class="student-stat-desc">Total Applications</span>
-                </div>
-                <div class="student-stat-icon student-stat-icon-blue">
-                    <i class="fa-solid fa-briefcase"></i>
-                </div>
-            </a>
-
-            <!-- CARD 2: Selected -->
-            <a href="student-my-applications.aspx" class="student-stat-card">
-                <div class="student-stat-info">
-                    <span class="student-stat-label">Selected</span>
-                    <span class="student-stat-value"><asp:Literal ID="litSelectedCount" runat="server" Text="3" /></span>
-                    <span class="student-stat-desc">Internship Offers</span>
-                </div>
-                <div class="student-stat-icon student-stat-icon-green">
-                    <i class="fa-solid fa-circle-check"></i>
-                </div>
-            </a>
-
-            <!-- CARD 3: Interviews -->
-            <a href="student-interviews.aspx" class="student-stat-card">
-                <div class="student-stat-info">
-                    <span class="student-stat-label">Interviews</span>
-                    <span class="student-stat-value"><asp:Literal ID="litInterviewsCount" runat="server" Text="2" /></span>
-                    <span class="student-stat-desc">Scheduled Dates</span>
-                </div>
-                <div class="student-stat-icon student-stat-icon-purple">
-                    <i class="fa-solid fa-calendar-check"></i>
-                </div>
-            </a>
-
-            <!-- CARD 4: Pending -->
-            <a href="student-my-applications.aspx" class="student-stat-card">
-                <div class="student-stat-info">
-                    <span class="student-stat-label">Pending</span>
-                    <span class="student-stat-value"><asp:Literal ID="litPendingCount" runat="server" Text="5" /></span>
-                    <span class="student-stat-desc">Under Review</span>
-                </div>
-                <div class="student-stat-icon student-stat-icon-orange">
-                    <i class="fa-solid fa-clock"></i>
-                </div>
-            </a>
-
-        </div>
-
-        <!-- ===================== 4. APPLICATION ANALYTICS (2 COLUMNS) ===================== -->
-        <div class="student-analytics-grid">
-            
-            <!-- LEFT: APPLICATION OVERVIEW (DOUGHNUT CHART) -->
-            <div class="student-dashboard-card">
-                <div class="student-card-header">
-                    <h3 class="student-card-title">
-                        <i class="fa-solid fa-chart-pie"></i> Application Overview
-                    </h3>
-                </div>
-                <div class="student-chart-container">
-                    <canvas id="applicationOverviewChart" data-selected="3" data-pending="5" data-rejected="4"></canvas>
-                </div>
+        <!-- RIGHT: STUDENT QUICK ACTIONS -->
+        <div class="co-panel">
+            <div class="co-panel-header">
+                <h3><i class="fa-solid fa-bolt bolt-icon-gold"></i> Quick Actions</h3>
             </div>
-
-            <!-- RIGHT: APPLICATION STATUS SUMMARY -->
-            <div class="student-dashboard-card">
-                <div class="student-card-header">
-                    <h3 class="student-card-title">
-                        <i class="fa-solid fa-list-check"></i> Application Status
-                    </h3>
-                </div>
-                <div class="student-status-list">
-                    <div class="student-status-item">
-                        <div class="student-status-left">
-                            <span class="student-status-badge badge-selected">✓ Selected</span>
-                            <span>Selected Internships</span>
+            <div class="dash-quick-actions-list">
+                <!-- Action 1: Browse Internships -->
+                <a href="<%= ResolveUrl("~/StudentPanel/student-internships.aspx") %>" class="dash-quick-action-item action-blue">
+                    <div class="dash-quick-action-left">
+                        <div class="dash-quick-action-icon icon-blue">
+                            <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
-                        <span class="student-status-count"><asp:Literal ID="litStatusSelected" runat="server" Text="3" /></span>
-                    </div>
-
-                    <div class="student-status-item">
-                        <div class="student-status-left">
-                            <span class="student-status-badge badge-pending">⏳ Pending</span>
-                            <span>Applications Under Review</span>
+                        <div>
+                            <div class="dash-quick-action-title">Explore &amp; Apply Internships</div>
+                            <div class="dash-quick-action-desc">Search by domain, location &amp; skills</div>
                         </div>
-                        <span class="student-status-count"><asp:Literal ID="litStatusPending" runat="server" Text="5" /></span>
                     </div>
-
-                    <div class="student-status-item">
-                        <div class="student-status-left">
-                            <span class="student-status-badge badge-rejected">✕ Rejected</span>
-                            <span>Not Shortlisted</span>
+                    <div class="dash-quick-action-arrow">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </a>
+                <!-- Action 2: Track My Applications -->
+                <a href="<%= ResolveUrl("~/StudentPanel/student-my-applications.aspx") %>" class="dash-quick-action-item action-purple">
+                    <div class="dash-quick-action-left">
+                        <div class="dash-quick-action-icon icon-purple">
+                            <i class="fa-solid fa-file-lines"></i>
                         </div>
-                        <span class="student-status-count"><asp:Literal ID="litStatusRejected" runat="server" Text="4" /></span>
+                        <div>
+                            <div class="dash-quick-action-title">My Applications</div>
+                            <div class="dash-quick-action-desc">Track status, reviews &amp; shortlist</div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- ===================== 5. RECENT APPLICATIONS ===================== -->
-        <div class="student-dashboard-card">
-            <div class="student-card-header">
-                <h3 class="student-card-title">
-                    <i class="fa-solid fa-file-lines"></i> Recent Applications
-                </h3>
-                <a href="student-my-applications.aspx" class="student-card-link">View All Applications &rarr;</a>
-            </div>
-
-            <asp:Panel ID="pnlApplicationsTable" runat="server">
-                <div class="student-table-responsive">
-                    <table class="student-application-table">
-                        <thead>
-                            <tr>
-                                <th>Company</th>
-                                <th>Internship Position</th>
-                                <th>Applied Date</th>
-                                <th>Status</th>
-                                <th style="text-align: right;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="student-company-cell">
-                                        <div class="student-company-logo">TC</div>
-                                        <span>TechCorp Ltd</span>
-                                    </div>
-                                </td>
-                                <td><strong>Web Developer Intern</strong></td>
-                                <td>20 Aug 2026</td>
-                                <td><span class="student-status-badge badge-pending">Pending</span></td>
-                                <td style="text-align: right;">
-                                    <a href="student-application-status.aspx?id=1" class="student-btn-action">View</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="student-company-cell">
-                                        <div class="student-company-logo" style="background-color:#F0FDF4; color:#16A34A;">INF</div>
-                                        <span>Infosys</span>
-                                    </div>
-                                </td>
-                                <td><strong>Software Developer Intern</strong></td>
-                                <td>18 Aug 2026</td>
-                                <td><span class="student-status-badge badge-selected">Selected</span></td>
-                                <td style="text-align: right;">
-                                    <a href="student-application-status.aspx?id=2" class="student-btn-action">View</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="student-company-cell">
-                                        <div class="student-company-logo" style="background-color:#FEF2F2; color:#EF4444;">ABC</div>
-                                        <span>ABC Technologies</span>
-                                    </div>
-                                </td>
-                                <td><strong>UI/UX Intern</strong></td>
-                                <td>15 Aug 2026</td>
-                                <td><span class="student-status-badge badge-rejected">Rejected</span></td>
-                                <td style="text-align: right;">
-                                    <a href="student-application-status.aspx?id=3" class="student-btn-action">View</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="student-company-cell">
-                                        <div class="student-company-logo" style="background-color:#EFF6FF; color:#2563EB;">WIP</div>
-                                        <span>Wipro Solutions</span>
-                                    </div>
-                                </td>
-                                <td><strong>Data Analyst Intern</strong></td>
-                                <td>10 Aug 2026</td>
-                                <td><span class="student-status-badge badge-pending">Pending</span></td>
-                                <td style="text-align: right;">
-                                    <a href="student-application-status.aspx?id=4" class="student-btn-action">View</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="student-company-cell">
-                                        <div class="student-company-logo" style="background-color:#F0FDF4; color:#16A34A;">TCS</div>
-                                        <span>Tata Consultancy Services</span>
-                                    </div>
-                                </td>
-                                <td><strong>Cloud Engineer Intern</strong></td>
-                                <td>05 Aug 2026</td>
-                                <td><span class="student-status-badge badge-selected">Selected</span></td>
-                                <td style="text-align: right;">
-                                    <a href="student-application-status.aspx?id=5" class="student-btn-action">View</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </asp:Panel>
-
-            <!-- EMPTY STATE (Hidden by default, shown if no applications) -->
-            <div class="student-empty-state" id="emptyApplications" runat="server" visible="false">
-                <div class="student-empty-icon"><i class="fa-solid fa-folder-open"></i></div>
-                <h4 class="student-empty-title">No internship applications found yet.</h4>
-                <a href="student-internships.aspx" class="student-btn-browse">
-                    <i class="fa-solid fa-magnifying-glass"></i> Browse Internships
+                    <div class="dash-quick-action-arrow">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </a>
+                <!-- Action 3: Tasks & Assessments -->
+                <a href="<%= ResolveUrl("~/StudentPanel/student-tasks.aspx") %>" class="dash-quick-action-item action-green">
+                    <div class="dash-quick-action-left">
+                        <div class="dash-quick-action-icon icon-green">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <div>
+                            <div class="dash-quick-action-title">Tasks &amp; Skill Assessments</div>
+                            <div class="dash-quick-action-desc">Play quizzes, solve challenges &amp; earn scores</div>
+                        </div>
+                    </div>
+                    <div class="dash-quick-action-arrow">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </a>
+                <!-- Action 4: View Offer Letters -->
+                <a href="<%= ResolveUrl("~/StudentPanel/student-offer-letters.aspx") %>" class="dash-quick-action-item action-orange">
+                    <div class="dash-quick-action-left">
+                        <div class="dash-quick-action-icon icon-orange">
+                            <i class="fa-solid fa-file-signature"></i>
+                        </div>
+                        <div>
+                            <div class="dash-quick-action-title">Offer Letters &amp; Responses</div>
+                            <div class="dash-quick-action-desc">Accept or review company internship offers</div>
+                        </div>
+                    </div>
+                    <div class="dash-quick-action-arrow">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </a>
+                <!-- Action 5: Certificates & Achievements -->
+                <a href="<%= ResolveUrl("~/StudentPanel/student-certificates.aspx") %>" class="dash-quick-action-item action-cyan">
+                    <div class="dash-quick-action-left">
+                        <div class="dash-quick-action-icon icon-cyan">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <div>
+                            <div class="dash-quick-action-title">Internship Certificates</div>
+                            <div class="dash-quick-action-desc">Download verified completion credentials</div>
+                        </div>
+                    </div>
+                    <div class="dash-quick-action-arrow">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
                 </a>
             </div>
         </div>
-
-        <!-- ===================== 6. TWO-COLUMN GRID: INTERVIEWS & NOTIFICATIONS ===================== -->
-        <div class="student-two-col-grid">
-            
-            <!-- LEFT: UPCOMING INTERVIEWS -->
-            <div class="student-dashboard-card">
-                <div class="student-card-header">
-                    <h3 class="student-card-title">
-                        <i class="fa-solid fa-calendar-check"></i> Upcoming Interviews
-                    </h3>
-                    <a href="student-interviews.aspx" class="student-card-link">View Schedule &rarr;</a>
-                </div>
-
-                <div class="student-interviews-list">
-                    <div class="student-interview-card">
-                        <div class="student-interview-date">
-                            <span class="student-interview-day">25</span>
-                            <span class="student-interview-month">AUG</span>
-                        </div>
-                        <div class="student-interview-details">
-                            <h4 class="student-interview-title">Web Developer Interview</h4>
-                            <p class="student-interview-company">TechCorp Ltd</p>
-                            <div class="student-interview-meta">
-                                <span><i class="fa-solid fa-clock"></i> 11:00 AM</span>
-                                <span>&bull;</span>
-                                <span><i class="fa-solid fa-video"></i> Online Interview</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="student-interview-card">
-                        <div class="student-interview-date" style="background-color:#F0FDF4; color:#16A34A;">
-                            <span class="student-interview-day">28</span>
-                            <span class="student-interview-month">AUG</span>
-                        </div>
-                        <div class="student-interview-details">
-                            <h4 class="student-interview-title">Software Engineer Interview</h4>
-                            <p class="student-interview-company">Infosys</p>
-                            <div class="student-interview-meta">
-                                <span><i class="fa-solid fa-clock"></i> 02:30 PM</span>
-                                <span>&bull;</span>
-                                <span><i class="fa-solid fa-building"></i> In-Person (Ahmedabad)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- EMPTY STATE -->
-                <div class="student-empty-state" id="emptyInterviews" runat="server" visible="false">
-                    <div class="student-empty-icon"><i class="fa-solid fa-calendar-xmark"></i></div>
-                    <h4 class="student-empty-title">No upcoming interviews scheduled.</h4>
-                    <a href="student-internships.aspx" class="student-btn-browse">Browse Internships</a>
-                </div>
-            </div>
-
-            <!-- RIGHT: RECENT NOTIFICATIONS -->
-            <div class="student-dashboard-card">
-                <div class="student-card-header">
-                    <h3 class="student-card-title">
-                        <i class="fa-solid fa-bell"></i> Recent Notifications
-                    </h3>
-                    <a href="student-notifications.aspx" class="student-card-link">View All &rarr;</a>
-                </div>
-
-                <div class="student-notifications-list">
-                    <div class="student-notification-item is-unread">
-                        <div class="student-notification-icon"><i class="fa-solid fa-circle-check"></i></div>
-                        <div class="student-notification-content">
-                            <p class="student-notification-text">Your application for <strong>TechCorp Ltd</strong> has been shortlisted.</p>
-                            <span class="student-notification-time">10 minutes ago</span>
-                        </div>
-                    </div>
-
-                    <div class="student-notification-item">
-                        <div class="student-notification-icon"><i class="fa-solid fa-briefcase"></i></div>
-                        <div class="student-notification-content">
-                            <p class="student-notification-text">New internship matching your skills: <strong>React Developer</strong> at WebSoft.</p>
-                            <span class="student-notification-time">2 hours ago</span>
-                        </div>
-                    </div>
-
-                    <div class="student-notification-item">
-                        <div class="student-notification-icon"><i class="fa-solid fa-calendar"></i></div>
-                        <div class="student-notification-content">
-                            <p class="student-notification-text">Interview scheduled with <strong>TechCorp Ltd</strong> for Web Developer role.</p>
-                            <span class="student-notification-time">Yesterday</span>
-                        </div>
-                    </div>
-
-                    <div class="student-notification-item">
-                        <div class="student-notification-icon"><i class="fa-solid fa-user-check"></i></div>
-                        <div class="student-notification-content">
-                            <p class="student-notification-text">Your student profile was updated successfully.</p>
-                            <span class="student-notification-time">2 days ago</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- EMPTY STATE -->
-                <div class="student-empty-state" id="emptyNotifications" runat="server" visible="false">
-                    <div class="student-empty-icon"><i class="fa-solid fa-bell-slash"></i></div>
-                    <h4 class="student-empty-title">You're all caught up! No new notifications.</h4>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- ===================== 7. RECOMMENDED INTERNSHIPS ===================== -->
-        <div class="student-dashboard-card">
-            <div class="student-card-header">
-                <h3 class="student-card-title">
-                    <i class="fa-solid fa-thumbs-up"></i> Recommended Internships
-                </h3>
-                <a href="student-internships.aspx" class="student-card-link">Browse All Internships &rarr;</a>
-            </div>
-
-            <div class="student-recommended-grid">
-                
-                <!-- CARD 1 -->
-                <div class="student-internship-card">
-                    <div>
-                        <div class="student-internship-head">
-                            <div>
-                                <h4 class="student-internship-title">Web Developer Intern</h4>
-                                <span class="student-internship-company">TechCorp Ltd</span>
-                            </div>
-                            <span class="student-status-badge badge-selected" style="font-size:11px;">Full-time</span>
-                        </div>
-
-                        <div class="student-internship-tags">
-                            <span><i class="fa-solid fa-location-dot"></i> Ahmedabad</span>
-                            <span>&bull;</span>
-                            <span><i class="fa-solid fa-clock"></i> 3 Months</span>
-                        </div>
-
-                        <div class="student-internship-skills">
-                            <i class="fa-solid fa-code"></i>
-                            <span>.NET</span> <span>C#</span> <span>SQL</span>
-                        </div>
-                    </div>
-
-                    <div class="student-internship-foot">
-                        <span class="student-internship-stipend">₹ 10,000 / mo</span>
-                        <a href="student-internship-details.aspx?id=101" class="student-internship-btn">View Details</a>
-                    </div>
-                </div>
-
-                <!-- CARD 2 -->
-                <div class="student-internship-card">
-                    <div>
-                        <div class="student-internship-head">
-                            <div>
-                                <h4 class="student-internship-title">UI/UX Design Intern</h4>
-                                <span class="student-internship-company">DesignHub Solutions</span>
-                            </div>
-                            <span class="student-status-badge badge-pending" style="font-size:11px;">Hybrid</span>
-                        </div>
-
-                        <div class="student-internship-tags">
-                            <span><i class="fa-solid fa-location-dot"></i> Ahmedabad</span>
-                            <span>&bull;</span>
-                            <span><i class="fa-solid fa-clock"></i> 3 Months</span>
-                        </div>
-
-                        <div class="student-internship-skills">
-                            <i class="fa-solid fa-code"></i>
-                            <span>Figma</span> <span>Adobe XD</span> <span>CSS</span>
-                        </div>
-                    </div>
-
-                    <div class="student-internship-foot">
-                        <span class="student-internship-stipend">₹ 12,000 / mo</span>
-                        <a href="student-internship-details.aspx?id=102" class="student-internship-btn">View Details</a>
-                    </div>
-                </div>
-
-                <!-- CARD 3 -->
-                <div class="student-internship-card">
-                    <div>
-                        <div class="student-internship-head">
-                            <div>
-                                <h4 class="student-internship-title">Software Developer Intern</h4>
-                                <span class="student-internship-company">ABC Technologies</span>
-                            </div>
-                            <span class="student-status-badge badge-selected" style="font-size:11px;">Remote</span>
-                        </div>
-
-                        <div class="student-internship-tags">
-                            <span><i class="fa-solid fa-location-dot"></i> Remote</span>
-                            <span>&bull;</span>
-                            <span><i class="fa-solid fa-clock"></i> 6 Months</span>
-                        </div>
-
-                        <div class="student-internship-skills">
-                            <i class="fa-solid fa-code"></i>
-                            <span>Python</span> <span>React</span> <span>Node.js</span>
-                        </div>
-                    </div>
-
-                    <div class="student-internship-foot">
-                        <span class="student-internship-stipend">₹ 15,000 / mo</span>
-                        <a href="student-internship-details.aspx?id=103" class="student-internship-btn">View Details</a>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- EMPTY STATE -->
-            <div class="student-empty-state" id="emptyRecommendations" runat="server" visible="false">
-                <div class="student-empty-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                <h4 class="student-empty-title">No recommendations available right now. Update your profile skills to get matched!</h4>
-                <a href="student-profile.aspx" class="student-btn-browse">Update Profile Skills</a>
-            </div>
-        </div>
-
     </div>
-</asp:Content>
-
-<asp:Content ID="ContentScripts" ContentPlaceHolderID="ScriptContent" runat="server">
-    <script src="<%= ResolveUrl("~/js/student-dashboard.js") %>"></script>
+    <!-- Charts JavaScript Engine (Exact match with Company Dashboard) -->
+    </asp:Content>
+<asp:Content ID="ScriptContent_sdash" ContentPlaceHolderID="ScriptContent" runat="server">
+    <script src="../js/student-dashboard.js"></script>
 </asp:Content>

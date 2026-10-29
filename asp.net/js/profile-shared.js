@@ -196,11 +196,11 @@ const PMData = (function () {
 ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
   const profile = PMData.getProfile();
-  
-  /* 
+
+  /*
    * NOTE: Sidebar, Topbar, Theme Toggle, Profile Dropdown, and Logout logic
    * has been completely moved to student-layout.js to ensure a unified layout
-   * across all student pages. 
+   * across all student pages.
    */
   const toast = document.getElementById('dashToast');
   const toastMsg = document.getElementById('dashToastMsg');

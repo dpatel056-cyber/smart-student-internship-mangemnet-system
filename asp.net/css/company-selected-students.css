@@ -1,0 +1,80 @@
+/* SIMS - Company Selected Students Stylesheet */
+.page-header-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .filter-bar-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            box-shadow: 0 1px 3px rgba(16, 24, 40, 0.04);
+        }
+        .form-select-ctrl {
+            padding: 9px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 13.5px;
+            color: #0f172a;
+            outline: none;
+            background: #f8fafc;
+            min-width: 200px;
+        }
+        .form-select-ctrl:focus {
+            border-color: #2563eb;
+            background: #ffffff;
+        }
+        .btn-table-action {
+            padding: 6px 12px;
+            font-size: 12.5px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+            white-space: nowrap;
+        }
+        .btn-action-offer {
+            background: #f5f3ff;
+            color: #7c3aed;
+            border-color: #ddd6fe;
+        }
+        .btn-action-offer:hover {
+            background: #7c3aed;
+            color: #ffffff;
+            border-color: #7c3aed;
+        }
+        .btn-action-cert {
+            background: #fffbeb;
+            color: #b45309;
+            border-color: #fde68a;
+        }
+        .btn-action-cert:hover {
+            background: #b45309;
+            color: #ffffff;
+            border-color: #b45309;
+        }
+        .btn-action-view {
+            background: #eff6ff;
+            color: #2563eb;
+            border-color: #bfdbfe;
+            padding: 6px 14px;
+        }
+        .btn-action-view:hover {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+        }
