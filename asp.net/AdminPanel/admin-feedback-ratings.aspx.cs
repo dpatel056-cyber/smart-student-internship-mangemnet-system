@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.IO;
@@ -7,6 +8,10 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using CrystalDecisions.Web.Design;
 namespace asp.net.css
 {
     public partial class admin_feedback_ratings : System.Web.UI.Page
@@ -16,6 +21,10 @@ namespace asp.net.css
         DataSet ds;
         SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
+
+        private CrystalDecisions.CrystalReports.Engine.ReportDocument cr = new ReportDocument();
+        static string Crypath = "";
+
         void getcon()
         {
             con = new SqlConnection(s);
@@ -173,6 +182,57 @@ namespace asp.net.css
 
         protected void btnGenerateReport_Click(object sender, EventArgs e)
         {
+            //getcon();
+
+            //string q = "select pf.FeedbackId as [Id], pf.SenderName as [User], pf.SenderEmail as [Email], " +
+            //           "pf.SenderType as [Role], pf.Rating as [Rating], " +
+            //           "ISNULL(pf.FeedbackCategory, 'General') as [Category], " +
+            //           "pf.Message as [Message], pf.CreatedDate as [Date] " +
+            //           "from PlatformFeedback pf " +
+            //           "order by pf.FeedbackId desc";
+
+            //da = new SqlDataAdapter(q, con);
+            //DataTable dt = new DataTable();
+            //da.Fill(dt);
+
+            ////create pdf document 
+            //Document pdfdoc = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
+            //MemoryStream ms = new MemoryStream();
+            //PdfWriter.GetInstance(pdfdoc, ms);
+            //pdfdoc.Open();
+
+            ////add title
+            //pdfdoc.Add(new Paragraph("Feedback & Ratings Report"));
+            //pdfdoc.Add(new Paragraph(""));
+
+            ////create pdf table
+            //PdfPTable pdfPTable = new PdfPTable(dt.Columns.Count);
+            //pdfPTable.WidthPercentage = 100;
+
+            ////add headers
+            //foreach (DataColumn column in dt.Columns)
+            //{
+            //    pdfPTable.AddCell(new Phrase(column.ColumnName));
+            //}
+
+            ////add data rows
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    foreach (object cell in row.ItemArray)
+            //    {
+            //        pdfPTable.AddCell(new Phrase(cell.ToString()));
+            //    }
+            //}
+            //pdfdoc.Add(pdfPTable);
+            //pdfdoc.Close();
+
+            ////send pdf to browser
+            //Response.ContentType = "application/pdf";
+            //Response.AddHeader("Content-Disposition", "attachment; filename=FeedbackReport.pdf");
+            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //Response.BinaryWrite(ms.ToArray());
+            //Response.End();
+
             getcon();
             string q = "select pf.FeedbackId as [Id], pf.SenderName as [User], pf.SenderEmail as [Email], " +
                        "pf.SenderType as [Role], pf.Rating as [Rating], " +
@@ -180,44 +240,20 @@ namespace asp.net.css
                        "pf.Message as [Message], pf.CreatedDate as [Date] " +
                        "from PlatformFeedback pf " +
                        "order by pf.FeedbackId desc";
+
             da = new SqlDataAdapter(q, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            using (MemoryStream ms = new MemoryStream())
-            {
-                Document doc = new Document(PageSize.A4.Rotate());
-                PdfWriter.GetInstance(doc, ms);
-                doc.Open();
-                PdfPTable table = new PdfPTable(dt.Columns.Count);
+            ds = new DataSet();
+            da.Fill(ds);
+            string s = Server.MapPath("~/admin_feedback_report_data.xml");
+            ds.WriteXmlSchema(s);
 
-                // Add column names
-                foreach (DataColumn column in dt.Columns)
-                {
-                    table.AddCell(column.ColumnName);
-                }
-
-                // Add database data
-                foreach (DataRow row in dt.Rows)
-                {
-                    foreach (DataColumn column in dt.Columns)
-                    {
-                        string value = row[column] == DBNull.Value ? "" : Convert.ToString(row[column]);
-                        table.AddCell(value);
-                    }
-                }
-
-                doc.Add(table);
-                doc.Close();
-                byte[] bytes = ms.ToArray();
-                Response.Clear();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("Content-Disposition", "attachment; filename=FeedbackReport.pdf");
-                Response.BinaryWrite(bytes);
-                Response.Flush();
-                Response.SuppressContent = true;
-                Context.ApplicationInstance.CompleteRequest();
-            }
+            //Now add crystalreportviewer to view the report.
+            string path = Server.MapPath("~/AdminPanel/admin_feedback_report.rpt");
+            cr.Load(path);
+            cr.SetDataSource(ds.Tables[0]);
+            cr.Refresh();
+            CrystalReportViewer8.ReportSource = cr;
+            cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat,Response, true, "Admin Feedback Report");
         }
     }
 }

@@ -427,8 +427,5 @@
         <i class="fa-solid fa-circle-check"></i>
         <span id="loginToastMsg">Registration successful!</span>
     </div>
-
-    <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
-    <script src="<%= ResolveUrl("~/js/script.js") %>"></script>
     <script src="<%= ResolveUrl("~/js/register.js") %>"></script>
 </asp:Content>

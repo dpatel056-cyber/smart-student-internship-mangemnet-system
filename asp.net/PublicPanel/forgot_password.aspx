@@ -104,7 +104,5 @@
 
         </div>
     </div>
-
-    <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
     <script src="<%= ResolveUrl("~/js/fp-multi.js") %>"></script>
 </asp:Content>

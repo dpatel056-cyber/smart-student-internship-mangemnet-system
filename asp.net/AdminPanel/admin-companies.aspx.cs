@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.IO;
@@ -7,6 +8,11 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using CrystalDecisions.Web.Design;
+
 namespace asp.net
 {
     public partial class admin_companies : System.Web.UI.Page
@@ -16,6 +22,9 @@ namespace asp.net
         DataSet ds;
         SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
+
+        private CrystalDecisions.CrystalReports.Engine.ReportDocument cr = new ReportDocument();
+        static string Crypath = "";
         void getcon()
         {
             con = new SqlConnection(s);
@@ -164,9 +173,59 @@ namespace asp.net
                 companyfillgrid();
             }
         }
-
         protected void btnGenerateReport_Click(object sender, EventArgs e)
         {
+            //getcon();
+
+            //string q = "select c.CompanyId as [Company Id], c.c_company as [Company Name], c.c_email as [Email], " +
+            //           "c.c_contact as [Contact], ISNULL(c.c_industry, 'General') as [Industry], " +
+            //           "ISNULL(c.c_city, 'N/A') as [City], " +
+            //           "case when c.IsBlocked = 1 or c.Status = 'Blocked' then 'Blocked' else 'Active' end as [Status] " +
+            //           "from c_registration c " +
+            //           "order by c.CompanyId desc";
+
+            //da = new SqlDataAdapter(q, con);
+            //DataTable dt = new DataTable();
+            //da.Fill(dt);
+
+            ////create pdf document 
+            //Document pdfdoc = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
+            //MemoryStream ms = new MemoryStream();
+            //PdfWriter.GetInstance(pdfdoc, ms);
+            //pdfdoc.Open();
+
+            ////add title
+            //pdfdoc.Add(new Paragraph("Companies Report"));
+            //pdfdoc.Add(new Paragraph(""));
+
+            ////create pdf table
+            //PdfPTable pdfPTable = new PdfPTable(dt.Columns.Count);
+            //pdfPTable.WidthPercentage = 100;
+
+            ////add headers
+            //foreach (DataColumn column in dt.Columns)
+            //{
+            //    pdfPTable.AddCell(new Phrase(column.ColumnName));
+            //}
+
+            ////add data rows
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    foreach (object cell in row.ItemArray)
+            //    {
+            //        pdfPTable.AddCell(new Phrase(cell.ToString()));
+            //    }
+            //}
+            //pdfdoc.Add(pdfPTable);
+            //pdfdoc.Close();
+
+            ////send pdf to browser
+            //Response.ContentType = "application/pdf";
+            //Response.AddHeader("Content-Disposition", "attachment; filename=CompaniesReport.pdf");
+            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //Response.BinaryWrite(ms.ToArray());
+            //Response.End();
+
             getcon();
             string q = "select c.CompanyId as [Company Id], c.c_company as [Company Name], c.c_email as [Email], " +
                        "c.c_contact as [Contact], ISNULL(c.c_industry, 'General') as [Industry], " +
@@ -174,44 +233,22 @@ namespace asp.net
                        "case when c.IsBlocked = 1 or c.Status = 'Blocked' then 'Blocked' else 'Active' end as [Status] " +
                        "from c_registration c " +
                        "order by c.CompanyId desc";
+
             da = new SqlDataAdapter(q, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            using (MemoryStream ms = new MemoryStream())
-            {
-                Document doc = new Document(PageSize.A4.Rotate());
-                PdfWriter.GetInstance(doc, ms);
-                doc.Open();
-                PdfPTable table = new PdfPTable(dt.Columns.Count);
+            ds = new DataSet();
+            da.Fill(ds);
+            string s = Server.MapPath("~/admin_companies_report_data.xml");
+            ds.WriteXmlSchema(s);
 
-                // Add column names
-                foreach (DataColumn column in dt.Columns)
-                {
-                    table.AddCell(column.ColumnName);
-                }
+            //Now add crystalreportviewer to view the report.
+            string path = Server.MapPath("~/AdminPanel/admin_companies_report.rpt");
+            cr.Load(path);
+            cr.SetDataSource(ds.Tables[0]);
+            cr.Refresh();
+            CrystalReportViewer4.ReportSource = cr;
+            cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Admin Companies Report");
 
-                // Add database data
-                foreach (DataRow row in dt.Rows)
-                {
-                    foreach (DataColumn column in dt.Columns)
-                    {
-                        string value = row[column] == DBNull.Value ? "" : Convert.ToString(row[column]);
-                        table.AddCell(value);
-                    }
-                }
 
-                doc.Add(table);
-                doc.Close();
-                byte[] bytes = ms.ToArray();
-                Response.Clear();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("Content-Disposition", "attachment; filename=CompaniesReport.pdf");
-                Response.BinaryWrite(bytes);
-                Response.Flush();
-                Response.SuppressContent = true;
-                Context.ApplicationInstance.CompleteRequest();
-            }
         }
     }
 }

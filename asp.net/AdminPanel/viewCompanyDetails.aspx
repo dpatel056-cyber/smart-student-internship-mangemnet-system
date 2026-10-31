@@ -1,7 +1,6 @@
 <%@ Page Title="Company Details" Language="C#" MasterPageFile="~/AdminPanel/admin.Master" AutoEventWireup="true" CodeBehind="viewCompanyDetails.aspx.cs" Inherits="asp.net.viewCompanyDetails" %>
 <asp:Content ID="Content0" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/company-profile.css") %>" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="../css/viewCompanyDetails.css" />
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

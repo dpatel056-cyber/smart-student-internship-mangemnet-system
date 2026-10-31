@@ -188,6 +188,4 @@
             </div>
         </section>
     </main>
-    <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
-    <script src="<%= ResolveUrl("~/js/script.js") %>"></script>
 </asp:Content>

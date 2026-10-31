@@ -2,7 +2,6 @@
 
 <asp:Content ID="Content0" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/company-profile.css") %>" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/company-details.css") %>" />
 </asp:Content>
 

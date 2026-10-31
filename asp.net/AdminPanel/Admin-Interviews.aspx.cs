@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.IO;
@@ -8,6 +9,10 @@ using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using asp.net;
+
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using CrystalDecisions.Web.Design;
 namespace asp.net.css
 {
     public partial class admin_interviews : System.Web.UI.Page
@@ -17,6 +22,10 @@ namespace asp.net.css
         DataSet ds;
         SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
+
+        private CrystalDecisions.CrystalReports.Engine.ReportDocument cr = new ReportDocument();
+        static string Crypath = "";
+
         AdminClass admin = new AdminClass();
         void getcon()
         {
@@ -164,6 +173,60 @@ namespace asp.net.css
 
         protected void btnGenerateReport_Click(object sender, EventArgs e)
         {
+            //getcon();
+
+            //string q = "select civ.InterviewId as [Interview Id], s.FullName as [Student Name], " +
+            //           "c.c_company as [Company], i.InternshipTitle as [Internship], " +
+            //           "civ.InterviewDate as [Date], civ.InterviewTime as [Time], " +
+            //           "civ.InterviewType as [Type], ISNULL(civ.Status, 'Scheduled') as [Status] " +
+            //           "from CompanyInterviews civ " +
+            //           "inner join Students s on civ.StudentId = s.StudentId " +
+            //           "inner join internship i on civ.InternshipId = i.Id " +
+            //           "inner join c_registration c on civ.CompanyId = c.CompanyId " +
+            //           "order by civ.InterviewId desc";
+
+            //da = new SqlDataAdapter(q, con);
+            //DataTable dt = new DataTable();
+            //da.Fill(dt);
+
+            ////create pdf document 
+            //Document pdfdoc = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
+            //MemoryStream ms = new MemoryStream();
+            //PdfWriter.GetInstance(pdfdoc, ms);
+            //pdfdoc.Open();
+
+            ////add title
+            //pdfdoc.Add(new Paragraph("Interviews Report"));
+            //pdfdoc.Add(new Paragraph(""));
+
+            ////create pdf table
+            //PdfPTable pdfPTable = new PdfPTable(dt.Columns.Count);
+            //pdfPTable.WidthPercentage = 100;
+
+            ////add headers
+            //foreach (DataColumn column in dt.Columns)
+            //{
+            //    pdfPTable.AddCell(new Phrase(column.ColumnName));
+            //}
+
+            ////add data rows
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    foreach (object cell in row.ItemArray)
+            //    {
+            //        pdfPTable.AddCell(new Phrase(cell.ToString()));
+            //    }
+            //}
+            //pdfdoc.Add(pdfPTable);
+            //pdfdoc.Close();
+
+            ////send pdf to browser
+            //Response.ContentType = "application/pdf";
+            //Response.AddHeader("Content-Disposition", "attachment; filename=InterviewsReport.pdf");
+            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //Response.BinaryWrite(ms.ToArray());
+            //Response.End();
+
             getcon();
             string q = "select civ.InterviewId as [Interview Id], s.FullName as [Student Name], " +
                        "c.c_company as [Company], i.InternshipTitle as [Internship], " +
@@ -174,44 +237,20 @@ namespace asp.net.css
                        "inner join internship i on civ.InternshipId = i.Id " +
                        "inner join c_registration c on civ.CompanyId = c.CompanyId " +
                        "order by civ.InterviewId desc";
+
             da = new SqlDataAdapter(q, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            using (MemoryStream ms = new MemoryStream())
-            {
-                Document doc = new Document(PageSize.A4.Rotate());
-                PdfWriter.GetInstance(doc, ms);
-                doc.Open();
-                PdfPTable table = new PdfPTable(dt.Columns.Count);
+            ds = new DataSet();
+            da.Fill(ds);
+            string s = Server.MapPath("~/admin_interview_report_data.xml");
+            ds.WriteXmlSchema(s);
 
-                // Add column names
-                foreach (DataColumn column in dt.Columns)
-                {
-                    table.AddCell(column.ColumnName);
-                }
-
-                // Add database data
-                foreach (DataRow row in dt.Rows)
-                {
-                    foreach (DataColumn column in dt.Columns)
-                    {
-                        string value = row[column] == DBNull.Value ? "" : Convert.ToString(row[column]);
-                        table.AddCell(value);
-                    }
-                }
-
-                doc.Add(table);
-                doc.Close();
-                byte[] bytes = ms.ToArray();
-                Response.Clear();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("Content-Disposition", "attachment; filename=InterviewsReport.pdf");
-                Response.BinaryWrite(bytes);
-                Response.Flush();
-                Response.SuppressContent = true;
-                Context.ApplicationInstance.CompleteRequest();
-            }
+            //Now add crystalreportviewer to view the report.
+            string path = Server.MapPath("~/AdminPanel/admin_interview_report.rpt");
+            cr.Load(path);
+            cr.SetDataSource(ds.Tables[0]);
+            cr.Refresh();
+            CrystalReportViewer6.ReportSource = cr;
+            cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Admin Interview Report");
         }
     }
 }

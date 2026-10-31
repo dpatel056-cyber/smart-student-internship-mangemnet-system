@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.IO;
@@ -7,6 +8,10 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using CrystalDecisions.Web.Design;
 namespace asp.net
 {
     public partial class admin_internships : System.Web.UI.Page
@@ -16,6 +21,10 @@ namespace asp.net
         DataSet ds;
         SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
+
+        private CrystalDecisions.CrystalReports.Engine.ReportDocument cr = new ReportDocument();
+        static string Crypath = "";
+
         void getcon()
         {
             con = new SqlConnection(s);
@@ -75,7 +84,7 @@ namespace asp.net
 
         // Search Button Click
 
-protected void btnSearch_Click(object sender, EventArgs e)
+        protected void btnSearch_Click(object sender, EventArgs e)
         {
             admin = new AdminClass();
             filtergrid(admin.search_internships(txtSearch.Text).Tables[0]);
@@ -123,7 +132,7 @@ protected void btnSearch_Click(object sender, EventArgs e)
 
         // Clear Filters Click
 
-protected void btnClearFilters_Click(object sender, EventArgs e)
+        protected void btnClearFilters_Click(object sender, EventArgs e)
         {
             txtSearch.Text = "";
             ddlDomain.SelectedIndex = 0;
@@ -137,13 +146,13 @@ protected void btnClearFilters_Click(object sender, EventArgs e)
 
         // Pagination Click Events
 
-protected void btnPrevious_Click(object sender, EventArgs e)
+        protected void btnPrevious_Click(object sender, EventArgs e)
         {
             ViewState["page"] = Convert.ToInt32(ViewState["page"]) - 1;
             internshipfillgrid();
         }
 
-protected void btnNext_Click(object sender, EventArgs e)
+        protected void btnNext_Click(object sender, EventArgs e)
         {
             ViewState["page"] = Convert.ToInt32(ViewState["page"]) + 1;
             internshipfillgrid();
@@ -164,54 +173,83 @@ protected void btnNext_Click(object sender, EventArgs e)
             }
         }
 
+
         protected void btnGenerateReport_Click(object sender, EventArgs e)
         {
+            //getcon();
+
+            //string q = "select i.Id as [Internship Id], i.InternshipTitle as [Title], c.c_company as [Company], " +
+            //           "i.InternshipDomain as [Domain], i.InternshipDuration as [Duration], " +
+            //           "i.InternshipStipend as [Stipend], i.WorkMode as [Mode], " +
+            //           "ISNULL(i.InternshipStatus, 'Active') as [Status] " +
+            //           "from internship i " +
+            //           "inner join c_registration c on i.CompanyId = c.CompanyId " +
+            //           "order by i.Id desc";
+
+            //da = new SqlDataAdapter(q, con);
+            //DataTable dt = new DataTable();
+            //da.Fill(dt);
+
+            ////create pdf document 
+            //Document pdfdoc = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
+            //MemoryStream ms = new MemoryStream();
+            //PdfWriter.GetInstance(pdfdoc, ms);
+            //pdfdoc.Open();
+
+            ////add title
+            //pdfdoc.Add(new Paragraph("Internships Report"));
+            //pdfdoc.Add(new Paragraph(""));
+
+            ////create pdf table
+            //PdfPTable pdfPTable = new PdfPTable(dt.Columns.Count);
+            //pdfPTable.WidthPercentage = 100;
+
+            ////add headers
+            //foreach (DataColumn column in dt.Columns)
+            //{
+            //    pdfPTable.AddCell(new Phrase(column.ColumnName));
+            //}
+
+            ////add data rows
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    foreach (object cell in row.ItemArray)
+            //    {
+            //        pdfPTable.AddCell(new Phrase(cell.ToString()));
+            //    }
+            //}
+            //pdfdoc.Add(pdfPTable);
+            //pdfdoc.Close();
+
+            ////send pdf to browser
+            //Response.ContentType = "application/pdf";
+            //Response.AddHeader("Content-Disposition", "attachment; filename=InternshipsReport.pdf");
+            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //Response.BinaryWrite(ms.ToArray());
+            //Response.End();
+
             getcon();
             string q = "select i.Id as [Internship Id], i.InternshipTitle as [Title], c.c_company as [Company], " +
-                       "i.InternshipDomain as [Domain], i.InternshipDuration as [Duration], " +
-                       "i.InternshipStipend as [Stipend], i.WorkMode as [Mode], " +
-                       "ISNULL(i.InternshipStatus, 'Active') as [Status] " +
+                       "i.InternshipDomain as [Domain], i.Duration as [Duration], " +
+                       "i.StipendAmount as [Stipend], i.WorkMode as [Mode], " +
+                       "ISNULL(i.Status, 'Active') as [Status] " +
                        "from internship i " +
                        "inner join c_registration c on i.CompanyId = c.CompanyId " +
                        "order by i.Id desc";
+
             da = new SqlDataAdapter(q, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            using (MemoryStream ms = new MemoryStream())
-            {
-                Document doc = new Document(PageSize.A4.Rotate());
-                PdfWriter.GetInstance(doc, ms);
-                doc.Open();
-                PdfPTable table = new PdfPTable(dt.Columns.Count);
+            ds = new DataSet();
+            da.Fill(ds);
+            string s = Server.MapPath("~/admin_internships_report_data.xml");
+            ds.WriteXmlSchema(s);
 
-                // Add column names
-                foreach (DataColumn column in dt.Columns)
-                {
-                    table.AddCell(column.ColumnName);
-                }
-
-                // Add database data
-                foreach (DataRow row in dt.Rows)
-                {
-                    foreach (DataColumn column in dt.Columns)
-                    {
-                        string value = row[column] == DBNull.Value ? "" : Convert.ToString(row[column]);
-                        table.AddCell(value);
-                    }
-                }
-
-                doc.Add(table);
-                doc.Close();
-                byte[] bytes = ms.ToArray();
-                Response.Clear();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("Content-Disposition", "attachment; filename=InternshipsReport.pdf");
-                Response.BinaryWrite(bytes);
-                Response.Flush();
-                Response.SuppressContent = true;
-                Context.ApplicationInstance.CompleteRequest();
-            }
+            //Now add crystalreportviewer to view the report.
+            string path = Server.MapPath("~/AdminPanel/admin_internships_report.rpt");
+            cr.Load(path);
+            cr.SetDataSource(ds.Tables[0]);
+            cr.Refresh();
+            CrystalReportViewer3.ReportSource = cr;
+            cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Admin Internship Report");
         }
     }
 }

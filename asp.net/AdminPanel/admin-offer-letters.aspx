@@ -102,7 +102,7 @@
                     Height="40"
                     CssClass="admin-img-btn admin-img-btn-clear" />
 
-                <asp:Button ID="btnGenerateReport" runat="server" Text="Generate Report" CssClass="btn-report" OnClick="btnGenerateReport_Click" CausesValidation="false" style="background: linear-gradient(135deg, #0155e3 0%, #1e40af 100%) !important; color: #ffffff !important; height: 40px !important; padding: 0 16px !important; border: none !important; border-radius: 8px !important; font-weight: 600 !important; font-size: 13px !important; cursor: pointer !important; white-space: nowrap !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; box-shadow: 0 2px 6px rgba(1, 85, 227, 0.28) !important; flex-shrink: 0 !important; outline: none !important; text-decoration: none !important; line-height: 40px !important;" />
+                <asp:ImageButton ID="btnGenerateReport" runat="server" OnClick="btnGenerateReport_Click" ImageUrl="~/image_button/btn_admin_generate_report.png?v=2" Height="40" CssClass="admin-img-btn admin-img-btn-report" CausesValidation="false" />
             </div>
 
         </div>

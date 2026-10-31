@@ -2,16 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/internships.css") %>" />
+    <link rel="stylesheet" href="<%= ResolveUrl("~/css/internship-module.css") %>" />
 </asp:Content>
 
 <asp:Content ID="Content4" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/internship-module.css">
-
-    <div id="public-header-root"></div>
 
     <!-- ============ HEADER ============ -->
     <header class="site-header">
@@ -277,8 +271,5 @@
         <i class="fa-solid fa-circle-check"></i>
         <span id="loginToastMsg">Notice</span>
     </div>
-
-    <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
-    <script src="<%= ResolveUrl("~/js/script.js") %>"></script>
     <script src="<%= ResolveUrl("~/js/internships.js") %>"></script>
 </asp:Content>

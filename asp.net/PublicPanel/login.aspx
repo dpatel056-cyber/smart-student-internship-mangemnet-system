@@ -195,8 +195,5 @@
         <i class="fa-solid fa-circle-check"></i>
         <span id="loginToastMsg">Login successful!</span>
     </div>
-
-    <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
-    <script src="<%= ResolveUrl("~/js/script.js") %>"></script>
     <script src="<%= ResolveUrl("~/js/login.js?v=2") %>"></script>
 </asp:Content>

@@ -1,9 +1,7 @@
 <%@ Page Title="Internship Details" Language="C#" MasterPageFile="~/PublicPanel/public.Master" AutoEventWireup="true" CodeBehind="internship-details.aspx.cs" Inherits="asp.net.internship_details" %>
 
 <asp:Content ID="Content0" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="<%= ResolveUrl("~/css/style.css") %>" />
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/internship-module.css") %>" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/internship-details.css") %>" />
 </asp:Content>
 

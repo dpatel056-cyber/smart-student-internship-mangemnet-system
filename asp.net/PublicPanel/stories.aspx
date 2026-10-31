@@ -424,8 +424,5 @@
 
         <asp:ImageButton ID="scrollTopBtn" ClientIDMode="Static" runat="server" ImageUrl="~/assets/btn_scroll_top.png" CssClass="scroll-top" Width="44px" Height="44px" OnClientClick="window.scrollTo({top:0, behavior:'smooth'}); return false;" />
     </footer>
-
-    <script src="<%= ResolveUrl("~/js/global-store.js") %>"></script>
-    <script src="<%= ResolveUrl("~/js/script.js") %>"></script>
     <script src="<%= ResolveUrl("~/js/stories.js") %>"></script>
 </asp:Content>
