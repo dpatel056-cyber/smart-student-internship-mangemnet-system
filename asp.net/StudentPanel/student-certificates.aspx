@@ -104,11 +104,11 @@
                         </div>
                     </div>
                     <div class="doc-btn-group">
-                        <asp:ImageButton ID="btnViewCertificate" runat="server" 
-                                         ImageUrl="~/assets/btn_view_print_cert.png" 
-                                         CommandName="cmd_view" 
-                                         CommandArgument='<%# Eval("CertificateId") %>' 
-                                         Height="44" 
+                        <asp:ImageButton ID="btnViewCertificate" runat="server"
+                                         ImageUrl="~/assets/btn_view_print_cert.png"
+                                         CommandName="cmd_view"
+                                         CommandArgument='<%# Eval("CertificateId") %>'
+                                         Height="44"
                                          CssClass="student-img-btn doc-action-img-btn" />
                     </div>
                 </div>
@@ -119,10 +119,10 @@
                 <i class="fa-solid fa-award scert-u19"></i>
                 <h3 class="scert-u20">No Certificates Issued Yet</h3>
                 <p class="scert-u21">Upon successful completion of your internships, your verified certificates will appear here.</p>
-                <asp:ImageButton ID="btnBrowseInternships" runat="server" 
-                                 ImageUrl="~/assets/btn_browse_internships.png" 
-                                 PostBackUrl="~/StudentPanel/student-internships.aspx" 
-                                 Height="44" 
+                <asp:ImageButton ID="btnBrowseInternships" runat="server"
+                                 ImageUrl="~/assets/btn_browse_internships.png"
+                                 PostBackUrl="~/StudentPanel/student-internships.aspx"
+                                 Height="44"
                                  CssClass="student-img-btn" />
             </div>
         </asp:PlaceHolder>

@@ -308,11 +308,9 @@
             transform: none !important;
         }
 
-
 .interview-page-wrap {
     padding: 10px 0;
 }
-
 
 /* Button Hover Rules */
 input[type="image"][src*="btn_admin_search"]:hover,
@@ -465,4 +463,3 @@ input[type="image"][src*="btn_admin_clear"]:hover,
 .btn-report:active {
     transform: translateY(0) !important;
 }
-

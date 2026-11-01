@@ -42,10 +42,10 @@
                 </div>
             </div>
             <div class="pwd-submit-wrap">
-                <asp:ImageButton ID="btnChangePassword" runat="server" 
-                                 ImageUrl="~/assets/btn_update_password.png" 
-                                 OnClick="btnChangePassword_Click" 
-                                 Height="48" 
+                <asp:ImageButton ID="btnChangePassword" runat="server"
+                                 ImageUrl="~/assets/btn_update_password.png"
+                                 OnClick="btnChangePassword_Click"
+                                 Height="48"
                                  CssClass="btn-submit-pwd-img student-img-btn" />
             </div>
         </div>

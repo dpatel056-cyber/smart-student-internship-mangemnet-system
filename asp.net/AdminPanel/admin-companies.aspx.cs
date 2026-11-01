@@ -188,7 +188,7 @@ namespace asp.net
             //DataTable dt = new DataTable();
             //da.Fill(dt);
 
-            ////create pdf document 
+            ////create pdf document
             //Document pdfdoc = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
             //MemoryStream ms = new MemoryStream();
             //PdfWriter.GetInstance(pdfdoc, ms);
@@ -247,7 +247,6 @@ namespace asp.net
             cr.Refresh();
             CrystalReportViewer4.ReportSource = cr;
             cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Admin Companies Report");
-
 
         }
     }

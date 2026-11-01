@@ -1994,8 +1994,6 @@ html, body {
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06) !important;
 }
 
-
-
 /* =====================================================
    VIEW & DELETE BUTTON HOVER SWAP VIA CSS PATH
    ===================================================== */
@@ -2028,7 +2026,6 @@ input[type="image"][src*="btn_admin_clear"]:hover,
     transform: translateY(-1px) !important;
     filter: brightness(1.04) drop-shadow(0 3px 8px rgba(0, 0, 0, 0.12)) !important;
 }
-
 
 /* =====================================================
    UNIVERSAL FILTER ACTION BUTTONS SINGLE ROW & FORMATTING
@@ -2075,7 +2072,6 @@ input[type="image"][src*="btn_admin_clear"]:hover,
     width: auto !important;
     flex-shrink: 0 !important;
 }
-
 
 /* =====================================================
    REPORTS & ANALYTICS VIBRANT COLOR CLASSES
@@ -2191,7 +2187,6 @@ input[type="image"][src*="btn_admin_clear"]:hover,
     justify-content: center;
     cursor: pointer;
 }
-
 
 .btn-report:hover {
     background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;

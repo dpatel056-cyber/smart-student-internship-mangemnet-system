@@ -255,7 +255,6 @@
     }
 }
 
-
 /* Extracted Styles */
 .radio-group, .checkbox-group { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 8px; }
         .radio-group label, .checkbox-group label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: #334155; font-weight: 500; }

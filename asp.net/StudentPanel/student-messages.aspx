@@ -51,8 +51,8 @@
                                 CommandArgument='<%# Eval("Id") + "|" + Eval("Name") + "|" + Eval("Role") + "|" + Eval("Subtitle") + "|" + Eval("Email") + "|" + Eval("AvatarUrl") %>'
                                 CssClass='<%# "contact-item" + (IsSelectedContact(Eval("Email").ToString()) ? " active" : "") %>'>
                                 <div class="contact-avatar-wrapper">
-                                    <%# !string.IsNullOrEmpty(Eval("AvatarUrl") as string) ? 
-                                        "<img src='" + ResolveUrl(Eval("AvatarUrl").ToString()) + "' class='contact-avatar-img' width='46' height='46' />" : 
+                                    <%# !string.IsNullOrEmpty(Eval("AvatarUrl") as string) ?
+                                        "<img src='" + ResolveUrl(Eval("AvatarUrl").ToString()) + "' class='contact-avatar-img' width='46' height='46' />" :
                                         "<div class='contact-avatar " + (Eval("Role").ToString() == "Admin" ? "avatar-admin" : "avatar-company") + "'>" + Eval("Initials") + "</div>" %>
                                     <div class="online-dot"></div>
                                 </div>

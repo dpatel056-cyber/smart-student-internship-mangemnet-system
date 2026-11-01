@@ -7,7 +7,7 @@ function openStudentCertModal(comp, loc, email, logo, name, college, title, role
             var logoEl = document.getElementById('sModalCompLogo');
             var logoIcon = document.getElementById('sModalLogoIcon');
             var cleanLogo = (logo && logo.trim() !== '' && logo.trim() !== 'undefined') ? logo.trim() : '';
-            
+
             if (cleanLogo) {
                 if (cleanLogo.indexOf('~/') === 0) {
                     cleanLogo = cleanLogo.replace('~/', '/');
@@ -22,8 +22,8 @@ function openStudentCertModal(comp, loc, email, logo, name, college, title, role
                     logoIcon.style.display = 'none';
                 };
                 testImg.onerror = function () {
-                    var altPath = cleanLogo.indexOf('CompanyUploads') !== -1 ? 
-                        cleanLogo.replace('CompanyUploads', 'uploads/company_logos') : 
+                    var altPath = cleanLogo.indexOf('CompanyUploads') !== -1 ?
+                        cleanLogo.replace('CompanyUploads', 'uploads/company_logos') :
                         cleanLogo.replace('uploads/company_logos', 'CompanyUploads');
                     var altImg = new Image();
                     altImg.onload = function () {

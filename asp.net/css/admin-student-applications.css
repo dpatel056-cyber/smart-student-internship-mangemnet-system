@@ -1615,7 +1615,6 @@ body.sims-modal-open {
             margin-bottom: 8px;
         }
 
-
 /* =====================================================
    VIEW & DELETE BUTTON HOVER SWAP VIA CSS PATH
    ===================================================== */
@@ -1646,7 +1645,6 @@ input[type="image"][src*="btn_admin_clear"]:hover,
     transform: translateY(-1px) !important;
     filter: brightness(1.04) drop-shadow(0 3px 8px rgba(0, 0, 0, 0.12)) !important;
 }
-
 
 /* =====================================================
    COMPACT SINGLE ROW FILTER & BUTTONS
@@ -1690,7 +1688,6 @@ input[type="image"][src*="btn_admin_clear"]:hover,
     width: auto !important;
     vertical-align: middle !important;
 }
-
 
 /* =====================================================
    ACTION COLUMN & DELETE BUTTON PROPER SIZING (NO CUT-OFF)
@@ -1822,4 +1819,3 @@ input[type="image"][src*="btn_admin_clear"]:hover,
 .btn-report:active {
     transform: translateY(0) !important;
 }
-

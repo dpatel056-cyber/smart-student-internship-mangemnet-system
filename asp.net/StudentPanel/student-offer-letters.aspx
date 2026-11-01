@@ -105,7 +105,7 @@
                     </div>
                     <!-- Bottom Action Buttons -->
                     <div class="offer-card-actions">
-                        <button type="button" class="btn-action-primary soff-u15" 
+                        <button type="button" class="btn-action-primary soff-u15"
                                 onclick='openStudentLetterModal("<%# Eval("c_company") %>", "<%# Eval("c_location") %>", "<%# Eval("CompEmail") %>", "<%# Eval("CompContact") %>", "<%# Eval("c_website") %>", "<%# GetResolvedLogoUrl(Eval("c_logo")) %>", "<%# Eval("FullName") %>", "<%# Eval("StudentEmail") %>", "<%# Eval("College") %>", "<%# Eval("OfferTitle") %>", "<%# Eval("Stipend") %>", "<%# Eval("JoiningDate") %>", "<%# Eval("Duration") %>", "<%# Eval("JobLocation") %>", "<%# Eval("OfferId") %>", "<%# FormatDate(Eval("IssuedDateDisplay")) %>", "<%# Eval("c_hr_name") %>");'>
                             <i class="fa-solid fa-file-pdf"></i> View &amp; Print Letter
                         </button>

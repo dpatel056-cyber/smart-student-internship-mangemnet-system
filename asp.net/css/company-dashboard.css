@@ -455,9 +455,6 @@ html, body {
     color: var(--co-muted);
 }
 
-
-
-
 /* ===== 3. APPLICATION ANALYTICS (2 CHARTS IN 1 ROW, 50% 50% EACH) ===== */
 .dash-analytics-grid {
     display: flex !important;

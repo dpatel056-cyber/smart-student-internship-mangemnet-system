@@ -1528,7 +1528,6 @@
             transform: none !important;
         }
 
-
 /* =====================================================
    VIEW & DELETE BUTTON HOVER SWAP VIA CSS PATH
    ===================================================== */
@@ -1559,7 +1558,6 @@ input[type="image"][src*="btn_admin_clear"]:hover,
     transform: translateY(-1px) !important;
     filter: brightness(1.04) drop-shadow(0 3px 8px rgba(0, 0, 0, 0.12)) !important;
 }
-
 
 /* =====================================================
    FULL BOX FILTER & EXPANDED SEARCH BAR (SINGLE ROW)
@@ -1694,4 +1692,3 @@ input[type="image"][src*="btn_admin_clear"]:hover,
 .btn-report:active {
     transform: translateY(0) !important;
 }
-

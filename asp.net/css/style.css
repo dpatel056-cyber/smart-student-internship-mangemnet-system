@@ -5084,8 +5084,6 @@ input[type="image"]:disabled,
   filter: grayscale(0.6) !important;
 }
 
-
-
 /* ============ COMMON PUBLIC PANEL UTILITY CLASSES ============ */
 .btn-img-action {
     object-fit: contain !important;
