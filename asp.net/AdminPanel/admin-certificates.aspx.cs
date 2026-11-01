@@ -202,7 +202,7 @@ namespace asp.net.css
             ds.WriteXmlSchema(s);
 
             //Now add crystalreportviewer to view the report.
-            string path = Server.MapPath("~/admin_certificate_report.rpt");
+            string path = Server.MapPath("~/AdminPanel/admin_certificate_report.rpt");
             cr.Load(path);
             cr.SetDataSource(ds.Tables[0]);
             cr.Refresh();
