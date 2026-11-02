@@ -14,6 +14,7 @@ namespace asp.net
         protected void Page_Load(object sender, EventArgs e)
         {
             startcon();
+
             if (!IsPostBack)
             {
                 ViewState["page"] = 0;
@@ -35,7 +36,6 @@ namespace asp.net
             lblTotalInternships.Text = "Total Internships: " + dt.Rows.Count;
 
             int page = Convert.ToInt32(ViewState["page"]);
-
             int totalPages = (int)Math.Ceiling(dt.Rows.Count / 12.0);
 
             if (totalPages > 0 && page >= totalPages)
@@ -56,11 +56,16 @@ namespace asp.net
         void filtergrid(DataTable dt)
         {
             ViewState["page"] = 0;
+
             lblTotalInternships.Text = "Total Internships: " + (dt != null ? dt.Rows.Count : 0);
+
             DataListPublicInternships.DataSource = pub.Internship_pagination(dt, 0);
             DataListPublicInternships.DataBind();
+
             int totalPages = dt != null ? (int)Math.Ceiling(dt.Rows.Count / 12.0) : 0;
+
             lblPages.Text = "Page 1 of " + (totalPages > 0 ? totalPages : 1);
+
             btnPrevious.Enabled = false;
             btnNext.Enabled = totalPages > 1;
         }
@@ -69,9 +74,6 @@ namespace asp.net
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
         {
             pub = new publicpanel();
-            //DataListPublicInternships.DataSource = pub.search_internship(searchInput.Text);
-            //DataListPublicInternships.DataBind();
-
             filtergrid(pub.search_internship(searchInput.Text).Tables[0]);
         }
 
@@ -79,9 +81,6 @@ namespace asp.net
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             pub = new publicpanel();
-            //DataListPublicInternships.DataSource = pub.select_internship_by_category(ddlCategory.SelectedValue);
-            //DataListPublicInternships.DataBind
-
             filtergrid(pub.select_internship_by_category(ddlCategory.SelectedValue).Tables[0]);
         }
 
@@ -89,9 +88,6 @@ namespace asp.net
         protected void ddlLocation_SelectedIndexChanged(object sender, EventArgs e)
         {
             pub = new publicpanel();
-            //DataListPublicInternships.DataSource = pub.select_internship_by_city(ddlLocation.SelectedValue);
-            //DataListPublicInternships.DataBind();
-
             filtergrid(pub.select_internship_by_city(ddlLocation.SelectedValue).Tables[0]);
         }
 
@@ -99,9 +95,6 @@ namespace asp.net
         protected void ddlDuration_SelectedIndexChanged(object sender, EventArgs e)
         {
             pub = new publicpanel();
-            //DataListPublicInternships.DataSource = pub.select_internship_by_duration(ddlDuration.SelectedValue);
-            //DataListPublicInternships.DataBind();
-
             filtergrid(pub.select_internship_by_duration(ddlDuration.SelectedValue).Tables[0]);
         }
 
@@ -109,9 +102,6 @@ namespace asp.net
         protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
         {
             pub = new publicpanel();
-            //DataListPublicInternships.DataSource = pub.sort_internship(ddlSortBy.SelectedValue);
-            //DataListPublicInternships.DataBind();
-
             filtergrid(pub.sort_internship(ddlSortBy.SelectedValue).Tables[0]);
         }
 
@@ -123,6 +113,7 @@ namespace asp.net
             ddlLocation.SelectedIndex = 0;
             ddlDuration.SelectedIndex = 0;
             ddlSortBy.SelectedIndex = 0;
+
             ViewState["page"] = 0;
             fillgrid();
         }
@@ -130,11 +121,7 @@ namespace asp.net
         // Pagination Click Events
         protected void btnPrevious_Click(object sender, ImageClickEventArgs e)
         {
-            int page = Convert.ToInt32(ViewState["page"]);
-            if (page > 0)
-            {
-                ViewState["page"] = page - 1;
-            }
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) - 1;
             fillgrid();
         }
 

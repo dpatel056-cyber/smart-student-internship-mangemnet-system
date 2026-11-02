@@ -146,9 +146,31 @@ namespace asp.net.js
                 {
                     pnlResumeData.Visible = true;
                     pnlResumeUploadArea.Visible = false;
-                    lblResumeFileName.Text = resume;
-                    lblResumeDate.Text = "Active Resume";
-                    hlViewResume.NavigateUrl = resume.StartsWith("~") ? resume : "~/StudentUploads/" + resume;
+
+                    string fileName = Path.GetFileName(resume);
+                    lblResumeFileName.Text = fileName;
+
+                    string path1 = Server.MapPath("~/StudentUploads/" + fileName);
+                    string path2 = Server.MapPath("~/resume_upload/" + fileName);
+                    string resumeDateStr = "";
+
+                    if (File.Exists(path1))
+                    {
+                        resumeDateStr = File.GetLastWriteTime(path1).ToString("dd-MM-yyyy");
+                        hlViewResume.NavigateUrl = "~/StudentUploads/" + fileName;
+                    }
+                    else if (File.Exists(path2))
+                    {
+                        resumeDateStr = File.GetLastWriteTime(path2).ToString("dd-MM-yyyy");
+                        hlViewResume.NavigateUrl = "~/resume_upload/" + fileName;
+                    }
+                    else
+                    {
+                        resumeDateStr = DateTime.Now.ToString("dd-MM-yyyy");
+                        hlViewResume.NavigateUrl = "~/StudentUploads/" + fileName;
+                    }
+
+                    lblResumeDate.Text = resumeDateStr;
                     hlViewResume.Visible = true;
                 }
                 else

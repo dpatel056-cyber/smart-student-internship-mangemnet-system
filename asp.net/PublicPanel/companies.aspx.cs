@@ -9,8 +9,6 @@ namespace asp.net
     {
         publicpanel pub = new publicpanel();
 
-        private const int PageSize = 4;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             startcon();
@@ -34,7 +32,7 @@ namespace asp.net
             DataTable dt = pub.select().Tables[0];
 
             int page = Convert.ToInt32(ViewState["page"]);
-            int totalPages = (int)Math.Ceiling(dt.Rows.Count / (double)PageSize);
+            int totalPages = (int)Math.Ceiling(dt.Rows.Count / 4.0);
 
             lblTotalCompanies.Text = "Total Companies : " + dt.Rows.Count;
 
@@ -51,7 +49,7 @@ namespace asp.net
         {
             ViewState["page"] = 0;
 
-            int totalPages = (int)Math.Ceiling(dt.Rows.Count / (double)PageSize);
+            int totalPages = (int)Math.Ceiling(dt.Rows.Count / 4.0);
 
             lblTotalCompanies.Text = "Total Companies : " + dt.Rows.Count;
 
@@ -112,16 +110,14 @@ namespace asp.net
             fillgrid();
         }
 
+        // Previous Button Click
         protected void btnPrevious_Click(object sender, ImageClickEventArgs e)
         {
-            if (Convert.ToInt32(ViewState["page"]) > 0)
-            {
-                ViewState["page"] = Convert.ToInt32(ViewState["page"]) - 1;
-            }
-
+            ViewState["page"] = Convert.ToInt32(ViewState["page"]) - 1;
             fillgrid();
         }
 
+        // Next Button Click
         protected void btnNext_Click(object sender, ImageClickEventArgs e)
         {
             ViewState["page"] = Convert.ToInt32(ViewState["page"]) + 1;

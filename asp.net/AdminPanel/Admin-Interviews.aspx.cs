@@ -245,8 +245,8 @@ namespace asp.net.css
             ds.WriteXmlSchema(s);
 
             //Now add crystalreportviewer to view the report.
-            string path = Server.MapPath("~/AdminPanel/admin_interview_report.rpt");
-            cr.Load(path);
+            Crypath = Server.MapPath("~/AdminPanel/admin_interview_report.rpt");
+            cr.Load(Crypath);
             cr.SetDataSource(ds.Tables[0]);
             cr.Refresh();
             CrystalReportViewer6.ReportSource = cr;

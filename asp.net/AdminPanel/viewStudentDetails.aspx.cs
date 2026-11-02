@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Web;
 
 namespace asp.net
 {
@@ -25,7 +26,7 @@ namespace asp.net
 
                 if (Request.QueryString["download"] == "1")
                 {
-                    DownloadStudentResume(Request.QueryString["id"]);
+                    DownloadStudentResume();
                     return;
                 }
 
@@ -123,10 +124,7 @@ namespace asp.net
                 lblResumeDate.Text = "Verified PDF";
 
                 hlViewResume.NavigateUrl = "~/resume_upload/" + resume;
-                hlViewResume.Target = "_blank";
-
                 hlDownloadResume.NavigateUrl = "viewStudentDetails.aspx?id=" + Request.QueryString["id"] + "&download=1";
-                hlDownloadResume.Attributes["download"] = resume;
             }
             else
             {
@@ -215,24 +213,25 @@ namespace asp.net
             }
         }
 
-void DownloadStudentResume(string studentId)
+        void DownloadStudentResume()
         {
             getcon();
 
-            da = new SqlDataAdapter("select Resume from Students where StudentId='" + studentId + "'", con);
+            da = new SqlDataAdapter("select Resume from Students where StudentId='" + Request.QueryString["id"] + "'", con);
             ds = new DataSet();
             da.Fill(ds);
 
             string resume = ds.Tables[0].Rows[0]["Resume"].ToString();
+            string path = Server.MapPath("~/resume_upload/" + resume);
 
-            if (resume != "")
+            if (resume != "" && File.Exists(path))
             {
-                string path = Server.MapPath("~/resume_upload/" + resume);
-
                 Response.ContentType = "application/pdf";
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + resume);
                 Response.TransmitFile(path);
-                Response.End();
+                Response.Flush();
+                Response.SuppressContent = true;
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
             }
         }
     }

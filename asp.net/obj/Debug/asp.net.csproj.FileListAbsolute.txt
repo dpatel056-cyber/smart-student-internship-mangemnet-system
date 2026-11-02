@@ -214,3 +214,4 @@ F:\asp.net\asp.net\bin\System.Runtime.CompilerServices.Unsafe.dll
 F:\asp.net\asp.net\bin\stdole.dll
 F:\asp.net\asp.net\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
 F:\asp.net\asp.net\bin\Microsoft.VisualStudio.GraphModel.xml
+F:\asp.net\asp.net\obj\Debug\asp.net.dll.config

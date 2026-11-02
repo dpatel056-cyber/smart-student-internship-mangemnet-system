@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
-<asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+<asp:Content ID="Content6" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- ============ HEADER ============ -->
     <header class="site-header">
 
@@ -55,14 +55,15 @@
     </header>
 </asp:Content>
 
-<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
+<asp:Content ID="Content5" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <div class="login-page">
         <div class="login-main">
 
             <!-- ============ LEFT BRAND PANEL ============ -->
             <div class="login-left">
                 <div class="auth-pill-badge">
-                    <i class="fa-solid fa-graduation-cap"></i> <span>Smart Internship Ecosystem</span>
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Smart Internship Ecosystem</span>
                 </div>
                 <h1 class="login-welcome-title">Welcome Back to <span>SIMS</span></h1>
                 <p class="login-welcome-desc">
@@ -138,43 +139,48 @@
                     <!-- Role tabs -->
                     <div class="role-tabs" id="roleTabs">
                         <div class="role-tab active" data-role="student">
-                            <i class="fa-solid fa-user-graduate"></i> Student
+                            <i class="fa-solid fa-user-graduate"></i>Student
                         </div>
                         <div class="role-tab" data-role="company">
-                            <i class="fa-solid fa-building"></i> Company
+                            <i class="fa-solid fa-building"></i>Company
                         </div>
                         <div class="role-tab" data-role="admin">
-                            <i class="fa-solid fa-shield-halved"></i> Admin
+                            <i class="fa-solid fa-shield-halved"></i>Admin
                         </div>
                     </div>
 
+                    <!-- Login form -->
                     <div id="loginForm" class="login-form-wrapper">
                         <div class="login-form-group">
-                            <label for="email">Email / Enrollment Number</label>
+                            <label for="txtemail">Email / Enrollment Number</label>
                             <div class="login-input-wrap">
                                 <i class="fa-solid fa-user input-icon"></i>
-                                <asp:TextBox ID="txtemail" ClientIDMode="Static" runat="server" placeholder="Enter your email or enrollment number" autocomplete="username" required="required"></asp:TextBox>
+                                <asp:TextBox ID="txtemail" runat="server" ClientIDMode="Static" placeholder="Enter your email or enrollment number" autocomplete="username" required="required"></asp:TextBox>
                             </div>
                             <span class="field-error" id="emailError">Please enter a valid email address or enrollment number.</span>
                         </div>
 
                         <div class="login-form-group">
-                            <label for="password">Password</label>
+                            <label for="txtpassword">Password</label>
                             <div class="login-input-wrap">
                                 <i class="fa-solid fa-lock input-icon"></i>
-                                <asp:TextBox ID="txtpassword" ClientIDMode="Static" runat="server" TextMode="Password" placeholder="Enter your password" autocomplete="current-password" required="required"></asp:TextBox>
+                                <asp:TextBox ID="txtpassword" runat="server" ClientIDMode="Static" TextMode="Password" placeholder="Enter your password" autocomplete="current-password" required="required"></asp:TextBox>
                                 <i class="fa-regular fa-eye toggle-password" id="togglePassword"></i>
                             </div>
                             <span class="field-error" id="passwordError">Password must be at least 6 characters.</span>
                         </div>
+
                         <br />
+
                         <div class="login-row-between">
                             <div class="remember-me-wrap">
-                                <asp:CheckBox ID="rememberMe" ClientIDMode="Static" runat="server" Checked="true" Text="Remember Me" CssClass="remember-me-chk" />
+                                <asp:CheckBox ID="rememberMe" runat="server" ClientIDMode="Static" Checked="true" Text="Remember Me" CssClass="remember-me-chk" />
                             </div>
                             <a href="forgot_password.aspx" class="forgot-link" id="forgotPasswordLink">Forgot Password?</a>
                         </div>
+
                         <br />
+
                         <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/assets/login.png" CssClass="auth-submit-btn" OnClick="ImageButton2_Click" />
                         <asp:Label ID="lblMsg" runat="server" CssClass="auth-msg-label"></asp:Label>
                     </div>

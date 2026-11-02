@@ -241,8 +241,8 @@ namespace asp.net
             ds.WriteXmlSchema(s);
 
             //Now add crystalreportviewer to view the report.
-            string path = Server.MapPath("~/AdminPanel/admin_offer_letters_report.rpt");
-            cr.Load(path);
+            Crypath = Server.MapPath("~/AdminPanel/admin_offer_letters_report.rpt");
+            cr.Load(Crypath);
             cr.SetDataSource(ds.Tables[0]);
             cr.Refresh();
             CrystalReportViewer7.ReportSource = cr;

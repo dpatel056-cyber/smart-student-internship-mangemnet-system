@@ -1,7 +1,7 @@
 <%@ Page Title="Live Messages & Chat" Language="C#" MasterPageFile="~/CompanyPanel/company.Master" AutoEventWireup="true" CodeBehind="company-messages.aspx.cs" Inherits="asp.net.company_messages" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="../css/company-messages.css?v=2" />
+    <link rel="stylesheet" href="../css/company-messages.css?v=20" />
     <script src="../js/company-messages.js" defer></script>
 </asp:Content>
 
@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="contacts-scroll-list">
-                    <asp:Repeater ID="rptContacts" runat="server" OnItemCommand="rptContacts_ItemCommand">
+                    <asp:DataList ID="dlContacts" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" CssClass="contacts-datalist" OnItemCommand="dlContacts_ItemCommand">
                         <ItemTemplate>
                             <asp:LinkButton ID="lnkContact" runat="server"
                                 CommandName="SelectContact"
@@ -73,29 +73,29 @@
                                 </div>
                             </asp:LinkButton>
                         </ItemTemplate>
-                    </asp:Repeater>
-                    <asp:Panel ID="pnlNoContacts" runat="server" Visible="false" CssClass="contacts-state">
+                    </asp:DataList>
+                    <div id="pnlNoContacts" runat="server" visible="false" class="contacts-state">
                         <i class="fa-regular fa-folder-open"></i>
                         <p>No contacts found.</p>
-                    </asp:Panel>
+                    </div>
                 </div>
             </div>
 
             <!-- Chat Pane -->
             <div class="messenger-chat-pane">
                 <!-- Empty state (When no contact is selected) -->
-                <asp:Panel ID="pnlEmptyState" runat="server" CssClass="chat-empty-state">
-                    <div class="empty-illustration"><i class="fa-brands fa-whatsapp"></i></div>
-                    <h3>SIMS WhatsApp Messenger</h3>
+                <div id="pnlEmptyState" runat="server" class="chat-empty-state">
+                    <div class="empty-illustration"><i class="fa-solid fa-comments"></i></div>
+                    <h3>SIMS Messenger</h3>
                     <p>Select any registered student or administrator from the left panel to open your live conversation history and send direct messages.</p>
                     <div class="whatsapp-encrypted-note">
                         <i class="fa-solid fa-lock"></i>
-                        <span>End-to-end encrypted &bull; Powered by DummyJSON Chat API</span>
+                        <span>End-to-end encrypted &bull; Student & Company Inquiries</span>
                     </div>
-                </asp:Panel>
+                </div>
 
                 <!-- Active conversation (When a contact is selected) -->
-                <asp:Panel ID="pnlChatActive" runat="server" Visible="false" CssClass="chat-active-view">
+                <div id="pnlChatActive" runat="server" visible="false" class="chat-active-view">
                     <!-- Chat Header -->
                     <div class="chat-header">
                         <div class="chat-header-user">
@@ -127,12 +127,12 @@
                     <div class="chat-messages-scroll" id="chatMessagesScroll">
                         <div class="chat-date-divider">Today</div>
 
-                        <asp:Panel ID="pnlNoMessages" runat="server" Visible="false" CssClass="chat-empty-messages">
+                        <div id="pnlNoMessages" runat="server" visible="false" class="chat-empty-messages">
                             <i class="fa-regular fa-comments"></i>
                             <p>No conversation yet. Send a message below to start chatting!</p>
-                        </asp:Panel>
+                        </div>
 
-                        <asp:Repeater ID="rptMessages" runat="server">
+                        <asp:DataList ID="dlMessages" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" CssClass="chat-messages-datalist">
                             <ItemTemplate>
                                 <div class='<%# (bool)Eval("IsOutgoing") ? "chat-bubble-row outgoing" : "chat-bubble-row incoming" %>'>
                                     <div class="chat-bubble">
@@ -146,11 +146,11 @@
                                     </div>
                                 </div>
                             </ItemTemplate>
-                        </asp:Repeater>
+                        </asp:DataList>
                     </div>
 
                     <!-- Input Bar -->
-                    <asp:Panel ID="pnlInputBar" runat="server" DefaultButton="btnSend" CssClass="chat-input-container">
+                    <div id="pnlInputBar" runat="server" class="chat-input-container">
                         <asp:Label ID="lblSendError" runat="server" CssClass="chat-send-error" Visible="false"></asp:Label>
 
                         <!-- WhatsApp Emoji Picker Drawer -->
@@ -223,8 +223,8 @@
                                 <i class="fa-solid fa-paper-plane"></i>
                             </asp:LinkButton>
                         </div>
-                    </asp:Panel>
-                </asp:Panel>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

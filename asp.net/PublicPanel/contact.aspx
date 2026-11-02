@@ -6,7 +6,6 @@
 <asp:Content ID="Content8" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
     <!-- ============ HEADER ============ -->
     <header class="site-header">
-
         <!-- Top bar -->
         <div class="topbar">
             <div class="container topbar-inner">
@@ -25,7 +24,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Main nav -->
         <div class="navbar">
             <div class="container navbar-inner">
@@ -57,7 +55,6 @@
 
 <asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
     <main>
-
         <!-- Banner -->
         <section class="page-banner">
             <div class="container page-banner-inner">
@@ -75,7 +72,6 @@
         <!-- Contact Section -->
         <section class="contact-section">
             <div class="container contact-grid">
-
                 <div class="get-in-touch">
                     <h2>Get In Touch</h2>
                     <p>Have questions or need assistance? We are here to help! Reach out to us and we'll get back to you as soon as possible.</p>
@@ -154,7 +150,6 @@
                 <div class="contact-map">
                     <iframe src="https://www.google.com/maps?q=RK+University+Main+Campus,Rajkot&output=embed" width="100%" height="100%" class="contact-map-iframe" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-
             </div>
         </section>
     </main>
@@ -164,7 +159,6 @@
     <!-- ============ FOOTER ============ -->
     <footer class="site-footer">
         <div class="container footer-grid">
-
             <div class="footer-col footer-about">
                 <a href="index.aspx" class="brand brand-footer">
                     <span class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></span>
@@ -216,7 +210,6 @@
                     <li><a href="<%= ResolveUrl("~/CompanyPanel/company-internships.aspx") %>"><i class="fa-solid fa-angle-right"></i>View Applications</a></li>
                     <li><a href="<%= ResolveUrl("~/AdminPanel/admin-students.aspx") %>"><i class="fa-solid fa-angle-right"></i>Find Talents</a></li>
                     <li><a href="<%= ResolveUrl("~/CompanyPanel/company-dashboard.aspx") %>"><i class="fa-solid fa-angle-right"></i>Company Dashboard</a></li>
-
                     <li><a href="company-profile.aspx"><i class="fa-solid fa-angle-right"></i>Company Profile</a></li>
                 </ul>
             </div>

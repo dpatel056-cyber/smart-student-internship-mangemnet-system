@@ -7,7 +7,6 @@
 <asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
     <!-- ============ HEADER ============ -->
     <header class="site-header">
-
         <!-- Top bar -->
         <div class="topbar">
             <div class="container topbar-inner">
@@ -24,7 +23,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Main nav -->
         <div class="navbar">
             <div class="container navbar-inner">
@@ -72,7 +70,6 @@
     <!-- ============ FAQ CONTENT ============ -->
     <section class="faq-section">
         <div class="container faq-grid">
-
             <!-- Sidebar categories -->
             <aside class="faq-sidebar">
                 <h3>FAQ Categories</h3>
@@ -113,7 +110,6 @@
             <!-- FAQ list -->
             <div class="faq-list-wrap">
                 <div id="faqItemsContainer">
-
                     <!-- GENERAL -->
                     <div class="faq-item" data-category="general">
                         <button type="button" class="faq-question">
@@ -268,7 +264,6 @@
     <!-- ============ FOOTER ============ -->
     <footer class="site-footer">
         <div class="container footer-grid">
-
             <div class="footer-col footer-about">
                 <a href="index.aspx" class="brand brand-footer">
                     <span class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></span>
@@ -320,7 +315,6 @@
                     <li><a href="<%= ResolveUrl("~/CompanyPanel/company-internships.aspx") %>"><i class="fa-solid fa-angle-right"></i>View Applications</a></li>
                     <li><a href="<%= ResolveUrl("~/AdminPanel/admin-students.aspx") %>"><i class="fa-solid fa-angle-right"></i>Find Talents</a></li>
                     <li><a href="<%= ResolveUrl("~/CompanyPanel/company-dashboard.aspx") %>"><i class="fa-solid fa-angle-right"></i>Company Dashboard</a></li>
-
                     <li><a href="company-profile.aspx"><i class="fa-solid fa-angle-right"></i>Company Profile</a></li>
                 </ul>
             </div>

@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="<%= ResolveUrl("~/css/internship-module.css") %>" />
 </asp:Content>
 
-<asp:Content ID="Content4" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+<asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <!-- ============ HEADER ============ -->
     <header class="site-header">
@@ -51,14 +51,14 @@
                     </ul>
                 </nav>
                 <div class="navbar-actions">
-                    <asp:ImageButton ID="ImageButton3" runat="server" PostBackUrl="~/PublicPanel/login.aspx" ImageUrl="~/assets/login register.png" Width="150px" />
+                    <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/PublicPanel/login.aspx" Width="150px" />
                 </div>
             </div>
         </div>
     </header>
 </asp:Content>
 
-<asp:Content ID="Content5" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
+<asp:Content ID="Content5" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <main>
 
         <!-- ============ INTERNSHIPS BANNER ============ -->
@@ -67,7 +67,7 @@
             <div class="container">
                 <div class="internships-banner-inner">
                     <div class="internships-banner-text">
-                        <h1>Find the Perfect Internship<br>
+                        <h1>Find the Perfect Internship<br />
                             <span>Kickstart Your Career Journey</span>
                         </h1>
                         <p>Explore 10,000+ internships from top companies and find the right opportunity that matches your skills and interests.</p>
@@ -129,8 +129,8 @@
                         <i class="fa-solid fa-chevron-down select-caret"></i>
                     </div>
 
-                    <asp:ImageButton ID="ImageButton1" Height="46px" runat="server" ImageUrl="~/assets/internship.png" CssClass="btn-img-action" OnClick="ImageButton1_Click" />
-                    <asp:ImageButton ID="btnReset" Height="46px" runat="server" ImageUrl="~/assets/btn_reset.png" OnClick="btnReset_Click" CssClass="btn-img-action" />
+                    <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/internship.png" Height="46px" CssClass="btn-img-action" OnClick="ImageButton1_Click" />
+                    <asp:ImageButton ID="btnReset" runat="server" ImageUrl="~/assets/btn_reset.png" Height="46px" CssClass="btn-img-action" OnClick="btnReset_Click" />
                 </div>
             </div>
         </section>
@@ -195,7 +195,8 @@
                                                 <asp:Label ID="lblPaymentStatus" runat="server" Text='<%# Eval("PaymentStatus") %>'></asp:Label>
                                             </span>
                                             <span class="stipend-amount">
-                                                <i class="fa-solid fa-indian-rupee-sign"></i> <asp:Label ID="lblStipendAmount" runat="server" Text='<%# Eval("StipendAmount") %>'></asp:Label>
+                                                <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                <asp:Label ID="lblStipendAmount" runat="server" Text='<%# Eval("StipendAmount") %>'></asp:Label>
                                             </span>
                                         </div>
 
@@ -206,7 +207,8 @@
                                                 <asp:Label ID="lblDuration" runat="server" Text='<%# Eval("Duration") %>'></asp:Label>
                                             </span>
                                             <span class="footer-meta posted-time">
-                                                <i class="fa-regular fa-calendar-days"></i> Posted
+                                                <i class="fa-regular fa-calendar-days"></i>
+                                                Posted
                                                 <asp:Label ID="lblPostedDate" runat="server" Text='<%# Convert.ToDateTime(Eval("PostedDate")).ToString("dd-MM-yyyy") %>' />
                                             </span>
                                         </div>
@@ -217,9 +219,9 @@
 
                         <!-- Pagination -->
                         <div class="pagination">
-                            <asp:ImageButton ID="btnPrevious" runat="server" ImageUrl="~/assets/btn_previous.png" Height="36px" OnClick="btnPrevious_Click" CssClass="btn-img-action" />
+                            <asp:ImageButton ID="btnPrevious" runat="server" ImageUrl="~/assets/btn_previous.png" Height="36px" CssClass="btn-img-action" OnClick="btnPrevious_Click" />
                             <asp:Label ID="lblPages" runat="server" CssClass="pagination-pages" />
-                            <asp:ImageButton ID="btnNext" runat="server" ImageUrl="~/assets/btn_next.png" Height="36px" OnClick="btnNext_Click" CssClass="btn-img-action" />
+                            <asp:ImageButton ID="btnNext" runat="server" ImageUrl="~/assets/btn_next.png" Height="36px" CssClass="btn-img-action" OnClick="btnNext_Click" />
                         </div>
                     </div>
                 </div>

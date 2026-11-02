@@ -290,15 +290,13 @@
         </asp:DataList>
 
         <!-- Empty State -->
-        <asp:Panel ID="pnlNoData" runat="server"
-            Visible="false"
-            CssClass="empty-state-box">
+        <div id="pnlNoData" runat="server" visible="false" class="empty-state-box">
 
             <i class="fa-solid fa-file-circle-xmark"></i>
             <h3>No Offer Letters Found</h3>
             <p>No student internship offer letters match your current filters.</p>
 
-        </asp:Panel>
+        </div>
 
         <!-- Pagination -->
         <div class="pagination">

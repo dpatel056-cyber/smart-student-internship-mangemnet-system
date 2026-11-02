@@ -60,7 +60,7 @@ namespace asp.net
                     // Dynamic Badges for Messages
                     string compId = ds.Tables[0].Rows[0]["CompanyId"].ToString();
 
-                    SqlDataAdapter daMsg = new SqlDataAdapter("SELECT COUNT(*) FROM CompanyMessages WHERE CompanyId=" + compId + " AND (IsRead = 0 OR IsRead IS NULL)", con);
+                    SqlDataAdapter daMsg = new SqlDataAdapter("SELECT COUNT(*) FROM ChatMessages WHERE ReceiverEmail='" + ds.Tables[0].Rows[0]["c_email"].ToString() + "' AND (IsRead = 0 OR IsRead IS NULL)", con);
                     DataSet dsMsg = new DataSet();
                     daMsg.Fill(dsMsg);
                     if (dsMsg.Tables.Count > 0 && dsMsg.Tables[0].Rows.Count > 0)

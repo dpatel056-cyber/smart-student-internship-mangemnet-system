@@ -50,23 +50,28 @@ namespace asp.net
                 pnlNotFound.Visible = false;
                 pnlDetails.Visible = true;
                 int cId = Convert.ToInt32(ds.Tables[0].Rows[0]["CompanyId"]);
+
                 // Company Details
                 lblCompanyName.Text = ds.Tables[0].Rows[0]["c_company"].ToString();
                 lblIndustry.Text = ds.Tables[0].Rows[0]["c_industry"].ToString();
                 lblLocation.Text = ds.Tables[0].Rows[0]["c_city"].ToString() + ", " + ds.Tables[0].Rows[0]["c_state"].ToString();
                 hlWebsite.Text = ds.Tables[0].Rows[0]["c_website"].ToString();
                 hlWebsite.NavigateUrl = ds.Tables[0].Rows[0]["c_website"].ToString();
+
                 // Company Logo DataList
                 DataListCompanyLogo.DataSource = ds;
                 DataListCompanyLogo.DataBind();
+
                 // Hero Contact
                 lblHeroContactPerson.Text = ds.Tables[0].Rows[0]["c_hr_name"].ToString();
                 lblHeroEmail.Text = ds.Tables[0].Rows[0]["c_email"].ToString();
                 lblHeroPhone.Text = ds.Tables[0].Rows[0]["c_contact"].ToString();
+
                 // Social Links
                 hlWebsiteSocial.NavigateUrl = ds.Tables[0].Rows[0]["c_website"].ToString();
                 hlEmailSocial.NavigateUrl = "mailto:" + ds.Tables[0].Rows[0]["c_email"].ToString();
                 hlCallSocial.NavigateUrl = "tel:" + ds.Tables[0].Rows[0]["c_contact"].ToString();
+
                 // Company Information
                 lblFieldCompanyName.Text = ds.Tables[0].Rows[0]["c_company"].ToString();
                 lblFieldIndustry.Text = ds.Tables[0].Rows[0]["c_industry"].ToString();
@@ -76,11 +81,13 @@ namespace asp.net
                 lblDescription.Text = ds.Tables[0].Rows[0]["c_about"].ToString();
                 lblHeadquarters.Text = ds.Tables[0].Rows[0]["c_headquarters"].ToString();
                 lblWebsiteField.Text = ds.Tables[0].Rows[0]["c_website"].ToString();
+
                 // Business Information
                 lblBusinessDomain.Text = ds.Tables[0].Rows[0]["c_business_domain"].ToString();
                 lblProductsServices.Text = ds.Tables[0].Rows[0]["c_products"].ToString();
                 lblMission.Text = ds.Tables[0].Rows[0]["c_mission"].ToString();
                 lblVision.Text = ds.Tables[0].Rows[0]["c_vision"].ToString();
+
                 // HR Details
                 lblEmail.Text = ds.Tables[0].Rows[0]["c_email"].ToString();
                 lblPhone.Text = ds.Tables[0].Rows[0]["c_contact"].ToString();
@@ -92,9 +99,11 @@ namespace asp.net
                 lblHRDesignation.Text = ds.Tables[0].Rows[0]["c_hr_designation"].ToString();
                 lblAlternateEmail.Text = ds.Tables[0].Rows[0]["c_hr_email"].ToString();
                 lblHRContactNumber.Text = ds.Tables[0].Rows[0]["c_hr_contact"].ToString();
+
                 // LinkedIn
                 hlLinkedIn.Text = ds.Tables[0].Rows[0]["c_linkedin"].ToString();
                 hlLinkedIn.NavigateUrl = ds.Tables[0].Rows[0]["c_linkedin"].ToString();
+
                 // Internship Preferences
                 lblInternshipDomains.Text = ds.Tables[0].Rows[0]["c_internship_domains"].ToString();
                 lblInternshipType.Text = ds.Tables[0].Rows[0]["c_internship_type"].ToString();
@@ -104,6 +113,7 @@ namespace asp.net
                 lblPreferredCourses.Text = ds.Tables[0].Rows[0]["c_preferred_courses"].ToString();
                 lblPreferredSemester.Text = ds.Tables[0].Rows[0]["c_preferred_semester"].ToString();
                 lblMinimumCGPA.Text = ds.Tables[0].Rows[0]["c_min_cgpa"].ToString();
+
                 totalinternships(cId);
                 activeinternships(cId);
                 totalapplications(cId);

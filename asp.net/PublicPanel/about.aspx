@@ -47,7 +47,6 @@
                 </nav>
                 <div class="navbar-actions">
                     <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/login register.png" PostBackUrl="~/PublicPanel/login.aspx" Width="150px" />
-
                 </div>
             </div>
         </div>
@@ -112,6 +111,7 @@
                 </div>
             </div>
         </section>
+
         <!-- ============ MISSION / VISION / VALUES ============ -->
         <section class="mvv-section">
             <div class="container mvv-grid">
@@ -144,6 +144,7 @@
                 </div>
             </div>
         </section>
+
         <!-- ============ WHY CHOOSE SIMS ============ -->
         <section class="why-section">
             <div class="container">

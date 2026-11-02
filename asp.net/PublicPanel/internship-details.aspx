@@ -9,6 +9,7 @@
     <main class="site-main imd-page-main">
         <div class="container imd-container">
             <br />
+
             <!-- Back Navigation -->
             <div class="back-nav">
                 <asp:ImageButton ID="btnBackInternships" runat="server" ImageUrl="~/assets/btn_back_internships.png" PostBackUrl="~/PublicPanel/internships.aspx" Height="42px" CssClass="asp-img-btn btn-img-action" />
@@ -66,6 +67,8 @@
 
                         <!-- LEFT -->
                         <div class="imd-main">
+
+                            <!-- Overview -->
                             <div class="imd-section">
                                 <h3 class="imd-section-title">
                                     <i class="fa-solid fa-align-left imd-section-icon"></i>
@@ -76,6 +79,7 @@
                                 </p>
                             </div>
 
+                            <!-- Responsibilities -->
                             <div class="imd-section">
                                 <h3 class="imd-section-title">
                                     <i class="fa-solid fa-list-check imd-section-icon"></i>
@@ -86,6 +90,7 @@
                                 </div>
                             </div>
 
+                            <!-- Requirements -->
                             <div class="imd-section">
                                 <h3 class="imd-section-title">
                                     <i class="fa-solid fa-user-graduate imd-section-icon"></i>
@@ -96,6 +101,7 @@
                                 </div>
                             </div>
 
+                            <!-- Skills -->
                             <div class="imd-section">
                                 <h3 class="imd-section-title">
                                     <i class="fa-solid fa-lightbulb imd-section-icon"></i>
@@ -108,6 +114,7 @@
                                 </div>
                             </div>
 
+                            <!-- Benefits -->
                             <div class="imd-section">
                                 <h3 class="imd-section-title">
                                     <i class="fa-solid fa-gift imd-section-icon"></i>
@@ -185,7 +192,8 @@
                                     <li>
                                         <span class="imd-meta-label">Openings</span>
                                         <span class="imd-meta-value">
-                                            <asp:Label ID="lblOpenings" runat="server" Text='<%# Eval("NumberOfOpenings") %>'></asp:Label> Positions
+                                            <asp:Label ID="lblOpenings" runat="server" Text='<%# Eval("NumberOfOpenings") %>'></asp:Label>
+                                            Positions
                                         </span>
                                     </li>
                                     <li>

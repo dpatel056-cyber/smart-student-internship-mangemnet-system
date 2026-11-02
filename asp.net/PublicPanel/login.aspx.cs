@@ -56,19 +56,11 @@ namespace asp.net
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
-                        bool isBlocked = false;
-
                         if (ds.Tables[0].Rows[0]["IsBlocked"].ToString() == "True" || ds.Tables[0].Rows[0]["Status"].ToString() == "Blocked")
-                        {
-                            isBlocked = true;
-                        }
-
-                        if (isBlocked)
                         {
                             lblMsg.Text = "Your account has been blocked by Admin. Please contact support.";
                             return;
                         }
-
                         Session["student"] = ds.Tables[0].Rows[0]["Email"].ToString();
                         Response.Redirect("~/StudentPanel/student-dashboard.aspx");
                     }
@@ -86,16 +78,9 @@ namespace asp.net
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
-                        bool isBlocked = false;
-
                         if (ds.Tables[0].Rows[0]["IsBlocked"].ToString() == "True" || ds.Tables[0].Rows[0]["Status"].ToString() == "Blocked")
                         {
-                            isBlocked = true;
-                        }
-
-                        if (isBlocked)
-                        {
-                            lblMsg.Text = "Your company account has been blocked by Admin. Please contact support.";
+                            lblMsg.Text = "Your account has been blocked by Admin. Please contact support.";
                             return;
                         }
 

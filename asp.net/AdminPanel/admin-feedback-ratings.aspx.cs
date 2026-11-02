@@ -167,6 +167,7 @@ namespace asp.net.css
                 drSubmittedDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["CreatedDate"]).ToString("dd MMM yyyy");
                 drSubmittedTime.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["CreatedDate"]).ToString("hh:mm tt");
                 drTarget.Text = ds.Tables[0].Rows[0]["FeedbackCategory"].ToString();
+
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenDrawer", "openDrawer();", true);
             }
             else if (e.CommandName == "cmd_delete")
@@ -248,8 +249,8 @@ namespace asp.net.css
             ds.WriteXmlSchema(s);
 
             //Now add crystalreportviewer to view the report.
-            string path = Server.MapPath("~/AdminPanel/admin_feedback_report.rpt");
-            cr.Load(path);
+            Crypath = Server.MapPath("~/AdminPanel/admin_feedback_report.rpt");
+            cr.Load(Crypath);
             cr.SetDataSource(ds.Tables[0]);
             cr.Refresh();
             CrystalReportViewer8.ReportSource = cr;

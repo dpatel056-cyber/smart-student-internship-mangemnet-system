@@ -7,7 +7,6 @@
 <asp:Content ID="Content3" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
     <!-- ============ HEADER ============ -->
     <header class="site-header">
-
         <!-- Top bar -->
         <div class="topbar">
             <div class="container topbar-inner">
@@ -26,7 +25,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Main nav -->
         <div class="navbar">
             <div class="container navbar-inner">
@@ -101,7 +99,6 @@
                     <asp:ImageButton ID="btnBackLogin" runat="server" ImageUrl="~/assets/btn_back_login.png" PostBackUrl="~/PublicPanel/login.aspx" Height="40px" CssClass="btn-img-action" />
                 </div>
             </div>
-
         </div>
     </div>
     <script src="<%= ResolveUrl("~/js/fp-multi.js") %>"></script>

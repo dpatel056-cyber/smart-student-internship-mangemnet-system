@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
-<asp:Content ID="Content3" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- ============ HEADER ============ -->
     <header class="site-header">
 
@@ -55,15 +55,17 @@
     </header>
 </asp:Content>
 
-<asp:Content ID="Content2" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <main>
         <section class="hero">
             <div class="hero-bg-shape"></div>
             <div class="container hero-inner">
 
+                <!-- Hero content -->
                 <div class="hero-content">
                     <span class="hero-badge">Find. Learn. Grow.</span>
-                    <h1 class="hero-title">Find The Perfect<br><span class="text-blue">Internship Opportunity</span></h1>
+                    <h1 class="hero-title">Find The Perfect<br />
+                        <span class="text-blue">Internship Opportunity</span></h1>
                     <p class="hero-desc">
                         SIMS helps students discover real-world internships that match their skills and career goals. Start your journey today!
                     </p>
@@ -83,6 +85,7 @@
                     </div>
                 </div>
 
+                <!-- Hero media -->
                 <div class="hero-media">
                     <div class="hero-blob"></div>
                     <asp:Image ID="imgHeroStudent" runat="server" ImageUrl="~/assets/hero-student.png" CssClass="hero-image" />
@@ -110,6 +113,7 @@
                 </div>
             </div>
 
+            <!-- Stats bar -->
             <div class="container">
                 <div class="stats-bar">
                     <div class="stat-item">

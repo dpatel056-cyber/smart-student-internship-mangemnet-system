@@ -7,7 +7,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <div class="company-profile-page">
-
         <!-- Back Button -->
         <div class="back-nav">
             <asp:ImageButton ID="btnBackCompanies" runat="server" ImageUrl="~/assets/btn_back_companies.png" PostBackUrl="~/PublicPanel/companies.aspx" Height="38px" CssClass="btn-img-action" />
@@ -21,7 +20,6 @@
         </div>
 
         <div id="divDetails" runat="server" visible="true">
-
             <!-- HEADER CARD -->
             <div class="profile-header-card">
                 <div class="profile-header-top">
@@ -32,7 +30,6 @@
                                     <asp:Image ID="imgCompanyLogo" runat="server" CssClass="company-profile-logo" ImageUrl='<%# Eval("c_logo") %>' />
                                 </ItemTemplate>
                             </asp:DataList>
-
                         </div>
                         <div class="profile-info-2x2">
                             <div class="contact-item">
@@ -208,7 +205,6 @@
                     </div>
                 </div>
             </section>
-
         </div>
     </div>
 

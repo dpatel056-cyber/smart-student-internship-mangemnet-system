@@ -243,8 +243,8 @@ namespace asp.net
             ds.WriteXmlSchema(s);
 
             //Now add crystalreportviewer to view the report.
-            string path = Server.MapPath("~/AdminPanel/admin_internships_report.rpt");
-            cr.Load(path);
+            Crypath = Server.MapPath("~/AdminPanel/admin_internships_report.rpt");
+            cr.Load(Crypath);
             cr.SetDataSource(ds.Tables[0]);
             cr.Refresh();
             CrystalReportViewer3.ReportSource = cr;

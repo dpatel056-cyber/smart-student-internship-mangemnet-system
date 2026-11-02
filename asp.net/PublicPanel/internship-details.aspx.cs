@@ -29,7 +29,7 @@ namespace asp.net
         void loadInternshipDetails()
         {
             getcon();
-            da = new SqlDataAdapter("select i.*, c.c_company, c.c_logo, c.c_industry, c.c_location, c.c_city, c.c_state, c.c_about, c.c_email, c.c_contact, c.c_hr_name from internship i inner join c_registration c on i.CompanyId=c.CompanyId where i.Id='" + Request.QueryString["id"] + "' and (i.Status is null or (i.Status<>'Inactive' and i.Status<>'Draft')) and (c.IsBlocked=0 or c.IsBlocked is null) and (c.Status<>'Blocked' or c.Status is null)", con);
+            da = new SqlDataAdapter("SELECT i.*, c.c_company, c.c_logo, c.c_industry, c.c_location, c.c_city, c.c_state, c.c_about, c.c_email, c.c_contact, c.c_hr_name FROM internship i INNER JOIN c_registration c ON i.CompanyId = c.CompanyId WHERE i.Id = '" + Request.QueryString["id"] + "' AND (i.Status IS NULL OR (i.Status <> 'Inactive' AND i.Status <> 'Draft')) AND (c.IsBlocked = 0 OR c.IsBlocked IS NULL) AND (c.Status <> 'Blocked' OR c.Status IS NULL)", con);
             ds = new DataSet();
             da.Fill(ds);
 

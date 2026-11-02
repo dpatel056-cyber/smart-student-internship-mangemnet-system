@@ -75,6 +75,7 @@
                 </div>
             </div>
         </section>
+
         <!-- ============ COMPANIES SECTION ============ -->
         <section class="companies-section">
             <div class="container">
@@ -121,6 +122,7 @@
                     <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/assets/search companies.png" Height="46px" CssClass="btn-img-action" OnClick="ImageButton2_Click" />
                     <asp:ImageButton ID="btnReset" runat="server" ImageUrl="~/assets/btn_reset.png" Height="46px" OnClick="btnReset_Click" CssClass="btn-img-action" />
                 </div>
+
                 <div class="companies-layout" id="companiesResultsTop">
                     <!-- ============ RESULTS ============ -->
                     <div class="companies-results">
@@ -138,6 +140,7 @@
                                 </asp:DropDownList>
                             </div>
                         </div>
+
                         <div class="companies-datalist-wrapper">
                             <asp:DataList ID="DataListPublicCompanies" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" CssClass="companies-grid">
                                 <ItemTemplate>
@@ -162,6 +165,7 @@
                                 </ItemTemplate>
                             </asp:DataList>
                         </div>
+
                         <!-- Pagination -->
                         <div class="pagination">
                             <asp:ImageButton ID="btnPrevious" runat="server" ImageUrl="~/assets/btn_previous.png" Height="36px" OnClick="btnPrevious_Click" CssClass="btn-img-action" />

@@ -33,14 +33,12 @@ namespace asp.net
             {
                 lblMsg.Text = "Please enter email or enrollment number.";
             }
-
             getcon();
 
             // Student check
             da = new SqlDataAdapter("SELECT StudentId, Email, FullName FROM Students WHERE Email = '" + fpEmail.Text + "' OR EnrollmentNo = '" + fpEmail.Text + "'", con);
             ds = new DataSet();
             da.Fill(ds);
-
             if (ds.Tables[0].Rows.Count > 0)
             {
                 GenerateAndSendOtp(ds.Tables[0].Rows[0]["Email"].ToString(), "student", ds.Tables[0].Rows[0]["FullName"].ToString());
@@ -50,7 +48,6 @@ namespace asp.net
             da = new SqlDataAdapter("SELECT c_email, c_company FROM c_registration WHERE c_email = '" + fpEmail.Text + "'", con);
             ds = new DataSet();
             da.Fill(ds);
-
             if (ds.Tables[0].Rows.Count > 0)
             {
                 GenerateAndSendOtp(ds.Tables[0].Rows[0]["c_email"].ToString(), "company", ds.Tables[0].Rows[0]["c_company"].ToString());
@@ -60,7 +57,6 @@ namespace asp.net
             da = new SqlDataAdapter("SELECT Email FROM admin_registration WHERE Email = '" + fpEmail.Text + "'", con);
             ds = new DataSet();
             da.Fill(ds);
-
             if (ds.Tables[0].Rows.Count > 0)
             {
                 GenerateAndSendOtp(ds.Tables[0].Rows[0]["Email"].ToString(), "admin", "Admin");

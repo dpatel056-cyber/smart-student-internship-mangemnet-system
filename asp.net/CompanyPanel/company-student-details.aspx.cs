@@ -221,12 +221,46 @@ namespace asp.net
                 {
                     pnlResumeData.Visible = true;
                     lblNoResume.Visible = false;
-                    string resumeUrl = resume.StartsWith("~") || resume.StartsWith("/")
-                        ? ResolveUrl(resume)
-                        : (File.Exists(Server.MapPath("~/resume_upload/" + Path.GetFileName(resume))) ? ResolveUrl("~/resume_upload/" + Path.GetFileName(resume)) : ResolveUrl("~/StudentUploads/" + resume));
-                    hlViewResume.NavigateUrl = resumeUrl;
+
+                    string fileName = Path.GetFileName(resume);
+                    lblResumeFileName.Text = fileName;
+
+                    string path1 = Server.MapPath("~/resume_upload/" + fileName);
+                    string path2 = Server.MapPath("~/StudentUploads/" + fileName);
+                    string resumeDateStr = "";
+
+                    if (File.Exists(path1))
+                    {
+                        resumeDateStr = File.GetLastWriteTime(path1).ToString("dd-MM-yyyy");
+                        hlViewResume.NavigateUrl = ResolveUrl("~/resume_upload/" + fileName);
+                    }
+                    else if (File.Exists(path2))
+                    {
+                        resumeDateStr = File.GetLastWriteTime(path2).ToString("dd-MM-yyyy");
+                        hlViewResume.NavigateUrl = ResolveUrl("~/StudentUploads/" + fileName);
+                    }
+                    else if (ds.Tables[0].Columns.Contains("RegistrationDate") && ds.Tables[0].Rows[0]["RegistrationDate"] != DBNull.Value && ds.Tables[0].Rows[0]["RegistrationDate"].ToString() != "")
+                    {
+                        DateTime regDate;
+                        if (DateTime.TryParse(ds.Tables[0].Rows[0]["RegistrationDate"].ToString(), out regDate))
+                        {
+                            resumeDateStr = regDate.ToString("dd-MM-yyyy");
+                        }
+                        else
+                        {
+                            resumeDateStr = DateTime.Now.ToString("dd-MM-yyyy");
+                        }
+                        hlViewResume.NavigateUrl = ResolveUrl("~/resume_upload/" + fileName);
+                    }
+                    else
+                    {
+                        resumeDateStr = DateTime.Now.ToString("dd-MM-yyyy");
+                        hlViewResume.NavigateUrl = ResolveUrl("~/resume_upload/" + fileName);
+                    }
+
+                    lblResumeDate.Text = resumeDateStr;
                     hlDownloadResume.NavigateUrl = "company-student-details.aspx?id=" + Request.QueryString["id"] + "&download=1";
-                    hlDownloadResume.Attributes["download"] = Path.GetFileName(resume);
+                    hlDownloadResume.Attributes["download"] = fileName;
                 }
                 else
                 {
@@ -281,14 +315,46 @@ namespace asp.net
                 {
                     pnlResumeData.Visible = true;
                     lblNoResume.Visible = false;
-                    lblResumeFileName.Text = resume;
-                    lblResumeDate.Text = "Application Resume";
-                    string resumeUrl = resume.StartsWith("~") || resume.StartsWith("/")
-                        ? ResolveUrl(resume)
-                        : (File.Exists(Server.MapPath("~/resume_upload/" + Path.GetFileName(resume))) ? ResolveUrl("~/resume_upload/" + Path.GetFileName(resume)) : ResolveUrl("~/StudentUploads/" + resume));
-                    hlViewResume.NavigateUrl = resumeUrl;
+
+                    string fileName = Path.GetFileName(resume);
+                    lblResumeFileName.Text = fileName;
+
+                    string path1 = Server.MapPath("~/resume_upload/" + fileName);
+                    string path2 = Server.MapPath("~/StudentUploads/" + fileName);
+                    string resumeDateStr = "";
+
+                    if (File.Exists(path1))
+                    {
+                        resumeDateStr = File.GetLastWriteTime(path1).ToString("dd-MM-yyyy");
+                        hlViewResume.NavigateUrl = ResolveUrl("~/resume_upload/" + fileName);
+                    }
+                    else if (File.Exists(path2))
+                    {
+                        resumeDateStr = File.GetLastWriteTime(path2).ToString("dd-MM-yyyy");
+                        hlViewResume.NavigateUrl = ResolveUrl("~/StudentUploads/" + fileName);
+                    }
+                    else if (r.Table.Columns.Contains("AppliedDate") && r["AppliedDate"] != DBNull.Value && r["AppliedDate"].ToString() != "")
+                    {
+                        DateTime appDate;
+                        if (DateTime.TryParse(r["AppliedDate"].ToString(), out appDate))
+                        {
+                            resumeDateStr = appDate.ToString("dd-MM-yyyy");
+                        }
+                        else
+                        {
+                            resumeDateStr = DateTime.Now.ToString("dd-MM-yyyy");
+                        }
+                        hlViewResume.NavigateUrl = ResolveUrl("~/resume_upload/" + fileName);
+                    }
+                    else
+                    {
+                        resumeDateStr = DateTime.Now.ToString("dd-MM-yyyy");
+                        hlViewResume.NavigateUrl = ResolveUrl("~/resume_upload/" + fileName);
+                    }
+
+                    lblResumeDate.Text = resumeDateStr;
                     hlDownloadResume.NavigateUrl = "company-student-details.aspx?id=" + Request.QueryString["id"] + "&download=1";
-                    hlDownloadResume.Attributes["download"] = Path.GetFileName(resume);
+                    hlDownloadResume.Attributes["download"] = fileName;
                 }
                 else
                 {
