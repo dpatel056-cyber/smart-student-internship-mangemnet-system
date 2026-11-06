@@ -136,12 +136,8 @@
                 </div>
                 <!-- Actions -->
                 <div class="admin-card-actions">
-                    <asp:ImageButton ID="btnView" runat="server" CommandName="cmd_view" CommandArgument='<%# Eval("Id") %>'
-                    ImageUrl="~/image_button/btn_admin_view.png" CssClass="admin-img-btn admin-img-btn-view"
-                    Height="32" />
-                    <asp:ImageButton ID="btnDelete" runat="server" CommandName="cmd_delete" CommandArgument='<%# Eval("Id") %>'
-                    ImageUrl="~/image_button/btn_admin_delete.png" CssClass="admin-img-btn admin-img-btn-delete"
-                    Height="32" />
+                    <asp:ImageButton ID="btnView" runat="server" CommandName="cmd_view" CommandArgument='<%# Eval("Id") %>' ImageUrl="~/image_button/btn_admin_view.png" CssClass="admin-img-btn admin-img-btn-view" Height="32" />
+                    <asp:ImageButton ID="btnDelete" runat="server" CommandName="cmd_delete" CommandArgument='<%# Eval("Id") %>' ImageUrl="~/image_button/btn_admin_delete.png" CssClass="admin-img-btn admin-img-btn-delete" Height="32" />
                 </div>
             </div>
         </ItemTemplate>

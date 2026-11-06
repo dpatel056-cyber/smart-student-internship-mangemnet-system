@@ -134,8 +134,7 @@
                         </div>
 
                         <span class='offer-status-top offer-status-top-<%# Eval("Status").ToString().ToLower() %>'>
-                            <asp:Label ID="lblStatusTop" runat="server"
-                                Text='<%# Eval("Status").ToString() == "Accepted" ? "Accepted" : Eval("Status").ToString() == "Rejected" ? "Rejected" : "Offered / Pending" %>' />
+                            <%# Eval("Status").ToString() == "Accepted" ? "Accepted" : Eval("Status").ToString() == "Rejected" ? "Rejected" : "Offered / Pending" %>
                         </span>
 
                     </div>
@@ -158,9 +157,7 @@
 
                             <p class="offer-company-loc">
                                 <i class="fa-solid fa-location-dot"></i>
-
-                                <asp:Label ID="lblCompanyLoc" runat="server"
-                                    Text='<%# Eval("c_location") != DBNull.Value && !string.IsNullOrEmpty(Eval("c_location").ToString()) ? Eval("c_location") : Eval("WorkLocation") != DBNull.Value && !string.IsNullOrEmpty(Eval("WorkLocation").ToString()) ? Eval("WorkLocation") : "Headquarters" %>' />
+                                <%# Eval("c_location").ToString() != "" ? Eval("c_location") : Eval("WorkLocation").ToString() != "" ? Eval("WorkLocation") : "Headquarters" %>
                             </p>
 
                         </div>
@@ -273,12 +270,8 @@
                         </div>
 
                         <div class='offer-status-badge-bottom status-bottom-<%# Eval("Status").ToString().ToLower() %>'>
-
                             <i class='<%# Eval("Status").ToString() == "Accepted" ? "fa-solid fa-circle-check" : Eval("Status").ToString() == "Rejected" ? "fa-solid fa-circle-xmark" : "fa-solid fa-clock" %>'></i>
-
-                            <asp:Label ID="lblStatusBottom" runat="server"
-                                Text='<%# Eval("Status").ToString() == "Accepted" ? "Accepted" : Eval("Status").ToString() == "Rejected" ? "Rejected" : "Offered / Pending" %>' />
-
+                            <%# Eval("Status").ToString() == "Accepted" ? "Accepted" : Eval("Status").ToString() == "Rejected" ? "Rejected" : "Offered / Pending" %>
                         </div>
 
                     </div>
@@ -317,7 +310,7 @@
                 CssClass="admin-img-btn" />
 
         </div>
-
+        <CR:CrystalReportViewer ID="CrystalReportViewer7" runat="server" AutoDataBind="true" />
     </div>
 
 </asp:Content>

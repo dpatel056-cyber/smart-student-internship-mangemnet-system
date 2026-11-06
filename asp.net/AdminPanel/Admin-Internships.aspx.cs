@@ -228,15 +228,7 @@ namespace asp.net
             //Response.End();
 
             getcon();
-            string q = "select i.Id as [Internship Id], i.InternshipTitle as [Title], c.c_company as [Company], " +
-                       "i.InternshipDomain as [Domain], i.Duration as [Duration], " +
-                       "i.StipendAmount as [Stipend], i.WorkMode as [Mode], " +
-                       "ISNULL(i.Status, 'Active') as [Status] " +
-                       "from internship i " +
-                       "inner join c_registration c on i.CompanyId = c.CompanyId " +
-                       "order by i.Id desc";
-
-            da = new SqlDataAdapter(q, con);
+            da = new SqlDataAdapter("select i.Id as [Internship Id], i.InternshipTitle as [Title], c.c_company as [Company], i.InternshipDomain as [Domain], i.Duration as [Duration], i.StipendAmount as [Stipend], i.WorkMode as [Mode], ISNULL(i.Status, 'Active') as [Status] from internship i inner join c_registration c on i.CompanyId = c.CompanyId order by i.Id desc", con);
             ds = new DataSet();
             da.Fill(ds);
             string s = Server.MapPath("~/admin_internships_report_data.xml");

@@ -177,5 +177,6 @@
             <asp:Label ID="lblPages" runat="server" CssClass="pagination-pages" />
             <asp:ImageButton ID="btnNext" runat="server" ImageUrl="~/image_button/btn_next.png" Height="42" OnClick="btnNext_Click" CssClass="admin-img-btn" />
         </div>
+        <CR:CrystalReportViewer ID="CrystalReportViewer5" runat="server" AutoDataBind="true" />
     </div>
 </asp:Content>

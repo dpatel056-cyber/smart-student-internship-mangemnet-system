@@ -120,9 +120,7 @@
                     <div class="imd-side-card">
                         <h3 class="imd-side-title">Admin Actions</h3>
                         <div class="imd-actions">
-                            <asp:ImageButton ID="btnDeleteInternship" runat="server" CommandName="DeleteInternship"
-                            CommandArgument='<%# Eval("Id") %>'
-                            ImageUrl="~/image_button/btn_admin_delete_internship.png" CausesValidation="false" Height="44" CssClass="admin-img-btn admin-img-btn-delete" />
+                            <asp:ImageButton ID="btnDeleteInternship" runat="server" CommandName="DeleteInternship" CommandArgument='<%# Eval("Id") %>' ImageUrl="~/image_button/btn_admin_delete_internship.png" CausesValidation="false" Height="44" CssClass="admin-img-btn admin-img-btn-delete" />
                         </div>
                     </div>
                     <!-- Internship Details -->

@@ -235,13 +235,7 @@ namespace asp.net.css
             //Response.End();
 
             getcon();
-            string q = "select pf.FeedbackId as [Id], pf.SenderName as [User], pf.SenderEmail as [Email], " +
-                       "pf.SenderType as [Role], pf.Rating as [Rating], " +
-                       "ISNULL(pf.FeedbackCategory, 'General') as [Category], " +
-                       "pf.Message as [Message], pf.CreatedDate as [Date] " +
-                       "from PlatformFeedback pf " +
-                       "order by pf.FeedbackId desc";
-
+            string q = "select pf.FeedbackId as [Id], pf.SenderName as [User], pf.SenderEmail as [Email],pf.SenderType as [Role], pf.Rating as [Rating],ISNULL(pf.FeedbackCategory, 'General') as [Category], pf.Message as [Message], pf.CreatedDate as [Date] from PlatformFeedback pf order by pf.FeedbackId desc";
             da = new SqlDataAdapter(q, con);
             ds = new DataSet();
             da.Fill(ds);

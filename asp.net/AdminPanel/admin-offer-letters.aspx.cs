@@ -223,17 +223,7 @@ namespace asp.net
             //Response.End();
 
             getcon();
-            string q = "select o.OfferId as [Offer Id], ISNULL(s.FullName, 'Student') as [Student Name], " +
-                       "ISNULL(c.c_company, 'Company') as [Company], " +
-                       "ISNULL(i.InternshipTitle, o.OfferTitle) as [Internship], " +
-                       "ISNULL(o.Stipend, 'N/A') as [Stipend], o.JoiningDate as [Joining Date], " +
-                       "o.IssuedDate as [Issue Date], ISNULL(o.Status, 'Offered') as [Status] " +
-                       "from CompanyOfferLetters o " +
-                       "left join Students s on o.StudentId = s.StudentId " +
-                       "left join c_registration c on o.CompanyId = c.CompanyId " +
-                       "left join internship i on o.InternshipId = i.Id " +
-                       "order by o.OfferId desc";
-
+            string q = "select o.OfferId as [Offer Id], ISNULL(s.FullName, 'Student') as [Student Name], ISNULL(c.c_company, 'Company') as [Company], ISNULL(i.InternshipTitle, o.OfferTitle) as [Internship], ISNULL(o.Stipend, 'N/A') as [Stipend], o.JoiningDate as [Joining Date], o.IssuedDate as [Issue Date], ISNULL(o.Status, 'Offered') as [Status] from CompanyOfferLetters o left join Students s on o.StudentId = s.StudentId left join c_registration c on o.CompanyId = c.CompanyId left join internship i on o.InternshipId = i.Id order by o.OfferId desc";
             da = new SqlDataAdapter(q, con);
             ds = new DataSet();
             da.Fill(ds);

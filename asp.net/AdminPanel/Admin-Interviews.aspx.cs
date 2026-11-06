@@ -228,16 +228,7 @@ namespace asp.net.css
             //Response.End();
 
             getcon();
-            string q = "select civ.InterviewId as [Interview Id], s.FullName as [Student Name], " +
-                       "c.c_company as [Company], i.InternshipTitle as [Internship], " +
-                       "civ.InterviewDate as [Date], civ.InterviewTime as [Time], " +
-                       "civ.InterviewType as [Type], ISNULL(civ.Status, 'Scheduled') as [Status] " +
-                       "from CompanyInterviews civ " +
-                       "inner join Students s on civ.StudentId = s.StudentId " +
-                       "inner join internship i on civ.InternshipId = i.Id " +
-                       "inner join c_registration c on civ.CompanyId = c.CompanyId " +
-                       "order by civ.InterviewId desc";
-
+            string q = "select civ.InterviewId as [Interview Id], s.FullName as [Student Name], c.c_company as [Company], i.InternshipTitle as [Internship], civ.InterviewDate as [Date], civ.InterviewTime as [Time], civ.InterviewType as [Type], ISNULL(civ.Status, 'Scheduled') as [Status] from CompanyInterviews civ inner join Students s on civ.StudentId = s.StudentId inner join internship i on civ.InternshipId = i.Id inner join c_registration c on civ.CompanyId = c.CompanyId order by civ.InterviewId desc";
             da = new SqlDataAdapter(q, con);
             ds = new DataSet();
             da.Fill(ds);

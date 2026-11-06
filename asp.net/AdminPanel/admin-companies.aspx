@@ -91,28 +91,19 @@
                                 <asp:Label ID="lblLocation" runat="server" Text='<%# Eval("c_location") %>' CssClass="cmp-location-text"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="STATUS" HeaderStyle-CssClass="col-status" ItemStyle-CssClass="col-status">
+                       <asp:TemplateField HeaderText="STATUS" HeaderStyle-CssClass="col-status" ItemStyle-CssClass="col-status">
                             <ItemTemplate>
                                 <span class='<%# (bool)Eval("IsBlocked") ? "status-badge-blocked" : "status-badge-active" %>'>
                                     <i class='<%# (bool)Eval("IsBlocked") ? "fa-solid fa-ban" : "fa-solid fa-circle-check" %>'></i>
-                                    <%# (bool)Eval("IsBlocked") ? "Blocked" : "Active" %>
+                                       <%# (bool)Eval("IsBlocked") ? "Blocked" : "Active" %>
                                 </span>
                             </ItemTemplate>
-                        </asp:TemplateField>
+                       </asp:TemplateField>
                         <asp:TemplateField HeaderText="ACTIONS" HeaderStyle-CssClass="col-actions" ItemStyle-CssClass="col-actions">
                             <ItemTemplate>
                                 <div class="cmp-actions-wrap">
                                     <asp:ImageButton ID="btnView" runat="server" CommandName="cmd_view" CommandArgument='<%# Eval("CompanyId") %>' ImageUrl="~/image_button/btn_admin_view.png" CausesValidation="false" Height="25" CssClass="admin-img-btn admin-img-btn-view" />
-
-                                    <asp:ImageButton ID="btnBlockCompany" runat="server"
-                                        CommandName="cmd_toggle_block"
-                                        CommandArgument='<%# Eval("CompanyId") %>'
-                                        ImageUrl='<%# Convert.ToBoolean(Eval("IsBlocked")) ? "~/image_button/btn_admin_unblock.png" : "~/image_button/btn_admin_block.png" %>'
-
-                                        CausesValidation="false"
-                                        Height="25"
-                                        CssClass="admin-img-btn" />
-
+                                    <asp:ImageButton ID="btnBlockCompany" runat="server" CommandName="cmd_toggle_block" CommandArgument='<%# Eval("CompanyId") %>' ImageUrl='<%# Convert.ToBoolean(Eval("IsBlocked")) ? "~/image_button/btn_admin_unblock.png" : "~/image_button/btn_admin_block.png" %>' CausesValidation="false" Height="25" CssClass="admin-img-btn" />
                                     <asp:ImageButton ID="btnDelete" runat="server" CommandName="cmd_del" CommandArgument='<%# Eval("CompanyId") %>' ImageUrl="~/image_button/btn_admin_delete.png" CausesValidation="false" Height="25" CssClass="admin-img-btn admin-img-btn-delete" />
                                 </div>
                             </ItemTemplate>
@@ -138,5 +129,6 @@
             <asp:Label ID="lblPages" runat="server" CssClass="pagination-pages" />
             <asp:ImageButton ID="btnNext" runat="server" ImageUrl="~/image_button/btn_next.png" Height="42" OnClick="btnNext_Click" CssClass="admin-img-btn" />
         </div>
+        <CR:CrystalReportViewer ID="CrystalReportViewer4" runat="server" AutoDataBind="true" />
     </div>
 </asp:Content>

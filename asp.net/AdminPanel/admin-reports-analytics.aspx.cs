@@ -28,7 +28,15 @@ namespace asp.net
             }
             if (!IsPostBack)
             {
-                loadAnalytics();
+                totalstudents();
+                totalcompanies();
+                totalinternships();
+                totalapplications();
+                avgrating();
+                interviewscount();
+                certificatescount();
+                totalinquiries();
+
                 // Chart 1: Students and Companies
                 LoadChart(Chart1, "WITH M AS (SELECT DATEADD(MONTH, -N, DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)) AS D FROM (VALUES (5),(4),(3),(2),(1),(0)) V(N)) SELECT FORMAT(D, 'MMM') AS Month, (SELECT COUNT(*) FROM Students WHERE RegistrationDate >= D AND RegistrationDate < DATEADD(MONTH, 1, D)) AS Students, (SELECT COUNT(*) FROM c_registration WHERE RegistrationDate >= D AND RegistrationDate < DATEADD(MONTH, 1, D)) AS Companies FROM M ORDER BY D");
                 // Chart 2: Applications by Month
@@ -131,18 +139,6 @@ namespace asp.net
             cmd = new SqlCommand("SELECT COUNT(*) FROM cont", con);
             int i = Convert.ToInt16(cmd.ExecuteScalar());
             lblTotalInquiries.Text = i.ToString();
-        }
-
-        void loadAnalytics()
-        {
-            totalstudents();
-            totalcompanies();
-            totalinternships();
-            totalapplications();
-            avgrating();
-            interviewscount();
-            certificatescount();
-            totalinquiries();
         }
     }
 }

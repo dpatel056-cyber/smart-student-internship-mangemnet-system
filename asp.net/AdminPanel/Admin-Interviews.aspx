@@ -78,8 +78,7 @@
                         <!-- Header: Logo, Title, Company -->
                         <div class="admin-card-header">
                             <asp:Image ID="imgLogo" runat="server" CssClass="admin-company-logo-avatar" ImageUrl='<%# Eval("c_logo") %>' />
-
-<div class="admin-card-title-wrap">
+                               <div class="admin-card-title-wrap">
                                 <h3 class="admin-card-title">
                                     <asp:Label ID="lblTitle" runat="server" Text='<%# Eval("InternshipTitle") %>' />
                                 </h3>
@@ -128,5 +127,6 @@
             <asp:Label ID="lblPages" runat="server" CssClass="pagination-pages" />
             <asp:ImageButton ID="btnNext" runat="server" ImageUrl="~/image_button/btn_next.png" Height="42" OnClick="btnNext_Click" CssClass="admin-img-btn" />
         </div>
+        <CR:CrystalReportViewer ID="CrystalReportViewer6" runat="server" AutoDataBind="true" />
     </div>
 </asp:Content>

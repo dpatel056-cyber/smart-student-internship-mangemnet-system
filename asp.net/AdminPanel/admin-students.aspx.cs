@@ -225,13 +225,7 @@ namespace asp.net
             //Response.End();
 
             getcon();
-            string q = "select s.StudentId as [Student Id], s.FullName as [Name], s.Email as [Email], " +
-                       "s.ContactNo as [Contact], ISNULL(s.College, 'N/A') as [College], " +
-                       "ISNULL(s.Course, 'N/A') as [Course], " +
-                       "case when s.IsBlocked = 1 then 'Blocked' else 'Active' end as [Status] " +
-                       "from Students s " +
-                       "order by s.StudentId desc";
-
+            string q = "select s.StudentId as [Student Id], s.FullName as [Name], s.Email as [Email], s.ContactNo as [Contact], ISNULL(s.College, 'N/A') as [College], ISNULL(s.Course, 'N/A') as [Course], case when s.IsBlocked = 1 then 'Blocked' else 'Active' end as [Status] from Students s order by s.StudentId desc";
             da = new SqlDataAdapter(q, con);
             ds = new DataSet();
             da.Fill(ds);

@@ -185,17 +185,7 @@ namespace asp.net.css
             //Response.End();
 
             getcon();
-            string q = "select cc.CertificateNo as [Certificate No], s.FullName as [Student Name], " +
-                       "c.c_company as [Company], ISNULL(i.InternshipTitle, cc.CertificateTitle) as [Internship], " +
-                       "cc.IssueDate as [Issue Date], ISNULL(cc.Performance, 'Completed') as [Performance] " +
-                       "from CompanyCertificates cc " +
-                       "inner join Students s on cc.StudentId = s.StudentId " +
-                       "inner join c_registration c on cc.CompanyId = c.CompanyId " +
-                       "left join internship i on cc.InternshipId = i.Id " +
-                       "order by cc.CertificateId desc";
-
-            da = new SqlDataAdapter(q, con);
-           // da = new SqlDataAdapter("select * from Cat_tbl", con);
+            da = new SqlDataAdapter("select cc.CertificateNo as [Certificate No], s.FullName as [Student Name],c.c_company as [Company], ISNULL(i.InternshipTitle, cc.CertificateTitle) as [Internship],cc.IssueDate as [Issue Date], ISNULL(cc.Performance, 'Completed') as [Performance] from CompanyCertificates cc inner join Students s on cc.StudentId = s.StudentId inner join c_registration c on cc.CompanyId = c.CompanyId left join internship i on cc.InternshipId = i.Id order by cc.CertificateId desc", con);
             ds = new DataSet();
             da.Fill(ds);
             string s = Server.MapPath("~/admin_certificate_report_data.xml");

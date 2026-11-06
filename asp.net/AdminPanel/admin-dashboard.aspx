@@ -127,41 +127,17 @@
                 </div>
 
                 <div class="dash-chart-wrap">
-                    <asp:Chart ID="adminApplicationPieChart" runat="server"
-                        Width="440px" Height="270px"
-                        BackColor="White"
-                        Palette="None"
-                        AntiAliasing="All"
-                        ImageType="Png"
-                        RenderType="ImageTag">
-
+                    <asp:Chart ID="adminApplicationPieChart" runat="server" Width="440px" Height="270px" BackColor="White" Palette="None" AntiAliasing="All" ImageType="Png" RenderType="ImageTag">
                         <Series>
-                            <asp:Series Name="Applications"
-                                ChartType="Doughnut"
-                                XValueMember="Status"
-                                YValueMembers="Total"
-                                IsValueShownAsLabel="true"
-                                Font="Segoe UI, 9pt"
-                                YValueType="Int32"
-                                ChartArea="ApplicationArea"
-                                Legend="ApplicationLegend">
-                            </asp:Series>
+                            <asp:Series Name="Applications" ChartType="Doughnut" XValueMember="Status" YValueMembers="Total" IsValueShownAsLabel="true" Font="Segoe UI, 9pt" YValueType="Int32" ChartArea="ApplicationArea" Legend="ApplicationLegend"> </asp:Series>
                         </Series>
 
                         <ChartAreas>
-                            <asp:ChartArea Name="ApplicationArea"
-                                BackColor="White">
-                            </asp:ChartArea>
+                            <asp:ChartArea Name="ApplicationArea" BackColor="White"></asp:ChartArea>
                         </ChartAreas>
 
                         <Legends>
-                            <asp:Legend Name="ApplicationLegend"
-                                Docking="Right"
-                                Alignment="Center"
-                                BackColor="White"
-                                Font="Segoe UI, 10px, style=Bold"
-                                ForeColor="#334155">
-                            </asp:Legend>
+                            <asp:Legend Name="ApplicationLegend" Docking="Right" Alignment="Center" BackColor="White" Font="Segoe UI, 10px, style=Bold" ForeColor="#334155"></asp:Legend>
                         </Legends>
                     </asp:Chart>
                 </div>
@@ -278,8 +254,7 @@
 
                             <asp:TemplateField HeaderText="STATUS">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblStatus" runat="server"
-                                        Text='<%# GetStatusBadge(Eval("Status").ToString()) %>'>
+                                    <asp:Label ID="lblStatus" runat="server" Text='<%# GetStatusBadge(Eval("Status").ToString()) %>'>
                                     </asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -397,5 +372,4 @@
             </div>
         </div>
     </div>
-
 </asp:Content>

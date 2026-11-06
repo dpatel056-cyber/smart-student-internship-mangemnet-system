@@ -227,14 +227,7 @@ namespace asp.net
             //Response.End();
 
             getcon();
-            string q = "select c.CompanyId as [Company Id], c.c_company as [Company Name], c.c_email as [Email], " +
-                       "c.c_contact as [Contact], ISNULL(c.c_industry, 'General') as [Industry], " +
-                       "ISNULL(c.c_city, 'N/A') as [City], " +
-                       "case when c.IsBlocked = 1 or c.Status = 'Blocked' then 'Blocked' else 'Active' end as [Status] " +
-                       "from c_registration c " +
-                       "order by c.CompanyId desc";
-
-            da = new SqlDataAdapter(q, con);
+            da = new SqlDataAdapter("select c.CompanyId as [Company Id], c.c_company as [Company Name], c.c_email as [Email],c.c_contact as [Contact], ISNULL(c.c_industry, 'General') as [Industry],ISNULL(c.c_city, 'N/A') as [City], case when c.IsBlocked = 1 or c.Status = 'Blocked' then 'Blocked' else 'Active' end as [Status] from c_registration c order by c.CompanyId desc", con);
             ds = new DataSet();
             da.Fill(ds);
             string s = Server.MapPath("~/admin_companies_report_data.xml");

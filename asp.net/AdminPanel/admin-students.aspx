@@ -93,7 +93,6 @@
                         <asp:TemplateField HeaderText="Status">
                             <ItemTemplate>
                                 <span class='<%# Convert.ToBoolean(Eval("IsBlocked")) ? "status-badge-blocked" : "status-badge-active" %>'>
-                                    <i class='fa-solid <%# Convert.ToBoolean(Eval("IsBlocked")) ? "fa-ban" : "fa-circle-check" %>'></i>
                                     <%# Convert.ToBoolean(Eval("IsBlocked")) ? "Blocked" : "Active" %>
                                 </span>
                             </ItemTemplate>
@@ -106,12 +105,7 @@
                                         ImageUrl="~/image_button/btn_admin_view.png" CssClass="admin-img-btn admin-img-btn-view"
                                         CausesValidation="false" Height="30" />
 
-                                    <asp:ImageButton ID="btnBlockStudent" runat="server"
-                                        CommandName="cmd_toggle_block"
-                                        CommandArgument='<%# Eval("StudentId") %>'
-                                        ImageUrl='<%# Convert.ToBoolean(Eval("IsBlocked")) ? "~/image_button/btn_admin_unblock.png" : "~/image_button/btn_admin_block.png" %>'
-
-CausesValidation="false" Height="30" CssClass="admin-img-btn" />
+                                    <asp:ImageButton ID="btnBlockStudent" runat="server" CommandName="cmd_toggle_block" CommandArgument='<%# Eval("StudentId") %>' ImageUrl='<%# Eval("IsBlocked").ToString() == "True" ? "~/image_button/btn_admin_unblock.png" : "~/image_button/btn_admin_block.png" %>' CausesValidation="false" Height="30" CssClass="admin-img-btn" />
 
                                     <asp:ImageButton ID="btnDeleteStudent" runat="server" CommandName="cmd_del" CommandArgument='<%# Eval("StudentId") %>'
                                         ImageUrl="~/image_button/btn_admin_delete.png" CssClass="admin-img-btn admin-img-btn-delete"
@@ -138,5 +132,6 @@ CausesValidation="false" Height="30" CssClass="admin-img-btn" />
             <asp:Label ID="lblPages" runat="server" CssClass="pagination-pages" />
             <asp:ImageButton ID="btnNext" runat="server" ImageUrl="~/image_button/btn_next.png" Height="42" OnClick="btnNext_Click" CssClass="admin-img-btn" />
         </div>
+        <CR:CrystalReportViewer ID="CrystalReportViewer2" runat="server" AutoDataBind="true" />
     </div>
 </asp:Content>

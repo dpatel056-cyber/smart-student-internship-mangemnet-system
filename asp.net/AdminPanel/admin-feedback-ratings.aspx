@@ -22,7 +22,8 @@
                 <div class="fb-stat-icon icon-gold"><i class="fa-solid fa-star"></i></div>
                 <div class="fb-stat-body">
                     <span class="fb-stat-label">Average Rating</span>
-                    <h3 class="fb-stat-number"><asp:Label ID="lblAvgRating" runat="server"></asp:Label></h3>
+                    <h3 class="fb-stat-number">
+                        <asp:Label ID="lblAvgRating" runat="server"></asp:Label></h3>
                 </div>
             </div>
 
@@ -30,7 +31,8 @@
                 <div class="fb-stat-icon icon-blue"><i class="fa-solid fa-comments"></i></div>
                 <div class="fb-stat-body">
                     <span class="fb-stat-label">Total Feedback</span>
-                    <h3 class="fb-stat-number"><asp:Label ID="lblTotalFeedback" runat="server"></asp:Label></h3>
+                    <h3 class="fb-stat-number">
+                        <asp:Label ID="lblTotalFeedback" runat="server"></asp:Label></h3>
                 </div>
             </div>
 
@@ -38,7 +40,8 @@
                 <div class="fb-stat-icon icon-purple"><i class="fa-solid fa-user-graduate"></i></div>
                 <div class="fb-stat-body">
                     <span class="fb-stat-label">Student Feedback</span>
-                    <h3 class="fb-stat-number"><asp:Label ID="lblStudentFeedback" runat="server"></asp:Label></h3>
+                    <h3 class="fb-stat-number">
+                        <asp:Label ID="lblStudentFeedback" runat="server"></asp:Label></h3>
                 </div>
             </div>
 
@@ -46,7 +49,8 @@
                 <div class="fb-stat-icon icon-green"><i class="fa-solid fa-building"></i></div>
                 <div class="fb-stat-body">
                     <span class="fb-stat-label">Company Feedback</span>
-                    <h3 class="fb-stat-number"><asp:Label ID="lblCompanyFeedback" runat="server"></asp:Label></h3>
+                    <h3 class="fb-stat-number">
+                        <asp:Label ID="lblCompanyFeedback" runat="server"></asp:Label></h3>
                 </div>
             </div>
         </div>
@@ -98,16 +102,16 @@
 
                         <asp:TemplateField HeaderText="ROLE">
                             <ItemTemplate>
-                                <%# Eval("SenderType") != null && Eval("SenderType").ToString() == "Company"
-                                    ? "<span class='badge-role-co'><i class='fa-solid fa-building'></i> Company</span>"
-                                    : "<span class='badge-role-st'><i class='fa-solid fa-user-graduate'></i> Student</span>" %>
+                                <%# Eval("SenderType").ToString() == "Company"
+                                ? "<span class='badge-role-co'><i class='fa-solid fa-building'></i> Company</span>"
+                                : "<span class='badge-role-st'><i class='fa-solid fa-user-graduate'></i> Student</span>" %>
                             </ItemTemplate>
                         </asp:TemplateField>
 
                         <asp:TemplateField HeaderText="RATING">
                             <ItemTemplate>
                                 <span class="fb-rating-badge">
-                                    <i class="fa-solid fa-star"></i> <%# Eval("Rating") %> / 5
+                                    <i class="fa-solid fa-star"></i><%# Eval("Rating") %> / 5
                                 </span>
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -172,15 +176,18 @@
             <div class="cm-detail-grid">
                 <div class="cm-detail-item">
                     <span class="cm-detail-label">SENDER TYPE</span>
-                    <span class="cm-detail-value"><asp:Label ID="drSenderLabel" runat="server"></asp:Label></span>
+                    <span class="cm-detail-value">
+                        <asp:Label ID="drSenderLabel" runat="server"></asp:Label></span>
                 </div>
                 <div class="cm-detail-item">
                     <span class="cm-detail-label">FULL NAME</span>
-                    <span class="cm-detail-value"><asp:Label ID="drSenderName" runat="server"></asp:Label></span>
+                    <span class="cm-detail-value">
+                        <asp:Label ID="drSenderName" runat="server"></asp:Label></span>
                 </div>
                 <div class="cm-detail-item">
                     <span class="cm-detail-label">EMAIL</span>
-                    <span class="cm-detail-value"><asp:Label ID="drSenderEmail" runat="server"></asp:Label></span>
+                    <span class="cm-detail-value">
+                        <asp:Label ID="drSenderEmail" runat="server"></asp:Label></span>
                 </div>
                 <div class="cm-detail-item">
                     <span class="cm-detail-label">RATING</span>
@@ -191,33 +198,38 @@
                 </div>
                 <div class="cm-detail-item">
                     <span class="cm-detail-label">SUBMITTED DATE</span>
-                    <span class="cm-detail-value"><asp:Label ID="drSubmittedDate" runat="server"></asp:Label></span>
+                    <span class="cm-detail-value">
+                        <asp:Label ID="drSubmittedDate" runat="server"></asp:Label></span>
                 </div>
                 <div class="cm-detail-item">
                     <span class="cm-detail-label">SUBMITTED TIME</span>
-                    <span class="cm-detail-value"><asp:Label ID="drSubmittedTime" runat="server"></asp:Label></span>
+                    <span class="cm-detail-value">
+                        <asp:Label ID="drSubmittedTime" runat="server"></asp:Label></span>
                 </div>
                 <div class="cm-detail-item cm-detail-item-full">
                     <span class="cm-detail-label">CATEGORY &amp; TARGET</span>
-                    <span class="cm-detail-value dr-target-value"><asp:Label ID="drTarget" runat="server"></asp:Label></span>
+                    <span class="cm-detail-value dr-target-value">
+                        <asp:Label ID="drTarget" runat="server"></asp:Label></span>
                 </div>
             </div>
 
             <!-- Subject Section -->
             <div class="cm-subject-section">
                 <span class="cm-detail-label">SUBJECT</span>
-                <span class="cm-subject-value"><asp:Label ID="drSubject" runat="server"></asp:Label></span>
+                <span class="cm-subject-value">
+                    <asp:Label ID="drSubject" runat="server"></asp:Label></span>
             </div>
 
             <!-- Message Section -->
             <div class="cm-message-section">
                 <span class="cm-detail-label">MESSAGE</span>
                 <div class="cm-message-box">
-                    <span class="cm-message-text"><asp:Label ID="drMessage" runat="server"></asp:Label></span>
+                    <span class="cm-message-text">
+                        <asp:Label ID="drMessage" runat="server"></asp:Label></span>
                 </div>
             </div>
         </div>
     </div>
-
+    <CR:CrystalReportViewer ID="CrystalReportViewer8" runat="server" AutoDataBind="true" />
     <script src="../js/admin-feedback-ratings.js"></script>
 </asp:Content>

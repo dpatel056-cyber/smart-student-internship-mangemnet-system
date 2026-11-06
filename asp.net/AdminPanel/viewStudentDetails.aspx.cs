@@ -217,7 +217,7 @@ namespace asp.net
         {
             getcon();
 
-            da = new SqlDataAdapter("select Resume from Students where StudentId='" + Request.QueryString["id"] + "'", con);
+            da = new SqlDataAdapter("SELECT Resume FROM Students WHERE StudentId='" + Request.QueryString["id"] + "'", con);
             ds = new DataSet();
             da.Fill(ds);
 
@@ -229,9 +229,7 @@ namespace asp.net
                 Response.ContentType = "application/pdf";
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + resume);
                 Response.TransmitFile(path);
-                Response.Flush();
-                Response.SuppressContent = true;
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                Response.End();
             }
         }
     }

@@ -259,15 +259,7 @@ namespace asp.net
             //Response.End();
 
             getcon();
-            string q = "select a.ApplicationId as [Application Id], s.FullName as [Student Name], s.Email as [Email], " +
-                       "i.InternshipTitle as [Internship], c.c_company as [Company], " +
-                       "a.AppliedDate as [Applied Date], ISNULL(a.Status, 'Applied') as [Status] " +
-                       "from StudentApplications a " +
-                       "inner join internship i on a.InternshipId = i.Id " +
-                       "inner join c_registration c on i.CompanyId = c.CompanyId " +
-                       "inner join Students s on a.StudentId = s.StudentId " +
-                       "order by a.ApplicationId desc";
-
+            string q = "select a.ApplicationId as [Application Id], s.FullName as [Student Name], s.Email as [Email], i.InternshipTitle as [Internship], c.c_company as [Company], a.AppliedDate as [Applied Date], ISNULL(a.Status, 'Applied') as [Status] from StudentApplications a inner join internship i on a.InternshipId = i.Id inner join c_registration c on i.CompanyId = c.CompanyId inner join Students s on a.StudentId = s.StudentId order by a.ApplicationId desc";
             da = new SqlDataAdapter(q, con);
             ds = new DataSet();
             da.Fill(ds);

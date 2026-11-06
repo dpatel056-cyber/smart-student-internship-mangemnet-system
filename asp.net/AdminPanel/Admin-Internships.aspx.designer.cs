@@ -24,6 +24,33 @@ namespace asp.net
         protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
         /// <summary>
+        /// btnSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnSearch;
+
+        /// <summary>
+        /// btnClearFilters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnClearFilters;
+
+        /// <summary>
+        /// btnGenerateReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnGenerateReport;
+
+        /// <summary>
         /// ddlDomain control.
         /// </summary>
         /// <remarks>
@@ -67,33 +94,6 @@ namespace asp.net
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
-
-        /// <summary>
-        /// btnSearch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnSearch;
-
-        /// <summary>
-        /// btnClearFilters control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnClearFilters;
-
-        /// <summary>
-        /// btnGenerateReport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnGenerateReport;
 
         /// <summary>
         /// lblResultCount control.
@@ -150,7 +150,7 @@ namespace asp.net
         protected global::System.Web.UI.WebControls.ImageButton btnNext;
 
         /// <summary>
-        /// CrystalReportViewer2 control.
+        /// CrystalReportViewer3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
