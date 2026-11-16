@@ -65,7 +65,6 @@ namespace asp.net
                 page = totalPages - 1;
                 ViewState["page"] = page;
             }
-
             GridView1.DataSource = admin.company_pagination(dt, page);
             GridView1.DataBind();
             lblPages.Text = "Page " + (page + 1) + " of " + (totalPages > 0 ? totalPages : 1);
@@ -144,31 +143,16 @@ namespace asp.net
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            string id = e.CommandArgument.ToString();
             if (e.CommandName == "cmd_view")
             {
-                Response.Redirect("viewCompanyDetails.aspx?id=" + id);
+                Response.Redirect("viewCompanyDetails.aspx?id=" + e.CommandArgument.ToString());
             }
-
-            if (e.CommandName == "cmd_toggle_block")
+            else if (e.CommandName == "cmd_del")
             {
                 getcon();
-                cmd = new SqlCommand("SELECT IsBlocked FROM c_registration WHERE CompanyId=" + id, con);
-                bool blocked = Convert.ToBoolean(cmd.ExecuteScalar());
-                int block = blocked ? 0 : 1;
-                cmd = new SqlCommand("UPDATE c_registration SET IsBlocked=" + block + ", Status='" + (block == 1 ? "Blocked" : "Active") + "' WHERE CompanyId=" + id, con);
+                cmd = new SqlCommand("DELETE FROM internship WHERE CompanyId=" + e.CommandArgument.ToString(), con);
                 cmd.ExecuteNonQuery();
-                cmd = new SqlCommand("UPDATE internship SET Status='" + (block == 1 ? "Inactive" : "Active") + "' WHERE CompanyId=" + id, con);
-                cmd.ExecuteNonQuery();
-                companyfillgrid();
-            }
-
-            if (e.CommandName == "cmd_del")
-            {
-                getcon();
-                cmd = new SqlCommand("DELETE FROM internship WHERE CompanyId=" + id, con);
-                cmd.ExecuteNonQuery();
-                cmd = new SqlCommand("DELETE FROM c_registration WHERE CompanyId=" + id, con);
+                cmd = new SqlCommand("DELETE FROM c_registration WHERE CompanyId=" + e.CommandArgument.ToString(), con);
                 cmd.ExecuteNonQuery();
                 companyfillgrid();
             }
@@ -180,7 +164,7 @@ namespace asp.net
             //string q = "select c.CompanyId as [Company Id], c.c_company as [Company Name], c.c_email as [Email], " +
             //           "c.c_contact as [Contact], ISNULL(c.c_industry, 'General') as [Industry], " +
             //           "ISNULL(c.c_city, 'N/A') as [City], " +
-            //           "case when c.IsBlocked = 1 or c.Status = 'Blocked' then 'Blocked' else 'Active' end as [Status] " +
+            //           "'Active' as [Status] " +
             //           "from c_registration c " +
             //           "order by c.CompanyId desc";
 
@@ -227,7 +211,7 @@ namespace asp.net
             //Response.End();
 
             getcon();
-            da = new SqlDataAdapter("select c.CompanyId as [Company Id], c.c_company as [Company Name], c.c_email as [Email],c.c_contact as [Contact], ISNULL(c.c_industry, 'General') as [Industry],ISNULL(c.c_city, 'N/A') as [City], case when c.IsBlocked = 1 or c.Status = 'Blocked' then 'Blocked' else 'Active' end as [Status] from c_registration c order by c.CompanyId desc", con);
+            da = new SqlDataAdapter("select c.CompanyId as [Company Id], c.c_company as [Company Name], c.c_email as [Email],c.c_contact as [Contact], ISNULL(c.c_industry, 'General') as [Industry],ISNULL(c.c_city, 'N/A') as [City], 'Active' as [Status] from c_registration c order by c.CompanyId desc", con);
             ds = new DataSet();
             da.Fill(ds);
             string s = Server.MapPath("~/admin_companies_report_data.xml");

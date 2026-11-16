@@ -224,7 +224,7 @@ namespace asp.net
             string resume = ds.Tables[0].Rows[0]["Resume"].ToString();
             string path = Server.MapPath("~/resume_upload/" + resume);
 
-            if (resume != "" && File.Exists(path))
+            if (resume != "")
             {
                 Response.ContentType = "application/pdf";
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + resume);

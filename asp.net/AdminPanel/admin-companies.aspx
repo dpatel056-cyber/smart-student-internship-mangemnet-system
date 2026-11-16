@@ -8,7 +8,7 @@
         <div class="cmp-page-header">
             <div class="cmp-page-header-left">
                 <h1 class="cmp-page-title">Companies</h1>
-                <p class="cmp-page-subtitle">Manage, monitor and block/unblock registered companies.</p>
+                <p class="cmp-page-subtitle">Manage and monitor registered companies.</p>
             </div>
         </div>
         <!-- 2. SEARCH AND FILTER SECTION -->
@@ -47,8 +47,7 @@
                 <asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" CssClass="cmp-select">
                     <asp:ListItem Text="All Status" Value="" />
                     <asp:ListItem Text="Active" Value="Active" />
-                    <asp:ListItem Text="Blocked" Value="Blocked" />
-                </asp:DropDownList>
+                                    </asp:DropDownList>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <!-- Action Buttons: Search & Clear -->
@@ -93,9 +92,9 @@
                         </asp:TemplateField>
                        <asp:TemplateField HeaderText="STATUS" HeaderStyle-CssClass="col-status" ItemStyle-CssClass="col-status">
                             <ItemTemplate>
-                                <span class='<%# (bool)Eval("IsBlocked") ? "status-badge-blocked" : "status-badge-active" %>'>
-                                    <i class='<%# (bool)Eval("IsBlocked") ? "fa-solid fa-ban" : "fa-solid fa-circle-check" %>'></i>
-                                       <%# (bool)Eval("IsBlocked") ? "Blocked" : "Active" %>
+                                <span class='status-badge-active'>
+                                    <i class='fa-solid fa-circle-check'></i>
+                                       Active
                                 </span>
                             </ItemTemplate>
                        </asp:TemplateField>
@@ -103,7 +102,6 @@
                             <ItemTemplate>
                                 <div class="cmp-actions-wrap">
                                     <asp:ImageButton ID="btnView" runat="server" CommandName="cmd_view" CommandArgument='<%# Eval("CompanyId") %>' ImageUrl="~/image_button/btn_admin_view.png" CausesValidation="false" Height="25" CssClass="admin-img-btn admin-img-btn-view" />
-                                    <asp:ImageButton ID="btnBlockCompany" runat="server" CommandName="cmd_toggle_block" CommandArgument='<%# Eval("CompanyId") %>' ImageUrl='<%# Convert.ToBoolean(Eval("IsBlocked")) ? "~/image_button/btn_admin_unblock.png" : "~/image_button/btn_admin_block.png" %>' CausesValidation="false" Height="25" CssClass="admin-img-btn" />
                                     <asp:ImageButton ID="btnDelete" runat="server" CommandName="cmd_del" CommandArgument='<%# Eval("CompanyId") %>' ImageUrl="~/image_button/btn_admin_delete.png" CausesValidation="false" Height="25" CssClass="admin-img-btn admin-img-btn-delete" />
                                 </div>
                             </ItemTemplate>

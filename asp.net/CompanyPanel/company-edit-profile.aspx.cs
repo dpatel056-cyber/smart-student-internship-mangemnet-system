@@ -115,17 +115,8 @@ namespace asp.net
                 txtPreferredSemester.Text = ds.Tables[0].Rows[0]["c_preferred_semester"].ToString();
                 txtMinimumCGPA.Text = ds.Tables[0].Rows[0]["c_min_cgpa"].ToString();
 
-                string logo = ds.Tables[0].Rows[0]["c_logo"].ToString();
-                if (logo != "")
-                {
-                    imgProfilePreview.ImageUrl = ResolveUrl(logo);
-                    btnRemovePhoto.Visible = true;
-                }
-                else
-                {
-                    imgProfilePreview.ImageUrl = ResolveUrl("~/student_images/default-avatar.png");
-                    btnRemovePhoto.Visible = false;
-                }
+                DataListCompanyLogo.DataSource = ds;
+                DataListCompanyLogo.DataBind();
             }
         }
 

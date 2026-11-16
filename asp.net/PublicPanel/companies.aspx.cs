@@ -30,17 +30,12 @@ namespace asp.net
         {
             pub = new publicpanel();
             DataTable dt = pub.select().Tables[0];
-
             int page = Convert.ToInt32(ViewState["page"]);
             int totalPages = (int)Math.Ceiling(dt.Rows.Count / 4.0);
-
             lblTotalCompanies.Text = "Total Companies : " + dt.Rows.Count;
-
             DataListPublicCompanies.DataSource = pub.pagination(dt, page);
             DataListPublicCompanies.DataBind();
-
             lblPages.Text = "Page " + (page + 1) + " of " + totalPages;
-
             btnPrevious.Enabled = page > 0;
             btnNext.Enabled = page < totalPages - 1;
         }
@@ -48,16 +43,11 @@ namespace asp.net
         void filtergrid(DataTable dt)
         {
             ViewState["page"] = 0;
-
             int totalPages = (int)Math.Ceiling(dt.Rows.Count / 4.0);
-
             lblTotalCompanies.Text = "Total Companies : " + dt.Rows.Count;
-
             DataListPublicCompanies.DataSource = pub.pagination(dt, 0);
             DataListPublicCompanies.DataBind();
-
             lblPages.Text = "Page 1 of " + totalPages;
-
             btnPrevious.Enabled = false;
             btnNext.Enabled = totalPages > 1;
         }

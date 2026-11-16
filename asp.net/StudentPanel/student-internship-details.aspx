@@ -29,7 +29,7 @@
                         <div class="imd-cover"></div>
                         <div class="imd-content">
                             <asp:HyperLink ID="hlCompanyLogo" runat="server" NavigateUrl='<%# ResolveUrl("~/StudentPanel/student-company-details.aspx?CompanyId=" + Eval("CompanyId")) %>' CssClass="imd-logo imd-logo-link">
-                                <asp:Image ID="imgCompanyLogo" runat="server" ImageUrl='<%# GetCompanyLogo(Eval("c_logo")) %>' CssClass="imd-logo-img" />
+                                <asp:Image ID="imgCompanyLogo" runat="server" ImageUrl='<%# (Eval("c_logo")) %>' CssClass="imd-logo-img" />
                             </asp:HyperLink>
                             <h1 class="imd-title imd-title-spaced">
                                 <asp:Label ID="lblInternshipTitle" runat="server" Text='<%# Eval("InternshipTitle") %>'></asp:Label>
@@ -128,7 +128,7 @@
                             <!-- Company Information -->
                             <div class="company-info-box">
                                 <div class="company-info-header">
-                                    <asp:Image ID="imgCompanyLogo2" runat="server" ImageUrl='<%# GetCompanyLogo(Eval("c_logo")) %>' CssClass="company-logo-avatar" />
+                                    <asp:Image ID="imgCompanyLogo2" runat="server" ImageUrl='<%# (Eval("c_logo")) %>' CssClass="company-logo-avatar" />
                                     <div>
                                         <h3 class="imd-apply-title">
                                             <asp:Label ID="lblCompanyBoxName" runat="server" Text='<%# Eval("c_company") %>'></asp:Label>
@@ -189,18 +189,19 @@
                                             <asp:Label ID="lblOpenings" runat="server" Text='<%# Eval("NumberOfOpenings") %>'></asp:Label> Positions
                                         </span>
                                     </li>
-                                    <li>
-                                        <span class="imd-meta-label">Start Date</span>
-                                        <span class="imd-meta-value">
-                                            <asp:Label ID="lblStartDate" runat="server" Text='<%# Eval("StartDate") != DBNull.Value ? Convert.ToDateTime(Eval("StartDate")).ToString("dd-MM-yyyy") : "Immediate" %>'></asp:Label>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span class="imd-meta-label">Apply Deadline</span>
-                                        <span class="imd-meta-value">
-                                            <asp:Label ID="lblDeadline" runat="server" Text='<%# Eval("ApplicationDeadline") != DBNull.Value ? Convert.ToDateTime(Eval("ApplicationDeadline")).ToString("dd-MM-yyyy") : "Open until filled" %>'></asp:Label>
-                                        </span>
-                                    </li>
+                                   <li>
+    <span class="imd-meta-label">Start Date</span>
+    <span class="imd-meta-value">
+        <%# Eval("StartDate", "{0:dd-MM-yyyy}") %>
+    </span>
+</li>
+
+<li>
+    <span class="imd-meta-label">Apply Deadline</span>
+    <span class="imd-meta-value">
+        <%# Eval("ApplicationDeadline", "{0:dd-MM-yyyy}") %>
+    </span>
+</li>
                                     <li>
                                         <span class="imd-meta-label">Eligible Courses</span>
                                         <span class="imd-meta-value">

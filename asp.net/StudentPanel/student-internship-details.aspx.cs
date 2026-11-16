@@ -180,30 +180,5 @@ namespace asp.net
                 ScriptManager.RegisterStartupScript(this, GetType(), "saveAlert", "alert('Internship saved to your Saved Internships list!');", true);
             }
         }
-
-        public string GetCompanyLogo(object logoObj)
-        {
-            if (logoObj == null || logoObj == DBNull.Value)
-                return ResolveUrl("~/CompanyUploads/default-company.png");
-
-            string logo = logoObj.ToString().Trim();
-            if (string.IsNullOrEmpty(logo))
-                return ResolveUrl("~/CompanyUploads/default-company.png");
-
-            if (logo.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || logo.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-                return logo;
-
-            if (logo.StartsWith("~"))
-                return ResolveUrl(logo);
-
-            if (logo.StartsWith("/"))
-                return ResolveUrl("~" + logo);
-
-            if (System.IO.File.Exists(Server.MapPath("~/company_images/" + logo)))
-                return ResolveUrl("~/company_images/" + logo);
-            if (System.IO.File.Exists(Server.MapPath("~/compnay_images/" + logo)))
-                return ResolveUrl("~/compnay_images/" + logo);
-            return ResolveUrl("~/CompanyUploads/" + logo);
-        }
     }
 }

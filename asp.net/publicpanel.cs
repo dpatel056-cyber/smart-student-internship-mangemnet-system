@@ -20,6 +20,7 @@ namespace asp.net
         }
 
         //companies page
+
         // fill datalist method
         public DataSet select()
         {
@@ -112,7 +113,10 @@ namespace asp.net
             return ds;
         }
 
+
+
         //internship page
+
         // fill internship datalist method
         public DataSet select_internship()
         {

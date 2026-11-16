@@ -19,17 +19,6 @@ namespace asp.net
             con.Open();
         }
 
-        private string GetInitials(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name)) return "ST";
-            var parts = name.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length == 1)
-            {
-                return parts[0].Length >= 2 ? parts[0].Substring(0, 2).ToUpper() : parts[0].ToUpper();
-            }
-            return (parts[0][0].ToString() + parts[parts.Length - 1][0].ToString()).ToUpper();
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["student"] != null)
@@ -80,11 +69,11 @@ namespace asp.net
                 {
                     imgHeaderAvatar.Visible = false;
                     lblHeaderAvatarInitials.Visible = true;
-                    lblHeaderAvatarInitials.Text = GetInitials(name);
+                   
 
                     imgSidebarAvatar.Visible = false;
                     lblSidebarAvatarInitials.Visible = true;
-                    lblSidebarAvatarInitials.Text = GetInitials(name);
+                   
                 }
             }
             else

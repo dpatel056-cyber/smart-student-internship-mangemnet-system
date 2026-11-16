@@ -1,4 +1,5 @@
-<%@ Page Title="My Profile" Language="C#" MasterPageFile="~/StudentPanel/student.Master" AutoEventWireup="true" CodeFile="student-profile.aspx.cs" Inherits="asp.net.js.student_profile" %>
+<%@ Page Title="My Profile" Language="C#" MasterPageFile="~/StudentPanel/student.Master" AutoEventWireup="true" CodeBehind="student-profile.aspx.cs" Inherits="asp.net.js.student_profile" %>
+
 <asp:Content ID="ProfileHead" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="../css/student-profile.css" />
 </asp:Content>
@@ -8,8 +9,12 @@
             <div class="profile-header-top">
                 <div class="profile-main-info">
                     <div class="profile-photo" aria-label="Student profile photo">
-                        <asp:Label ID="lblAvatarInitials" runat="server">-</asp:Label>
-                        <asp:Image ID="imgStudentPhoto" runat="server" Visible="false"   CssClass="sprof-u1" />
+
+                        <asp:DataList ID="DataListStudentPhoto" runat="server" RepeatLayout="Flow" ShowHeader="false" ShowFooter="false">
+                            <ItemTemplate>
+                                <asp:Image ID="imgStudentPhoto" runat="server" CssClass="student-profile-photo-img" ImageUrl='<%# Eval("ProfilePhoto") %>' />
+                            </ItemTemplate>
+                        </asp:DataList>
                     </div>
                     <div class="profile-info-2x2">
                         <div class="contact-item">
@@ -319,7 +324,7 @@
                                                 data-link='<%# HttpUtility.HtmlAttributeEncode(Eval("ProjectLink") as string ?? "") %>'>
                                                 <i class="fa-solid fa-pen"></i>
                                             </button>
-                                            <asp:LinkButton ID="btnDeleteProject" runat="server" CommandName="DeleteProject" CommandArgument='<%# Eval("ProjectId") %>' CssClass="project-action-btn delete-btn" CausesValidation="false" OnClientClick="return confirm('Are you sure you want to delete this project?');">
+                                            <asp:LinkButton ID="btnDeleteProject" runat="server" CommandName="DeleteProject" CommandArgument='<%# Eval("ProjectId") %>' CssClass="project-action-btn delete-btn" CausesValidation="false">
                                                 <i class="fa-solid fa-trash"></i>
                                             </asp:LinkButton>
 
@@ -340,7 +345,7 @@
                                     <asp:PlaceHolder ID="phProjectLink" runat="server" Visible='<%# !string.IsNullOrWhiteSpace(Eval("ProjectLink") as string) %>'>
                                         <div class="project-links">
                                             <a href='<%# Eval("ProjectLink") %>' target="_blank" class="project-link-btn" rel="noopener noreferrer">
-                                                <i class="fa-solid fa-arrow-up-right-from-square"></i> View Project Link
+                                                <i class="fa-solid fa-arrow-up-right-from-square"></i>View Project Link
                                             </a>
                                         </div>
                                     </asp:PlaceHolder>
@@ -370,36 +375,38 @@
                                 <div class="resume-meta">
                                     <span><i class="fa-regular fa-file"></i>PDF Document</span>
                                     <span><i class="fa-regular fa-calendar"></i>
-                                    <asp:Label ID="lblResumeDate" runat="server"></asp:Label></span>
+                                        <asp:Label ID="lblResumeDate" runat="server"></asp:Label></span>
                                 </div>
                             </div>
                         </div>
                         <div class="resume-actions">
                             <asp:HyperLink ID="hlViewResume" runat="server" Target="_blank" CssClass="resume-action-btn primary"><i class="fa-solid fa-eye"></i> View</asp:HyperLink>
                             <asp:LinkButton ID="btnDownloadResume" runat="server" OnClick="btnDownloadResume_Click" CssClass="resume-action-btn" CausesValidation="false"><i class="fa-solid fa-download"></i> Download</asp:LinkButton>
-                            <asp:LinkButton ID="btnDeleteResume" runat="server" OnClick="btnDeleteResume_Click" CssClass="resume-delete-btn" CausesValidation="false" ><i class="fa-solid fa-trash"></i></asp:LinkButton>
+                            <asp:LinkButton ID="btnDeleteResume" runat="server" OnClick="btnDeleteResume_Click" CssClass="resume-delete-btn" CausesValidation="false"><i class="fa-solid fa-trash"></i></asp:LinkButton>
                         </div>
                     </div>
                 </asp:PlaceHolder>
 
                 <!-- Resume Upload Table in Resume Tab -->
-                <div class="resume-upload-card sprof-u2" >
-                    <h3  class="sprof-u3">
-                        <i class="fa-solid fa-cloud-arrow-up sprof-u4" ></i> Upload / Replace Resume
-                    </h3>
-                    <table class="upload-table sprof-u5" >
-                        <tr>
-                            <td  class="sprof-u6">Resume (PDF):</td>
-                            <td  class="sprof-u7">
-                                <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control-file" accept=".pdf" />
-                                <asp:ImageButton ID="btnUploadResume" runat="server" ImageUrl="~/assets/btn_upload_resume.png" Height="40" CssClass="student-img-btn" OnClick="btnUploadResume_Click" CausesValidation="false" />
-                            </td>
-                        </tr>
-                    </table>
-                    <small  class="sprof-u9">
-                        <i class="fa-solid fa-circle-info sprof-u10" ></i> Only <strong>.pdf</strong> files are allowed. Files will be uploaded to the <strong>resume_upload</strong> folder.
-                    </small>
-                </div>
+                <asp:PlaceHolder ID="pnlResumeUploadArea" runat="server">
+                    <div class="resume-upload-card sprof-u2">
+                        <h3 class="sprof-u3">
+                            <i class="fa-solid fa-cloud-arrow-up sprof-u4"></i>Upload / Replace Resume
+                        </h3>
+                        <table class="upload-table sprof-u5">
+                            <tr>
+                                <td class="sprof-u6">Resume (PDF):</td>
+                                <td class="sprof-u7">
+                                    <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control-file" accept=".pdf" />
+                                    <asp:ImageButton ID="btnUploadResume" runat="server" ImageUrl="~/assets/btn_upload_resume.png" Height="40" CssClass="student-img-btn" OnClick="btnUploadResume_Click" CausesValidation="false" />
+                                </td>
+                            </tr>
+                        </table>
+                        <small class="sprof-u9">
+                            <i class="fa-solid fa-circle-info sprof-u10"></i>Only <strong>.pdf</strong> files are allowed. Files will be uploaded to the <strong>resume_upload</strong> folder.
+                        </small>
+                    </div>
+                </asp:PlaceHolder>
             </div>
         </section>
     </main>
@@ -710,4 +717,4 @@
             </div>
         </div>
     </div>
-    </asp:Content>
+</asp:Content>

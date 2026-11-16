@@ -41,14 +41,15 @@ namespace asp.net
         void companyfilldata()
         {
             getcon();
-            string companyId = Request.QueryString["id"];
-            da = new SqlDataAdapter("SELECT * FROM c_registration WHERE CompanyId='" + companyId + "'", con);
+            da = new SqlDataAdapter("SELECT * FROM c_registration WHERE CompanyId='" + Request.QueryString["id"] + "'", con);
             ds = new DataSet();
             da.Fill(ds);
+
             if (ds.Tables[0].Rows.Count > 0)
             {
                 pnlNotFound.Visible = false;
                 pnlDetails.Visible = true;
+
                 int cId = Convert.ToInt32(ds.Tables[0].Rows[0]["CompanyId"]);
 
                 // Company Details

@@ -1,13 +1,18 @@
+using Org.BouncyCastle.Asn1.Cmp;
 using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 
 namespace asp.net
 {
     public partial class student_company_details : System.Web.UI.Page
     {
-        StudentClass stu = new StudentClass();
+        SqlConnection con;
+        SqlDataAdapter da;
+        DataSet ds;
+        string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,64 +29,35 @@ namespace asp.net
             }
         }
 
+        void getcon()
+        {
+            con = new SqlConnection(s);
+            con.Open();
+        }
+
         void companyfilldata()
         {
-            stu = new StudentClass();
-            string companyId = Request.QueryString["CompanyId"] ?? Request.QueryString["id"];
+            getcon();
+            da = new SqlDataAdapter("select * from c_registration where CompanyId='" + Request.QueryString["CompanyId"] + "' and (IsBlocked = 0 OR IsBlocked IS NULL) and (Status != 'Blocked' OR Status IS NULL)", con);
+            ds = new DataSet();
+            da.Fill(ds);
 
-            if (string.IsNullOrEmpty(companyId))
+            if (ds.Tables[0].Rows.Count > 0)
             {
-                pnlNotFound.Visible = true;
-                pnlDetails.Visible = false;
-                return;
-            }
+                pnlNoInternships.Visible = false;
+                pnlHero.Visible = true;
 
-            DataSet ds = stu.select_company_details(companyId);
+                // Logo DataList
+                DataListCompanyLogo.DataSource = ds;
+                DataListCompanyLogo.DataBind();
 
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                pnlNotFound.Visible = false;
-                pnlDetails.Visible = true;
-
-                // Company Details
                 lblCompanyName.Text = ds.Tables[0].Rows[0]["c_company"].ToString();
                 lblIndustry.Text = ds.Tables[0].Rows[0]["c_industry"].ToString();
                 lblLocation.Text = ds.Tables[0].Rows[0]["c_city"].ToString() + ", " + ds.Tables[0].Rows[0]["c_state"].ToString();
+
+                // Website
                 hlWebsite.Text = ds.Tables[0].Rows[0]["c_website"].ToString();
                 hlWebsite.NavigateUrl = ds.Tables[0].Rows[0]["c_website"].ToString();
-
-                // Company Logo
-                string logo = ds.Tables[0].Rows[0]["c_logo"] != DBNull.Value ? ds.Tables[0].Rows[0]["c_logo"].ToString().Trim() : "";
-
-                if (!string.IsNullOrEmpty(logo))
-                {
-                    if (logo.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || logo.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-                    {
-                        imgCompanyLogo.ImageUrl = logo;
-                    }
-                    else if (logo.StartsWith("~") || logo.StartsWith("/"))
-                    {
-                        imgCompanyLogo.ImageUrl = ResolveUrl(logo);
-                    }
-                    else
-                    {
-                        if (System.IO.File.Exists(Server.MapPath("~/company_images/" + logo)))
-                            imgCompanyLogo.ImageUrl = ResolveUrl("~/company_images/" + logo);
-                        else if (System.IO.File.Exists(Server.MapPath("~/compnay_images/" + logo)))
-                            imgCompanyLogo.ImageUrl = ResolveUrl("~/compnay_images/" + logo);
-                        else
-                            imgCompanyLogo.ImageUrl = ResolveUrl("~/CompanyUploads/" + logo);
-                    }
-
-                    imgCompanyLogo.Visible = true;
-                    pnlLogoInitials.Visible = false;
-                }
-                else
-                {
-                    imgCompanyLogo.Visible = false;
-                    pnlLogoInitials.Visible = true;
-                    lblCompanyInitials.Text = GetInitials(lblCompanyName.Text);
-                }
 
                 // Hero Contact
                 lblHeroContactPerson.Text = ds.Tables[0].Rows[0]["c_hr_name"].ToString();
@@ -93,7 +69,7 @@ namespace asp.net
                 hlEmailSocial.NavigateUrl = "mailto:" + ds.Tables[0].Rows[0]["c_email"].ToString();
                 hlCallSocial.NavigateUrl = "tel:" + ds.Tables[0].Rows[0]["c_contact"].ToString();
 
-                // Company Information
+                // Overview
                 lblFieldCompanyName.Text = ds.Tables[0].Rows[0]["c_company"].ToString();
                 lblFieldIndustry.Text = ds.Tables[0].Rows[0]["c_industry"].ToString();
                 lblCompanyType.Text = ds.Tables[0].Rows[0]["c_type"].ToString();
@@ -102,13 +78,13 @@ namespace asp.net
                 lblDescription.Text = ds.Tables[0].Rows[0]["c_about"].ToString();
                 lblHeadquarters.Text = ds.Tables[0].Rows[0]["c_headquarters"].ToString();
 
-                // Business Information
+                // Company Information
                 lblBusinessDomain.Text = ds.Tables[0].Rows[0]["c_business_domain"].ToString();
                 lblProductsServices.Text = ds.Tables[0].Rows[0]["c_products"].ToString();
                 lblMission.Text = ds.Tables[0].Rows[0]["c_mission"].ToString();
                 lblVision.Text = ds.Tables[0].Rows[0]["c_vision"].ToString();
 
-                // HR Details
+                // HR / Contact
                 lblEmail.Text = ds.Tables[0].Rows[0]["c_email"].ToString();
                 lblPhone.Text = ds.Tables[0].Rows[0]["c_contact"].ToString();
                 lblAddress.Text = ds.Tables[0].Rows[0]["c_address"].ToString();
@@ -123,24 +99,26 @@ namespace asp.net
                 hlLinkedIn.NavigateUrl = ds.Tables[0].Rows[0]["c_linkedin"].ToString();
 
                 // Internships
-                loadCompanyInternships(companyId);
+                loadCompanyInternships(Request.QueryString["CompanyId"]);
             }
             else
             {
                 pnlNotFound.Visible = true;
-                pnlDetails.Visible = false;
+                pnlHero.Visible = false;
             }
         }
 
         void loadCompanyInternships(string companyId)
         {
-            stu = new StudentClass();
-            DataSet ds = stu.select_company_internships(companyId);
+            da = new SqlDataAdapter("select * from internship where CompanyId='" + companyId + "' and Status<>'Inactive' and Status<>'Draft' order by Id desc", con);
+            ds = new DataSet();
+            da.Fill(ds);
 
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            DataListCompanyInternships.DataSource = ds;
+            DataListCompanyInternships.DataBind();
+
+            if (ds.Tables[0].Rows.Count > 0)
             {
-                DataListCompanyInternships.DataSource = ds;
-                DataListCompanyInternships.DataBind();
                 DataListCompanyInternships.Visible = true;
                 pnlNoInternships.Visible = false;
             }
@@ -149,19 +127,6 @@ namespace asp.net
                 DataListCompanyInternships.Visible = false;
                 pnlNoInternships.Visible = true;
             }
-        }
-
-        // LOGO
-        private string GetInitials(string name)
-        {
-            if (string.IsNullOrEmpty(name))
-                return "CO";
-
-            string[] parts = name.Split(' ');
-            if (parts.Length > 1)
-                return (parts[0][0].ToString() + parts[1][0].ToString()).ToUpper();
-
-            return name.Length > 1 ? name.Substring(0, 2).ToUpper() : name.ToUpper();
         }
     }
 }

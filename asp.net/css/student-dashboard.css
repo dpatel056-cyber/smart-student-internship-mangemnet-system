@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    SIMS STUDENT DASHBOARD STYLESHEET (MATCHING COMPANY & ADMIN DASHBOARD)
    ========================================================================== */
 :root {
@@ -35,14 +35,16 @@
 .sims-stat-grid-v2,
 .co-stat-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: 16px;
     margin-bottom: 24px;
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 @media (max-width: 1200px) {
     .sims-stat-grid-v2,
     .co-stat-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
 }
 @media (max-width: 576px) {
@@ -116,13 +118,15 @@
 /* 2. Panels & Grids */
 .co-grid-2 {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 24px;
     margin-bottom: 28px;
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 @media (max-width: 991px) {
     .co-grid-2 {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 .co-panel {
@@ -135,6 +139,9 @@
     flex-direction: column;
     box-sizing: border-box;
     position: relative;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
 }
 .co-panel-header {
     display: flex;
@@ -359,12 +366,24 @@
 }
 
 .sdash-u9 {
-    position:relative !important;
-    height:240px !important;
-    display:flex !important;
-    justify-content:center !important;
-    align-items:center !important;
-    padding:10px 0 !important;
+    position: relative !important;
+    width: 100% !important;
+    min-height: 285px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+.sdash-u9 img,
+#studentApplicationPieChart,
+#studentInterviewBarChart {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
 }
 
 .sdash-u10 {
@@ -767,35 +786,52 @@
     transition: all 0.2s ease !important;
 }
 
-/* Quick Actions Module */
+/* Quick Actions Module - 1 Row 5 Columns */
 .bolt-icon-gold {
     color: #f59e0b !important;
     margin-right: 8px !important;
 }
 
-.dash-quick-actions-list {
-    display: flex !important;
-    flex-direction: column !important;
+.dash-quick-actions-row {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
     gap: 12px !important;
-    flex: 1 !important;
-    justify-content: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+@media (max-width: 1200px) {
+    .dash-quick-actions-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .dash-quick-actions-row {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
 }
 
 .dash-quick-action-item {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    padding: 12px 16px !important;
-    border-radius: 12px !important;
-    background: #f8fafc !important;
+    padding: 12px 10px !important;
+    border-radius: 14px !important;
+    background: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
     text-decoration: none !important;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    min-height: 88px !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03) !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
 }
 
 .dash-quick-action-item:hover {
     transform: translateY(-2px) !important;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
 }
 
 .dash-quick-action-item.action-blue:hover {
@@ -826,13 +862,16 @@
 .dash-quick-action-left {
     display: flex !important;
     align-items: center !important;
-    gap: 14px !important;
+    gap: 10px !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
 }
 
 .dash-quick-action-icon {
-    width: 40px !important;
-    height: 40px !important;
-    min-width: 40px !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
     border-radius: 10px !important;
     display: flex !important;
     align-items: center !important;
@@ -867,22 +906,27 @@
 }
 
 .dash-quick-action-title {
-    font-weight: 600 !important;
-    font-size: 14px !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
     color: #0f172a !important;
     line-height: 1.3 !important;
+    white-space: normal !important;
+    word-break: normal !important;
 }
 
 .dash-quick-action-desc {
-    font-size: 12px !important;
+    font-size: 10.5px !important;
     color: #64748b !important;
     margin-top: 2px !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+    word-break: normal !important;
 }
 
 .dash-quick-action-arrow {
-    width: 30px !important;
-    height: 30px !important;
-    min-width: 30px !important;
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 26px !important;
     border-radius: 50% !important;
     background: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
@@ -890,13 +934,112 @@
     align-items: center !important;
     justify-content: center !important;
     color: #64748b !important;
-    font-size: 12px !important;
+    font-size: 11px !important;
+    flex-shrink: 0 !important;
+    margin-left: 6px !important;
     transition: all 0.2s ease !important;
 }
 
-.dash-quick-action-item:hover .dash-quick-action-arrow {
+.dash-quick-action-item.action-blue:hover .dash-quick-action-arrow {
     background: #2563eb !important;
     border-color: #2563eb !important;
     color: #ffffff !important;
-    transform: translateX(3px) !important;
+    transform: translateX(2px) !important;
+}
+
+.dash-quick-action-item.action-purple:hover .dash-quick-action-arrow {
+    background: #7c3aed !important;
+    border-color: #7c3aed !important;
+    color: #ffffff !important;
+    transform: translateX(2px) !important;
+}
+
+.dash-quick-action-item.action-green:hover .dash-quick-action-arrow {
+    background: #16a34a !important;
+    border-color: #16a34a !important;
+    color: #ffffff !important;
+    transform: translateX(2px) !important;
+}
+
+.dash-quick-action-item.action-orange:hover .dash-quick-action-arrow {
+    background: #ea580c !important;
+    border-color: #ea580c !important;
+    color: #ffffff !important;
+    transform: translateX(2px) !important;
+}
+
+.dash-quick-action-item.action-cyan:hover .dash-quick-action-arrow {
+    background: #0891b2 !important;
+    border-color: #0891b2 !important;
+    color: #ffffff !important;
+    transform: translateX(2px) !important;
+}
+/* Prevent Any Horizontal Scrolling Across Entire Student Panel */
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+}
+
+.student-layout,
+.student-main,
+.student-content {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Status Badges for Recent Applications & Tables */
+.badge-status-chip {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 4px 10px !important;
+    border-radius: 20px !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.2px !important;
+    white-space: nowrap !important;
+    line-height: 1.2 !important;
+    box-sizing: border-box !important;
+}
+
+.badge-status-chip i {
+    font-size: 11px !important;
+}
+
+.st-applied {
+    background: #eff6ff !important;
+    color: #2563eb !important;
+    border: 1px solid #bfdbfe !important;
+}
+
+.st-shortlisted {
+    background: #ede9fe !important;
+    color: #6d28d9 !important;
+    border: 1px solid #ddd6fe !important;
+}
+
+.st-selected {
+    background: #dcfce7 !important;
+    color: #15803d !important;
+    border: 1px solid #bbf7d0 !important;
+}
+
+.st-rejected {
+    background: #fee2e2 !important;
+    color: #b91c1c !important;
+    border: 1px solid #fecaca !important;
+}
+
+.st-completed {
+    background: #ecfeff !important;
+    color: #0891b2 !important;
+    border: 1px solid #a5f3fc !important;
+}
+
+.st-pending, .st-under-review {
+    background: #fef3c7 !important;
+    color: #b45309 !important;
+    border: 1px solid #fde68a !important;
 }

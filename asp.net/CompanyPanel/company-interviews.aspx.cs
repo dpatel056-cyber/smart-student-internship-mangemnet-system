@@ -12,7 +12,9 @@ namespace asp.net
         SqlDataAdapter da;
         DataSet ds;
         SqlCommand cmd;
+
         CompanyClass comp = new CompanyClass();
+
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
         void getcon()
         {

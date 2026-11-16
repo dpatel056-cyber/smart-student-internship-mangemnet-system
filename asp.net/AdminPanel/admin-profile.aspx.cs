@@ -23,11 +23,6 @@ namespace asp.net
                 da = new SqlDataAdapter("select * from admin_registration where Email='" + Session["admin"] + "'", con);
                 ds = new DataSet();
                 da.Fill(ds);
-
-                if (!IsPostBack)
-                {
-                    lblAdminEmailView.Text = Session["admin"].ToString();
-                }
             }
             else
             {

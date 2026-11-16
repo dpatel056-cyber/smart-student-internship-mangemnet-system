@@ -1,6 +1,7 @@
+﻿<%@ Register Assembly="System.Web.DataVisualization" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 <%@ Page Title="Student Dashboard" Language="C#" MasterPageFile="~/StudentPanel/student.Master" AutoEventWireup="true" CodeBehind="student-dashboard.aspx.cs" Inherits="asp.net.student_dashboard" %>
 <asp:Content ID="ContentHead" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="../css/student-dashboard.css" />
+    <link rel="stylesheet" href="../css/student-dashboard.css?v=50" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </asp:Content>
 <asp:Content ID="ContentMain" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -102,30 +103,101 @@
             </div>
         </a>
     </div>
-    <!-- Charts Row: 2 Column Panels (Application Status Overview & Interview Status Overview) -->
-    <div class="co-grid-2 sdash-u7" >
+        <!-- Charts Row: 2 Column Panels (Application Status Overview & Interview Status Overview) -->
+    <div class="co-grid-2 sdash-u7">
         <!-- Application Status Donut Chart -->
         <div class="co-panel">
             <div class="co-panel-header">
-                <h3><i class="fa-solid fa-chart-pie sdash-u8" ></i> Application Status Overview</h3>
+                <h3><i class="fa-solid fa-chart-pie sdash-u8"></i> Application Status Overview</h3>
             </div>
-            <div  class="sdash-u9">
-                <canvas id="studentStatusChart"
-                        data-selected='<%= totalSelected %>'
-                        data-pending='<%= totalPending %>'
-                        data-rejected='<%= totalRejected %>'></canvas>
+            <div class="sdash-u9">
+                <asp:Chart ID="studentApplicationPieChart" runat="server"
+                    Width="480px" Height="290px"
+                    BackColor="White"
+                    Palette="None"
+                    AntiAliasing="All"
+                    TextAntiAliasingQuality="High"
+                    ImageType="Png"
+                    RenderType="ImageTag">
+
+                    <Series>
+                        <asp:Series Name="Applications"
+                            ChartType="Doughnut"
+                            XValueMember="Status"
+                            YValueMembers="Total"
+                            IsValueShownAsLabel="false"
+                            Font="Segoe UI, 10pt"
+                            ChartArea="ApplicationArea"
+                            Legend="ApplicationLegend"
+                            CustomProperties="DoughnutRadius=62, PieLabelStyle=Disabled, PieStartAngle=270">
+                        </asp:Series>
+                    </Series>
+
+                    <ChartAreas>
+                        <asp:ChartArea Name="ApplicationArea" BackColor="White">
+                            <Position Height="75" Width="94" X="3" Y="2" />
+                        </asp:ChartArea>
+                    </ChartAreas>
+
+                    <Legends>
+                        <asp:Legend Name="ApplicationLegend"
+                            Docking="Bottom"
+                            Alignment="Center"
+                            BackColor="White"
+                            Font="Segoe UI, 8.5pt, style=Bold"
+                            ForeColor="#334155"
+                            LegendStyle="Table"
+                            TableStyle="Wide"
+                            IsTextAutoFit="false">
+                            <Position Height="20" Width="98" X="1" Y="78" />
+                        </asp:Legend>
+                    </Legends>
+                </asp:Chart>
             </div>
         </div>
         <!-- Interview Status Overview Chart (Bar Chart) -->
         <div class="co-panel">
             <div class="co-panel-header">
-                <h3><i class="fa-solid fa-chart-column sdash-u10" ></i> Interview Status Overview</h3>
+                <h3><i class="fa-solid fa-chart-column sdash-u10"></i> Interview Status Overview</h3>
             </div>
-            <div  class="sdash-u9">
-                <canvas id="studentInterviewChart"
-                        data-scheduled='<%= intScheduled %>'
+            <div class="sdash-u9">
+                <asp:Chart ID="studentInterviewBarChart" runat="server"
+                    Width="480px" Height="290px"
+                    BackColor="White"
+                    Palette="None"
+                    AntiAliasing="All"
+                    TextAntiAliasingQuality="High"
+                    ImageType="Png"
+                    RenderType="ImageTag">
 
-                        data-cancelled='<%= intCancelled %>'></canvas>
+                    <Series>
+                        <asp:Series Name="Interviews"
+                            ChartType="Column"
+                            XValueMember="Status"
+                            YValueMembers="Total"
+                            IsValueShownAsLabel="false"
+                            Font="Segoe UI, 10pt, style=Bold"
+                            ChartArea="InterviewArea"
+                            CustomProperties="PointWidth=0.36, DrawSideBySide=True">
+                        </asp:Series>
+                    </Series>
+
+                    <ChartAreas>
+                        <asp:ChartArea Name="InterviewArea" BackColor="White">
+                            <Position Height="85" Width="90" X="5" Y="5" />
+                            <AxisX LineColor="#cbd5e1" Interval="1" IsLabelAutoFit="false">
+                                <MajorGrid Enabled="false" />
+                                <MajorTickMark Enabled="false" />
+                                <LabelStyle Font="Segoe UI, 10pt, style=Bold" ForeColor="#475569" />
+                            </AxisX>
+                            <AxisY LineColor="Transparent" Interval="1" Minimum="0" IsLabelAutoFit="false">
+                                <MajorGrid LineColor="#f1f5f9" LineWidth="1" />
+                                <MajorTickMark Enabled="false" />
+                                <LabelStyle Font="Segoe UI, 9.5pt" ForeColor="#94a3b8" />
+                            </AxisY>
+                        </asp:ChartArea>
+                    </ChartAreas>
+                </asp:Chart>
             </div>
         </div>
     </div>
@@ -144,24 +216,24 @@
                         <ItemTemplate>
                             <div class="co-applicant-cell">
                                 <div class="co-applicant-avatar av1">
-                                    <%# GetCompanyLogoHtml(Eval("c_logo"), Eval("c_company")) %>
+                               <asp:Image ID="imgCompanyLogo" runat="server" ImageUrl='<%# Eval("c_logo") %>' CssClass="dash-company-logo" />
                                 </div>
                                 <div>
-                                    <div  class="sdash-u15"><%# Server.HtmlEncode(Eval("c_company") != null ? Eval("c_company").ToString() : "Partner Company") %></div>
-                                    <div  class="sdash-u16"><%# Server.HtmlEncode(Eval("Location") != null ? Eval("Location").ToString() : "Remote") %></div>
+                                    <div  class="sdash-u15"><%# (Eval("c_company"))%></div>
+                                    <div  class="sdash-u16"><%# (Eval("Location")) %></div>
                                 </div>
                             </div>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Internship Position" HeaderStyle-Width="27%">
                         <ItemTemplate>
-                            <div  class="sdash-u17"><%# Server.HtmlEncode(Eval("InternshipTitle") != null ? Eval("InternshipTitle").ToString() : "Internship") %></div>
-                            <span  class="sdash-u16"><%# Server.HtmlEncode(Eval("WorkMode") != null ? Eval("WorkMode").ToString() : "Full Time") %></span>
+                            <div  class="sdash-u17"><%# (Eval("InternshipTitle")) %></div>
+                            <span  class="sdash-u16"><%# (Eval("WorkMode")) %></span>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Applied Date" HeaderStyle-Width="18%">
                         <ItemTemplate>
-                            <span  class="sdash-u18"><i class="fa-regular fa-calendar sdash-u19" ></i><%# FormatDate(Eval("AppliedDate")) %></span>
+                            <span  class="sdash-u18"><i class="fa-regular fa-calendar sdash-u19" ></i><%#  Eval("AppliedDate", "{0:dd MMM yyyy}") %></span>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Status" HeaderStyle-Width="15%">
@@ -190,126 +262,91 @@
             </asp:PlaceHolder>
         </div>
     </div>
-    <!-- ===================== UPCOMING INTERVIEWS (50%) & QUICK ACTIONS (50%) ===================== -->
-    <div class="co-grid-2 sdash-u24" >
-        <!-- LEFT: UPCOMING INTERVIEWS -->
-        <div class="co-panel">
-            <div class="co-panel-header">
-                <h3><i class="fa-solid fa-calendar-days sdash-u25" ></i> Upcoming Interviews</h3>
-                <a href="<%= ResolveUrl("~/StudentPanel/student-interviews.aspx") %>"  class="sdash-nav-btn-5">
-                    View All <i class="fa-solid fa-arrow-right sdash-u13" ></i>
-                </a>
-            </div>
-            <div  class="sdash-u26">
-                <asp:DataList ID="dlInterviews" runat="server" Width="100%" RepeatLayout="Flow">
-                    <ItemTemplate>
-                        <div class="co-interview-item sdash-u27" >
-                            <div class="co-date-box"><span class="day"><asp:Label ID="lblDay" runat="server" Text='<%# FormatDay(Eval("InterviewDate")) %>'></asp:Label></span><span class="mon"><asp:Label ID="lblMon" runat="server" Text='<%# FormatMonth(Eval("InterviewDate")) %>'></asp:Label></span></div>
-                            <div class="co-interview-info">
-                                <h4><asp:Label ID="lblCompany" runat="server" Text='<%# Eval("c_company") %>'></asp:Label></h4>
-                                <p><asp:Label ID="lblTitle" runat="server" Text='<%# Eval("InternshipTitle") %>'></asp:Label> &bull; <i class="fa-regular fa-clock sdash-u28" ></i><asp:Label ID="lblTime" runat="server" Text='<%# Eval("InterviewTime") %>'></asp:Label></p>
-                                <div  class="sdash-u29">
-                                    <span class="co-mode"><i class="fa-solid fa-video"></i> <asp:Label ID="lblMode" runat="server" Text='<%# Eval("InterviewType") %>'></asp:Label></span>
-                                    <asp:Label ID="litMeetingBtn" runat="server" Text='<%# FormatMeetingBtn(Eval("MeetingLink"), Eval("Location"), Eval("InterviewType")) %>'></asp:Label>
-                                </div>
-                            </div>
-                        </div>
-                    </ItemTemplate>
-                </asp:DataList>
-                <asp:PlaceHolder ID="pnlNoInterviews" runat="server" Visible="false">
-                    <div  class="sdash-u20">
-                        <i class="fa-regular fa-calendar-xmark sdash-u30" ></i>
-                        <p  class="sdash-u31">No upcoming interviews scheduled.</p>
-                    </div>
-                </asp:PlaceHolder>
-            </div>
+    <!-- ===================== QUICK ACTIONS (1 ROW 5 COLUMNS) ===================== -->
+    <div class="co-panel" style="margin-bottom: 26px; width: 100%;">
+        <div class="co-panel-header">
+            <h3><i class="fa-solid fa-bolt bolt-icon-gold"></i> Quick Actions</h3>
         </div>
-        <!-- RIGHT: STUDENT QUICK ACTIONS -->
-        <div class="co-panel">
-            <div class="co-panel-header">
-                <h3><i class="fa-solid fa-bolt bolt-icon-gold"></i> Quick Actions</h3>
-            </div>
-            <div class="dash-quick-actions-list">
-                <!-- Action 1: Browse Internships -->
-                <a href="<%= ResolveUrl("~/StudentPanel/student-internships.aspx") %>" class="dash-quick-action-item action-blue">
-                    <div class="dash-quick-action-left">
-                        <div class="dash-quick-action-icon icon-blue">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-                        <div>
-                            <div class="dash-quick-action-title">Explore &amp; Apply Internships</div>
-                            <div class="dash-quick-action-desc">Search by domain, location &amp; skills</div>
-                        </div>
+        <p style="font-size: 13px; color: #64748b; margin: 0 0 16px 0;">Fast access to your internship, assessment &amp; career workflows</p>
+        <div class="dash-quick-actions-row">
+            <!-- Action 1: Browse Internships -->
+            <a href="<%= ResolveUrl("~/StudentPanel/student-internships.aspx") %>" class="dash-quick-action-item action-blue">
+                <div class="dash-quick-action-left">
+                    <div class="dash-quick-action-icon icon-blue">
+                        <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
-                    <div class="dash-quick-action-arrow">
-                        <i class="fa-solid fa-arrow-right"></i>
+                    <div>
+                        <div class="dash-quick-action-title">Explore &amp; Apply Internships</div>
+                        <div class="dash-quick-action-desc">Search by domain, location &amp; skills</div>
                     </div>
-                </a>
-                <!-- Action 2: Track My Applications -->
-                <a href="<%= ResolveUrl("~/StudentPanel/student-my-applications.aspx") %>" class="dash-quick-action-item action-purple">
-                    <div class="dash-quick-action-left">
-                        <div class="dash-quick-action-icon icon-purple">
-                            <i class="fa-solid fa-file-lines"></i>
-                        </div>
-                        <div>
-                            <div class="dash-quick-action-title">My Applications</div>
-                            <div class="dash-quick-action-desc">Track status, reviews &amp; shortlist</div>
-                        </div>
+                </div>
+                <div class="dash-quick-action-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+            <!-- Action 2: Track My Applications -->
+            <a href="<%= ResolveUrl("~/StudentPanel/student-my-applications.aspx") %>" class="dash-quick-action-item action-purple">
+                <div class="dash-quick-action-left">
+                    <div class="dash-quick-action-icon icon-purple">
+                        <i class="fa-solid fa-file-lines"></i>
                     </div>
-                    <div class="dash-quick-action-arrow">
-                        <i class="fa-solid fa-arrow-right"></i>
+                    <div>
+                        <div class="dash-quick-action-title">My Applications</div>
+                        <div class="dash-quick-action-desc">Track status, reviews &amp; shortlist</div>
                     </div>
-                </a>
-                <!-- Action 3: Tasks & Assessments -->
-                <a href="<%= ResolveUrl("~/StudentPanel/student-tasks.aspx") %>" class="dash-quick-action-item action-green">
-                    <div class="dash-quick-action-left">
-                        <div class="dash-quick-action-icon icon-green">
-                            <i class="fa-solid fa-list-check"></i>
-                        </div>
-                        <div>
-                            <div class="dash-quick-action-title">Tasks &amp; Skill Assessments</div>
-                            <div class="dash-quick-action-desc">Play quizzes, solve challenges &amp; earn scores</div>
-                        </div>
+                </div>
+                <div class="dash-quick-action-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+            <!-- Action 3: Tasks & Assessments -->
+            <a href="<%= ResolveUrl("~/StudentPanel/student-tasks.aspx") %>" class="dash-quick-action-item action-green">
+                <div class="dash-quick-action-left">
+                    <div class="dash-quick-action-icon icon-green">
+                        <i class="fa-solid fa-list-check"></i>
                     </div>
-                    <div class="dash-quick-action-arrow">
-                        <i class="fa-solid fa-arrow-right"></i>
+                    <div>
+                        <div class="dash-quick-action-title">Tasks &amp; Skill Assessments</div>
+                        <div class="dash-quick-action-desc">Play quizzes, solve challenges &amp; earn scores</div>
                     </div>
-                </a>
-                <!-- Action 4: View Offer Letters -->
-                <a href="<%= ResolveUrl("~/StudentPanel/student-offer-letters.aspx") %>" class="dash-quick-action-item action-orange">
-                    <div class="dash-quick-action-left">
-                        <div class="dash-quick-action-icon icon-orange">
-                            <i class="fa-solid fa-file-signature"></i>
-                        </div>
-                        <div>
-                            <div class="dash-quick-action-title">Offer Letters &amp; Responses</div>
-                            <div class="dash-quick-action-desc">Accept or review company internship offers</div>
-                        </div>
+                </div>
+                <div class="dash-quick-action-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+            <!-- Action 4: View Offer Letters -->
+            <a href="<%= ResolveUrl("~/StudentPanel/student-offer-letters.aspx") %>" class="dash-quick-action-item action-orange">
+                <div class="dash-quick-action-left">
+                    <div class="dash-quick-action-icon icon-orange">
+                        <i class="fa-solid fa-file-signature"></i>
                     </div>
-                    <div class="dash-quick-action-arrow">
-                        <i class="fa-solid fa-arrow-right"></i>
+                    <div>
+                        <div class="dash-quick-action-title">Offer Letters &amp; Responses</div>
+                        <div class="dash-quick-action-desc">Accept or review company internship offers</div>
                     </div>
-                </a>
-                <!-- Action 5: Certificates & Achievements -->
-                <a href="<%= ResolveUrl("~/StudentPanel/student-certificates.aspx") %>" class="dash-quick-action-item action-cyan">
-                    <div class="dash-quick-action-left">
-                        <div class="dash-quick-action-icon icon-cyan">
-                            <i class="fa-solid fa-award"></i>
-                        </div>
-                        <div>
-                            <div class="dash-quick-action-title">Internship Certificates</div>
-                            <div class="dash-quick-action-desc">Download verified completion credentials</div>
-                        </div>
+                </div>
+                <div class="dash-quick-action-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+            <!-- Action 5: Certificates & Achievements -->
+            <a href="<%= ResolveUrl("~/StudentPanel/student-certificates.aspx") %>" class="dash-quick-action-item action-cyan">
+                <div class="dash-quick-action-left">
+                    <div class="dash-quick-action-icon icon-cyan">
+                        <i class="fa-solid fa-award"></i>
                     </div>
-                    <div class="dash-quick-action-arrow">
-                        <i class="fa-solid fa-arrow-right"></i>
+                    <div>
+                        <div class="dash-quick-action-title">Internship Certificates</div>
+                        <div class="dash-quick-action-desc">Download verified completion credentials</div>
                     </div>
-                </a>
-            </div>
+                </div>
+                <div class="dash-quick-action-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
         </div>
     </div>
-    <!-- Charts JavaScript Engine (Exact match with Company Dashboard) -->
-    </asp:Content>
+</asp:Content>
 <asp:Content ID="ScriptContent_sdash" ContentPlaceHolderID="ScriptContent" runat="server">
     <script src="../js/student-dashboard.js"></script>
 </asp:Content>

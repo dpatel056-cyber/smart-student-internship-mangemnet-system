@@ -6,6 +6,7 @@ namespace asp.net
         protected global::System.Web.UI.WebControls.PlaceHolder pnlNotFound;
         protected global::System.Web.UI.WebControls.PlaceHolder pnlDetails;
         protected global::System.Web.UI.WebControls.Label lblStudentId;
+        protected global::System.Web.UI.WebControls.DataList DataListStudentPhoto;
         protected global::System.Web.UI.WebControls.Image imgStudentPhoto;
         protected global::System.Web.UI.WebControls.Label lblFullName;
         protected global::System.Web.UI.WebControls.Label lblCourseHeader;

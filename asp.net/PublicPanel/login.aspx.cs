@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -50,17 +50,12 @@ namespace asp.net
                 else if (role == "student")
                 {
                     getcon();
-                    da = new SqlDataAdapter("SELECT Email, ISNULL(IsBlocked, 0) AS IsBlocked, ISNULL(Status, 'Active') AS Status FROM Students WHERE (Email = '" + txtemail.Text + "' OR EnrollmentNo = '" + txtemail.Text + "') AND Password = '" + txtpassword.Text + "'", con);
+                    da = new SqlDataAdapter("SELECT Email FROM Students WHERE (Email = '" + txtemail.Text + "' OR EnrollmentNo = '" + txtemail.Text + "') AND Password = '" + txtpassword.Text + "'", con);
                     ds = new DataSet();
                     da.Fill(ds);
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
-                        if (ds.Tables[0].Rows[0]["IsBlocked"].ToString() == "True" || ds.Tables[0].Rows[0]["Status"].ToString() == "Blocked")
-                        {
-                            lblMsg.Text = "Your account has been blocked by Admin. Please contact support.";
-                            return;
-                        }
                         Session["student"] = ds.Tables[0].Rows[0]["Email"].ToString();
                         Response.Redirect("~/StudentPanel/student-dashboard.aspx");
                     }
@@ -72,17 +67,12 @@ namespace asp.net
                 else if (role == "company")
                 {
                     getcon();
-                    da = new SqlDataAdapter("SELECT c_email, ISNULL(IsBlocked, 0) AS IsBlocked, ISNULL(Status, 'Active') AS Status FROM c_registration WHERE c_email = '" + txtemail.Text + "' AND c_password = '" + txtpassword.Text + "'", con);
+                    da = new SqlDataAdapter("SELECT c_email FROM c_registration WHERE c_email = '" + txtemail.Text + "' AND c_password = '" + txtpassword.Text + "'", con);
                     ds = new DataSet();
                     da.Fill(ds);
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
-                        if (ds.Tables[0].Rows[0]["IsBlocked"].ToString() == "True" || ds.Tables[0].Rows[0]["Status"].ToString() == "Blocked")
-                        {
-                            lblMsg.Text = "Your account has been blocked by Admin. Please contact support.";
-                            return;
-                        }
 
                         Session["company"] = ds.Tables[0].Rows[0]["c_email"].ToString();
                         Response.Redirect("~/CompanyPanel/company-dashboard.aspx");

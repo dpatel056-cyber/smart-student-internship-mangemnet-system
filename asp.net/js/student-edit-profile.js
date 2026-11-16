@@ -12,6 +12,11 @@
                 p.src = e.target.result;
                 p.style.display = 'block';
             }
+            var wrapImg = document.querySelector('.photo-preview-wrap img');
+            if (wrapImg) {
+                wrapImg.src = e.target.result;
+                wrapImg.style.display = 'block';
+            }
             if (init) {
                 init.style.display = 'none';
             }

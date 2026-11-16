@@ -32,7 +32,6 @@ namespace asp.net
 
                 if (!IsPostBack)
                 {
-                    bindInternshipDropdown();
                     bindShortlisted();
                 }
             }
@@ -42,23 +41,7 @@ namespace asp.net
             }
         }
 
-        void bindInternshipDropdown()
-        {
-            getcon();
-            da = new SqlDataAdapter("SELECT Id, InternshipTitle FROM internship WHERE CompanyId=(SELECT CompanyId FROM c_registration WHERE c_email='" + Session["company"].ToString() + "') ORDER BY Id DESC", con);
-            ds = new DataSet();
-            da.Fill(ds);
 
-            ddlInternshipFilter.Items.Clear();
-            ddlInternshipFilter.Items.Add(new ListItem("All Internships", ""));
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    ddlInternshipFilter.Items.Add(new ListItem(row["InternshipTitle"].ToString(), row["Id"].ToString()));
-                }
-            }
-        }
 
         void bindShortlisted()
         {
@@ -81,10 +64,7 @@ namespace asp.net
             }
         }
 
-        protected void ddlFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            bindShortlisted();
-        }
+
 
         protected void gvShortlisted_RowCommand(object sender, GridViewCommandEventArgs e)
         {

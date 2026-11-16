@@ -104,6 +104,7 @@ namespace asp.net.AdminPanel
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int id = Convert.ToInt32(e.CommandArgument);
+
             if (e.CommandName == "ViewContact")
             {
                 getcon();
@@ -120,7 +121,7 @@ namespace asp.net.AdminPanel
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenDrawer", "openDrawer();", true);
             }
-            if (e.CommandName == "cmd_dlt")
+            else if (e.CommandName == "cmd_dlt")
             {
                 getcon();
                 cmd = new SqlCommand("delete from cont where Id=" + id, con);

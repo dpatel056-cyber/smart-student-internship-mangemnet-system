@@ -68,7 +68,7 @@
 >
                                     <i class="fa-solid fa-certificate"></i> Certificate
                                 </a>
-                                <a href='company-student-details.aspx?appId=<%# Eval("ApplicationId") %>'
+                                <a href='company-student-details.aspx?id=<%# Eval("StudentId") %>&appId=<%# Eval("ApplicationId") %>'
                                    class="btn-table-action btn-action-view"
 >
                                     <i class="fa-regular fa-eye"></i> View

@@ -188,11 +188,17 @@ namespace asp.net
         public string GetStatusBadge(string status)
         {
             if (status == "Shortlisted")
+            {
                 return "<span class='status-shortlisted'>Shortlisted</span>";
+            }
             if (status == "Selected")
+            {
                 return "<span class='status-selected'>Selected</span>";
+            }
             if (status == "Rejected")
+            {
                 return "<span class='status-rejected'>Rejected</span>";
+            }
             return "<span class='status-pending'>Pending</span>";
         }
     }

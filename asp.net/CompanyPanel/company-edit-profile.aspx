@@ -26,7 +26,11 @@
       <!-- Profile Photo Upload -->
       <div class="photo-upload-row">
           <div class="photo-preview-wrap">
-              <asp:Image ID="imgProfilePreview" runat="server" CssClass="photo-preview"/>
+              <asp:DataList ID="DataListCompanyLogo" runat="server" RepeatLayout="Flow" ShowHeader="false" ShowFooter="false">
+                  <ItemTemplate>
+                      <asp:Image ID="imgCompanyLogo" runat="server" CssClass="photo-preview" ImageUrl='<%# Eval("c_logo") %>' Style="width:100%; height:100%; border-radius:50% !important; object-fit:cover; display:block;" onerror="this.onerror=null;this.src='../student_images/default-avatar.png';" />
+                  </ItemTemplate>
+              </asp:DataList>
           </div>
           <div class="photo-upload-copy">
               <table class="upload-table">

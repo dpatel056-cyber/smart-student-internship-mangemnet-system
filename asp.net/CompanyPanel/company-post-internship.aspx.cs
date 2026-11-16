@@ -63,9 +63,13 @@ namespace asp.net
                 txtWorkingDays.Text = ds.Tables[0].Rows[0]["WorkingDays"].ToString();
 
                 if (ds.Tables[0].Rows[0]["PaymentStatus"].ToString() == "Paid")
+                {
                     rbPaid.Checked = true;
+                }
                 else
+                {
                     rbUnpaid.Checked = true;
+                }
 
                 txtStipendAmount.Text = ds.Tables[0].Rows[0]["StipendAmount"].ToString();
                 txtOpenings.Text = ds.Tables[0].Rows[0]["NumberOfOpenings"].ToString();
@@ -109,17 +113,41 @@ namespace asp.net
         void SaveInternship(string status)
         {
             string benefits = "";
-            if (chkCert.Checked) benefits += "Internship Certificate,";
-            if (chkLOR.Checked) benefits += "Letter of Recommendation,";
-            if (chkMentorship.Checked) benefits += "Mentorship,";
-            if (chkFlexTime.Checked) benefits += "Flexible Working Hours,";
-            if (chkWFH.Checked) benefits += "Work From Home,";
-            if (chkPPO.Checked) benefits += "PPO Opportunity,";
-            if (chkLearning.Checked) benefits += "Learning & Training";
+            if (chkCert.Checked)
+            {
+                benefits += "Internship Certificate,";
+            }
+            if (chkLOR.Checked)
+            {
+                benefits += "Letter of Recommendation,";
+            }
+            if (chkMentorship.Checked)
+            {
+                benefits += "Mentorship,";
+            }
+            if (chkFlexTime.Checked)
+            {
+                benefits += "Flexible Working Hours,";
+            }
+            if (chkWFH.Checked)
+            {
+                benefits += "Work From Home,";
+            }
+            if (chkPPO.Checked)
+            {
+                benefits += "PPO Opportunity,";
+            }
+            if (chkLearning.Checked)
+            {
+                benefits += "Learning & Training";
+            }
 
             string paymentStatus = "Unpaid";
+
             if (rbPaid.Checked)
+            {
                 paymentStatus = "Paid";
+            }
 
             getcon();
             if (Request.QueryString["id"] != null)

@@ -28,7 +28,10 @@ namespace asp.net
                 if (!IsPostBack)
                 {
                     bindStudentQuizzes();
-                    loadStats();
+                    totalAssigned();
+                    totalPassedQuizes();
+                    totalTasks();
+                    totalComplatedTasks();
                 }
             }
             else
@@ -43,39 +46,40 @@ namespace asp.net
             con.Open();
         }
 
-        void loadStats()
+        void totalAssigned() {
+            getcon();
+            cmd = new SqlCommand("SELECT COUNT(*) FROM StudentQuizAssignments sqa WHERE sqa.ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"].ToString() + "') OR sqa.StudentId=(SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "')", con);
+            int i = Convert.ToInt16(cmd.ExecuteScalar());
+            lblTotalQuizzes.Text = i.ToString();
+        }
+
+        void totalPassedQuizes() {
+            getcon();
+            cmd = new SqlCommand("SELECT COUNT(*) FROM StudentQuizAssignments sqa WHERE sqa.ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"].ToString() + "') OR sqa.StudentId=(SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "' AND sqa.Status='Passed')", con);
+            int i = Convert.ToInt16(cmd.ExecuteScalar());
+            lblPassedQuizzes.Text = i.ToString();
+        }
+
+        void totalTasks()
         {
             getcon();
+            cmd = new SqlCommand("SELECT COUNT(*) FROM StudentQuizAssignments sqa WHERE sqa.ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"].ToString() + "') OR sqa.StudentId=(SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "' AND (sqa.Status IS NULL OR sqa.Status='Assigned' OR sqa.Status='InProgress')", con);
+            int i = Convert.ToInt16(cmd.ExecuteScalar());
+            lblTotalTasks.Text = i.ToString();
+        }
 
-            string student = Session["student"].ToString();
-            string filter = " WHERE sqa.ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + student + "') OR sqa.StudentId=(SELECT StudentId FROM Students WHERE Email='" + student + "' OR EnrollmentNo='" + student + "')";
-
-            da = new SqlDataAdapter("SELECT COUNT(*) FROM StudentQuizAssignments sqa" + filter, con);
-            ds = new DataSet();
-            da.Fill(ds);
-            lblTotalQuizzes.Text = ds.Tables[0].Rows[0][0].ToString();
-
-            da = new SqlDataAdapter("SELECT COUNT(*) FROM StudentQuizAssignments sqa" + filter + " AND sqa.Status='Passed'", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            lblPassedQuizzes.Text = ds.Tables[0].Rows[0][0].ToString();
-
-            da = new SqlDataAdapter("SELECT COUNT(*) FROM StudentQuizAssignments sqa" + filter + " AND (sqa.Status IS NULL OR sqa.Status='Assigned' OR sqa.Status='InProgress')", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            lblTotalTasks.Text = ds.Tables[0].Rows[0][0].ToString();
-
-            da = new SqlDataAdapter("SELECT COUNT(*) FROM StudentQuizAssignments sqa" + filter + " AND sqa.Status='Passed'", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            lblCompletedTasks.Text = ds.Tables[0].Rows[0][0].ToString();
+        void totalComplatedTasks()
+        {
+            getcon();
+            cmd = new SqlCommand("SELECT COUNT(*) FROM StudentQuizAssignments sqa WHERE sqa.ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"].ToString() + "') OR sqa.StudentId=(SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "' AND sqa.Status='Passed')", con);
+            int i = Convert.ToInt16(cmd.ExecuteScalar());
+            lblCompletedTasks.Text = i.ToString();
         }
 
         void bindStudentQuizzes()
         {
             getcon();
-            string student = Session["student"].ToString();
-            da = new SqlDataAdapter("SELECT sqa.*, q.QuizTitle, q.Topic, q.DurationMinutes, q.PassingScore, ISNULL(c.c_company, 'Internship Partner') AS CompanyName, ISNULL(i.InternshipTitle, 'Internship') AS InternshipTitle FROM StudentQuizAssignments sqa INNER JOIN CompanyQuizzes q ON sqa.QuizId=q.QuizId LEFT JOIN c_registration c ON sqa.CompanyId=c.CompanyId LEFT JOIN StudentApplications a ON sqa.ApplicationId=a.ApplicationId LEFT JOIN internship i ON a.InternshipId=i.Id WHERE sqa.ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + student + "') OR sqa.StudentId=(SELECT StudentId FROM Students WHERE Email='" + student + "' OR EnrollmentNo='" + student + "') ORDER BY sqa.AssignmentId DESC", con);
+            da = new SqlDataAdapter("SELECT sqa.*, q.QuizTitle, q.Topic, q.DurationMinutes, q.PassingScore, ISNULL(c.c_company, 'Internship Partner') AS CompanyName, ISNULL(i.InternshipTitle, 'Internship') AS InternshipTitle FROM StudentQuizAssignments sqa INNER JOIN CompanyQuizzes q ON sqa.QuizId=q.QuizId LEFT JOIN c_registration c ON sqa.CompanyId=c.CompanyId LEFT JOIN StudentApplications a ON sqa.ApplicationId=a.ApplicationId LEFT JOIN internship i ON a.InternshipId=i.Id WHERE sqa.ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"].ToString() + "') OR sqa.StudentId=(SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "') ORDER BY sqa.AssignmentId DESC", con);
             ds = new DataSet();
             da.Fill(ds);
 
@@ -102,20 +106,21 @@ namespace asp.net
             int totalQuestions = Convert.ToInt32(hfQuizTotalQuestions.Value);
 
             getcon();
-
             da = new SqlDataAdapter("SELECT q.PassingScore FROM StudentQuizAssignments sqa " + "INNER JOIN CompanyQuizzes q ON sqa.QuizId=q.QuizId " + " WHERE sqa.AssignmentId=" + assignmentId, con);
-
             ds = new DataSet();
             da.Fill(ds);
 
             int passingScore = Convert.ToInt32(ds.Tables[0].Rows[0]["PassingScore"]);
-
             string status;
 
             if (score >= passingScore)
+            {
                 status = "Passed";
+            }
             else
+            {
                 status = "Failed";
+            }
 
             cmd = new SqlCommand( "UPDATE StudentQuizAssignments SET Score=" + score + ", CorrectCount=" + correctCount + ", TotalQuestions=" + totalQuestions + ", Status='" + status + "', CompletedDate=GETDATE() WHERE AssignmentId=" + assignmentId, con);
             cmd.ExecuteNonQuery();
@@ -132,83 +137,88 @@ namespace asp.net
             }
 
             lblMsg.Visible = true;
-
             bindStudentQuizzes();
-            loadStats();
+            totalAssigned();
+            totalPassedQuizes();
+            totalTasks();
+            totalComplatedTasks();
+
         }
+
 
         [System.Web.Services.WebMethod]
         public static object GetQuizQuestions(int quizId)
         {
-            string connStr = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
-            using (SqlConnection c = new SqlConnection(connStr))
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString))
             {
-                c.Open();
-                using (SqlDataAdapter a = new SqlDataAdapter("SELECT QuestionId, QuizId, QuestionText, OptionA, OptionB, OptionC, OptionD, CorrectOption FROM QuizQuestions WHERE QuizId = " + quizId + " ORDER BY QuestionId ASC", c))
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM QuizQuestions WHERE QuizId = " + quizId + " ORDER BY QuestionId ASC", con);
+                da.Fill(dt);
+
+                var list = new System.Collections.Generic.List<object>();
+
+                foreach (DataRow row in dt.Rows)
                 {
-                    DataTable dt = new DataTable();
-                    a.Fill(dt);
-                    var list = new System.Collections.Generic.List<object>();
-                    foreach (DataRow row in dt.Rows)
+                    list.Add(new
                     {
-                        list.Add(new
-                        {
-                            QuestionId = row["QuestionId"],
-                            QuizId = row["QuizId"],
-                            QuestionText = row["QuestionText"] != null ? row["QuestionText"].ToString() : "",
-                            OptionA = row["OptionA"] != null ? row["OptionA"].ToString() : "",
-                            OptionB = row["OptionB"] != null ? row["OptionB"].ToString() : "",
-                            OptionC = row["OptionC"] != null ? row["OptionC"].ToString() : "",
-                            OptionD = row["OptionD"] != null ? row["OptionD"].ToString() : "",
-                            CorrectOption = row["CorrectOption"] != null ? row["CorrectOption"].ToString().Trim() : "",
-                            Hint = "Think carefully about the core concepts of this topic.",
-                            FunFact = "Great learning opportunity!"
-                        });
-                    }
-                    return list;
+                        QuestionId = row["QuestionId"],
+                        QuizId = row["QuizId"],
+                        QuestionText = row["QuestionText"].ToString(),
+                        OptionA = row["OptionA"].ToString(),
+                        OptionB = row["OptionB"].ToString(),
+                        OptionC = row["OptionC"].ToString(),
+                        OptionD = row["OptionD"].ToString(),
+                        CorrectOption = row["CorrectOption"].ToString(),
+                        Hint = "Think carefully about the core concepts of this topic.",
+                        FunFact = "Great learning opportunity!"
+                    });
                 }
+                return list;
             }
         }
+
 
         public string GetQuizStatusBadge(object statusObj, object scoreObj)
         {
-            string status = statusObj != null ? statusObj.ToString().Trim() : "Assigned";
-            string score = scoreObj != null ? scoreObj.ToString().Trim() : "0";
+            string status = Convert.ToString(statusObj);
+            string score = Convert.ToString(scoreObj);
 
             if (status == "Passed")
+            {
                 return "<span class='quiz-badge badge-passed'><i class='fa-solid fa-circle-check'></i> Passed (" + score + "%)</span>";
-
+            }
             if (status == "Failed")
+            {
                 return "<span class='quiz-badge badge-failed'><i class='fa-solid fa-circle-xmark'></i> Failed (" + score + "%)</span>";
-
+            }
             if (status == "InProgress")
+            {
                 return "<span class='quiz-badge badge-in-progress'><i class='fa-solid fa-spinner fa-spin'></i> In Progress</span>";
-
+            }
             return "<span class='quiz-badge badge-ready'><i class='fa-solid fa-gamepad'></i> Ready to Play</span>";
         }
 
-        public string GetQuizPlayBtn(object assignmentId, object quizId,
-            object quizTitle, object duration, object passingScore, object status)
+
+        public string GetQuizPlayBtn(object assignmentId, object quizId, object quizTitle, object duration, object passingScore, object status)
         {
-            string cleanTitle = quizTitle != null ? quizTitle.ToString().Replace("'", "\\'") : "Quiz Challenge";
-            int dur = duration != null && int.TryParse(duration.ToString(), out int d) ? d : 10;
-            int pass = passingScore != null && int.TryParse(passingScore.ToString(), out int p) ? p : 60;
-            string st = status != null ? status.ToString().Trim() : "Assigned";
+            string btn = "Play Quiz";
+            string css = "btn-play-arena";
+            string icon = "fa-gamepad";
 
-            if (st == "Passed")
+            if (Convert.ToString(status) == "Passed")
             {
-                return string.Format("<button type='button' class='btn-play-arena btn-arena-passed' onclick=\"openQuizArena({0}, {1}, '{2}', {3}, {4});\"><i class='fa-solid fa-rotate-right'></i> Replay Game</button>",
-                    assignmentId, quizId, cleanTitle, dur, pass);
+                btn = "Replay Game";
+                css += " btn-arena-passed";
+                icon = "fa-rotate-right";
+            }
+            else if (Convert.ToString(status) == "Failed")
+            {
+                btn = "Retry Challenge";
+                css += " btn-arena-retry";
+                icon = "fa-rotate-right";
             }
 
-            if (st == "Failed")
-            {
-                return string.Format("<button type='button' class='btn-play-arena btn-arena-retry' onclick=\"openQuizArena({0}, {1}, '{2}', {3}, {4});\"><i class='fa-solid fa-rotate-right'></i> Retry Challenge</button>",
-                    assignmentId, quizId, cleanTitle, dur, pass);
-            }
-
-            return string.Format("<button type='button' class='btn-play-arena' onclick=\"openQuizArena({0}, {1}, '{2}', {3}, {4});\"><i class='fa-solid fa-gamepad'></i> Play Quiz</button>",
-                assignmentId, quizId, cleanTitle, dur, pass);
+            return "<button type='button' class='" + css + "' onclick=\"openQuizArena(" + assignmentId + ", " + quizId + ", '" + quizTitle + "', " + duration + ", " + passingScore + ");\"><i class='fa-solid " + icon + "'></i> " + btn + "</button>";
         }
     }
 }

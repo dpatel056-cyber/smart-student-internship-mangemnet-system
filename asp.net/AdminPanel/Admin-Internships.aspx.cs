@@ -63,7 +63,6 @@ namespace asp.net
                 page = totalPages - 1;
                 ViewState["page"] = page;
             }
-
             DataListAdminInternships.DataSource = admin.internship_pagination(dt, page);
             DataListAdminInternships.DataBind();
             lblPages.Text = "Page " + (page + 1) + " of " + (totalPages > 0 ? totalPages : 1);

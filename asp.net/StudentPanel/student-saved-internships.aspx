@@ -18,7 +18,6 @@
                 <div class="saved-card">
                     <div>
                         <div class="card-top">
-                            <asp:Image ID="imgLogo" runat="server" CssClass="company-logo" ImageUrl='<%# GetCompanyLogo(Eval("c_logo")) %>' />
                             <div class="card-title-wrap">
                                 <h3 class="card-title">
                                     <asp:Label ID="lblTitle" runat="server" Text='<%# Eval("InternshipTitle") %>'></asp:Label>
@@ -35,7 +34,7 @@
                             </div>
                             <div class="info-row">
                                 <span class="info-lbl"><i class="fa-solid fa-indian-rupee-sign"></i> Stipend</span>
-                                <span class="info-val"><asp:Label ID="lblStipend" runat="server" Text='<%# "&#8377; " + Eval("StipendAmount") %>'></asp:Label></span>
+                                <span class="info-val">&#8377; <asp:Label ID="lblStipend" runat="server" Text='<%# Eval("StipendAmount") %>'></asp:Label></span>
                             </div>
                             <div class="info-row">
                                 <span class="info-lbl"><i class="fa-regular fa-clock"></i> Duration</span>

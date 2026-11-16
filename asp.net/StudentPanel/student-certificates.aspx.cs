@@ -12,6 +12,7 @@ namespace asp.net
         SqlConnection con;
         SqlDataAdapter da;
         DataSet ds;
+        SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -26,6 +27,9 @@ namespace asp.net
                 if (!IsPostBack)
                 {
                     LoadCertificates();
+                    TotalCertificate();
+                    TotalVerified();
+                    TotalPartnerCompanies();
                 }
             }
             else
@@ -42,9 +46,8 @@ namespace asp.net
 
         void LoadCertificates()
         {
-            string studentKey = Session["student"].ToString();
             getcon();
-            da = new SqlDataAdapter("SELECT cc.*, ISNULL(NULLIF(cc.CandidateName, ''), ISNULL(sa.FullName, s.FullName)) AS FullName, ISNULL(sa.StudentEmail, s.Email) AS StudentEmail, ISNULL(NULLIF(cc.CandidateCollege, ''), ISNULL(sa.College, s.College)) AS College, ISNULL(NULLIF(cc.InternshipRole, ''), i.InternshipTitle) AS RoleName, ISNULL(NULLIF(cc.Duration, ''), i.Duration) AS CertDuration, c.c_company, c.c_logo, c.c_location, c.c_email AS CompEmail, c.c_hr_name FROM CompanyCertificates cc LEFT JOIN StudentApplications sa ON cc.ApplicationId = sa.ApplicationId LEFT JOIN Students s ON (cc.StudentId = s.StudentId OR sa.StudentId = s.StudentId OR sa.StudentEmail = s.Email) LEFT JOIN internship i ON cc.InternshipId = i.Id LEFT JOIN c_registration c ON cc.CompanyId = c.CompanyId WHERE (sa.StudentEmail='" + studentKey + "' OR s.Email='" + studentKey + "' OR s.EnrollmentNo='" + studentKey + "') AND (cc.IsDeleted = 0 OR cc.IsDeleted IS NULL) ORDER BY cc.CertificateId DESC", con);
+            da = new SqlDataAdapter("SELECT cc.*, ISNULL(NULLIF(cc.CandidateName, ''), ISNULL(sa.FullName, s.FullName)) AS FullName, ISNULL(sa.StudentEmail, s.Email) AS StudentEmail, ISNULL(NULLIF(cc.CandidateCollege, ''), ISNULL(sa.College, s.College)) AS College, ISNULL(NULLIF(cc.InternshipRole, ''), i.InternshipTitle) AS RoleName, ISNULL(NULLIF(cc.Duration, ''), i.Duration) AS CertDuration, c.c_company, c.c_logo, c.c_location, c.c_email AS CompEmail, c.c_hr_name FROM CompanyCertificates cc LEFT JOIN StudentApplications sa ON cc.ApplicationId = sa.ApplicationId LEFT JOIN Students s ON (cc.StudentId = s.StudentId OR sa.StudentId = s.StudentId OR sa.StudentEmail = s.Email) LEFT JOIN internship i ON cc.InternshipId = i.Id LEFT JOIN c_registration c ON cc.CompanyId = c.CompanyId WHERE (sa.StudentEmail='" + Session["student"].ToString() + "' OR s.Email='" + Session["student"].ToString() + "' OR s.EnrollmentNo='" + Session["student"].ToString() + "') AND (cc.IsDeleted = 0 OR cc.IsDeleted IS NULL) ORDER BY cc.CertificateId DESC", con);
             ds = new DataSet();
             da.Fill(ds);
 
@@ -54,16 +57,13 @@ namespace asp.net
                 dlCertificates.DataBind();
                 dlCertificates.Visible = true;
                 pnlNoCerts.Visible = false;
-                LoadStats(ds.Tables[0]);
+               
             }
             else
             {
                 dlCertificates.Visible = false;
                 pnlNoCerts.Visible = true;
-                lblTotalCerts.Text = "0";
-                lblVerifiedCerts.Text = "0";
-                lblCompaniesCount.Text = "0";
-                lblLatestDate.Text = "-";
+               
             }
         }
 
@@ -75,72 +75,33 @@ namespace asp.net
             }
         }
 
-        //----------------------------------------
-        void LoadStats(DataTable dt)
+        void TotalCertificate()
         {
-            int total = dt.Rows.Count;
-            int verified = total;
-            string latestDate = "-";
-            System.Collections.Generic.HashSet<string> compSet = new System.Collections.Generic.HashSet<string>();
-
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                DataRow r = dt.Rows[i];
-                if (r["c_company"] != null && !string.IsNullOrEmpty(r["c_company"].ToString()))
-                {
-                    compSet.Add(r["c_company"].ToString().Trim());
-                }
-                if (i == 0 && r["IssueDate"] != null && r["IssueDate"] != DBNull.Value)
-                {
-                    latestDate = FormatDate(r["IssueDate"]);
-                }
-            }
-
-            lblTotalCerts.Text = total.ToString();
-            lblVerifiedCerts.Text = verified.ToString();
-            lblCompaniesCount.Text = compSet.Count.ToString();
-            lblLatestDate.Text = latestDate;
+            getcon();
+            cmd = new SqlCommand("SELECT COUNT(*) FROM CompanyCertificates cc LEFT JOIN StudentApplications sa ON cc.ApplicationId = sa.ApplicationId LEFT JOIN Students s ON (cc.StudentId = s.StudentId OR sa.StudentId = s.StudentId OR sa.StudentEmail = s.Email) WHERE (sa.StudentEmail='" + Session["student"].ToString() + "' OR s.Email='" + Session["student"].ToString() + "' OR s.EnrollmentNo='" + Session["student"].ToString() + "') AND (cc.IsDeleted = 0 OR cc.IsDeleted IS NULL)", con);
+            int i = Convert.ToInt16(cmd.ExecuteScalar());
+            lblTotalCerts.Text = i.ToString();
         }
 
-        public string FormatDate(object dateObj)
+        void TotalVerified()
         {
-            if (dateObj == null || dateObj == DBNull.Value) return "N/A";
-            DateTime dt;
-            if (DateTime.TryParse(dateObj.ToString(), out dt))
-            {
-                return dt.ToString("dd MMM yyyy");
-            }
-            return dateObj.ToString();
+            getcon();
+            cmd = new SqlCommand("SELECT COUNT(*) FROM CompanyCertificates cc LEFT JOIN StudentApplications sa ON cc.ApplicationId = sa.ApplicationId LEFT JOIN Students s ON (cc.StudentId = s.StudentId OR sa.StudentId = s.StudentId OR sa.StudentEmail = s.Email) WHERE (sa.StudentEmail='" + Session["student"].ToString() + "' OR s.Email='" + Session["student"].ToString() + "' OR s.EnrollmentNo='" + Session["student"].ToString() + "') AND (cc.IsDeleted = 0 OR cc.IsDeleted IS NULL) AND (cc.Status = 'Issued' OR cc.Status = 'Active' OR cc.Status = 'Verified' OR (cc.VerificationCode IS NOT NULL AND cc.VerificationCode <> ''))", con);
+            int i = Convert.ToInt16(cmd.ExecuteScalar());
+            lblVerifiedCerts.Text = i.ToString();
+        }
+
+        void TotalPartnerCompanies()
+        {
+            getcon();
+            cmd = new SqlCommand("SELECT COUNT(DISTINCT cc.CompanyId) FROM CompanyCertificates cc LEFT JOIN StudentApplications sa ON cc.ApplicationId = sa.ApplicationId LEFT JOIN Students s ON (cc.StudentId = s.StudentId OR sa.StudentId = s.StudentId OR sa.StudentEmail = s.Email) WHERE (sa.StudentEmail='" + Session["student"].ToString() + "' OR s.Email='" + Session["student"].ToString() + "' OR s.EnrollmentNo='" + Session["student"].ToString() + "') AND (cc.IsDeleted = 0 OR cc.IsDeleted IS NULL) AND cc.CompanyId IS NOT NULL", con);
+            int i = Convert.ToInt16(cmd.ExecuteScalar());
+            lblCompaniesCount.Text = i.ToString();
         }
 
         public string GetStudentStatusBadge(object statusObj)
         {
-            return "<span style='display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; background:#dcfce7; color:#16a34a; border:1px solid #bbf7d0;'><i class='fa-solid fa-circle-check'></i> Verified Completion</span>";
-        }
-
-        public string GetResolvedLogoUrl(object logoObj)
-        {
-            if (logoObj == null || logoObj == DBNull.Value)
-                return ResolveUrl("~/CompanyUploads/default-company.png");
-
-            string logo = logoObj.ToString().Trim();
-            if (string.IsNullOrEmpty(logo))
-                return ResolveUrl("~/CompanyUploads/default-company.png");
-
-            if (logo.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || logo.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-                return logo;
-
-            if (logo.StartsWith("~"))
-                return ResolveUrl(logo);
-
-            if (logo.StartsWith("/"))
-                return ResolveUrl("~" + logo);
-
-            if (System.IO.File.Exists(Server.MapPath("~/company_images/" + logo)))
-                return ResolveUrl("~/company_images/" + logo);
-            if (System.IO.File.Exists(Server.MapPath("~/compnay_images/" + logo)))
-                return ResolveUrl("~/compnay_images/" + logo);
-            return ResolveUrl("~/CompanyUploads/" + logo);
+            return "<span class='cert-status-badge' style='display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:999px; font-size:11.5px; font-weight:700; background:#dcfce7; color:#15803d; border:1px solid #86efac; box-shadow:0 1px 3px rgba(22,163,74,0.1); white-space:nowrap;'><i class='fa-solid fa-circle-check' style='font-size:13px; color:#16a34a; line-height:1;'></i> Verified Completion</span>";
         }
     }
 }

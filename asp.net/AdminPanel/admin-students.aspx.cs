@@ -66,7 +66,6 @@ namespace asp.net
                 page = totalPages - 1;
                 ViewState["page"] = page;
             }
-
             GridView1.DataSource = admin.student_pagination(dt, page);
             GridView1.DataBind();
             lblPages.Text = "Page " + (page + 1) + " of " + (totalPages > 0 ? totalPages : 1);
@@ -141,26 +140,6 @@ namespace asp.net
                 string id = e.CommandArgument.ToString();
                 Response.Redirect("viewStudentDetails.aspx?id=" + id);
             }
-            else if (e.CommandName == "cmd_toggle_block")
-            {
-                string id = e.CommandArgument.ToString();
-                getcon();
-                cmd = new SqlCommand("SELECT IsBlocked FROM Students WHERE StudentId='" + id + "'", con);
-                ds = new DataSet();
-                da = new SqlDataAdapter(cmd);
-                da.Fill(ds);
-                if (Convert.ToBoolean(ds.Tables[0].Rows[0]["IsBlocked"]))
-                {
-                    cmd = new SqlCommand("UPDATE Students SET IsBlocked=0, Status='Active' WHERE StudentId='" + id + "'", con);
-                }
-                else
-                {
-                    cmd = new SqlCommand("UPDATE Students SET IsBlocked=1, Status='Blocked' WHERE StudentId='" + id + "'", con);
-                }
-
-                cmd.ExecuteNonQuery();
-                studentfillgrid();
-            }
             else if (e.CommandName == "cmd_del")
             {
                 string id = e.CommandArgument.ToString();
@@ -178,7 +157,7 @@ namespace asp.net
             //string q = "select s.StudentId as [Student Id], s.FullName as [Name], s.Email as [Email], " +
             //           "s.ContactNo as [Contact], ISNULL(s.College, 'N/A') as [College], " +
             //           "ISNULL(s.Course, 'N/A') as [Course], " +
-            //           "case when s.IsBlocked = 1 then 'Blocked' else 'Active' end as [Status] " +
+            //           "'Active' as [Status] " +
             //           "from Students s " +
             //           "order by s.StudentId desc";
 
@@ -225,8 +204,7 @@ namespace asp.net
             //Response.End();
 
             getcon();
-            string q = "select s.StudentId as [Student Id], s.FullName as [Name], s.Email as [Email], s.ContactNo as [Contact], ISNULL(s.College, 'N/A') as [College], ISNULL(s.Course, 'N/A') as [Course], case when s.IsBlocked = 1 then 'Blocked' else 'Active' end as [Status] from Students s order by s.StudentId desc";
-            da = new SqlDataAdapter(q, con);
+            da = new SqlDataAdapter("select s.StudentId as [Student Id], s.FullName as [Name], s.Email as [Email], s.ContactNo as [Contact], ISNULL(s.College, 'N/A') as [College], ISNULL(s.Course, 'N/A') as [Course], 'Active' as [Status] from Students s order by s.StudentId desc", con);
             ds = new DataSet();
             da.Fill(ds);
             string s = Server.MapPath("~/admin_students_report_data.xml");

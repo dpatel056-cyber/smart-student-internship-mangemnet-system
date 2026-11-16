@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Web;
 
 namespace asp.net
 {
@@ -11,14 +12,9 @@ namespace asp.net
         SqlConnection con;
         SqlDataAdapter da;
         DataSet ds;
+        SqlCommand cmd;
 
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
-
-        void getcon()
-        {
-            con = new SqlConnection(s);
-            con.Open();
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,15 +25,17 @@ namespace asp.net
                 ds = new DataSet();
                 da.Fill(ds);
 
-                if (Request.QueryString["download"] == "1" && !string.IsNullOrEmpty(Request.QueryString["id"]))
+                if (Request.QueryString["download"] == "1")
                 {
-                    DownloadStudentResume(Request.QueryString["id"]);
+                    DownloadStudentResume();
                     return;
                 }
 
                 if (!IsPostBack)
                 {
                     studentfilldata();
+                    LoadSkills();
+                    LoadProjects();
                 }
             }
             else
@@ -46,363 +44,216 @@ namespace asp.net
             }
         }
 
-        string ResolveStudentId()
+        void getcon()
         {
-            string studentId = Request.QueryString["id"];
-            string appId = Request.QueryString["appId"];
-            string email = Request.QueryString["email"];
+            con = new SqlConnection(s);
+            con.Open();
+        }
 
-            if (!string.IsNullOrEmpty(studentId)) return studentId;
-
-            getcon();
-            if (!string.IsNullOrEmpty(appId))
+        string GetStudentId()
+        {
+            string sid = Request.QueryString["id"];
+            if (string.IsNullOrEmpty(sid) && Request.QueryString["appId"] != null)
             {
-                da = new SqlDataAdapter("SELECT StudentId, StudentEmail FROM StudentApplications WHERE ApplicationId = '" + appId + "'", con);
-                DataSet dsA = new DataSet();
-                da.Fill(dsA);
-                if (dsA.Tables.Count > 0 && dsA.Tables[0].Rows.Count > 0)
-                {
-                    string sId = dsA.Tables[0].Rows[0]["StudentId"] != DBNull.Value ? dsA.Tables[0].Rows[0]["StudentId"].ToString() : "";
-                    if (!string.IsNullOrEmpty(sId) && sId != "0") return sId;
-
-                    string sEmail = dsA.Tables[0].Rows[0]["StudentEmail"].ToString();
-                    da = new SqlDataAdapter("SELECT StudentId FROM Students WHERE Email = '" + sEmail + "'", con);
-                    DataSet dsS = new DataSet();
-                    da.Fill(dsS);
-                    if (dsS.Tables.Count > 0 && dsS.Tables[0].Rows.Count > 0)
-                    {
-                        return dsS.Tables[0].Rows[0]["StudentId"].ToString();
-                    }
-                }
+                getcon();
+                cmd = new SqlCommand("SELECT StudentId FROM StudentApplications WHERE ApplicationId=" + Request.QueryString["appId"], con);
+                object objId = cmd.ExecuteScalar();
+                if (objId != null) sid = objId.ToString();
             }
+            return sid;
+        }
 
-            if (!string.IsNullOrEmpty(email))
+        public string ResolveStudentPhoto(object photoObj)
+        {
+            if (photoObj == null || photoObj == DBNull.Value)
             {
-                da = new SqlDataAdapter("SELECT StudentId FROM Students WHERE Email = '" + email + "'", con);
-                DataSet dsE = new DataSet();
-                da.Fill(dsE);
-                if (dsE.Tables.Count > 0 && dsE.Tables[0].Rows.Count > 0)
-                {
-                    return dsE.Tables[0].Rows[0]["StudentId"].ToString();
-                }
+                return ResolveUrl("~/student_images/default-avatar.png");
             }
-
-            return "";
+            string photo = photoObj.ToString().Trim();
+            if (string.IsNullOrEmpty(photo))
+            {
+                return ResolveUrl("~/student_images/default-avatar.png");
+            }
+            if (photo.StartsWith("~/"))
+            {
+                return ResolveUrl(photo);
+            }
+            if (photo.StartsWith("/") || photo.StartsWith("http://") || photo.StartsWith("https://"))
+            {
+                return photo;
+            }
+            if (photo.StartsWith("student_images/", StringComparison.OrdinalIgnoreCase) ||
+                photo.StartsWith("StudentUploads/", StringComparison.OrdinalIgnoreCase) ||
+                photo.StartsWith("assets/", StringComparison.OrdinalIgnoreCase))
+            {
+                return ResolveUrl("~/" + photo);
+            }
+            return ResolveUrl("~/student_images/" + photo);
         }
 
         void studentfilldata()
         {
             getcon();
-            string sId = ResolveStudentId();
-
-            if (string.IsNullOrEmpty(sId))
+            string sid = GetStudentId();
+            if (string.IsNullOrEmpty(sid))
             {
-                // Try to load basic info if appId exists
-                string appId = Request.QueryString["appId"];
-                if (!string.IsNullOrEmpty(appId))
-                {
-                    LoadFromApplicationOnly(appId);
-                    return;
-                }
-
                 pnlNotFound.Visible = true;
                 pnlDetails.Visible = false;
                 return;
             }
 
-            da = new SqlDataAdapter("SELECT * FROM Students WHERE StudentId='" + sId + "'", con);
+            da = new SqlDataAdapter("SELECT StudentId, FullName, DateOfBirth, Gender, Email, ContactNo, Address, City, State, Pincode, AboutMe, PreferredDomain, PreferredRole, PreferredLocation, WorkMode, Availability, LinkedIn, GitHub, Portfolio, EnrollmentNo, College, Course, Department, CurrentSemester, CGPA, GraduationYear, Password, ConfirmPassword, Resume, IsBlocked, Status, RegistrationDate, CASE WHEN ProfilePhoto LIKE '~/%' THEN ProfilePhoto WHEN ProfilePhoto LIKE 'student_images/%' THEN '~/' + ProfilePhoto WHEN ProfilePhoto LIKE 'StudentUploads/%' THEN '~/' + ProfilePhoto WHEN ProfilePhoto LIKE 'assets/%' THEN '~/' + ProfilePhoto WHEN ProfilePhoto IS NOT NULL AND ProfilePhoto <> '' THEN '~/student_images/' + ProfilePhoto ELSE '~/student_images/default-avatar.png' END AS ProfilePhoto FROM Students WHERE StudentId='" + sid + "'", con);
             ds = new DataSet();
             da.Fill(ds);
 
-            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                pnlNotFound.Visible = false;
-                pnlDetails.Visible = true;
-
-                lblStudentId.Text = ds.Tables[0].Rows[0]["StudentId"].ToString();
-                lblFullName.Text = ds.Tables[0].Rows[0]["FullName"].ToString();
-                lblFullNameInfo.Text = ds.Tables[0].Rows[0]["FullName"].ToString();
-
-                string photo = ds.Tables[0].Rows[0]["ProfilePhoto"] != DBNull.Value ? ds.Tables[0].Rows[0]["ProfilePhoto"].ToString() : "";
-                if (!string.IsNullOrEmpty(photo))
-                {
-                    if (!photo.StartsWith("~") && !photo.StartsWith("/"))
-                    {
-                        if (photo.StartsWith("student_images/"))
-                            photo = "~/" + photo;
-                        else if (System.IO.File.Exists(Server.MapPath("~/student_images/" + photo)))
-                            photo = "~/student_images/" + photo;
-                        else
-                            photo = "~/StudentUploads/" + photo;
-                    }
-                    imgStudentPhoto.ImageUrl = ResolveUrl(photo);
-                    imgStudentPhoto.Visible = true;
-                }
-                else
-                {
-                    imgStudentPhoto.ImageUrl = ResolveUrl("~/student_images/default-avatar.png");
-                    imgStudentPhoto.Visible = true;
-                }
-
-                lblEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
-                lblEmailInfo.Text = ds.Tables[0].Rows[0]["Email"].ToString();
-
-                lblContact.Text = ds.Tables[0].Rows[0]["ContactNo"].ToString();
-                lblContactInfo.Text = ds.Tables[0].Rows[0]["ContactNo"].ToString();
-
-                if (ds.Tables[0].Rows[0]["DateOfBirth"] != DBNull.Value && !string.IsNullOrEmpty(ds.Tables[0].Rows[0]["DateOfBirth"].ToString()))
-                {
-                    DateTime dob;
-                    if (DateTime.TryParse(ds.Tables[0].Rows[0]["DateOfBirth"].ToString(), out dob))
-                    {
-                        lblDob.Text = dob.ToString("dd MMM yyyy");
-                    }
-                    else
-                    {
-                        lblDob.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
-                    }
-                }
-                else
-                {
-                    lblDob.Text = "-";
-                }
-
-                lblGender.Text = ds.Tables[0].Rows[0]["Gender"].ToString();
-                lblAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
-
-                lblEnrollment.Text = ds.Tables[0].Rows[0]["EnrollmentNo"].ToString();
-                lblEnrollmentInfo.Text = lblEnrollment.Text;
-
-                lblCollege.Text = ds.Tables[0].Rows[0]["College"].ToString();
-                lblCollegeHeader.Text = lblCollege.Text;
-
-                lblCourse.Text = ds.Tables[0].Rows[0]["Course"].ToString();
-                lblCourseHeader.Text = lblCourse.Text;
-
-                lblDepartment.Text = ds.Tables[0].Rows[0]["Department"].ToString();
-                lblSemester.Text = ds.Tables[0].Rows[0]["CurrentSemester"].ToString();
-                lblGraduationYear.Text = ds.Tables[0].Rows[0]["GraduationYear"].ToString();
-
-                lblCgpa.Text = ds.Tables[0].Rows[0]["CGPA"].ToString();
-                lblCgpaInfo.Text = lblCgpa.Text;
-
-                lblCity.Text = ds.Tables[0].Rows[0]["City"].ToString();
-                lblState.Text = ds.Tables[0].Rows[0]["State"].ToString();
-                lblPincode.Text = ds.Tables[0].Rows[0]["Pincode"].ToString();
-
-                lblAboutMe.Text = ds.Tables[0].Rows[0]["AboutMe"].ToString();
-
-                if (string.IsNullOrWhiteSpace(lblAboutMe.Text))
-                {
-                    lblAboutMe.Text = "No bio provided.";
-                }
-
-                lblPreferredDomain.Text = ds.Tables[0].Rows[0]["PreferredDomain"].ToString();
-                lblPreferredRole.Text = ds.Tables[0].Rows[0]["PreferredRole"].ToString();
-                lblPreferredLocation.Text = ds.Tables[0].Rows[0]["PreferredLocation"].ToString();
-                lblWorkMode.Text = ds.Tables[0].Rows[0]["WorkMode"].ToString();
-                lblAvailability.Text = ds.Tables[0].Rows[0]["Availability"].ToString();
-
-                lblLinkedInText.Text = ds.Tables[0].Rows[0]["LinkedIn"].ToString();
-                lblGitHubText.Text = ds.Tables[0].Rows[0]["GitHub"].ToString();
-                lblPortfolioText.Text = ds.Tables[0].Rows[0]["Portfolio"].ToString();
-
-                hlLinkedIn.NavigateUrl = lblLinkedInText.Text;
-                hlGitHub.NavigateUrl = lblGitHubText.Text;
-                hlPortfolio.NavigateUrl = lblPortfolioText.Text;
-
-                hlHeaderLinkedIn.NavigateUrl = lblLinkedInText.Text;
-                hlHeaderGitHub.NavigateUrl = lblGitHubText.Text;
-                hlHeaderPortfolio.NavigateUrl = lblPortfolioText.Text;
-
-                // Resume
-                string resume = ds.Tables[0].Rows[0]["Resume"] != DBNull.Value ? ds.Tables[0].Rows[0]["Resume"].ToString() : "";
-                if (!string.IsNullOrEmpty(resume))
-                {
-                    pnlResumeData.Visible = true;
-                    lblNoResume.Visible = false;
-
-                    string fileName = Path.GetFileName(resume);
-                    lblResumeFileName.Text = fileName;
-
-                    string path1 = Server.MapPath("~/resume_upload/" + fileName);
-                    string path2 = Server.MapPath("~/StudentUploads/" + fileName);
-                    string resumeDateStr = "";
-
-                    if (File.Exists(path1))
-                    {
-                        resumeDateStr = File.GetLastWriteTime(path1).ToString("dd-MM-yyyy");
-                        hlViewResume.NavigateUrl = ResolveUrl("~/resume_upload/" + fileName);
-                    }
-                    else if (File.Exists(path2))
-                    {
-                        resumeDateStr = File.GetLastWriteTime(path2).ToString("dd-MM-yyyy");
-                        hlViewResume.NavigateUrl = ResolveUrl("~/StudentUploads/" + fileName);
-                    }
-                    else if (ds.Tables[0].Columns.Contains("RegistrationDate") && ds.Tables[0].Rows[0]["RegistrationDate"] != DBNull.Value && ds.Tables[0].Rows[0]["RegistrationDate"].ToString() != "")
-                    {
-                        DateTime regDate;
-                        if (DateTime.TryParse(ds.Tables[0].Rows[0]["RegistrationDate"].ToString(), out regDate))
-                        {
-                            resumeDateStr = regDate.ToString("dd-MM-yyyy");
-                        }
-                        else
-                        {
-                            resumeDateStr = DateTime.Now.ToString("dd-MM-yyyy");
-                        }
-                        hlViewResume.NavigateUrl = ResolveUrl("~/resume_upload/" + fileName);
-                    }
-                    else
-                    {
-                        resumeDateStr = DateTime.Now.ToString("dd-MM-yyyy");
-                        hlViewResume.NavigateUrl = ResolveUrl("~/resume_upload/" + fileName);
-                    }
-
-                    lblResumeDate.Text = resumeDateStr;
-                    hlDownloadResume.NavigateUrl = "company-student-details.aspx?id=" + Request.QueryString["id"] + "&download=1";
-                    hlDownloadResume.Attributes["download"] = fileName;
-                }
-                else
-                {
-                    pnlResumeData.Visible = false;
-                    lblNoResume.Visible = true;
-                    lblNoResume.Text = "No resume uploaded by the student.";
-                }
-
-                LoadSkills(sId);
-                LoadProjects(sId);
-            }
-            else
+            if (ds.Tables[0].Rows.Count == 0)
             {
                 pnlNotFound.Visible = true;
                 pnlDetails.Visible = false;
+                return;
             }
-        }
 
-        void LoadFromApplicationOnly(string appId)
-        {
-            da = new SqlDataAdapter("SELECT * FROM StudentApplications WHERE ApplicationId = '" + appId + "'", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            pnlNotFound.Visible = false;
+            pnlDetails.Visible = true;
+
+            lblStudentId.Text = ds.Tables[0].Rows[0]["StudentId"].ToString();
+            lblFullName.Text = ds.Tables[0].Rows[0]["FullName"].ToString();
+            lblFullNameInfo.Text = ds.Tables[0].Rows[0]["FullName"].ToString();
+
+            // Photo (DataList bound with Eval)
+            DataListStudentPhoto.DataSource = ds;
+            DataListStudentPhoto.DataBind();
+
+            // Basic Details
+            lblEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
+            lblEmailInfo.Text = ds.Tables[0].Rows[0]["Email"].ToString();
+            lblContact.Text = ds.Tables[0].Rows[0]["ContactNo"].ToString();
+            lblContactInfo.Text = ds.Tables[0].Rows[0]["ContactNo"].ToString();
+            lblDob.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"]).ToString("dd MMM yyyy");
+            lblGender.Text = ds.Tables[0].Rows[0]["Gender"].ToString();
+            lblAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
+
+            // Education
+            lblEnrollment.Text = ds.Tables[0].Rows[0]["EnrollmentNo"].ToString();
+            lblEnrollmentInfo.Text = ds.Tables[0].Rows[0]["EnrollmentNo"].ToString();
+            lblCollege.Text = ds.Tables[0].Rows[0]["College"].ToString();
+            lblCollegeHeader.Text = ds.Tables[0].Rows[0]["College"].ToString();
+            lblCourse.Text = ds.Tables[0].Rows[0]["Course"].ToString();
+            lblCourseHeader.Text = ds.Tables[0].Rows[0]["Course"].ToString();
+            lblDepartment.Text = ds.Tables[0].Rows[0]["Department"].ToString();
+            lblSemester.Text = ds.Tables[0].Rows[0]["CurrentSemester"].ToString();
+            lblGraduationYear.Text = ds.Tables[0].Rows[0]["GraduationYear"].ToString();
+            lblCgpa.Text = ds.Tables[0].Rows[0]["CGPA"].ToString();
+            lblCgpaInfo.Text = ds.Tables[0].Rows[0]["CGPA"].ToString();
+
+            // Address
+            lblCity.Text = ds.Tables[0].Rows[0]["City"].ToString();
+            lblState.Text = ds.Tables[0].Rows[0]["State"].ToString();
+            lblPincode.Text = ds.Tables[0].Rows[0]["Pincode"].ToString();
+
+            // About
+            lblAboutMe.Text = ds.Tables[0].Rows[0]["AboutMe"].ToString();
+
+            // Preferences
+            lblPreferredDomain.Text = ds.Tables[0].Rows[0]["PreferredDomain"].ToString();
+            lblPreferredRole.Text = ds.Tables[0].Rows[0]["PreferredRole"].ToString();
+            lblPreferredLocation.Text = ds.Tables[0].Rows[0]["PreferredLocation"].ToString();
+            lblWorkMode.Text = ds.Tables[0].Rows[0]["WorkMode"].ToString();
+            lblAvailability.Text = ds.Tables[0].Rows[0]["Availability"].ToString();
+
+            // Social Links
+            lblLinkedInText.Text = ds.Tables[0].Rows[0]["LinkedIn"].ToString();
+            lblGitHubText.Text = ds.Tables[0].Rows[0]["GitHub"].ToString();
+            lblPortfolioText.Text = ds.Tables[0].Rows[0]["Portfolio"].ToString();
+            hlLinkedIn.NavigateUrl = ds.Tables[0].Rows[0]["LinkedIn"].ToString();
+            hlGitHub.NavigateUrl = ds.Tables[0].Rows[0]["GitHub"].ToString();
+            hlPortfolio.NavigateUrl = ds.Tables[0].Rows[0]["Portfolio"].ToString();
+            hlHeaderLinkedIn.NavigateUrl = ds.Tables[0].Rows[0]["LinkedIn"].ToString();
+            hlHeaderGitHub.NavigateUrl = ds.Tables[0].Rows[0]["GitHub"].ToString();
+            hlHeaderPortfolio.NavigateUrl = ds.Tables[0].Rows[0]["Portfolio"].ToString();
+
+            // Resume
+            string resume = ds.Tables[0].Rows[0]["Resume"].ToString();
+
+            if (resume != "")
             {
-                pnlNotFound.Visible = false;
-                pnlDetails.Visible = true;
-                DataRow r = ds.Tables[0].Rows[0];
+                pnlResumeData.Visible = true;
+                lblNoResume.Visible = false;
 
-                lblStudentId.Text = appId;
-                lblFullName.Text = r["FullName"].ToString();
-                lblFullNameInfo.Text = r["FullName"].ToString();
-                imgStudentPhoto.ImageUrl = ResolveUrl("~/student_images/default-avatar.png");
-                imgStudentPhoto.Visible = true;
+                lblResumeFileName.Text = resume;
+                lblResumeDate.Text = "Verified PDF";
 
-                lblEmail.Text = r["StudentEmail"].ToString();
-                lblEmailInfo.Text = r["StudentEmail"].ToString();
-                lblContact.Text = r["ContactNo"].ToString();
-                lblContactInfo.Text = r["ContactNo"].ToString();
-
-                lblCollege.Text = r["College"].ToString();
-                lblCollegeHeader.Text = r["College"].ToString();
-                lblCourse.Text = r["Course"].ToString();
-                lblCourseHeader.Text = r["Course"].ToString();
-                lblDepartment.Text = r["Department"].ToString();
-                lblSemester.Text = r["Semester"].ToString();
-                lblCgpa.Text = r["CGPA"].ToString();
-                lblCgpaInfo.Text = r["CGPA"].ToString();
-
-                string resume = r["ResumePath"] != DBNull.Value ? r["ResumePath"].ToString() : "";
-                if (!string.IsNullOrEmpty(resume))
-                {
-                    pnlResumeData.Visible = true;
-                    lblNoResume.Visible = false;
-
-                    string fileName = Path.GetFileName(resume);
-                    lblResumeFileName.Text = fileName;
-
-                    string path1 = Server.MapPath("~/resume_upload/" + fileName);
-                    string path2 = Server.MapPath("~/StudentUploads/" + fileName);
-                    string resumeDateStr = "";
-
-                    if (File.Exists(path1))
-                    {
-                        resumeDateStr = File.GetLastWriteTime(path1).ToString("dd-MM-yyyy");
-                        hlViewResume.NavigateUrl = ResolveUrl("~/resume_upload/" + fileName);
-                    }
-                    else if (File.Exists(path2))
-                    {
-                        resumeDateStr = File.GetLastWriteTime(path2).ToString("dd-MM-yyyy");
-                        hlViewResume.NavigateUrl = ResolveUrl("~/StudentUploads/" + fileName);
-                    }
-                    else if (r.Table.Columns.Contains("AppliedDate") && r["AppliedDate"] != DBNull.Value && r["AppliedDate"].ToString() != "")
-                    {
-                        DateTime appDate;
-                        if (DateTime.TryParse(r["AppliedDate"].ToString(), out appDate))
-                        {
-                            resumeDateStr = appDate.ToString("dd-MM-yyyy");
-                        }
-                        else
-                        {
-                            resumeDateStr = DateTime.Now.ToString("dd-MM-yyyy");
-                        }
-                        hlViewResume.NavigateUrl = ResolveUrl("~/resume_upload/" + fileName);
-                    }
-                    else
-                    {
-                        resumeDateStr = DateTime.Now.ToString("dd-MM-yyyy");
-                        hlViewResume.NavigateUrl = ResolveUrl("~/resume_upload/" + fileName);
-                    }
-
-                    lblResumeDate.Text = resumeDateStr;
-                    hlDownloadResume.NavigateUrl = "company-student-details.aspx?id=" + Request.QueryString["id"] + "&download=1";
-                    hlDownloadResume.Attributes["download"] = fileName;
-                }
-                else
-                {
-                    pnlResumeData.Visible = false;
-                    lblNoResume.Visible = true;
-                }
+                hlViewResume.NavigateUrl = "~/resume_upload/" + resume;
+                hlDownloadResume.NavigateUrl = "company-student-details.aspx?id=" + Request.QueryString["id"]  + "&download=1";
             }
             else
             {
-                pnlNotFound.Visible = true;
-                pnlDetails.Visible = false;
+                pnlResumeData.Visible = false;
+                lblNoResume.Visible = true;
+                lblNoResume.Text = "No resume uploaded by the student.";
             }
         }
+        
 
-        void LoadSkills(string sId)
+        void LoadSkills()
         {
             getcon();
-
-            da = new SqlDataAdapter("SELECT * FROM StudentSkills WHERE StudentId='" + sId + "' AND SkillCategory='technical'", con);
+            da = new SqlDataAdapter("select * from StudentSkills where StudentId='" + Request.QueryString["id"] + "' and SkillCategory='technical'", con);
             ds = new DataSet();
             da.Fill(ds);
             gvTechSkills.DataSource = ds;
             gvTechSkills.DataBind();
-            gvTechSkills.Visible = ds.Tables[0].Rows.Count > 0;
-            lblNoTechSkills.Visible = ds.Tables[0].Rows.Count == 0;
 
-            da = new SqlDataAdapter("SELECT * FROM StudentSkills WHERE StudentId='" + sId + "' AND SkillCategory='soft'", con);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                gvTechSkills.Visible = true;
+                lblNoTechSkills.Visible = false;
+            }
+            else
+            {
+                gvTechSkills.Visible = false;
+                lblNoTechSkills.Visible = true;
+            }
+
+            da = new SqlDataAdapter("select * from StudentSkills where StudentId='" + Request.QueryString["id"] + "' and SkillCategory='soft'", con);
             ds = new DataSet();
             da.Fill(ds);
             gvSoftSkills.DataSource = ds;
             gvSoftSkills.DataBind();
-            gvSoftSkills.Visible = ds.Tables[0].Rows.Count > 0;
-            lblNoSoftSkills.Visible = ds.Tables[0].Rows.Count == 0;
 
-            da = new SqlDataAdapter("SELECT * FROM StudentSkills WHERE StudentId='" + sId + "' AND SkillCategory='other'", con);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                gvSoftSkills.Visible = true;
+                lblNoSoftSkills.Visible = false;
+            }
+            else
+            {
+                gvSoftSkills.Visible = false;
+                lblNoSoftSkills.Visible = true;
+            }
+
+            da = new SqlDataAdapter("select * from StudentSkills where StudentId='" + Request.QueryString["id"] + "' and SkillCategory='other'", con);
             ds = new DataSet();
             da.Fill(ds);
             gvOtherSkills.DataSource = ds;
             gvOtherSkills.DataBind();
-            gvOtherSkills.Visible = ds.Tables[0].Rows.Count > 0;
-            lblNoOtherSkills.Visible = ds.Tables[0].Rows.Count == 0;
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                gvOtherSkills.Visible = true;
+                lblNoOtherSkills.Visible = false;
+            }
+            else
+            {
+                gvOtherSkills.Visible = false;
+                lblNoOtherSkills.Visible = true;
+            }
         }
 
-        void LoadProjects(string sId)
+        void LoadProjects()
         {
             getcon();
-
-            da = new SqlDataAdapter("SELECT * FROM StudentProjects WHERE StudentId='" + sId + "'", con);
+            da = new SqlDataAdapter("select * from StudentProjects where StudentId='" + Request.QueryString["id"] + "'", con);
             ds = new DataSet();
             da.Fill(ds);
 
@@ -410,56 +261,38 @@ namespace asp.net
             {
                 gvProjects.DataSource = ds;
                 gvProjects.DataBind();
+
                 gvProjects.Visible = true;
                 lblNoProjects.Visible = false;
             }
             else
             {
                 gvProjects.Visible = false;
+
                 lblNoProjects.Text = "No projects available.";
-                lblNoProjects.CssClass = "no-projects-text";
                 lblNoProjects.Visible = true;
             }
         }
 
-        void DownloadStudentResume(string studentId)
+        void DownloadStudentResume()
         {
             getcon();
-            da = new SqlDataAdapter("select Resume from Students where StudentId='" + studentId + "'", con);
+
+            da = new SqlDataAdapter("SELECT Resume FROM Students WHERE StudentId='" + Request.QueryString["id"] + "'", con);
             ds = new DataSet();
             da.Fill(ds);
 
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                string resume = ds.Tables[0].Rows[0]["Resume"] != DBNull.Value ? ds.Tables[0].Rows[0]["Resume"].ToString() : "";
-                if (!string.IsNullOrEmpty(resume))
-                {
-                    string fileName = Path.GetFileName(resume);
-                    string path = "";
-                    if (resume.StartsWith("~") || resume.StartsWith("/"))
-                        path = Server.MapPath(resume);
-                    else if (resume.StartsWith("resume_upload/"))
-                        path = Server.MapPath("~/" + resume);
-                    else if (File.Exists(Server.MapPath("~/resume_upload/" + fileName)))
-                        path = Server.MapPath("~/resume_upload/" + fileName);
-                    else
-                        path = Server.MapPath("~/StudentUploads/" + fileName);
+            string resume = ds.Tables[0].Rows[0]["Resume"].ToString();
+            string path = Server.MapPath("~/resume_upload/" + resume);
 
-                    if (File.Exists(path))
-                    {
-                        Response.Clear();
-                        Response.ClearHeaders();
-                        Response.ClearContent();
-                        Response.Buffer = true;
-                        Response.ContentType = "application/pdf";
-                        Response.AppendHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-                        Response.AppendHeader("Content-Length", new FileInfo(path).Length.ToString());
-                        Response.TransmitFile(path);
-                        Response.Flush();
-                        Response.End();
-                    }
-                }
+            if (resume != "" && File.Exists(path))
+            {
+                Response.ContentType = "application/pdf";
+                Response.AppendHeader("Content-Disposition", "attachment; filename=" + resume);
+                Response.TransmitFile(path);
+                Response.End();
             }
         }
     }
 }
+

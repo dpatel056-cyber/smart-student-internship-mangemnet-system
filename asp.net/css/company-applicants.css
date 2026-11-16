@@ -370,6 +370,11 @@ input[type="image"].aspNetDisabled {
     align-items: center;
     gap: 4px;
     margin-right: 4px;
+    cursor: pointer;
+}
+
+.action-link * {
+    pointer-events: none;
 }
 
 .action-link.edit-btn {
@@ -502,4 +507,30 @@ input[type="image"].aspNetDisabled {
     transform: translateY(-1px) !important;
     box-shadow: 0 4px 12px rgba(1, 85, 227, 0.35) !important;
     filter: brightness(1.05) !important;
+}
+
+.action-link.update-btn {
+    background: #ecfdf5 !important;
+    color: #16a34a !important;
+    border: 1px solid #bbf7d0 !important;
+    transition: all 0.15s ease !important;
+}
+
+.action-link.update-btn:hover {
+    background: #16a34a !important;
+    color: #ffffff !important;
+    border-color: #16a34a !important;
+}
+
+.action-link.cancel-btn {
+    background: #fef2f2 !important;
+    color: #dc2626 !important;
+    border: 1px solid #fecaca !important;
+    transition: all 0.15s ease !important;
+}
+
+.action-link.cancel-btn:hover {
+    background: #dc2626 !important;
+    color: #ffffff !important;
+    border-color: #dc2626 !important;
 }

@@ -25,8 +25,15 @@
             <div class="profile-header-card">
                 <div class="profile-header-top">
                     <div class="profile-main-info">
-                        <div class="profile-photo" aria-label="Student profile photo">
-                            <asp:Image ID="imgStudentPhoto" runat="server" Style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" onerror="this.onerror=null;this.src='../student_images/default-avatar.png';" />
+                        <div class="profile-photo" aria-label="Student profile photo" style="width: 105px; height: 105px; border-radius: 50% !important; overflow: hidden !important; display: flex; align-items: center; justify-content: center; border: 4px solid #e8f0ff; background: #eff6ff; flex-shrink: 0;">
+                            <asp:DataList ID="DataListStudentPhoto" runat="server" RepeatLayout="Flow" ShowHeader="false" ShowFooter="false">
+                                <ItemTemplate>
+                                    <asp:Image ID="imgStudentPhoto" runat="server" CssClass="student-profile-photo-img"
+                                               ImageUrl='<%# Eval("ProfilePhoto") %>'
+                                               Style="width: 105px; height: 105px; border-radius: 50% !important; object-fit: cover !important; display: block !important;"
+                                               onerror="this.onerror=null;this.src='../student_images/default-avatar.png';" />
+                                </ItemTemplate>
+                            </asp:DataList>
                         </div>
                         <div class="profile-info-2x2">
                             <div class="contact-item">

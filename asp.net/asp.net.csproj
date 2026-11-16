@@ -401,6 +401,12 @@
       <DependentUpon>admin_offer_letters_report.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CompanyPanel\company_applicants_report.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>company_applicants_report.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="AdminPanel\admin_students_applications_report.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -963,6 +969,10 @@
     <EmbeddedResource Include="AdminPanel\admin_offer_letters_report.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>admin_offer_letters_report.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompanyPanel\company_applicants_report.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>company_applicants_report.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="AdminPanel\admin_students_applications_report.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -46,7 +46,6 @@ namespace asp.net
         void bindInternships()
         {
             getcon();
-
             da = new SqlDataAdapter("SELECT i.*, c.c_company, c.c_logo FROM internship i INNER JOIN c_registration c ON i.CompanyId = c.CompanyId WHERE c.c_email = '" + Session["company"] + "' ORDER BY i.Id DESC", con);
             ds = new DataSet();
             da.Fill(ds);
@@ -55,7 +54,6 @@ namespace asp.net
             {
                 DataListMyInternships.DataSource = ds.Tables[0];
                 DataListMyInternships.DataBind();
-
                 DataListMyInternships.Visible = true;
                 pnlNoMyInternships.Visible = false;
             }
@@ -73,7 +71,6 @@ namespace asp.net
                 getcon();
                 cmd = new SqlCommand("DELETE FROM internship WHERE Id='" + internshipId + "' AND CompanyId=(SELECT CompanyId FROM c_registration WHERE c_email='" + Session["company"] + "')", con);
                 cmd.ExecuteNonQuery();
-
                 bindInternships();
             }
         }

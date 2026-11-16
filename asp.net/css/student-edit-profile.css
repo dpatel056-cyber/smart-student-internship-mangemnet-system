@@ -526,3 +526,47 @@ input[type="image"].photo-remove-btn,
 .form-control-file::file-selector-button:hover {
     background: #1d4ed8;
 }
+
+/* Enhanced Full Circle Student Profile Photo */
+.photo-preview-wrap {
+    width: 84px !important;
+    height: 84px !important;
+    min-width: 84px !important;
+    min-height: 84px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 3px solid #dbeafe !important;
+    position: relative !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.18) !important;
+}
+
+.photo-preview-wrap span,
+.photo-preview-wrap #ContentPlaceHolder1_DataListStudentLogo,
+.photo-preview-wrap [id*="DataListStudentLogo"] {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+}
+
+.photo-preview-wrap .photo-preview,
+.photo-preview-wrap img {
+    width: 84px !important;
+    height: 84px !important;
+    min-width: 84px !important;
+    min-height: 84px !important;
+    max-width: 84px !important;
+    max-height: 84px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+.photo-preview-initials {
+    display: none !important;
+}

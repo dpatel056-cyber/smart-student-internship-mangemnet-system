@@ -38,7 +38,7 @@ namespace asp.net
                 divNotFound.Visible = false;
                 divDetails.Visible = true;
 
-                // Logo DataList (Bound directly with Eval("c_logo"))
+                // Logo DataList
                 DataListCompanyLogo.DataSource = ds;
                 DataListCompanyLogo.DataBind();
 

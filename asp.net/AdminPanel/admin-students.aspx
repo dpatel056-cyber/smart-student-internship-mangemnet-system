@@ -9,7 +9,7 @@
         <!-- Header -->
         <div class="stu-page-header">
             <h1 class="stu-page-title">Student Management</h1>
-            <p class="stu-page-subtitle">Manage, search, monitor and block/unblock registered students.</p>
+            <p class="stu-page-subtitle">Manage, search and monitor registered students.</p>
         </div>
 
         <!-- Search & Filter Card -->
@@ -40,8 +40,7 @@
                 <asp:DropDownList ID="ddlStatus" runat="server" CssClass="stu-select" AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged">
                     <asp:ListItem Text="All Status" Value="" />
                     <asp:ListItem Text="Active" Value="Active" />
-                    <asp:ListItem Text="Blocked" Value="Blocked" />
-                </asp:DropDownList>
+                                    </asp:DropDownList>
                 <i class="fa-solid fa-chevron-down select-chevron"></i>
             </div>
 
@@ -92,9 +91,7 @@
 
                         <asp:TemplateField HeaderText="Status">
                             <ItemTemplate>
-                                <span class='<%# Convert.ToBoolean(Eval("IsBlocked")) ? "status-badge-blocked" : "status-badge-active" %>'>
-                                    <%# Convert.ToBoolean(Eval("IsBlocked")) ? "Blocked" : "Active" %>
-                                </span>
+                                <span class='status-badge-active'>Active</span>
                             </ItemTemplate>
                         </asp:TemplateField>
 
@@ -105,7 +102,6 @@
                                         ImageUrl="~/image_button/btn_admin_view.png" CssClass="admin-img-btn admin-img-btn-view"
                                         CausesValidation="false" Height="30" />
 
-                                    <asp:ImageButton ID="btnBlockStudent" runat="server" CommandName="cmd_toggle_block" CommandArgument='<%# Eval("StudentId") %>' ImageUrl='<%# Eval("IsBlocked").ToString() == "True" ? "~/image_button/btn_admin_unblock.png" : "~/image_button/btn_admin_block.png" %>' CausesValidation="false" Height="30" CssClass="admin-img-btn" />
 
                                     <asp:ImageButton ID="btnDeleteStudent" runat="server" CommandName="cmd_del" CommandArgument='<%# Eval("StudentId") %>'
                                         ImageUrl="~/image_button/btn_admin_delete.png" CssClass="admin-img-btn admin-img-btn-delete"

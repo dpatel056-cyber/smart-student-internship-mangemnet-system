@@ -1,7 +1,7 @@
 <%@ Page Title="Applicants" Language="C#" MasterPageFile="~/CompanyPanel/company.Master" AutoEventWireup="true" CodeBehind="company-applicants.aspx.cs" Inherits="asp.net.company_applicants" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="../css/company-dashboard.css" />
-    <link rel="stylesheet" href="../css/company-applicants.css?v=209" />
+    <link rel="stylesheet" href="../css/company-applicants.css?v=210" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- Page Header -->
@@ -33,11 +33,18 @@
             <i class="fa-solid fa-chevron-down chevron-icon"></i>
         </div>
 
+        <!-- Internship Filter with Chevron -->
+        <div class="co-select-wrap co-internship-wrap">
+            <asp:DropDownList ID="ddlInternshipFilter" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlInternshipFilter_SelectedIndexChanged" CssClass="co-select">
+            </asp:DropDownList>
+            <i class="fa-solid fa-chevron-down chevron-icon"></i>
+        </div>
+
         <!-- Action Buttons: Search, Clear & Generate Report -->
         <div class="co-filter-actions">
             <asp:ImageButton ID="btnSearch" runat="server" CausesValidation="false" OnClick="btnSearch_Click" ImageUrl="~/image_button/btn_admin_search.png" Height="40" CssClass="admin-img-btn admin-img-btn-search" />
             <asp:ImageButton ID="btnClearFilters" runat="server" CausesValidation="false" OnClick="btnClearFilters_Click" ImageUrl="~/image_button/btn_admin_clear_filters.png" Height="40" CssClass="admin-img-btn admin-img-btn-clear" />
-            <asp:Button ID="btnGenerateReport" runat="server" Text="Generate Report" CssClass="btn-report" OnClick="btnGenerateReport_Click" CausesValidation="false" />
+            <asp:ImageButton ID="btnGenerateReport" runat="server" OnClick="btnGenerateReport_Click" ImageUrl="~/image_button/btn_admin_generate_report.png?v=2" Height="40" CssClass="admin-img-btn admin-img-btn-report" CausesValidation="false" />
         </div>
     </div>
 
@@ -47,7 +54,7 @@
             <h3><i class="fa-solid fa-user-group" style="color: #2563eb; margin-right: 8px;"></i> All Applications</h3>
         </div>
         <div style="overflow-x: auto; width: 100%;">
-            <asp:GridView ID="gvApplicants" runat="server" AutoGenerateColumns="False" CssClass="co-table" GridLines="None" ShowHeaderWhenEmpty="true" Width="100%" DataKeyNames="ApplicationId" OnRowEditing="gvApplicants_RowEditing" OnRowCancelingEdit="gvApplicants_RowCancelingEdit" OnRowUpdating="gvApplicants_RowUpdating">
+            <asp:GridView ID="gvApplicants" runat="server" AutoGenerateColumns="False" CssClass="co-table" GridLines="None" ShowHeaderWhenEmpty="true" Width="100%" DataKeyNames="ApplicationId" OnRowEditing="gvApplicants_RowEditing" OnRowCancelingEdit="gvApplicants_RowCancelingEdit" OnRowUpdating="gvApplicants_RowUpdating" OnRowDataBound="gvApplicants_RowDataBound">
                 <Columns>
                     <asp:TemplateField HeaderText="Name" HeaderStyle-Width="18%">
                         <ItemTemplate>
@@ -56,17 +63,32 @@
                                 <asp:Label ID="lblFullName" runat="server" CssClass="applicant-name" Text='<%# Eval("FullName") %>'></asp:Label>
                             </div>
                         </ItemTemplate>
+                        <EditItemTemplate>
+                            <div class="co-applicant-cell">
+                                <asp:Image ID="imgStudentLogoEdit" runat="server" CssClass="co-applicant-avatar" ImageUrl='<%# Eval("ProfilePhoto") %>' onerror="this.onerror=null;this.src='../student_images/default-avatar.png';" />
+                                <asp:Label ID="lblFullNameEdit" runat="server" CssClass="applicant-name" Text='<%# Eval("FullName") %>'></asp:Label>
+                            </div>
+                        </EditItemTemplate>
                     </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Email" HeaderStyle-Width="20%">
                         <ItemTemplate>
                             <asp:Label ID="lblStudentEmail" runat="server" CssClass="applicant-email" Text='<%# Eval("StudentEmail") %>'></asp:Label>
                         </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:Label ID="lblStudentEmailEdit" runat="server" CssClass="applicant-email" Text='<%# Eval("StudentEmail") %>'></asp:Label>
+                        </EditItemTemplate>
                     </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Internship Title" HeaderStyle-Width="20%">
                         <ItemTemplate>
                             <asp:Label ID="lblInternshipTitle" runat="server" CssClass="internship-title-text" Text='<%# Eval("InternshipTitle") %>'></asp:Label>
                         </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:Label ID="lblInternshipTitleEdit" runat="server" CssClass="internship-title-text" Text='<%# Eval("InternshipTitle") %>'></asp:Label>
+                        </EditItemTemplate>
                     </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Date" HeaderStyle-Width="12%">
                         <ItemTemplate>
                             <asp:Label ID="lblAppliedDate" runat="server"
@@ -74,13 +96,20 @@
                                 Text='<%# Convert.ToDateTime(Eval("AppliedDate")).ToString("dd MMM yyyy") %>'>
                             </asp:Label>
                         </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:Label ID="lblAppliedDateEdit" runat="server"
+                                CssClass="applied-date-text"
+                                Text='<%# Convert.ToDateTime(Eval("AppliedDate")).ToString("dd MMM yyyy") %>'>
+                            </asp:Label>
+                        </EditItemTemplate>
                     </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Status" HeaderStyle-Width="12%">
                         <ItemTemplate>
                             <%# GetStatusBadge(Eval("Status")) %>
                         </ItemTemplate>
                         <EditItemTemplate>
-                            <asp:DropDownList ID="ddlChangeStatus" runat="server" CssClass="table-status-select">
+                            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="table-status-select">
                                 <asp:ListItem Value="Applied">Applied</asp:ListItem>
                                 <asp:ListItem Value="Shortlisted">Shortlisted</asp:ListItem>
                                 <asp:ListItem Value="Selected">Selected</asp:ListItem>
@@ -89,7 +118,24 @@
                         </EditItemTemplate>
                     </asp:TemplateField>
 
-                    <asp:CommandField HeaderText="Modify Status" ShowEditButton="True" ButtonType="Link" EditText="&lt;i class='fa-solid fa-pen-to-square'&gt;&lt;/i&gt; Edit" UpdateText="&lt;i class='fa-solid fa-check'&gt;&lt;/i&gt; Update" CancelText="&lt;i class='fa-solid fa-xmark'&gt;&lt;/i&gt; Cancel" ControlStyle-CssClass="action-link edit-btn" HeaderStyle-Width="12%" />
+                    <asp:TemplateField HeaderText="Modify Status" HeaderStyle-Width="14%">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="btnEdit" runat="server" CommandName="Edit" CausesValidation="false" CssClass="action-link edit-btn">
+                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                            </asp:LinkButton>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <div style="display:flex; align-items:center; gap:6px;">
+                                <asp:LinkButton ID="btnUpdate" runat="server" CommandName="Update" CausesValidation="false" CssClass="action-link update-btn">
+                                    <i class="fa-solid fa-check"></i> Update
+                                </asp:LinkButton>
+                                <asp:LinkButton ID="btnCancel" runat="server" CommandName="Cancel" CausesValidation="false" CssClass="action-link cancel-btn">
+                                    <i class="fa-solid fa-xmark"></i> Cancel
+                                </asp:LinkButton>
+                            </div>
+                        </EditItemTemplate>
+                    </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Action" HeaderStyle-Width="6%" HeaderStyle-CssClass="text-end" ItemStyle-CssClass="text-end">
                         <ItemTemplate>
                             <asp:HyperLink ID="hlViewStudent" runat="server"
@@ -98,6 +144,13 @@
                                 <i class="fa-solid fa-eye"></i> View
                             </asp:HyperLink>
                         </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:HyperLink ID="hlViewStudentEdit" runat="server"
+                                           NavigateUrl='<%# "~/CompanyPanel/company-student-details.aspx?id=" + Eval("StudentId") + "&appId=" + Eval("ApplicationId") %>'
+                                           CssClass="btn-view-applicant">
+                                <i class="fa-solid fa-eye"></i> View
+                            </asp:HyperLink>
+                        </EditItemTemplate>
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
@@ -117,6 +170,8 @@
         <asp:Label ID="lblPages" runat="server" CssClass="pagination-pages" />
         <asp:ImageButton ID="btnNext" runat="server" ImageUrl="~/image_button/btn_next.png" Height="42" OnClick="btnNext_Click" CssClass="admin-img-btn" />
     </div>
+
+    <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" />
 
     <!-- Page Specific Script -->
     <script src="../js/company-applicants.js"></script>

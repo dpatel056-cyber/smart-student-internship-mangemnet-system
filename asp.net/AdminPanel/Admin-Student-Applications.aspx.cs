@@ -113,7 +113,6 @@ namespace asp.net
                 page = totalPages - 1;
                 ViewState["page"] = page;
             }
-
             gvApplications.DataSource = admin.application_pagination(dt, page);
             gvApplications.DataBind();
             lblPages.Text = "Page " + (page + 1) + " of " + (totalPages > 0 ? totalPages : 1);
@@ -176,11 +175,10 @@ namespace asp.net
 
         protected void gvApplications_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            string appId = e.CommandArgument.ToString();
             if (e.CommandName == "cmd_delete")
             {
                 getcon();
-                cmd = new SqlCommand("DELETE FROM StudentApplications WHERE ApplicationId='" + appId + "'", con);
+                cmd = new SqlCommand("DELETE FROM StudentApplications WHERE ApplicationId='" + e.CommandArgument.ToString() + "'", con);
                 cmd.ExecuteNonQuery();
                 lblMsg.Text = "Application deleted successfully.";
                 lblMsg.Visible = true;
@@ -191,15 +189,19 @@ namespace asp.net
         public string GetStatusBadge(object statusObj)
         {
             string status = Convert.ToString(statusObj);
+
             if (status == "Shortlisted")
-
+            {
                 return "<span class='badge-shortlisted'>Shortlisted</span>";
+            }
             if (status == "Selected")
-
+            {
                 return "<span class='badge-selected'>Selected</span>";
+            }
             if (status == "Rejected")
-
+            {
                 return "<span class='badge-rejected'>Rejected</span>";
+            }
             return "<span class='badge-pending'>Pending</span>";
         }
 
@@ -258,9 +260,8 @@ namespace asp.net
             //Response.BinaryWrite(ms.ToArray());
             //Response.End();
 
-            getcon();
-            string q = "select a.ApplicationId as [Application Id], s.FullName as [Student Name], s.Email as [Email], i.InternshipTitle as [Internship], c.c_company as [Company], a.AppliedDate as [Applied Date], ISNULL(a.Status, 'Applied') as [Status] from StudentApplications a inner join internship i on a.InternshipId = i.Id inner join c_registration c on i.CompanyId = c.CompanyId inner join Students s on a.StudentId = s.StudentId order by a.ApplicationId desc";
-            da = new SqlDataAdapter(q, con);
+            getcon(); 
+            da = new SqlDataAdapter("select a.ApplicationId as [Application Id], s.FullName as [Student Name], s.Email as [Email], i.InternshipTitle as [Internship], c.c_company as [Company], a.AppliedDate as [Applied Date], ISNULL(a.Status, 'Applied') as [Status] from StudentApplications a inner join internship i on a.InternshipId = i.Id inner join c_registration c on i.CompanyId = c.CompanyId inner join Students s on a.StudentId = s.StudentId order by a.ApplicationId desc", con);
             ds = new DataSet();
             da.Fill(ds);
             string s = Server.MapPath("~/admin_students_applications_report_data.xml");

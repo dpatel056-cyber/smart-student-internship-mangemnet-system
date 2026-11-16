@@ -21,11 +21,18 @@ namespace asp.net
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["admin"] == null)
+            if (Session["admin"] != null)
+            {
+                getcon();
+                da = new SqlDataAdapter("select * from admin_registration where Email='" + Session["admin"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
+            }
+            else
             {
                 Response.Redirect("~/PublicPanel/login.aspx");
-                return;
             }
+
             if (!IsPostBack)
             {
                 totalstudents();
@@ -70,7 +77,7 @@ namespace asp.net
             da = new SqlDataAdapter(q, s);
             ds = new DataSet();
             da.Fill(ds);
-            if (ds != null && ds.Tables.Count > 0)
+            if (ds.Tables.Count > 0)
             {
                 chart.DataSource = ds.Tables[0];
                 chart.DataBind();

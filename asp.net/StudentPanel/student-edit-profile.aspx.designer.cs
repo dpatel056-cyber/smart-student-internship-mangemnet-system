@@ -41,5 +41,6 @@ namespace asp.net.js
 
         protected global::System.Web.UI.WebControls.HyperLink hlCancel;
         protected global::System.Web.UI.WebControls.ImageButton btnSaveChanges;
+        protected global::System.Web.UI.WebControls.DataList DataListStudentLogo;
     }
 }

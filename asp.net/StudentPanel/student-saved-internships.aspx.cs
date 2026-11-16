@@ -42,11 +42,9 @@ namespace asp.net
         }
 
         void LoadSavedInternships()
-        {
-            string studentKey = Session["student"].ToString();
-
+        { 
             getcon();
-            da = new SqlDataAdapter("SELECT i.*, c.c_company, c.c_logo, c.c_industry, s.SavedDate FROM StudentSavedInternships s INNER JOIN internship i ON s.InternshipId=i.Id INNER JOIN c_registration c ON i.CompanyId=c.CompanyId WHERE (s.StudentEmail='" + studentKey + "' OR s.StudentId IN (SELECT StudentId FROM Students WHERE Email='" + studentKey + "' OR EnrollmentNo='" + studentKey + "')) AND (c.IsBlocked=0 OR c.IsBlocked IS NULL) AND (c.Status!='Blocked' OR c.Status IS NULL) ORDER BY s.SaveId DESC", con);
+            da = new SqlDataAdapter("SELECT i.*, c.c_company, c.c_logo, c.c_industry, s.SavedDate FROM StudentSavedInternships s INNER JOIN internship i ON s.InternshipId=i.Id INNER JOIN c_registration c ON i.CompanyId=c.CompanyId WHERE (s.StudentEmail='" + Session["student"].ToString() + "' OR s.StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "')) AND (c.IsBlocked=0 OR c.IsBlocked IS NULL) AND (c.Status!='Blocked' OR c.Status IS NULL) ORDER BY s.SaveId DESC", con);
             ds = new DataSet();
             da.Fill(ds);
 
@@ -78,30 +76,6 @@ namespace asp.net
                 LoadSavedInternships();
             }
         }
-        //LOGO
-        public string GetCompanyLogo(object logoObj)
-        {
-            if (logoObj == null || logoObj == DBNull.Value)
-                return ResolveUrl("~/CompanyUploads/default-company.png");
-
-            string logo = logoObj.ToString().Trim();
-            if (string.IsNullOrEmpty(logo))
-                return ResolveUrl("~/CompanyUploads/default-company.png");
-
-            if (logo.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || logo.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-                return logo;
-
-            if (logo.StartsWith("~"))
-                return ResolveUrl(logo);
-
-            if (logo.StartsWith("/"))
-                return ResolveUrl("~" + logo);
-
-            if (System.IO.File.Exists(Server.MapPath("~/company_images/" + logo)))
-                return ResolveUrl("~/company_images/" + logo);
-            if (System.IO.File.Exists(Server.MapPath("~/compnay_images/" + logo)))
-                return ResolveUrl("~/compnay_images/" + logo);
-            return ResolveUrl("~/CompanyUploads/" + logo);
-        }
+      
     }
 }

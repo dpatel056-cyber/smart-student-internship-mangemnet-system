@@ -32,23 +32,17 @@ namespace asp.net
         {
             pub = new publicpanel();
             DataTable dt = pub.select_internship().Tables[0];
-
             lblTotalInternships.Text = "Total Internships: " + dt.Rows.Count;
-
             int page = Convert.ToInt32(ViewState["page"]);
             int totalPages = (int)Math.Ceiling(dt.Rows.Count / 12.0);
-
             if (totalPages > 0 && page >= totalPages)
             {
                 page = totalPages - 1;
                 ViewState["page"] = page;
             }
-
             DataListPublicInternships.DataSource = pub.Internship_pagination(dt, page);
             DataListPublicInternships.DataBind();
-
             lblPages.Text = "Page " + (page + 1) + " of " + totalPages;
-
             btnPrevious.Enabled = page > 0;
             btnNext.Enabled = page < totalPages - 1;
         }
@@ -56,16 +50,11 @@ namespace asp.net
         void filtergrid(DataTable dt)
         {
             ViewState["page"] = 0;
-
             lblTotalInternships.Text = "Total Internships: " + (dt != null ? dt.Rows.Count : 0);
-
             DataListPublicInternships.DataSource = pub.Internship_pagination(dt, 0);
             DataListPublicInternships.DataBind();
-
             int totalPages = dt != null ? (int)Math.Ceiling(dt.Rows.Count / 12.0) : 0;
-
             lblPages.Text = "Page 1 of " + (totalPages > 0 ? totalPages : 1);
-
             btnPrevious.Enabled = false;
             btnNext.Enabled = totalPages > 1;
         }

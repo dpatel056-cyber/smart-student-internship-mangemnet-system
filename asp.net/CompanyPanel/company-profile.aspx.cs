@@ -33,6 +33,11 @@ namespace asp.net
                 if (!IsPostBack)
                 {
                     companyfilldata();
+                    totalinternships();
+                    activeinternships();
+                    totalapplications();
+                    studentsselected();
+                    completedinternships();
                 }
             }
             else
@@ -109,41 +114,58 @@ namespace asp.net
                 lblPreferredCourses.Text = ds.Tables[0].Rows[0]["c_preferred_courses"].ToString();
                 lblPreferredSemester.Text = ds.Tables[0].Rows[0]["c_preferred_semester"].ToString();
                 lblMinimumCGPA.Text = ds.Tables[0].Rows[0]["c_min_cgpa"].ToString();
-                // ==========================================
-                // DYNAMIC STAT CARDS & ACTIVITY CALCULATIONS
-                // ==========================================
 
-                // 1. Total Internships
-                cmd = new SqlCommand("SELECT COUNT(*) FROM internship WHERE CompanyId = " + cId, con);
-                string totalInternships = cmd.ExecuteScalar().ToString();
-                lblTotalInternships.Text = totalInternships;
-                lblActivityTotalPosts.Text = totalInternships;
 
-                // 2. Active Internships
-                cmd = new SqlCommand("SELECT COUNT(*) FROM internship WHERE CompanyId = " + cId + " AND (Status IS NULL OR (Status <> 'Inactive' AND Status <> 'Draft'))", con);
-                string activeInternships = cmd.ExecuteScalar().ToString();
-                lblActiveInternships.Text = activeInternships;
-                lblActivityActiveInternships.Text = activeInternships;
-
-                // 3. Total Applications
-                cmd = new SqlCommand("SELECT COUNT(*) FROM StudentApplications a INNER JOIN internship i ON a.InternshipId = i.Id WHERE i.CompanyId = " + cId, con);
-                string totalApps = cmd.ExecuteScalar().ToString();
-                lblTotalApplications.Text = totalApps;
-                lblActivityTotalApplications.Text = totalApps;
-
-                // 4. Students Selected
-                cmd = new SqlCommand("SELECT COUNT(*) FROM StudentApplications a INNER JOIN internship i ON a.InternshipId = i.Id WHERE i.CompanyId = " + cId + " AND (a.Status = 'Selected' OR a.Status = 'Accepted')", con);
-                string selectedCount = cmd.ExecuteScalar().ToString();
-                lblStudentsSelected.Text = selectedCount;
-                lblActivityStudentsSelected.Text = selectedCount;
-
-                // 5. Current Interns
-                lblActivityCurrentInterns.Text = selectedCount;
-
-                // 6. Completed Internships
-                cmd = new SqlCommand("SELECT COUNT(*) FROM CompanyCertificates WHERE CompanyId = " + cId, con);
-                lblActivityCompletedInternships.Text = cmd.ExecuteScalar().ToString();
             }
+        }
+
+        // ==========================================
+        // DYNAMIC STAT CARDS (ADMIN DASHBOARD STYLE)
+        // ==========================================
+
+        void totalinternships()
+        {
+            getcon();
+            cmd = new SqlCommand("select count(*) from internship where CompanyId=(select CompanyId from c_registration where c_email='" + Session["company"] + "')", con);
+            int i = Convert.ToInt16(cmd.ExecuteScalar());
+            lblTotalInternships.Text = i.ToString();
+            lblActivityTotalPosts.Text = i.ToString();
+        }
+
+        void activeinternships()
+        {
+            getcon();
+            cmd = new SqlCommand("select count(*) from internship where (Status is null or (Status != 'Inactive' and Status != 'Draft' and Status != 'Closed' and Status != 'Expired')) and CompanyId=(select CompanyId from c_registration where c_email='" + Session["company"] + "')", con);
+            int i = Convert.ToInt16(cmd.ExecuteScalar());
+            lblActiveInternships.Text = i.ToString();
+            lblActivityActiveInternships.Text = i.ToString();
+        }
+
+        void totalapplications()
+        {
+            getcon();
+            cmd = new SqlCommand("select count(*) from StudentApplications where InternshipId in (select Id from internship where CompanyId=(select CompanyId from c_registration where c_email='" + Session["company"] + "'))", con);
+            int i = Convert.ToInt16(cmd.ExecuteScalar());
+            lblTotalApplications.Text = i.ToString();
+            lblActivityTotalApplications.Text = i.ToString();
+        }
+
+        void studentsselected()
+        {
+            getcon();
+            cmd = new SqlCommand("select count(*) from StudentApplications where (Status='Selected' or Status='Accepted') and InternshipId in (select Id from internship where CompanyId=(select CompanyId from c_registration where c_email='" + Session["company"] + "'))", con);
+            int i = Convert.ToInt16(cmd.ExecuteScalar());
+            lblStudentsSelected.Text = i.ToString();
+            lblActivityStudentsSelected.Text = i.ToString();
+            lblActivityCurrentInterns.Text = i.ToString();
+        }
+
+        void completedinternships()
+        {
+            getcon();
+            cmd = new SqlCommand("select count(*) from CompanyCertificates where CompanyId=(select CompanyId from c_registration where c_email='" + Session["company"] + "')", con);
+            int i = Convert.ToInt16(cmd.ExecuteScalar());
+            lblActivityCompletedInternships.Text = i.ToString();
         }
     }
 }

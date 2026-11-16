@@ -60,18 +60,7 @@ namespace asp.net
         public DataSet select_students_by_status(string st)
         {
             getcon();
-            if (st == "All")
-            {
-                da = new SqlDataAdapter("SELECT * FROM Students ORDER BY StudentId DESC", con);
-            }
-            else if (st == "Blocked")
-            {
-                da = new SqlDataAdapter("SELECT * FROM Students WHERE IsBlocked = 1 ORDER BY StudentId DESC", con);
-            }
-            else // Active
-            {
-                da = new SqlDataAdapter("SELECT * FROM Students WHERE (IsBlocked = 0 OR IsBlocked IS NULL) ORDER BY StudentId DESC", con);
-            }
+            da = new SqlDataAdapter("SELECT * FROM Students ORDER BY StudentId DESC", con);
             ds = new DataSet();
             da.Fill(ds);
             return ds;
@@ -131,18 +120,7 @@ namespace asp.net
         public DataSet select_companies_by_status(string status)
         {
             getcon();
-            if (status == "All")
-            {
-                da = new SqlDataAdapter("SELECT * FROM c_registration ORDER BY CompanyId DESC", con);
-            }
-            else if (status == "Blocked")
-            {
-                da = new SqlDataAdapter("SELECT * FROM c_registration WHERE (IsBlocked = 1 OR Status = 'Blocked') ORDER BY CompanyId DESC", con);
-            }
-            else // Active
-            {
-                da = new SqlDataAdapter("SELECT * FROM c_registration WHERE ((IsBlocked = 0 OR IsBlocked IS NULL) AND (Status != 'Blocked' OR Status IS NULL)) ORDER BY CompanyId DESC", con);
-            }
+            da = new SqlDataAdapter("SELECT * FROM c_registration ORDER BY CompanyId DESC", con);
             ds = new DataSet();
             da.Fill(ds);
             return ds;
@@ -378,7 +356,53 @@ namespace asp.net
             return ds;
         }
 
-        // ==================== 9. PAGINATION ====================
+           // ==================== 9. OFFER LETTERS ====================
+        // Select all offer letters
+        public DataSet select_offer_letters()
+        {
+            getcon();
+            da = new SqlDataAdapter("SELECT o.OfferId, o.ApplicationId, o.InternshipId, o.StudentId, o.CompanyId, o.OfferTitle, o.Stipend, o.JoiningDate, o.OfferLetterPath, o.Status, o.IssuedDate, o.Duration, o.WorkLocation, o.ValidTill, o.AdditionalNotes, ISNULL(s.FullName, 'Student #' + CAST(o.StudentId AS VARCHAR)) AS FullName, ISNULL(s.Email, 'N/A') AS StudentEmail, ISNULL(s.ContactNo, 'N/A') AS StudentContact, ISNULL(s.College, 'N/A') AS College, ISNULL(c.c_company, 'Company #' + CAST(o.CompanyId AS VARCHAR)) AS c_company, c.c_logo, c.c_location, ISNULL(c.c_email, 'N/A') AS CompanyEmail, ISNULL(c.c_contact, 'N/A') AS CompanyContact, ISNULL(c.c_website, 'N/A') AS CompanyWebsite, ISNULL(c.c_hr_name, 'HR Department') AS CompanyHrName, ISNULL(i.InternshipTitle, o.OfferTitle) AS InternshipTitle FROM CompanyOfferLetters o LEFT JOIN Students s ON o.StudentId = s.StudentId LEFT JOIN c_registration c ON o.CompanyId = c.CompanyId LEFT JOIN internship i ON o.InternshipId = i.Id ORDER BY o.OfferId DESC", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+        }
+
+        // Search offer letters by keyword
+        public DataSet search_offer_letters(string nm)
+        {
+            getcon();
+            da = new SqlDataAdapter("SELECT o.OfferId, o.ApplicationId, o.InternshipId, o.StudentId, o.CompanyId, o.OfferTitle, o.Stipend, o.JoiningDate, o.OfferLetterPath, o.Status, o.IssuedDate, o.Duration, o.WorkLocation, o.ValidTill, o.AdditionalNotes, ISNULL(s.FullName, 'Student #' + CAST(o.StudentId AS VARCHAR)) AS FullName, ISNULL(s.Email, 'N/A') AS StudentEmail, ISNULL(s.ContactNo, 'N/A') AS StudentContact, ISNULL(s.College, 'N/A') AS College, ISNULL(c.c_company, 'Company #' + CAST(o.CompanyId AS VARCHAR)) AS c_company, c.c_logo, c.c_location, ISNULL(c.c_email, 'N/A') AS CompanyEmail, ISNULL(c.c_contact, 'N/A') AS CompanyContact, ISNULL(c.c_website, 'N/A') AS CompanyWebsite, ISNULL(c.c_hr_name, 'HR Department') AS CompanyHrName, ISNULL(i.InternshipTitle, o.OfferTitle) AS InternshipTitle FROM CompanyOfferLetters o LEFT JOIN Students s ON o.StudentId = s.StudentId LEFT JOIN c_registration c ON o.CompanyId = c.CompanyId LEFT JOIN internship i ON o.InternshipId = i.Id WHERE (o.OfferTitle LIKE '%" + nm + "%' OR s.FullName LIKE '%" + nm + "%' OR s.Email LIKE '%" + nm + "%' OR c.c_company LIKE '%" + nm + "%' OR o.Status LIKE '%" + nm + "%' OR o.Stipend LIKE '%" + nm + "%' OR i.InternshipTitle LIKE '%" + nm + "%' OR s.College LIKE '%" + nm + "%' OR o.WorkLocation LIKE '%" + nm + "%') ORDER BY o.OfferId DESC", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+        }
+
+        // Select offer letters by status
+        public DataSet select_offer_letters_by_status(string st)
+        {
+            getcon();
+            if (st == "All")
+            {
+                da = new SqlDataAdapter("SELECT o.OfferId, o.ApplicationId, o.InternshipId, o.StudentId, o.CompanyId, o.OfferTitle, o.Stipend, o.JoiningDate, o.OfferLetterPath, o.Status, o.IssuedDate, o.Duration, o.WorkLocation, o.ValidTill, o.AdditionalNotes, ISNULL(s.FullName, 'Student #' + CAST(o.StudentId AS VARCHAR)) AS FullName, ISNULL(s.Email, 'N/A') AS StudentEmail, ISNULL(s.ContactNo, 'N/A') AS StudentContact, ISNULL(s.College, 'N/A') AS College, ISNULL(c.c_company, 'Company #' + CAST(o.CompanyId AS VARCHAR)) AS c_company, c.c_logo, c.c_location, ISNULL(c.c_email, 'N/A') AS CompanyEmail, ISNULL(c.c_contact, 'N/A') AS CompanyContact, ISNULL(c.c_website, 'N/A') AS CompanyWebsite, ISNULL(c.c_hr_name, 'HR Department') AS CompanyHrName, ISNULL(i.InternshipTitle, o.OfferTitle) AS InternshipTitle FROM CompanyOfferLetters o LEFT JOIN Students s ON o.StudentId = s.StudentId LEFT JOIN c_registration c ON o.CompanyId = c.CompanyId LEFT JOIN internship i ON o.InternshipId = i.Id ORDER BY o.OfferId DESC", con);
+            }
+            else if (st == "Offered")
+            {
+                da = new SqlDataAdapter("SELECT o.OfferId, o.ApplicationId, o.InternshipId, o.StudentId, o.CompanyId, o.OfferTitle, o.Stipend, o.JoiningDate, o.OfferLetterPath, o.Status, o.IssuedDate, o.Duration, o.WorkLocation, o.ValidTill, o.AdditionalNotes, ISNULL(s.FullName, 'Student #' + CAST(o.StudentId AS VARCHAR)) AS FullName, ISNULL(s.Email, 'N/A') AS StudentEmail, ISNULL(s.ContactNo, 'N/A') AS StudentContact, ISNULL(s.College, 'N/A') AS College, ISNULL(c.c_company, 'Company #' + CAST(o.CompanyId AS VARCHAR)) AS c_company, c.c_logo, c.c_location, ISNULL(c.c_email, 'N/A') AS CompanyEmail, ISNULL(c.c_contact, 'N/A') AS CompanyContact, ISNULL(c.c_website, 'N/A') AS CompanyWebsite, ISNULL(c.c_hr_name, 'HR Department') AS CompanyHrName, ISNULL(i.InternshipTitle, o.OfferTitle) AS InternshipTitle FROM CompanyOfferLetters o LEFT JOIN Students s ON o.StudentId = s.StudentId LEFT JOIN c_registration c ON o.CompanyId = c.CompanyId LEFT JOIN internship i ON o.InternshipId = i.Id WHERE (o.Status = 'Offered' OR o.Status = 'Pending') ORDER BY o.OfferId DESC", con);
+            }
+            else if (st == "Rejected")
+            {
+                da = new SqlDataAdapter("SELECT o.OfferId, o.ApplicationId, o.InternshipId, o.StudentId, o.CompanyId, o.OfferTitle, o.Stipend, o.JoiningDate, o.OfferLetterPath, o.Status, o.IssuedDate, o.Duration, o.WorkLocation, o.ValidTill, o.AdditionalNotes, ISNULL(s.FullName, 'Student #' + CAST(o.StudentId AS VARCHAR)) AS FullName, ISNULL(s.Email, 'N/A') AS StudentEmail, ISNULL(s.ContactNo, 'N/A') AS StudentContact, ISNULL(s.College, 'N/A') AS College, ISNULL(c.c_company, 'Company #' + CAST(o.CompanyId AS VARCHAR)) AS c_company, c.c_logo, c.c_location, ISNULL(c.c_email, 'N/A') AS CompanyEmail, ISNULL(c.c_contact, 'N/A') AS CompanyContact, ISNULL(c.c_website, 'N/A') AS CompanyWebsite, ISNULL(c.c_hr_name, 'HR Department') AS CompanyHrName, ISNULL(i.InternshipTitle, o.OfferTitle) AS InternshipTitle FROM CompanyOfferLetters o LEFT JOIN Students s ON o.StudentId = s.StudentId LEFT JOIN c_registration c ON o.CompanyId = c.CompanyId LEFT JOIN internship i ON o.InternshipId = i.Id WHERE (o.Status = 'Rejected' OR o.Status = 'Declined' OR o.Status = 'Withdrawn') ORDER BY o.OfferId DESC", con);
+            }
+            else
+            {
+                da = new SqlDataAdapter("SELECT o.OfferId, o.ApplicationId, o.InternshipId, o.StudentId, o.CompanyId, o.OfferTitle, o.Stipend, o.JoiningDate, o.OfferLetterPath, o.Status, o.IssuedDate, o.Duration, o.WorkLocation, o.ValidTill, o.AdditionalNotes, ISNULL(s.FullName, 'Student #' + CAST(o.StudentId AS VARCHAR)) AS FullName, ISNULL(s.Email, 'N/A') AS StudentEmail, ISNULL(s.ContactNo, 'N/A') AS StudentContact, ISNULL(s.College, 'N/A') AS College, ISNULL(c.c_company, 'Company #' + CAST(o.CompanyId AS VARCHAR)) AS c_company, c.c_logo, c.c_location, ISNULL(c.c_email, 'N/A') AS CompanyEmail, ISNULL(c.c_contact, 'N/A') AS CompanyContact, ISNULL(c.c_website, 'N/A') AS CompanyWebsite, ISNULL(c.c_hr_name, 'HR Department') AS CompanyHrName, ISNULL(i.InternshipTitle, o.OfferTitle) AS InternshipTitle FROM CompanyOfferLetters o LEFT JOIN Students s ON o.StudentId = s.StudentId LEFT JOIN c_registration c ON o.CompanyId = c.CompanyId LEFT JOIN internship i ON o.InternshipId = i.Id WHERE o.Status = '" + st + "' ORDER BY o.OfferId DESC", con);
+            }
+            ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+        }
+
+        // ==================== 10. PAGINATION ====================
         public DataTable student_pagination(DataTable dt, int page)
         {
             DataTable dt2 = dt.Clone();
@@ -465,51 +489,6 @@ namespace asp.net
                 dt2.ImportRow(dt.Rows[i]);
             }
             return dt2;
-        }
-        // ==================== 10. OFFER LETTERS ====================
-        // Select all offer letters
-        public DataSet select_offer_letters()
-        {
-            getcon();
-            da = new SqlDataAdapter("SELECT o.OfferId, o.ApplicationId, o.InternshipId, o.StudentId, o.CompanyId, o.OfferTitle, o.Stipend, o.JoiningDate, o.OfferLetterPath, o.Status, o.IssuedDate, o.Duration, o.WorkLocation, o.ValidTill, o.AdditionalNotes, ISNULL(s.FullName, 'Student #' + CAST(o.StudentId AS VARCHAR)) AS FullName, ISNULL(s.Email, 'N/A') AS StudentEmail, ISNULL(s.ContactNo, 'N/A') AS StudentContact, ISNULL(s.College, 'N/A') AS College, ISNULL(c.c_company, 'Company #' + CAST(o.CompanyId AS VARCHAR)) AS c_company, c.c_logo, c.c_location, ISNULL(c.c_email, 'N/A') AS CompanyEmail, ISNULL(c.c_contact, 'N/A') AS CompanyContact, ISNULL(c.c_website, 'N/A') AS CompanyWebsite, ISNULL(c.c_hr_name, 'HR Department') AS CompanyHrName, ISNULL(i.InternshipTitle, o.OfferTitle) AS InternshipTitle FROM CompanyOfferLetters o LEFT JOIN Students s ON o.StudentId = s.StudentId LEFT JOIN c_registration c ON o.CompanyId = c.CompanyId LEFT JOIN internship i ON o.InternshipId = i.Id ORDER BY o.OfferId DESC", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            return ds;
-        }
-
-        // Search offer letters by keyword
-        public DataSet search_offer_letters(string nm)
-        {
-            getcon();
-            da = new SqlDataAdapter("SELECT o.OfferId, o.ApplicationId, o.InternshipId, o.StudentId, o.CompanyId, o.OfferTitle, o.Stipend, o.JoiningDate, o.OfferLetterPath, o.Status, o.IssuedDate, o.Duration, o.WorkLocation, o.ValidTill, o.AdditionalNotes, ISNULL(s.FullName, 'Student #' + CAST(o.StudentId AS VARCHAR)) AS FullName, ISNULL(s.Email, 'N/A') AS StudentEmail, ISNULL(s.ContactNo, 'N/A') AS StudentContact, ISNULL(s.College, 'N/A') AS College, ISNULL(c.c_company, 'Company #' + CAST(o.CompanyId AS VARCHAR)) AS c_company, c.c_logo, c.c_location, ISNULL(c.c_email, 'N/A') AS CompanyEmail, ISNULL(c.c_contact, 'N/A') AS CompanyContact, ISNULL(c.c_website, 'N/A') AS CompanyWebsite, ISNULL(c.c_hr_name, 'HR Department') AS CompanyHrName, ISNULL(i.InternshipTitle, o.OfferTitle) AS InternshipTitle FROM CompanyOfferLetters o LEFT JOIN Students s ON o.StudentId = s.StudentId LEFT JOIN c_registration c ON o.CompanyId = c.CompanyId LEFT JOIN internship i ON o.InternshipId = i.Id WHERE (o.OfferTitle LIKE '%" + nm + "%' OR s.FullName LIKE '%" + nm + "%' OR s.Email LIKE '%" + nm + "%' OR c.c_company LIKE '%" + nm + "%' OR o.Status LIKE '%" + nm + "%' OR o.Stipend LIKE '%" + nm + "%' OR i.InternshipTitle LIKE '%" + nm + "%' OR s.College LIKE '%" + nm + "%' OR o.WorkLocation LIKE '%" + nm + "%') ORDER BY o.OfferId DESC", con);
-            ds = new DataSet();
-            da.Fill(ds);
-            return ds;
-        }
-
-        // Select offer letters by status
-        public DataSet select_offer_letters_by_status(string st)
-        {
-            getcon();
-            if (st == "All")
-            {
-                da = new SqlDataAdapter("SELECT o.OfferId, o.ApplicationId, o.InternshipId, o.StudentId, o.CompanyId, o.OfferTitle, o.Stipend, o.JoiningDate, o.OfferLetterPath, o.Status, o.IssuedDate, o.Duration, o.WorkLocation, o.ValidTill, o.AdditionalNotes, ISNULL(s.FullName, 'Student #' + CAST(o.StudentId AS VARCHAR)) AS FullName, ISNULL(s.Email, 'N/A') AS StudentEmail, ISNULL(s.ContactNo, 'N/A') AS StudentContact, ISNULL(s.College, 'N/A') AS College, ISNULL(c.c_company, 'Company #' + CAST(o.CompanyId AS VARCHAR)) AS c_company, c.c_logo, c.c_location, ISNULL(c.c_email, 'N/A') AS CompanyEmail, ISNULL(c.c_contact, 'N/A') AS CompanyContact, ISNULL(c.c_website, 'N/A') AS CompanyWebsite, ISNULL(c.c_hr_name, 'HR Department') AS CompanyHrName, ISNULL(i.InternshipTitle, o.OfferTitle) AS InternshipTitle FROM CompanyOfferLetters o LEFT JOIN Students s ON o.StudentId = s.StudentId LEFT JOIN c_registration c ON o.CompanyId = c.CompanyId LEFT JOIN internship i ON o.InternshipId = i.Id ORDER BY o.OfferId DESC", con);
-            }
-            else if (st == "Offered")
-            {
-                da = new SqlDataAdapter("SELECT o.OfferId, o.ApplicationId, o.InternshipId, o.StudentId, o.CompanyId, o.OfferTitle, o.Stipend, o.JoiningDate, o.OfferLetterPath, o.Status, o.IssuedDate, o.Duration, o.WorkLocation, o.ValidTill, o.AdditionalNotes, ISNULL(s.FullName, 'Student #' + CAST(o.StudentId AS VARCHAR)) AS FullName, ISNULL(s.Email, 'N/A') AS StudentEmail, ISNULL(s.ContactNo, 'N/A') AS StudentContact, ISNULL(s.College, 'N/A') AS College, ISNULL(c.c_company, 'Company #' + CAST(o.CompanyId AS VARCHAR)) AS c_company, c.c_logo, c.c_location, ISNULL(c.c_email, 'N/A') AS CompanyEmail, ISNULL(c.c_contact, 'N/A') AS CompanyContact, ISNULL(c.c_website, 'N/A') AS CompanyWebsite, ISNULL(c.c_hr_name, 'HR Department') AS CompanyHrName, ISNULL(i.InternshipTitle, o.OfferTitle) AS InternshipTitle FROM CompanyOfferLetters o LEFT JOIN Students s ON o.StudentId = s.StudentId LEFT JOIN c_registration c ON o.CompanyId = c.CompanyId LEFT JOIN internship i ON o.InternshipId = i.Id WHERE (o.Status = 'Offered' OR o.Status = 'Pending') ORDER BY o.OfferId DESC", con);
-            }
-            else if (st == "Rejected")
-            {
-                da = new SqlDataAdapter("SELECT o.OfferId, o.ApplicationId, o.InternshipId, o.StudentId, o.CompanyId, o.OfferTitle, o.Stipend, o.JoiningDate, o.OfferLetterPath, o.Status, o.IssuedDate, o.Duration, o.WorkLocation, o.ValidTill, o.AdditionalNotes, ISNULL(s.FullName, 'Student #' + CAST(o.StudentId AS VARCHAR)) AS FullName, ISNULL(s.Email, 'N/A') AS StudentEmail, ISNULL(s.ContactNo, 'N/A') AS StudentContact, ISNULL(s.College, 'N/A') AS College, ISNULL(c.c_company, 'Company #' + CAST(o.CompanyId AS VARCHAR)) AS c_company, c.c_logo, c.c_location, ISNULL(c.c_email, 'N/A') AS CompanyEmail, ISNULL(c.c_contact, 'N/A') AS CompanyContact, ISNULL(c.c_website, 'N/A') AS CompanyWebsite, ISNULL(c.c_hr_name, 'HR Department') AS CompanyHrName, ISNULL(i.InternshipTitle, o.OfferTitle) AS InternshipTitle FROM CompanyOfferLetters o LEFT JOIN Students s ON o.StudentId = s.StudentId LEFT JOIN c_registration c ON o.CompanyId = c.CompanyId LEFT JOIN internship i ON o.InternshipId = i.Id WHERE (o.Status = 'Rejected' OR o.Status = 'Declined' OR o.Status = 'Withdrawn') ORDER BY o.OfferId DESC", con);
-            }
-            else
-            {
-                da = new SqlDataAdapter("SELECT o.OfferId, o.ApplicationId, o.InternshipId, o.StudentId, o.CompanyId, o.OfferTitle, o.Stipend, o.JoiningDate, o.OfferLetterPath, o.Status, o.IssuedDate, o.Duration, o.WorkLocation, o.ValidTill, o.AdditionalNotes, ISNULL(s.FullName, 'Student #' + CAST(o.StudentId AS VARCHAR)) AS FullName, ISNULL(s.Email, 'N/A') AS StudentEmail, ISNULL(s.ContactNo, 'N/A') AS StudentContact, ISNULL(s.College, 'N/A') AS College, ISNULL(c.c_company, 'Company #' + CAST(o.CompanyId AS VARCHAR)) AS c_company, c.c_logo, c.c_location, ISNULL(c.c_email, 'N/A') AS CompanyEmail, ISNULL(c.c_contact, 'N/A') AS CompanyContact, ISNULL(c.c_website, 'N/A') AS CompanyWebsite, ISNULL(c.c_hr_name, 'HR Department') AS CompanyHrName, ISNULL(i.InternshipTitle, o.OfferTitle) AS InternshipTitle FROM CompanyOfferLetters o LEFT JOIN Students s ON o.StudentId = s.StudentId LEFT JOIN c_registration c ON o.CompanyId = c.CompanyId LEFT JOIN internship i ON o.InternshipId = i.Id WHERE o.Status = '" + st + "' ORDER BY o.OfferId DESC", con);
-            }
-            ds = new DataSet();
-            da.Fill(ds);
-            return ds;
         }
 
         public DataTable offer_letter_pagination(DataTable dt, int page)

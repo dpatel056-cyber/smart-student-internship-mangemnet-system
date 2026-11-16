@@ -8,6 +8,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using CrystalDecisions.Web.Design;
 
 namespace asp.net
 {
@@ -18,6 +21,9 @@ namespace asp.net
         DataSet ds;
         SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
+
+        private CrystalDecisions.CrystalReports.Engine.ReportDocument cr = new ReportDocument();
+        static string Crypath = "";
 
         void getcon()
         {
@@ -31,13 +37,10 @@ namespace asp.net
         {
             if (Session["company"] != null)
             {
-                getcon();
-                da = new SqlDataAdapter("select * from c_registration where c_email='" + Session["company"] + "'", con);
-                ds = new DataSet();
-                da.Fill(ds);
                 if (!IsPostBack)
                 {
                     ViewState["page"] = 0;
+                    fillInternships();
                     applicantfillgrid();
                 }
             }
@@ -47,114 +50,158 @@ namespace asp.net
             }
         }
 
-        // Fill GridView with pagination (4 rows per page)
-        void applicantfillgrid()
+        void fillInternships()
         {
-            comp = new CompanyClass();
-            DataTable dt = comp.select_applicants().Tables[0];
-            int page = Convert.ToInt32(ViewState["page"]);
-            int totalPages = (int)Math.Ceiling(dt.Rows.Count / 4.0);
-            if (totalPages > 0 && page >= totalPages)
+            try
             {
-                page = totalPages - 1;
-                ViewState["page"] = page;
+                if (ddlInternshipFilter != null)
+                {
+                    getcon();
+                    da = new SqlDataAdapter("select Id, InternshipTitle from internship where CompanyId=(select CompanyId from c_registration where c_email='" + Session["company"] + "') order by InternshipTitle", con);
+                    DataTable dtInt = new DataTable();
+                    da.Fill(dtInt);
+                    con.Close();
+
+                    ddlInternshipFilter.Items.Clear();
+                    ddlInternshipFilter.Items.Add(new System.Web.UI.WebControls.ListItem("All Internships", ""));
+                    foreach (DataRow row in dtInt.Rows)
+                    {
+                        ddlInternshipFilter.Items.Add(new System.Web.UI.WebControls.ListItem(row["InternshipTitle"].ToString(), row["Id"].ToString()));
+                    }
+                }
             }
-            gvApplicants.DataSource = comp.applicant_pagination(dt, page);
-            gvApplicants.DataBind();
-            lblPages.Text = "Page " + (page + 1) + " of " + (totalPages > 0 ? totalPages : 1);
-            btnPrevious.Enabled = page > 0;
-            btnNext.Enabled = (page + 1) * 4 < dt.Rows.Count;
+            catch
+            {
+                if (con != null && con.State == ConnectionState.Open) con.Close();
+            }
         }
 
-        void filtergrid(DataTable dt)
+        // Fill GridView with search, status, and internship filtering (5 rows per page)
+        void applicantfillgrid()
         {
-            ViewState["page"] = 0;
-            gvApplicants.DataSource = comp.applicant_pagination(dt, 0);
-            gvApplicants.DataBind();
-            int totalPages = dt != null ? (int)Math.Ceiling(dt.Rows.Count / 4.0) : 0;
-            lblPages.Text = "Page 1 of " + (totalPages > 0 ? totalPages : 1);
-            btnPrevious.Enabled = false;
-            btnNext.Enabled = dt != null && dt.Rows.Count > 4;
+            try
+            {
+                comp = new CompanyClass();
+
+                string search = (txtSearch != null) ? txtSearch.Text.Trim() : "";
+                string status = (ddlStatusFilter != null) ? ddlStatusFilter.SelectedValue : "";
+                string internshipId = (ddlInternshipFilter != null && ddlInternshipFilter.SelectedValue != "") ? ddlInternshipFilter.SelectedValue : "";
+
+                string q = "select a.ApplicationId, a.StudentId, a.InternshipId, a.AppliedDate, ISNULL(a.Status, 'Applied') AS Status, ISNULL(a.FullName, s.FullName) AS FullName, ISNULL(a.StudentEmail, s.Email) AS StudentEmail, i.InternshipTitle, ISNULL(s.ProfilePhoto, '~/student_images/default-avatar.png') AS ProfilePhoto from StudentApplications a inner join internship i on a.InternshipId=i.Id inner join c_registration c on i.CompanyId=c.CompanyId left join Students s on a.StudentId=s.StudentId where c.c_email='" + Session["company"] + "'";
+
+                if (!string.IsNullOrEmpty(search))
+                {
+                    q += " and (a.FullName like '%" + search + "%' or s.FullName like '%" + search + "%' or a.StudentEmail like '%" + search + "%' or s.Email like '%" + search + "%' or i.InternshipTitle like '%" + search + "%')";
+                }
+
+                if (!string.IsNullOrEmpty(status))
+                {
+                    if (status == "Applied")
+                    {
+                        q += " and (a.Status='Applied' or a.Status is null or a.Status='' or a.Status not in ('Shortlisted', 'Selected', 'Rejected'))";
+                    }
+                    else
+                    {
+                        q += " and a.Status='" + status + "'";
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(internshipId))
+                {
+                    q += " and i.Id='" + internshipId + "'";
+                }
+
+                q += " order by a.ApplicationId desc";
+
+                getcon();
+                da = new SqlDataAdapter(q, con);
+                DataSet dsApp = new DataSet();
+                da.Fill(dsApp);
+                con.Close();
+
+                DataTable dt = dsApp.Tables[0];
+                int page = Convert.ToInt32(ViewState["page"] ?? 0);
+                int totalPages = (int)Math.Ceiling(dt.Rows.Count / 5.0);
+                if (totalPages > 0 && page >= totalPages)
+                {
+                    page = totalPages - 1;
+                    ViewState["page"] = page;
+                }
+                else if (page < 0)
+                {
+                    page = 0;
+                    ViewState["page"] = 0;
+                }
+
+                DataTable pagedDt = comp.applicant_pagination(dt, page);
+                gvApplicants.DataSource = pagedDt;
+                gvApplicants.DataBind();
+
+                if (pnlNoApplicants != null)
+                {
+                    pnlNoApplicants.Visible = (dt.Rows.Count == 0);
+                }
+                gvApplicants.Visible = (dt.Rows.Count > 0);
+
+                lblPages.Text = "Page " + (page + 1) + " of " + (totalPages > 0 ? totalPages : 1);
+                btnPrevious.Enabled = page > 0;
+                btnNext.Enabled = (page + 1) * 5 < dt.Rows.Count;
+            }
+            catch
+            {
+                if (con != null && con.State == ConnectionState.Open) con.Close();
+            }
         }
 
         // Search Button Click
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            comp = new CompanyClass();
-            filtergrid(comp.search_applicants(txtSearch.Text).Tables[0]);
+            ViewState["page"] = 0;
+            applicantfillgrid();
         }
 
         // Status DropDownList SelectedIndexChanged
         protected void ddlStatusFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comp = new CompanyClass();
-            filtergrid(comp.select_applicants_by_status(ddlStatusFilter.SelectedValue).Tables[0]);
+            ViewState["page"] = 0;
+            applicantfillgrid();
+        }
+
+        // Internship DropDownList SelectedIndexChanged
+        protected void ddlInternshipFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ViewState["page"] = 0;
+            applicantfillgrid();
         }
 
         // Reset Button Click
         protected void btnClearFilters_Click(object sender, EventArgs e)
         {
             txtSearch.Text = "";
-            ddlStatusFilter.SelectedIndex = 0;
+            if (ddlStatusFilter != null && ddlStatusFilter.Items.Count > 0) ddlStatusFilter.SelectedIndex = 0;
+            if (ddlInternshipFilter != null && ddlInternshipFilter.Items.Count > 0) ddlInternshipFilter.SelectedIndex = 0;
             ViewState["page"] = 0;
             applicantfillgrid();
         }
 
-        // Generate Report Button Click (Admin Panel style PDF Export)
+        // Generate Report Button Click (Crystal Report PDF Export)
         protected void btnGenerateReport_Click(object sender, EventArgs e)
         {
             getcon();
+            da = new SqlDataAdapter("select a.ApplicationId as [Application Id], ISNULL(a.FullName, s.FullName) as [Student Name], ISNULL(a.StudentEmail, s.Email) as [Email], i.InternshipTitle as [Internship], c.c_company as [Company], a.AppliedDate as [Applied Date], ISNULL(a.Status, 'Applied') as [Status] from StudentApplications a inner join internship i on a.InternshipId = i.Id inner join c_registration c on i.CompanyId = c.CompanyId left join Students s on a.StudentId = s.StudentId where c.c_email='" + Session["company"] + "' order by a.ApplicationId desc", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            con.Close();
 
-            string q = "select a.ApplicationId as [Application Id], ISNULL(a.FullName, s.FullName) as [Student Name], ISNULL(a.StudentEmail, s.Email) as [Email], " +
-                       "i.InternshipTitle as [Internship], " +
-                       "a.AppliedDate as [Applied Date], ISNULL(a.Status, 'Applied') as [Status] " +
-                       "from StudentApplications a " +
-                       "inner join internship i on a.InternshipId = i.Id " +
-                       "left join Students s on a.StudentId = s.StudentId " +
-                       "where i.CompanyId=(select CompanyId from c_registration where c_email='" + Session["company"] + "') " +
-                       "order by a.ApplicationId desc";
+            string sXml = Server.MapPath("~/company_applicants_report_data.xml");
+            ds.WriteXmlSchema(sXml);
 
-            da = new SqlDataAdapter(q, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            //create pdf document
-            Document pdfdoc = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
-            MemoryStream ms = new MemoryStream();
-            PdfWriter.GetInstance(pdfdoc, ms);
-            pdfdoc.Open();
-
-            //add title
-            pdfdoc.Add(new Paragraph("Company Applicants Report"));
-            pdfdoc.Add(new Paragraph(""));
-
-            //create pdf table
-            PdfPTable pdfPTable = new PdfPTable(dt.Columns.Count);
-            pdfPTable.WidthPercentage = 100;
-
-            //add headers
-            foreach (DataColumn column in dt.Columns)
-            {
-                pdfPTable.AddCell(new Phrase(column.ColumnName));
-            }
-
-            //add data rows
-            foreach (DataRow row in dt.Rows)
-            {
-                foreach (object cell in row.ItemArray)
-                {
-                    pdfPTable.AddCell(new Phrase(cell.ToString()));
-                }
-            }
-            pdfdoc.Add(pdfPTable);
-            pdfdoc.Close();
-
-            //send pdf to browser
-            Response.ContentType = "application/pdf";
-            Response.AddHeader("Content-Disposition", "attachment; filename=CompanyApplicantsReport.pdf");
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            Response.BinaryWrite(ms.ToArray());
-            Response.End();
+            Crypath = Server.MapPath("~/CompanyPanel/company_applicants_report.rpt");
+            cr.Load(Crypath);
+            cr.SetDataSource(ds.Tables[0]);
+            cr.Refresh();
+            CrystalReportViewer1.ReportSource = cr;
+            cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Company Applicants Report");
         }
 
         // Pagination Click Events
@@ -176,6 +223,28 @@ namespace asp.net
             applicantfillgrid();
         }
 
+        protected void gvApplicants_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow && (e.Row.RowState & DataControlRowState.Edit) > 0)
+            {
+                DropDownList ddl = (DropDownList)e.Row.FindControl("DropDownList1");
+                if (ddl != null && e.Row.DataItem != null)
+                {
+                    DataRowView drv = e.Row.DataItem as DataRowView;
+                    if (drv != null && drv["Status"] != DBNull.Value)
+                    {
+                        string currentStatus = drv["Status"].ToString();
+                        System.Web.UI.WebControls.ListItem item = ddl.Items.FindByValue(currentStatus);
+                        if (item != null)
+                        {
+                            ddl.ClearSelection();
+                            item.Selected = true;
+                        }
+                    }
+                }
+            }
+        }
+
         protected void gvApplicants_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvApplicants.EditIndex = -1;
@@ -186,11 +255,15 @@ namespace asp.net
         {
             int appId = Convert.ToInt32(gvApplicants.DataKeys[e.RowIndex].Value.ToString());
             GridViewRow row = (GridViewRow)gvApplicants.Rows[e.RowIndex];
-            DropDownList ddl = (DropDownList)row.FindControl("ddlChangeStatus");
-            string status = ddl.SelectedValue;
-            getcon();
-            cmd = new SqlCommand("update StudentApplications set Status='" + status + "' where ApplicationId='" + appId + "'", con);
-            cmd.ExecuteNonQuery();
+            DropDownList ddlstatus = (DropDownList)row.FindControl("DropDownList1");
+            if (ddlstatus != null)
+            {
+                string status = ddlstatus.SelectedValue;
+                getcon();
+                cmd = new SqlCommand("update StudentApplications set Status='" + status + "' where ApplicationId='" + appId + "'", con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
             gvApplicants.EditIndex = -1;
             applicantfillgrid();
         }
@@ -201,19 +274,20 @@ namespace asp.net
             {
                 return "<span class='badge-status-chip st-applied'>Applied</span>";
             }
-            if (status.ToString() == "Shortlisted")
+            string st = status.ToString();
+            if (st == "Shortlisted")
             {
                 return "<span class='badge-status-chip st-shortlisted'>Shortlisted</span>";
             }
-            if (status.ToString() == "Selected")
+            if (st == "Selected")
             {
                 return "<span class='badge-status-chip st-selected'>Selected</span>";
             }
-            if (status.ToString() == "Rejected")
+            if (st == "Rejected")
             {
                 return "<span class='badge-status-chip st-rejected'>Rejected</span>";
             }
-            return "<span class='badge-status-chip st-applied'>" + status.ToString() + "</span>";
+            return "<span class='badge-status-chip st-applied'>" + st + "</span>";
         }
     }
 }

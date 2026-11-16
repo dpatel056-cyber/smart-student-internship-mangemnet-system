@@ -12,13 +12,7 @@
         </div>
     </div>
     <asp:Label ID="lblMsg" runat="server" Visible="false"></asp:Label>
-    <!-- Filter Bar -->
-    <div class="filter-bar-card">
-        <div style="display:flex; align-items:center; gap:10px;">
-            <span style="font-size:13.5px; font-weight:600; color:#475569;"><i class="fa-solid fa-briefcase" style="color:#2563eb; margin-right:4px;"></i> Internship:</span>
-            <asp:DropDownList ID="ddlInternshipFilter" runat="server" CssClass="form-select-ctrl" AutoPostBack="true" OnSelectedIndexChanged="ddlFilter_SelectedIndexChanged"></asp:DropDownList>
-        </div>
-    </div>
+
     <!-- Shortlisted Panel & GridView -->
     <div class="co-panel" style="margin-bottom: 26px; width: 100%;">
         <div class="co-panel-header">

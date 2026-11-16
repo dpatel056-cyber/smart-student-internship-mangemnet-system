@@ -1,6 +1,6 @@
-<%@ Page Title="Certificates & Documents" Language="C#" MasterPageFile="~/StudentPanel/student.Master" AutoEventWireup="true" CodeBehind="student-certificates.aspx.cs" Inherits="asp.net.student_certificates" %>
+﻿<%@ Page Title="Certificates & Documents" Language="C#" MasterPageFile="~/StudentPanel/student.Master" AutoEventWireup="true" CodeBehind="student-certificates.aspx.cs" Inherits="asp.net.student_certificates" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="../css/student-certificates.css" />
+    <link rel="stylesheet" href="../css/student-certificates.css?v=25" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="scert-u1">
@@ -17,7 +17,7 @@
                     <i class="fa-solid fa-award"></i>
                 </div>
                 <div>
-                    <div class="scert-u4"><asp:Label ID="lblTotalCerts" runat="server">0</asp:Label></div>
+                    <div class="scert-u4"><asp:Label ID="lblTotalCerts" runat="server"></asp:Label></div>
                     <div class="scert-u5">Total Certificates</div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
                 <div>
-                    <div class="scert-u4"><asp:Label ID="lblVerifiedCerts" runat="server">0</asp:Label></div>
+                    <div class="scert-u4"><asp:Label ID="lblVerifiedCerts" runat="server"></asp:Label></div>
                     <div class="scert-u5">Verified &amp; Active</div>
                 </div>
             </div>
@@ -35,19 +35,11 @@
                     <i class="fa-solid fa-building"></i>
                 </div>
                 <div>
-                    <div class="scert-u4"><asp:Label ID="lblCompaniesCount" runat="server">0</asp:Label></div>
+                    <div class="scert-u4"><asp:Label ID="lblCompaniesCount" runat="server"></asp:Label></div>
                     <div class="scert-u5">Partner Companies</div>
                 </div>
             </div>
-            <div class="stat-card-task">
-                <div class="stat-icon-task scert-u8">
-                    <i class="fa-regular fa-calendar-check"></i>
-                </div>
-                <div>
-                    <div class="scert-u9"><asp:Label ID="lblLatestDate" runat="server">-</asp:Label></div>
-                    <div class="scert-u5">Latest Issue Date</div>
-                </div>
-            </div>
+           
         </div>
         <asp:DataList ID="dlCertificates" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" CssClass="doc-cards-grid" OnItemCommand="dlCertificates_ItemCommand">
             <ItemTemplate>
@@ -60,10 +52,6 @@
                                 </div>
                                 <div>
                                     <h3 class="doc-title"><%# Eval("CertificateTitle") %></h3>
-                                    <div class="doc-meta">
-                                        <i class="fa-solid fa-building scert-u2"></i> <%# Eval("c_company") %>
-                                        <%# Eval("c_location") != null && !string.IsNullOrEmpty(Eval("c_location").ToString()) ? "<span class='scert-dot'>&bull;</span> <span class='scert-loc-text'>" + Eval("c_location") + "</span>" : "" %>
-                                    </div>
                                 </div>
                             </div>
                             <div>
@@ -83,11 +71,11 @@
                                 </div>
                                 <div class="cert-subgrid-cell">
                                     <span class="cert-subgrid-lbl"><i class="fa-regular fa-calendar-check scert-u12"></i> Issued Date</span>
-                                    <span class="cert-subgrid-val"><%# FormatDate(Eval("IssueDate")) %></span>
+                                    <span class="cert-subgrid-val"> <%# Convert.ToDateTime(Eval("IssueDate")).ToString("dd MMM yyyy") %></span>
                                 </div>
                                 <div class="cert-subgrid-cell scert-u13">
                                     <span class="cert-subgrid-lbl"><i class="fa-solid fa-star scert-u14"></i> Performance Rating</span>
-                                    <span class="cert-subgrid-val perf"><%# Eval("Performance") != null && !string.IsNullOrEmpty(Eval("Performance").ToString()) ? Eval("Performance") : "Outstanding Performance & Dedication" %></span>
+                                    <span class="cert-subgrid-val perf"><%# Eval("Performance") %></span>
                                 </div>
                             </div>
                         </div>

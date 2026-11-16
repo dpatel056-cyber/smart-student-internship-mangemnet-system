@@ -100,7 +100,6 @@ namespace asp.net.css
                 page = totalPages - 1;
                 ViewState["page"] = page;
             }
-
             dlInterviews.DataSource = admin.interview_pagination(dt, page);
             dlInterviews.DataBind();
             lblPages.Text = "Page " + (page + 1) + " of " + (totalPages > 0 ? totalPages : 1);
@@ -162,12 +161,15 @@ namespace asp.net.css
         public string GetStatusBadge(object status)
         {
             string st = Convert.ToString(status);
+
             if (st == "Completed")
-
+            {
                 return "<span class='status-completed'><i class='fa-solid fa-circle-check'></i> Completed</span>";
+            }
             if (st == "Cancelled")
-
+            {
                 return "<span class='status-cancelled'><i class='fa-solid fa-ban'></i> Cancelled</span>";
+            }
             return "<span class='status-scheduled'><i class='fa-solid fa-calendar-check'></i> Scheduled</span>";
         }
 
@@ -228,8 +230,7 @@ namespace asp.net.css
             //Response.End();
 
             getcon();
-            string q = "select civ.InterviewId as [Interview Id], s.FullName as [Student Name], c.c_company as [Company], i.InternshipTitle as [Internship], civ.InterviewDate as [Date], civ.InterviewTime as [Time], civ.InterviewType as [Type], ISNULL(civ.Status, 'Scheduled') as [Status] from CompanyInterviews civ inner join Students s on civ.StudentId = s.StudentId inner join internship i on civ.InternshipId = i.Id inner join c_registration c on civ.CompanyId = c.CompanyId order by civ.InterviewId desc";
-            da = new SqlDataAdapter(q, con);
+            da = new SqlDataAdapter("select civ.InterviewId as [Interview Id], s.FullName as [Student Name], c.c_company as [Company], i.InternshipTitle as [Internship], civ.InterviewDate as [Date], civ.InterviewTime as [Time], civ.InterviewType as [Type], ISNULL(civ.Status, 'Scheduled') as [Status] from CompanyInterviews civ inner join Students s on civ.StudentId = s.StudentId inner join internship i on civ.InternshipId = i.Id inner join c_registration c on civ.CompanyId = c.CompanyId order by civ.InterviewId desc", con);
             ds = new DataSet();
             da.Fill(ds);
             string s = Server.MapPath("~/admin_interview_report_data.xml");

@@ -709,3 +709,13 @@
                 transform: translateX(-3px);
                 box-shadow: 0 4px 12px rgba(37,99,235,.1);
             }
+
+        .profile-photo span,
+        .profile-photo span img,
+        .student-profile-photo-img {
+            width: 105px !important;
+            height: 105px !important;
+            border-radius: 50% !important;
+            object-fit: cover !important;
+            display: block !important;
+        }
