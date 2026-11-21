@@ -119,5 +119,17 @@ namespace asp.net
             ViewState["page"] = Convert.ToInt32(ViewState["page"]) + 1;
             fillgrid();
         }
+
+        public string GetPaymentStatusBadge(object paymentStatusObj)
+        {
+            if (paymentStatusObj != null && paymentStatusObj.ToString().ToLower() == "unpaid")
+            {
+                return "<span class='badge-unpaid'>Unpaid</span>";
+            }
+            else
+            {
+                return "<span class='badge-paid'>" + paymentStatusObj.ToString() + "</span>";
+            }
+        }
     }
 }

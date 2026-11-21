@@ -6,12 +6,12 @@
 </asp:Content>
 <asp:Content ID="ContentMain" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- Page Header (Identical to Company Dashboard with student actions) -->
-    <div  class="sdash-u1">
+    <div class="sdash-u1">
         <div>
-            <h1  class="sdash-u2">Dashboard</h1>
-            <p  class="sdash-u3">Welcome back, <asp:Label ID="litWelcomeName" runat="server" Text="Student" />! Here's your internship & career progress overview.</p>
+            <h1 class="sdash-u2">Dashboard</h1>
+            <p class="sdash-u3">Welcome back, <asp:Label ID="litWelcomeName" runat="server" Text="Student" />! Here's your internship & career progress overview.</p>
         </div>
-        <div  class="sdash-u4">
+        <div class="sdash-u4">
             <a href="<%= ResolveUrl("~/StudentPanel/student-internships.aspx") %>"  class="sdash-nav-btn-1">
                 <i class="fa-solid fa-magnifying-glass"></i> Browse Internships
             </a>
@@ -21,9 +21,9 @@
         </div>
     </div>
     <!-- 8 Top KPI Stat Cards Grid (Exactly same layout & styling as Company Panel `sims-stat-grid-v2`) -->
-    <div class="sims-stat-grid-v2 sdash-u5" >
+    <div class="sims-stat-grid-v2 sdash-u5">
         <!-- Card 1: Total Applied -->
-        <a href="student-my-applications.aspx" class="sims-stat-card-v2 sdash-u6" >
+        <a href="student-my-applications.aspx" class="sims-stat-card-v2 sdash-u6">
             <div class="sims-stat-icon-v2 sims-bg-blue">
                 <i class="fa-solid fa-paper-plane"></i>
             </div>
@@ -33,7 +33,7 @@
             </div>
         </a>
         <!-- Card 2: Under Review / Pending -->
-        <a href="student-my-applications.aspx" class="sims-stat-card-v2 sdash-u6" >
+        <a href="student-my-applications.aspx" class="sims-stat-card-v2 sdash-u6">
             <div class="sims-stat-icon-v2 sims-bg-orange">
                 <i class="fa-solid fa-clock"></i>
             </div>
@@ -43,7 +43,7 @@
             </div>
         </a>
         <!-- Card 3: Shortlisted -->
-        <a href="student-my-applications.aspx" class="sims-stat-card-v2 sdash-u6" >
+        <a href="student-my-applications.aspx" class="sims-stat-card-v2 sdash-u6">
             <div class="sims-stat-icon-v2 sims-bg-purple">
                 <i class="fa-solid fa-star"></i>
             </div>
@@ -53,7 +53,7 @@
             </div>
         </a>
         <!-- Card 4: Selected / Offers -->
-        <a href="student-my-applications.aspx" class="sims-stat-card-v2 sdash-u6" >
+        <a href="student-my-applications.aspx" class="sims-stat-card-v2 sdash-u6">
             <div class="sims-stat-icon-v2 sims-bg-green">
                 <i class="fa-solid fa-user-check"></i>
             </div>
@@ -63,7 +63,7 @@
             </div>
         </a>
         <!-- Card 5: Interviews Scheduled -->
-        <a href="student-interviews.aspx" class="sims-stat-card-v2 sdash-u6" >
+        <a href="student-interviews.aspx" class="sims-stat-card-v2 sdash-u6">
             <div class="sims-stat-icon-v2 sims-bg-yellow">
                 <i class="fa-solid fa-calendar-check"></i>
             </div>
@@ -73,7 +73,7 @@
             </div>
         </a>
         <!-- Card 6: Offers Received -->
-        <a href="student-offer-letters.aspx" class="sims-stat-card-v2 sdash-u6" >
+        <a href="student-offer-letters.aspx" class="sims-stat-card-v2 sdash-u6">
             <div class="sims-stat-icon-v2 sims-bg-purple-light">
                 <i class="fa-solid fa-file-signature"></i>
             </div>
@@ -83,7 +83,7 @@
             </div>
         </a>
         <!-- Card 7: Assigned Tasks / Quizzes -->
-        <a href="student-tasks.aspx" class="sims-stat-card-v2 sdash-u6" >
+        <a href="student-tasks.aspx" class="sims-stat-card-v2 sdash-u6">
             <div class="sims-stat-icon-v2 sims-bg-teal">
                 <i class="fa-solid fa-list-check"></i>
             </div>
@@ -93,7 +93,7 @@
             </div>
         </a>
         <!-- Card 8: Saved / Bookmarked Internships -->
-        <a href="student-saved-internships.aspx" class="sims-stat-card-v2 sdash-u6" >
+        <a href="student-saved-internships.aspx" class="sims-stat-card-v2 sdash-u6">
             <div class="sims-stat-icon-v2 sims-bg-pink">
                 <i class="fa-solid fa-bookmark"></i>
             </div>
@@ -202,14 +202,14 @@
         </div>
     </div>
     <!-- ===================== RECENT APPLICATIONS (FULL WIDTH TABLE) ===================== -->
-    <div class="co-panel sdash-u11" >
+    <div class="co-panel sdash-u11">
         <div class="co-panel-header">
-            <h3><i class="fa-solid fa-file-lines sdash-u12" ></i> My Recent Applications</h3>
+            <h3><i class="fa-solid fa-file-lines sdash-u12"></i> My Recent Applications</h3>
             <a href="<%= ResolveUrl("~/StudentPanel/student-my-applications.aspx") %>"  class="sdash-nav-btn-3">
-                View All <i class="fa-solid fa-arrow-right sdash-u13" ></i>
+                View All <i class="fa-solid fa-arrow-right sdash-u13"></i>
             </a>
         </div>
-        <div  class="sdash-u14">
+        <div class="sdash-u14">
             <asp:GridView ID="gvRecentApps" runat="server" AutoGenerateColumns="False" CssClass="co-table" GridLines="None" ShowHeaderWhenEmpty="true" Width="100%">
                 <Columns>
                     <asp:TemplateField HeaderText="Company" HeaderStyle-Width="25%">
@@ -219,21 +219,21 @@
                                <asp:Image ID="imgCompanyLogo" runat="server" ImageUrl='<%# Eval("c_logo") %>' CssClass="dash-company-logo" />
                                 </div>
                                 <div>
-                                    <div  class="sdash-u15"><%# (Eval("c_company"))%></div>
-                                    <div  class="sdash-u16"><%# (Eval("Location")) %></div>
+                                    <div class="sdash-u15"><%# (Eval("c_company"))%></div>
+                                    <div class="sdash-u16"><%# (Eval("Location")) %></div>
                                 </div>
                             </div>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Internship Position" HeaderStyle-Width="27%">
                         <ItemTemplate>
-                            <div  class="sdash-u17"><%# (Eval("InternshipTitle")) %></div>
-                            <span  class="sdash-u16"><%# (Eval("WorkMode")) %></span>
+                            <div class="sdash-u17"><%# (Eval("InternshipTitle")) %></div>
+                            <span class="sdash-u16"><%# (Eval("WorkMode")) %></span>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Applied Date" HeaderStyle-Width="18%">
                         <ItemTemplate>
-                            <span  class="sdash-u18"><i class="fa-regular fa-calendar sdash-u19" ></i><%#  Eval("AppliedDate", "{0:dd MMM yyyy}") %></span>
+                            <span class="sdash-u18"><i class="fa-regular fa-calendar sdash-u19"></i><%#  Eval("AppliedDate", "{0:dd MMM yyyy}") %></span>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Status" HeaderStyle-Width="15%">
@@ -252,9 +252,9 @@
                 </Columns>
             </asp:GridView>
             <asp:PlaceHolder ID="pnlNoApps" runat="server" Visible="false">
-                <div  class="sdash-u20">
-                    <i class="fa-solid fa-folder-open sdash-u21" ></i>
-                    <p  class="sdash-u22">No internship applications submitted yet.</p>
+                <div class="sdash-u20">
+                    <i class="fa-solid fa-folder-open sdash-u21"></i>
+                    <p class="sdash-u22">No internship applications submitted yet.</p>
                     <a href="student-internships.aspx"  class="sdash-u23">
                         <i class="fa-solid fa-magnifying-glass"></i> Explore Internships
                     </a>

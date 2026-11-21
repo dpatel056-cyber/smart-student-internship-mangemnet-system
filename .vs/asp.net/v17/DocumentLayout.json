@@ -3,24 +3,12 @@
   "WorkspaceRootPath": "F:\\asp.net\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\studentpanel\\student-tasks.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\studentpanel\\student-tasks.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\studentpanel\\student-internship-details.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\studentpanel\\student-internship-details.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\studentpanel\\student-certificate-view.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\studentpanel\\student-certificate-view.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\studentpanel\\student-certificates.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\studentpanel\\student-certificates.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\studentpanel\\student-certificates.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\studentpanel\\student-certificates.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\studentpanel\\student-certificate-view.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\studentpanel\\student-certificate-view.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\studentpanel\\student-internship-details.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\studentpanel\\student-internship-details.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,67 +30,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "student-tasks.aspx.cs",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\StudentPanel\\student-tasks.aspx.cs",
-              "RelativeDocumentMoniker": "asp.net\\StudentPanel\\student-tasks.aspx.cs",
-              "ToolTip": "F:\\asp.net\\asp.net\\StudentPanel\\student-tasks.aspx.cs",
-              "RelativeToolTip": "asp.net\\StudentPanel\\student-tasks.aspx.cs",
-              "ViewState": "AgIAAJQAAAAAAAAAAADwv4IAAABzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-12T12:55:42.789Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "student-certificates.aspx",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\StudentPanel\\student-certificates.aspx",
-              "RelativeDocumentMoniker": "asp.net\\StudentPanel\\student-certificates.aspx",
-              "ToolTip": "F:\\asp.net\\asp.net\\StudentPanel\\student-certificates.aspx",
-              "RelativeToolTip": "asp.net\\StudentPanel\\student-certificates.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-11-12T12:51:33.167Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "student-certificates.aspx.cs",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\StudentPanel\\student-certificates.aspx.cs",
-              "RelativeDocumentMoniker": "asp.net\\StudentPanel\\student-certificates.aspx.cs",
-              "ToolTip": "F:\\asp.net\\asp.net\\StudentPanel\\student-certificates.aspx.cs",
-              "RelativeToolTip": "asp.net\\StudentPanel\\student-certificates.aspx.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-12T12:51:27.159Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "student-certificate-view.aspx",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\StudentPanel\\student-certificate-view.aspx",
-              "RelativeDocumentMoniker": "asp.net\\StudentPanel\\student-certificate-view.aspx",
-              "ToolTip": "F:\\asp.net\\asp.net\\StudentPanel\\student-certificate-view.aspx",
-              "RelativeToolTip": "asp.net\\StudentPanel\\student-certificate-view.aspx",
+              "Title": "student-internship-details.aspx",
+              "DocumentMoniker": "F:\\asp.net\\asp.net\\StudentPanel\\student-internship-details.aspx",
+              "RelativeDocumentMoniker": "asp.net\\StudentPanel\\student-internship-details.aspx",
+              "ToolTip": "F:\\asp.net\\asp.net\\StudentPanel\\student-internship-details.aspx",
+              "RelativeToolTip": "asp.net\\StudentPanel\\student-internship-details.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-11-12T12:50:06.933Z",
+              "WhenOpened": "2026-11-21T05:44:13.385Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "student-certificate-view.aspx.cs",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\StudentPanel\\student-certificate-view.aspx.cs",
-              "RelativeDocumentMoniker": "asp.net\\StudentPanel\\student-certificate-view.aspx.cs",
-              "ToolTip": "F:\\asp.net\\asp.net\\StudentPanel\\student-certificate-view.aspx.cs",
-              "RelativeToolTip": "asp.net\\StudentPanel\\student-certificate-view.aspx.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "student-internship-details.aspx.cs",
+              "DocumentMoniker": "F:\\asp.net\\asp.net\\StudentPanel\\student-internship-details.aspx.cs",
+              "RelativeDocumentMoniker": "asp.net\\StudentPanel\\student-internship-details.aspx.cs",
+              "ToolTip": "F:\\asp.net\\asp.net\\StudentPanel\\student-internship-details.aspx.cs",
+              "RelativeToolTip": "asp.net\\StudentPanel\\student-internship-details.aspx.cs",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAowGQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-12T12:50:02.548Z",
+              "WhenOpened": "2026-11-21T05:26:57.052Z",
               "EditorCaption": ""
             }
           ]

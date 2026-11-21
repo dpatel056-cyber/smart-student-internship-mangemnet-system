@@ -3,11 +3,11 @@
     <link rel="stylesheet" href="../css/student-my-applications.css" />
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div  class="sapp-u1">
+    <div class="sapp-u1">
         <!-- Success notification on apply -->
         <asp:PlaceHolder ID="pnlSuccessMsg" runat="server" Visible="false">
             <div class="alert-success-banner">
-                <i class="fa-solid fa-circle-check sapp-u2" ></i>
+                <i class="fa-solid fa-circle-check sapp-u2"></i>
                 <div>
                     <strong>Application Submitted Successfully!</strong>
                     <span> Your application has been sent to the company. You can monitor progress here in real-time.</span>
@@ -20,7 +20,7 @@
                 <h1>My Applications</h1>
                 <p>Track the real-time status of all your submitted internship applications.</p>
             </div>
-            <asp:HyperLink ID="hlBrowse" runat="server" NavigateUrl="~/StudentPanel/student-internships.aspx" CssClass="btn-action-sm sapp-u3" >
+            <asp:HyperLink ID="hlBrowse" runat="server" NavigateUrl="~/StudentPanel/student-internships.aspx" CssClass="btn-action-sm sapp-u3">
                 <i class="fa-solid fa-plus"></i> Apply to More Internships
             </asp:HyperLink>
         </div>
@@ -61,14 +61,14 @@
                 <Columns>
                     <asp:TemplateField HeaderText="Internship / Role">
                         <ItemTemplate>
-                            <div  class="sapp-u4">
-                                <asp:Image ID="imgLogo" runat="server" CssClass="company-logo-circle" ImageUrl='<%# GetCompanyLogo(Eval("c_logo")) %>' />
+                            <div class="sapp-u4">
+                                <asp:Image ID="imgLogo" runat="server" CssClass="company-logo-circle" ImageUrl='<%# Eval("c_logo") %>' />
                                 <div>
-                                    <div  class="sapp-u5">
+                                    <div class="sapp-u5">
                                         <asp:Label ID="lblTitle" runat="server" Text='<%# Eval("InternshipTitle") %>'></asp:Label>
                                     </div>
-                                    <div  class="sapp-u6">
-                                        <i class="fa-solid fa-building sapp-u7" ></i>
+                                    <div class="sapp-u6">
+                                        <i class="fa-solid fa-building sapp-u7"></i>
                                         <asp:Label ID="lblCompany" runat="server" Text='<%# Eval("c_company") %>'></asp:Label>
                                     </div>
                                 </div>
@@ -77,23 +77,23 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Applied Date">
                         <ItemTemplate>
-                            <span  class="sapp-u8">
-                                <i class="fa-regular fa-calendar sapp-u9" ></i>
-                                <asp:Label ID="lblDate" runat="server" Text='<%# FormatDate(Eval("AppliedDate")) %>'></asp:Label>
+                            <span class="sapp-u8">
+                                <i class="fa-regular fa-calendar sapp-u9"></i>
+                                <asp:Label ID="lblDate" runat="server" Text='<%# Eval("AppliedDate", "{0:dd MMM yyyy}") %>'></asp:Label>
                             </span>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Work Mode">
                         <ItemTemplate>
-                            <span  class="sapp-u10">
-                                <i class="fa-solid fa-laptop-code sapp-u9" ></i>
+                            <span class="sapp-u10">
+                                <i class="fa-solid fa-laptop-code sapp-u9"></i>
                                 <asp:Label ID="lblWorkMode" runat="server" Text='<%# Eval("WorkMode") %>'></asp:Label>
                             </span>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Stipend">
                         <ItemTemplate>
-                            <span  class="sapp-u11">
+                            <span class="sapp-u11">
                                 <asp:Label ID="lblStipend" runat="server" Text='<%# "&#8377; " + Eval("StipendAmount") %>'></asp:Label>
                             </span>
                         </ItemTemplate>
@@ -114,15 +114,15 @@
             </asp:GridView>
             <!-- Empty State -->
             <asp:PlaceHolder ID="pnlNoApps" runat="server" Visible="false">
-                <div  class="sapp-u12">
-                    <div  class="sapp-u13">
+                <div class="sapp-u12">
+                    <div class="sapp-u13">
                         <i class="fa-solid fa-briefcase"></i>
                     </div>
-                    <h3  class="sapp-u14">No Applications Submitted Yet</h3>
-                    <p  class="sapp-u15">
+                    <h3 class="sapp-u14">No Applications Submitted Yet</h3>
+                    <p class="sapp-u15">
                         Explore verified internships matching your skills, apply with one click, and track your progress here.
                     </p>
-                    <asp:HyperLink ID="hlExplore" runat="server" NavigateUrl="~/StudentPanel/student-internships.aspx" CssClass="btn-action-sm sapp-u16" >
+                    <asp:HyperLink ID="hlExplore" runat="server" NavigateUrl="~/StudentPanel/student-internships.aspx" CssClass="btn-action-sm sapp-u16">
                         <i class="fa-solid fa-magnifying-glass"></i> Browse Internships
                     </asp:HyperLink>
                 </div>

@@ -94,8 +94,7 @@
                         <ItemTemplate>
                             <div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px; flex-wrap: nowrap; min-width: 180px;">
                                 <button type="button" class="btn-table-action btn-action-view"
-                                        onclick='openLetterModal("<%# Eval("FullName") %>", "<%# Eval("College") %>", "<%# Eval("OfferTitle") %>", "<%# Eval("Stipend") %>", "<%# Eval("JoiningDate") %>", "<%# Eval("Duration") %>", "<%# Eval("Location") %>", "<%# Eval("OfferId") %>", "<%# FormatDate(Eval("IssuedDate")) %>");'
->
+                                        onclick='openLetterModal("<%# Eval("FullName") %>", "<%# Eval("College") %>", "<%# Eval("OfferTitle") %>", "<%# Eval("Stipend") %>", "<%# Eval("JoiningDate") %>", "<%# Eval("Duration") %>", "<%# Eval("Location") %>", "<%# Eval("OfferId") %>", "<%# FormatDate(Eval("IssuedDate")) %>");'>
                                     <i class="fa-solid fa-print"></i> View &amp; Print
                                 </button>
                                 <asp:LinkButton ID="lnkEdit" runat="server" CommandName="cmd_edt" CommandArgument='<%# Eval("OfferId") %>' CssClass="btn-table-action btn-action-edit">

@@ -3,48 +3,20 @@
   "WorkspaceRootPath": "F:\\asp.net\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\adminpanel\\admin-feedback-ratings.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\adminpanel\\admin-feedback-ratings.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\studentpanel\\student-my-applications.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\studentpanel\\student-my-applications.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\adminpanel\\admin-dashboard.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\adminpanel\\admin-dashboard.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\studentpanel\\student-offer-letters.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\studentpanel\\student-offer-letters.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\adminpanel\\admin-dashboard.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\adminpanel\\admin-dashboard.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\studentpanel\\student-offer-letters.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\studentpanel\\student-offer-letters.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\adminpanel\\admin-contact-messages.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\adminpanel\\admin-contact-messages.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\adminpanel\\admin-contact-messages.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\adminpanel\\admin-contact-messages.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\adminpanel\\admin-companies.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\adminpanel\\admin-companies.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\adminpanel\\admin-companies.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\adminpanel\\admin-companies.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\adminpanel\\admin-certificates.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\adminpanel\\admin-certificates.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\adminpanel\\admin-certificates.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\adminpanel\\admin-certificates.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\adminpanel\\admin-certificate-view.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\adminpanel\\admin-certificate-view.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\adminpanel\\admin-certificate-view.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\adminpanel\\admin-certificate-view.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|f:\\asp.net\\asp.net\\studentpanel\\student-interviews.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43F25024-68AA-47E2-9EA4-899AAB7229B5}|asp.net\\asp.net.csproj|solutionrelative:asp.net\\studentpanel\\student-interviews.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -67,144 +39,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "admin-feedback-ratings.aspx.cs",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\AdminPanel\\admin-feedback-ratings.aspx.cs",
-              "RelativeDocumentMoniker": "asp.net\\AdminPanel\\admin-feedback-ratings.aspx.cs",
-              "ToolTip": "F:\\asp.net\\asp.net\\AdminPanel\\admin-feedback-ratings.aspx.cs",
-              "RelativeToolTip": "asp.net\\AdminPanel\\admin-feedback-ratings.aspx.cs",
-              "ViewState": "AgIAAHYAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Title": "student-my-applications.aspx.cs",
+              "DocumentMoniker": "F:\\asp.net\\asp.net\\StudentPanel\\student-my-applications.aspx.cs",
+              "RelativeDocumentMoniker": "asp.net\\StudentPanel\\student-my-applications.aspx.cs",
+              "ToolTip": "F:\\asp.net\\asp.net\\StudentPanel\\student-my-applications.aspx.cs",
+              "RelativeToolTip": "asp.net\\StudentPanel\\student-my-applications.aspx.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-12T12:25:27.202Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "admin-dashboard.aspx",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\AdminPanel\\admin-dashboard.aspx",
-              "RelativeDocumentMoniker": "asp.net\\AdminPanel\\admin-dashboard.aspx",
-              "ToolTip": "F:\\asp.net\\asp.net\\AdminPanel\\admin-dashboard.aspx",
-              "RelativeToolTip": "asp.net\\AdminPanel\\admin-dashboard.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-11-12T12:25:05.308Z",
+              "WhenOpened": "2026-11-21T04:54:15.137Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "admin-dashboard.aspx.cs",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\AdminPanel\\admin-dashboard.aspx.cs",
-              "RelativeDocumentMoniker": "asp.net\\AdminPanel\\admin-dashboard.aspx.cs",
-              "ToolTip": "F:\\asp.net\\asp.net\\AdminPanel\\admin-dashboard.aspx.cs",
-              "RelativeToolTip": "asp.net\\AdminPanel\\admin-dashboard.aspx.cs",
-              "ViewState": "AgIAAKsAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-12T12:24:55.566Z",
+              "Title": "student-offer-letters.aspx",
+              "DocumentMoniker": "F:\\asp.net\\asp.net\\StudentPanel\\student-offer-letters.aspx",
+              "RelativeDocumentMoniker": "asp.net\\StudentPanel\\student-offer-letters.aspx",
+              "ToolTip": "F:\\asp.net\\asp.net\\StudentPanel\\student-offer-letters.aspx",
+              "RelativeToolTip": "asp.net\\StudentPanel\\student-offer-letters.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-11-21T04:32:11.476Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "admin-contact-messages.aspx",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\AdminPanel\\Admin-Contact-Messages.aspx",
-              "RelativeDocumentMoniker": "asp.net\\AdminPanel\\Admin-Contact-Messages.aspx",
-              "ToolTip": "F:\\asp.net\\asp.net\\AdminPanel\\Admin-Contact-Messages.aspx",
-              "RelativeToolTip": "asp.net\\AdminPanel\\Admin-Contact-Messages.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-11-12T12:24:47.221Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "admin-contact-messages.aspx.cs",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\AdminPanel\\Admin-Contact-Messages.aspx.cs",
-              "RelativeDocumentMoniker": "asp.net\\AdminPanel\\Admin-Contact-Messages.aspx.cs",
-              "ToolTip": "F:\\asp.net\\asp.net\\AdminPanel\\Admin-Contact-Messages.aspx.cs",
-              "RelativeToolTip": "asp.net\\AdminPanel\\Admin-Contact-Messages.aspx.cs",
-              "ViewState": "AgIAAFsAAAAAAAAAAAA/wAAAAAAAAAAAAAAAAA==",
+              "Title": "student-interviews.aspx.cs",
+              "DocumentMoniker": "F:\\asp.net\\asp.net\\StudentPanel\\student-interviews.aspx.cs",
+              "RelativeDocumentMoniker": "asp.net\\StudentPanel\\student-interviews.aspx.cs",
+              "ToolTip": "F:\\asp.net\\asp.net\\StudentPanel\\student-interviews.aspx.cs",
+              "RelativeToolTip": "asp.net\\StudentPanel\\student-interviews.aspx.cs",
+              "ViewState": "AgIAAMAAAAAAAAAAAAAqwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-12T12:24:41.555Z",
+              "WhenOpened": "2026-11-21T04:24:39.462Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "admin-companies.aspx.cs",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\AdminPanel\\admin-companies.aspx.cs",
-              "RelativeDocumentMoniker": "asp.net\\AdminPanel\\admin-companies.aspx.cs",
-              "ToolTip": "F:\\asp.net\\asp.net\\AdminPanel\\admin-companies.aspx.cs",
-              "RelativeToolTip": "asp.net\\AdminPanel\\admin-companies.aspx.cs",
-              "ViewState": "AgIAAMUAAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "student-offer-letters.aspx.cs",
+              "DocumentMoniker": "F:\\asp.net\\asp.net\\StudentPanel\\student-offer-letters.aspx.cs",
+              "RelativeDocumentMoniker": "asp.net\\StudentPanel\\student-offer-letters.aspx.cs",
+              "ToolTip": "F:\\asp.net\\asp.net\\StudentPanel\\student-offer-letters.aspx.cs",
+              "RelativeToolTip": "asp.net\\StudentPanel\\student-offer-letters.aspx.cs",
+              "ViewState": "AgIAAIAAAAAAAAAAAAAAAKwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-12T12:24:06.165Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "admin-companies.aspx",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\AdminPanel\\admin-companies.aspx",
-              "RelativeDocumentMoniker": "asp.net\\AdminPanel\\admin-companies.aspx",
-              "ToolTip": "F:\\asp.net\\asp.net\\AdminPanel\\admin-companies.aspx",
-              "RelativeToolTip": "asp.net\\AdminPanel\\admin-companies.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-11-12T12:23:48.184Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "admin-certificates.aspx.cs",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\AdminPanel\\admin-certificates.aspx.cs",
-              "RelativeDocumentMoniker": "asp.net\\AdminPanel\\admin-certificates.aspx.cs",
-              "ToolTip": "F:\\asp.net\\asp.net\\AdminPanel\\admin-certificates.aspx.cs",
-              "RelativeToolTip": "asp.net\\AdminPanel\\admin-certificates.aspx.cs",
-              "ViewState": "AgIAAKEAAAAAAAAAAAAUwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-12T12:23:21.716Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "admin-certificates.aspx",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\AdminPanel\\admin-certificates.aspx",
-              "RelativeDocumentMoniker": "asp.net\\AdminPanel\\admin-certificates.aspx",
-              "ToolTip": "F:\\asp.net\\asp.net\\AdminPanel\\admin-certificates.aspx",
-              "RelativeToolTip": "asp.net\\AdminPanel\\admin-certificates.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-11-12T12:23:11.1Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "admin-certificate-view.aspx",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\AdminPanel\\admin-certificate-view.aspx",
-              "RelativeDocumentMoniker": "asp.net\\AdminPanel\\admin-certificate-view.aspx",
-              "ToolTip": "F:\\asp.net\\asp.net\\AdminPanel\\admin-certificate-view.aspx",
-              "RelativeToolTip": "asp.net\\AdminPanel\\admin-certificate-view.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-11-12T12:23:04.65Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "admin-certificate-view.aspx.cs",
-              "DocumentMoniker": "F:\\asp.net\\asp.net\\AdminPanel\\admin-certificate-view.aspx.cs",
-              "RelativeDocumentMoniker": "asp.net\\AdminPanel\\admin-certificate-view.aspx.cs",
-              "ToolTip": "F:\\asp.net\\asp.net\\AdminPanel\\admin-certificate-view.aspx.cs",
-              "RelativeToolTip": "asp.net\\AdminPanel\\admin-certificate-view.aspx.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-12T12:22:59.006Z",
+              "WhenOpened": "2026-11-20T14:11:15.016Z",
               "EditorCaption": ""
             }
           ]

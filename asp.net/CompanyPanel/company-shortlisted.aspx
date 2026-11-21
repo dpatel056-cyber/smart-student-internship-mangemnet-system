@@ -53,18 +53,15 @@
                         <ItemTemplate>
                             <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: nowrap; white-space: nowrap;">
                                 <a href='<%= ResolveUrl("~/CompanyPanel/company-interviews.aspx") %>?appId=<%# Eval("ApplicationId") %>'
-                                   class="btn-table-action btn-action-schedule"
->
+                                   class="btn-table-action btn-action-schedule">
                                     <i class="fa-solid fa-calendar-plus"></i> Schedule
                                 </a>
                                 <asp:LinkButton ID="btnReject" runat="server" CommandName="RejectCandidate" CommandArgument='<%# Eval("ApplicationId") %>'
-                                                CssClass="btn-table-action btn-action-reject"
->
+                                                CssClass="btn-table-action btn-action-reject">
                                     <i class="fa-solid fa-user-xmark"></i> Reject
                                 </asp:LinkButton>
                                 <a href='<%= ResolveUrl("~/CompanyPanel/company-student-details.aspx") %>?id=<%# Eval("StudentId") %>&appId=<%# Eval("ApplicationId") %>'
-                                   class="btn-table-action btn-action-view"
->
+                                   class="btn-table-action btn-action-view">
                                     <i class="fa-solid fa-eye"></i> View
                                 </a>
                             </div>

@@ -101,12 +101,5 @@
 </asp:Content>
 
 <asp:Content ID="ScriptContent1" ContentPlaceHolderID="ScriptContent" runat="server">
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var f = document.querySelector(".student-footer") || document.querySelector("footer");
-            if (f) {
-                f.style.setProperty("display", "none", "important");
-            }
-        });
-    </script>
+    <script src="../js/student-certificate-view.js"></script>
 </asp:Content>

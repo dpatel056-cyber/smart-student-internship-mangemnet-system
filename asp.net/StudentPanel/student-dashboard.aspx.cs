@@ -37,7 +37,6 @@ namespace asp.net
                 da = new SqlDataAdapter("select * from Students where Email='" + Session["student"] + "' or EnrollmentNo='" + Session["student"] + "'", con);
                 ds = new DataSet();
                 da.Fill(ds);
-                con.Close();
 
                 if (!IsPostBack)
                 {
@@ -71,7 +70,6 @@ namespace asp.net
             da = new SqlDataAdapter("SELECT CASE WHEN Status IS NULL OR Status='' THEN 'Pending' ELSE Status END AS Status, COUNT(*) AS Total FROM StudentApplications WHERE StudentEmail='" + Session["student"].ToString() + "' OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "') GROUP BY CASE WHEN Status IS NULL OR Status='' THEN 'Pending' ELSE Status END", con);
             ds = new DataSet();
             da.Fill(ds);
-            con.Close();
 
             studentApplicationPieChart.DataSource = ds.Tables[0];
             studentApplicationPieChart.DataBind();
@@ -92,7 +90,6 @@ namespace asp.net
             da = new SqlDataAdapter("SELECT CASE WHEN Status IS NULL OR Status='' THEN 'Scheduled' ELSE Status END AS Status, COUNT(*) AS Total FROM CompanyInterviews WHERE ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"].ToString() + "' OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "')) GROUP BY CASE WHEN Status IS NULL OR Status='' THEN 'Scheduled' ELSE Status END", con);
             ds = new DataSet();
             da.Fill(ds);
-            con.Close();
 
             studentInterviewBarChart.DataSource = ds.Tables[0];
             studentInterviewBarChart.DataBind();
@@ -115,7 +112,6 @@ namespace asp.net
             cmd = new SqlCommand("SELECT COUNT(*) FROM StudentApplications WHERE StudentEmail='" + Session["student"].ToString() + "' OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "')", con);
             int i = Convert.ToInt16(cmd.ExecuteScalar());
             lblTotalApplied.Text = i.ToString();
-            con.Close();
         }
 
         void TotalPendingReview()
@@ -124,7 +120,6 @@ namespace asp.net
             cmd = new SqlCommand("SELECT COUNT(*) FROM StudentApplications WHERE(Status = 'Applied' OR Status = 'Under Review' OR Status = 'Pending') AND(StudentEmail = '" + Session["student"].ToString() + "' OR StudentId IN(SELECT StudentId FROM Students WHERE Email = '" + Session["student"].ToString() + "' OR EnrollmentNo = '" + Session["student"].ToString() + "'))", con);
             int i = Convert.ToInt16(cmd.ExecuteScalar());
             lblPendingCount.Text = i.ToString();
-            con.Close();
         }
 
         void TotalShortlist()
@@ -133,7 +128,6 @@ namespace asp.net
             cmd = new SqlCommand("SELECT COUNT(*) FROM StudentApplications WHERE Status='Shortlisted' AND (StudentEmail='" + Session["student"].ToString() + "' OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "'))", con);
             int i = Convert.ToInt16(cmd.ExecuteScalar());
             lblShortlistedCount.Text = i.ToString();
-            con.Close();
         }
 
         void TotalSelected()
@@ -142,7 +136,6 @@ namespace asp.net
             cmd = new SqlCommand("SELECT COUNT(*) FROM StudentApplications WHERE (Status='Selected' OR Status='Offer Accepted' OR Status='Accepted') AND (StudentEmail='" + Session["student"].ToString() + "' OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "'))", con);
             int i = Convert.ToInt16(cmd.ExecuteScalar());
             lblSelectedCount.Text = i.ToString();
-            con.Close();
         }
 
         void TotalInterview()
@@ -151,7 +144,6 @@ namespace asp.net
             cmd = new SqlCommand("SELECT COUNT(*) FROM CompanyInterviews WHERE ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"].ToString() + "') OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "')", con);
             int i = Convert.ToInt16(cmd.ExecuteScalar());
             lblInterviewsCount.Text = i.ToString();
-            con.Close();
         }
 
         void TotalOfferLetter()
@@ -160,7 +152,6 @@ namespace asp.net
             cmd = new SqlCommand("SELECT COUNT(*) FROM CompanyOfferLetters WHERE ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"].ToString() + "') OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "')", con);
             int i = Convert.ToInt16(cmd.ExecuteScalar());
             lblOffersCount.Text = i.ToString();
-            con.Close();
         }
 
         void TotalTasks()
@@ -169,7 +160,6 @@ namespace asp.net
             cmd = new SqlCommand("SELECT COUNT(*) FROM StudentQuizAssignments WHERE ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"].ToString() + "') OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "')", con);
             int i = Convert.ToInt16(cmd.ExecuteScalar());
             lblTasksCount.Text = i.ToString();
-            con.Close();
         }
 
         void TotalSavedInternships()
@@ -178,7 +168,6 @@ namespace asp.net
             cmd = new SqlCommand("SELECT COUNT(*) FROM StudentSavedInternships WHERE StudentEmail='" + Session["student"].ToString() + "' OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "')", con);
             int i = Convert.ToInt16(cmd.ExecuteScalar());
             lblSavedCount.Text = i.ToString();
-            con.Close();
         }
 
         void LoadRecentApplications()
@@ -187,7 +176,6 @@ namespace asp.net
             da = new SqlDataAdapter("SELECT TOP 5 sa.ApplicationId, sa.InternshipId, sa.Status, sa.AppliedDate, i.InternshipTitle, i.Location, i.WorkMode, i.StipendAmount, c.c_company, c.c_logo FROM StudentApplications sa INNER JOIN internship i ON sa.InternshipId = i.Id INNER JOIN c_registration c ON i.CompanyId = c.CompanyId WHERE sa.StudentEmail='" + Session["student"].ToString() + "' OR sa.StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "') ORDER BY sa.ApplicationId DESC", con);
             ds = new DataSet();
             da.Fill(ds);
-            con.Close();
 
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -205,40 +193,37 @@ namespace asp.net
 
         public string GetStatusBadge(object status)
         {
-            if (status == null || status == DBNull.Value)
-                status = "Applied";
+            string st = "Applied";
 
-            string st = status.ToString().Trim();
-
-            if (st.Equals("Selected", StringComparison.OrdinalIgnoreCase) ||
-                st.Equals("Accepted", StringComparison.OrdinalIgnoreCase) ||
-                st.Equals("Offer Accepted", StringComparison.OrdinalIgnoreCase))
+            if (status != null && status != DBNull.Value)
             {
-                return "<span class='badge-status-chip st-selected' style='display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:20px; font-size:11.5px; font-weight:700; background:#dcfce7; color:#15803d; border:1px solid #bbf7d0; white-space:nowrap;'><i class='fa-solid fa-circle-check' style='color:#16a34a;'></i> Selected</span>";
+                st = status.ToString();
             }
 
-            if (st.Equals("Shortlisted", StringComparison.OrdinalIgnoreCase))
+            if (st == "Selected" || st == "Accepted" || st == "Offer Accepted")
             {
-                return "<span class='badge-status-chip st-shortlisted' style='display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:20px; font-size:11.5px; font-weight:700; background:#ede9fe; color:#6d28d9; border:1px solid #ddd6fe; white-space:nowrap;'><i class='fa-solid fa-star' style='color:#7c3aed;'></i> Shortlisted</span>";
+                return "<span class='badge-status-chip st-selected'><i class='fa-solid fa-circle-check'></i> Selected</span>";
             }
-
-            if (st.Equals("Rejected", StringComparison.OrdinalIgnoreCase))
+            else if (st == "Shortlisted")
             {
-                return "<span class='badge-status-chip st-rejected' style='display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:20px; font-size:11.5px; font-weight:700; background:#fee2e2; color:#b91c1c; border:1px solid #fecaca; white-space:nowrap;'><i class='fa-solid fa-circle-xmark' style='color:#dc2626;'></i> Rejected</span>";
+                return "<span class='badge-status-chip st-shortlisted'><i class='fa-solid fa-star'></i> Shortlisted</span>";
             }
-
-            if (st.Equals("Completed", StringComparison.OrdinalIgnoreCase))
+            else if (st == "Rejected")
             {
-                return "<span class='badge-status-chip st-completed' style='display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:20px; font-size:11.5px; font-weight:700; background:#ecfeff; color:#0891b2; border:1px solid #a5f3fc; white-space:nowrap;'><i class='fa-solid fa-award' style='color:#0891b2;'></i> Completed</span>";
+                return "<span class='badge-status-chip st-rejected'><i class='fa-solid fa-circle-xmark'></i> Rejected</span>";
             }
-
-            if (st.Equals("Pending", StringComparison.OrdinalIgnoreCase) ||
-                st.Equals("Under Review", StringComparison.OrdinalIgnoreCase))
+            else if (st == "Completed")
             {
-                return "<span class='badge-status-chip st-pending' style='display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:20px; font-size:11.5px; font-weight:700; background:#fef3c7; color:#b45309; border:1px solid #fde68a; white-space:nowrap;'><i class='fa-solid fa-clock' style='color:#d97706;'></i> " + st + "</span>";
+                return "<span class='badge-status-chip st-completed'><i class='fa-solid fa-award'></i> Completed</span>";
             }
-
-            return "<span class='badge-status-chip st-applied' style='display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:20px; font-size:11.5px; font-weight:700; background:#eff6ff; color:#2563eb; border:1px solid #bfdbfe; white-space:nowrap;'><i class='fa-solid fa-paper-plane' style='color:#2563eb;'></i> " + st + "</span>";
+            else if (st == "Pending" || st == "Under Review")
+            {
+                return "<span class='badge-status-chip st-pending'><i class='fa-solid fa-clock'></i> " + st + "</span>";
+            }
+            else
+            {
+                return "<span class='badge-status-chip st-applied'><i class='fa-solid fa-paper-plane'></i> " + st + "</span>";
+            }
         }
     }
 }

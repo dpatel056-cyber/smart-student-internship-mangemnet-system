@@ -65,13 +65,11 @@
                     <!-- Card Actions (Always Visible) -->
                     <div class="interview-card-actions">
                         <asp:LinkButton ID="btnComplete" runat="server" CommandName="MarkComplete" CommandArgument='<%# Eval("InterviewId") %>'
-                                        CssClass="btn-box-action btn-box-complete"
->
+                                        CssClass="btn-box-action btn-box-complete">
                             <i class="fa-solid fa-check"></i> Completed
                         </asp:LinkButton>
                         <asp:LinkButton ID="btnCancel" runat="server" CommandName="CancelInterview" CommandArgument='<%# Eval("InterviewId") %>'
-                                        CssClass="btn-box-action btn-box-cancel"
->
+                                        CssClass="btn-box-action btn-box-cancel">
                             <i class="fa-solid fa-xmark"></i> Cancel
                         </asp:LinkButton>
                     </div>

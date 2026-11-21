@@ -115,7 +115,6 @@ namespace asp.net
                 lblPreferredSemester.Text = ds.Tables[0].Rows[0]["c_preferred_semester"].ToString();
                 lblMinimumCGPA.Text = ds.Tables[0].Rows[0]["c_min_cgpa"].ToString();
 
-
             }
         }
 

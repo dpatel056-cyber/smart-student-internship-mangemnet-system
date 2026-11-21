@@ -193,7 +193,6 @@ namespace asp.net
                 lblNoResume.Text = "No resume uploaded by the student.";
             }
         }
-        
 
         void LoadSkills()
         {

@@ -1,43 +1,26 @@
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="student.master.cs" Inherits="asp.net.student" %>
-
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head runat="server">
-
     <meta charset="utf-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>SIMS - Student Panel</title>
-
     <!-- Google Font: Inter -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <!-- Font Awesome -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
     <!-- Student Master Stylesheet -->
 
     <link rel="stylesheet" href="../css/student-master.css" />
-
     <asp:ContentPlaceHolder ID="head" runat="server">
-
     </asp:ContentPlaceHolder>
-
 </head>
-
 <body>
-
     <form id="form1" runat="server">
-
         <div class="student-layout" id="studentLayout">
-
             <!-- ================= MOBILE OVERLAY ================= -->
 
             <div class="student-sidebar-overlay" id="studentSidebarOverlay"></div>
@@ -45,29 +28,21 @@
             <!-- ================= SIDEBAR ================= -->
 
             <aside class="student-sidebar" id="studentSidebar" aria-label="Student sidebar navigation">
-
                 <div class="student-sidebar-brand">
-
                     <div class="student-sidebar-logo">S</div>
 
                     <span class="student-sidebar-brand-text">SIMS</span>
-
                 </div>
 
                 <nav class="student-sidebar-menu" aria-label="Student main menu">
-
                     <!-- MAIN -->
 
                     <div class="student-sidebar-section">
 
                         <a href="<%= ResolveUrl("~/StudentPanel/student-dashboard.aspx") %>" class="student-sidebar-link">
-
                             <i class="fa-solid fa-gauge-high student-sidebar-icon"></i>
-
                             <span class="student-sidebar-label">Dashboard</span>
-
                         </a>
-
                     </div>
 
                     <!-- ENTITIES -->
@@ -77,29 +52,17 @@
                         <div class="student-sidebar-section-title">Entities</div>
 
                         <a href="<%= ResolveUrl("~/StudentPanel/student-internships.aspx") %>" class="student-sidebar-link">
-
                             <i class="fa-solid fa-briefcase student-sidebar-icon"></i>
-
                             <span class="student-sidebar-label">Internships</span>
-
                         </a>
-
                         <a href="<%= ResolveUrl("~/StudentPanel/student-my-applications.aspx") %>" class="student-sidebar-link">
-
                             <i class="fa-solid fa-file-lines student-sidebar-icon"></i>
-
                             <span class="student-sidebar-label">My Applications</span>
-
                         </a>
-
                         <a href="<%= ResolveUrl("~/StudentPanel/student-saved-internships.aspx") %>" class="student-sidebar-link">
-
                             <i class="fa-solid fa-bookmark student-sidebar-icon"></i>
-
                             <span class="student-sidebar-label">Saved Internships</span>
-
                         </a>
-
                     </div>
 
                     <!-- PROCESSES -->
@@ -109,37 +72,21 @@
                         <div class="student-sidebar-section-title">Processes</div>
 
                         <a href="<%= ResolveUrl("~/StudentPanel/student-interviews.aspx") %>" class="student-sidebar-link">
-
                             <i class="fa-solid fa-calendar-check student-sidebar-icon"></i>
-
                             <span class="student-sidebar-label">Interviews</span>
-
                         </a>
-
                         <a href="<%= ResolveUrl("~/StudentPanel/student-offer-letters.aspx") %>" class="student-sidebar-link">
-
                             <i class="fa-solid fa-file-signature student-sidebar-icon"></i>
-
                             <span class="student-sidebar-label">Offer Letters</span>
-
                         </a>
-
                         <a href="<%= ResolveUrl("~/StudentPanel/student-tasks.aspx") %>" class="student-sidebar-link">
-
                             <i class="fa-solid fa-list-check student-sidebar-icon"></i>
-
                             <span class="student-sidebar-label">My Tasks</span>
-
                         </a>
-
                         <a href="<%= ResolveUrl("~/StudentPanel/student-certificates.aspx") %>" class="student-sidebar-link">
-
                             <i class="fa-solid fa-certificate student-sidebar-icon"></i>
-
                             <span class="student-sidebar-label">Certificates</span>
-
                         </a>
-
                     </div>
 
                     <!-- COMMUNICATION -->
@@ -149,21 +96,13 @@
                         <div class="student-sidebar-section-title">Communication</div>
 
                         <a href="<%= ResolveUrl("~/StudentPanel/student-messages.aspx") %>" class="student-sidebar-link">
-
                             <i class="fa-solid fa-envelope student-sidebar-icon"></i>
-
                             <span class="student-sidebar-label">Messages</span>
-
                         </a>
-
                         <a href="<%= ResolveUrl("~/StudentPanel/student-feedback.aspx") %>" class="student-sidebar-link">
-
                             <i class="fa-solid fa-star student-sidebar-icon"></i>
-
                             <span class="student-sidebar-label">Feedback &amp; Ratings</span>
-
                         </a>
-
                     </div>
 
                     <!-- ACCOUNT -->
@@ -173,33 +112,21 @@
                         <div class="student-sidebar-section-title">Account</div>
 
                         <a href="<%= ResolveUrl("~/StudentPanel/student-change-password.aspx") %>" class="student-sidebar-link">
-
                             <i class="fa-solid fa-lock student-sidebar-icon"></i>
-
                             <span class="student-sidebar-label">Change Password</span>
-
                         </a>
-
                     </div>
 
                 </nav>
-
                 <!-- ================= SIDEBAR BOTTOM PROFILE ================= -->
 
                 <div class="student-sidebar-bottom">
-
                     <a href="<%= ResolveUrl("~/StudentPanel/student-profile.aspx") %>" class="student-sidebar-bottom-profile">
-
                         <span class="student-sidebar-bottom-avatar" id="studentSidebarAvatarContainer">
-
                             <asp:Image ID="imgSidebarAvatar" runat="server" CssClass="student-sidebar-avatar-img" Width="36" Height="36" Visible="false" />
-
                             <asp:Label ID="lblSidebarAvatarInitials" runat="server" CssClass="student-sidebar-avatar-text" Text="ST"></asp:Label>
-
                         </span>
-
                         <div class="student-sidebar-bottom-info">
-
                             <div class="student-sidebar-bottom-name"><asp:Label ID="lblSidebarStudentName" runat="server" Text="Student"></asp:Label></div>
 
                             <div class="student-sidebar-bottom-role">Student</div>
@@ -207,15 +134,10 @@
                         </div>
 
                     </a>
-
                     <a href="javascript:void(0);" onclick="return showLogoutModal(event);" class="student-sidebar-bottom-logout">
-
                         <i class="fa-solid fa-right-from-bracket"></i>
-
                         <span>Logout</span>
-
                     </a>
-
                 </div>
 
             </aside>
@@ -223,69 +145,39 @@
             <!-- ================= HEADER ================= -->
 
             <header class="student-header" id="studentHeader">
-
                 <div class="student-header-left">
-
                     <span class="student-header-title">Student Panel</span>
-
                 </div>
 
                 <div class="student-header-right">
-
                     <div class="student-header-profile-wrap">
-
                         <button type="button" class="student-header-profile" id="studentProfileBtn"
-
                             aria-haspopup="true" aria-expanded="false" aria-controls="studentProfileDropdown">
-
                             <span class="student-header-avatar" id="studentAvatarContainer">
-
                                 <asp:Image ID="imgHeaderAvatar" runat="server" CssClass="student-header-avatar-img" Width="38" Height="38" Visible="false" />
-
                                 <asp:Label ID="lblHeaderAvatarInitials" runat="server" CssClass="student-header-avatar-text" Text="DP"></asp:Label>
-
                             </span>
-
                             <span class="student-header-profile-info">
-
                                <asp:Label ID="Label1" runat="server" CssClass="student-header-profile-name" Text="Student"></asp:Label>
-
                                 <span class="student-header-profile-role">Student</span>
-
                             </span>
-
                             <i class="fa-solid fa-chevron-down student-header-profile-caret"></i>
-
                         </button>
-
                         <div class="student-profile-dropdown" id="studentProfileDropdown" role="menu">
-
                             <a href="<%= ResolveUrl("~/StudentPanel/student-profile.aspx") %>" class="student-profile-dropdown-item" role="menuitem">
-
                                 <i class="fa-solid fa-user"></i> My Profile
-
                             </a>
-
                             <a href="<%= ResolveUrl("~/StudentPanel/student-edit-profile.aspx") %>" class="student-profile-dropdown-item" role="menuitem">
-
                                 <i class="fa-solid fa-user-pen"></i> Edit Profile
-
                             </a>
-
                             <a href="<%= ResolveUrl("~/StudentPanel/student-change-password.aspx") %>" class="student-profile-dropdown-item" role="menuitem">
-
                                 <i class="fa-solid fa-lock"></i> Change Password
-
                             </a>
-
                             <div class="student-profile-dropdown-divider"></div>
 
                             <a href="javascript:void(0);" onclick="return showLogoutModal(event);" class="student-profile-dropdown-item is-danger" role="menuitem">
-
                                 <i class="fa-solid fa-right-from-bracket"></i> Logout
-
                             </a>
-
                         </div>
 
                     </div>
@@ -297,39 +189,26 @@
             <!-- ================= MAIN CONTENT ================= -->
 
             <main class="student-main">
-
                 <div class="student-content">
-
                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-
                     </asp:ContentPlaceHolder>
-
                 </div>
 
                 <!-- ================= FOOTER (ADMIN PANEL STYLE) ================= -->
 
                 <footer class="student-footer">
-
                     <div class="student-footer-copyright">
-
                         &copy; 2026 SIMS - Smart Student Internship Management System
-
                     </div>
 
                     <div class="student-footer-links">
-
                         <a href="javascript:void(0);">Privacy</a>
-
                         <a href="javascript:void(0);">Terms</a>
-
                         <a href="javascript:void(0);">Help &amp; Support</a>
-
                     </div>
 
                 </footer>
-
             </main>
-
         </div>
 
         <!-- ================= LOGOUT CONFIRMATION MODAL ================= -->
@@ -354,14 +233,8 @@
         </div>
 
         <script src="../js/student-master.js"></script>
-
         <asp:ContentPlaceHolder ID="ScriptContent" runat="server">
-
         </asp:ContentPlaceHolder>
-
     </form>
-
 </body>
-
 </html>
-

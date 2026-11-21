@@ -42,7 +42,7 @@ namespace asp.net
         }
 
         void LoadSavedInternships()
-        { 
+        {
             getcon();
             da = new SqlDataAdapter("SELECT i.*, c.c_company, c.c_logo, c.c_industry, s.SavedDate FROM StudentSavedInternships s INNER JOIN internship i ON s.InternshipId=i.Id INNER JOIN c_registration c ON i.CompanyId=c.CompanyId WHERE (s.StudentEmail='" + Session["student"].ToString() + "' OR s.StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"].ToString() + "' OR EnrollmentNo='" + Session["student"].ToString() + "')) AND (c.IsBlocked=0 OR c.IsBlocked IS NULL) AND (c.Status!='Blocked' OR c.Status IS NULL) ORDER BY s.SaveId DESC", con);
             ds = new DataSet();
@@ -76,6 +76,6 @@ namespace asp.net
                 LoadSavedInternships();
             }
         }
-      
+
     }
 }

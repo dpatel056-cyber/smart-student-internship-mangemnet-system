@@ -110,7 +110,7 @@
                                     <!-- Top Row -->
                                     <div class="card-top-row">
                                         <div class="company-logo-wrap">
-                                            <asp:Image ID="imgCompanyLogo" runat="server" ImageUrl='<%# GetCompanyLogo(Eval("c_logo")) %>' CssClass="company-logo-img" />
+                                            <asp:Image ID="imgCompanyLogo" runat="server" ImageUrl='<%# Eval("c_logo") %>' CssClass="company-logo-img" />
                                         </div>
                                         <div class="title-company-wrap">
                                             <h3 class="internship-card-title">
@@ -120,9 +120,14 @@
                                                 <asp:Label ID="lblCompanyName" runat="server" Text='<%# Eval("c_company") %>'></asp:Label>
                                             </span>
                                         </div>
-                                        <asp:LinkButton ID="btnBookmark" runat="server" CommandName="Bookmark" CommandArgument='<%# Eval("Id") %>' CssClass="bookmark-btn" OnClientClick="event.stopPropagation();">
-                                            <i class='<%# IsInternshipSaved(Eval("Id")) ? "fa-solid fa-bookmark bookmarked" : "fa-regular fa-bookmark" %>'></i>
-                                        </asp:LinkButton>
+
+<asp:LinkButton ID="btnBookmark" runat="server"
+    CommandName="Bookmark"
+    CommandArgument='<%# Eval("Id") %>'
+    CssClass="bookmark-btn">
+    <i class='<%# IsInternshipSaved(Eval("Id")) ? "fa-solid fa-bookmark bookmarked" : "fa-regular fa-bookmark" %>'></i>
+</asp:LinkButton>
+
                                     </div>
 
                                     <!-- Details Row -->
@@ -139,9 +144,7 @@
 
                                     <!-- Stipend Row -->
                                     <div class="card-stipend-row">
-                                        <span class='<%# Eval("PaymentStatus") != null && Eval("PaymentStatus").ToString().ToLower() == "unpaid" ? "badge-unpaid" : "badge-paid" %>'>
-                                            <asp:Label ID="lblPaymentStatus" runat="server" Text='<%# Eval("PaymentStatus") %>'></asp:Label>
-                                        </span>
+                                        <%# GetPaymentStatusBadge(Eval("PaymentStatus")) %>
                                         <span class="stipend-amount">
                                             <i class="fa-solid fa-indian-rupee-sign"></i> <asp:Label ID="lblStipendAmount" runat="server" Text='<%# Eval("StipendAmount") %>'></asp:Label>
                                         </span>
@@ -155,7 +158,8 @@
                                         </span>
                                         <span class="footer-meta posted-time">
                                             <i class="fa-regular fa-calendar-days"></i> Posted
-                                            <asp:Label ID="lblPostedDate" runat="server" Text='<%# Eval("PostedDate") != DBNull.Value ? Convert.ToDateTime(Eval("PostedDate")).ToString("dd-MM-yyyy") : "Recently" %>' />
+
+<asp:Label ID="lblPostedDate" runat="server" Text='<%# Convert.ToDateTime(Eval("PostedDate")).ToString("dd-MM-yyyy") %>' />
                                         </span>
                                     </div>
                                 </div>

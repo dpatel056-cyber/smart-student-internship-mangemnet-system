@@ -133,9 +133,7 @@
                             </span>
                         </div>
 
-                        <span class='offer-status-top offer-status-top-<%# Eval("Status").ToString().ToLower() %>'>
-                            <%# Eval("Status").ToString() == "Accepted" ? "Accepted" : Eval("Status").ToString() == "Rejected" ? "Rejected" : "Offered / Pending" %>
-                        </span>
+                        <%# GetStatusTop(Eval("Status")) %>
 
                     </div>
 
@@ -155,10 +153,10 @@
                                     Text='<%# Eval("c_company") %>' />
                             </h3>
 
-                            <p class="offer-company-loc">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <%# Eval("c_location").ToString() != "" ? Eval("c_location") : Eval("WorkLocation").ToString() != "" ? Eval("WorkLocation") : "Headquarters" %>
-                            </p>
+                           <p class="offer-company-loc">
+    <i class="fa-solid fa-location-dot"></i>
+    <%# Eval("c_location") %>
+</p>
 
                         </div>
                     </div>
@@ -269,10 +267,7 @@
 
                         </div>
 
-                        <div class='offer-status-badge-bottom status-bottom-<%# Eval("Status").ToString().ToLower() %>'>
-                            <i class='<%# Eval("Status").ToString() == "Accepted" ? "fa-solid fa-circle-check" : Eval("Status").ToString() == "Rejected" ? "fa-solid fa-circle-xmark" : "fa-solid fa-clock" %>'></i>
-                            <%# Eval("Status").ToString() == "Accepted" ? "Accepted" : Eval("Status").ToString() == "Rejected" ? "Rejected" : "Offered / Pending" %>
-                        </div>
+                        <%# GetStatusBadge(Eval("Status")) %>
 
                     </div>
 

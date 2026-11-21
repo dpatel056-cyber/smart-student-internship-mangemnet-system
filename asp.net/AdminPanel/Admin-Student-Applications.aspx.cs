@@ -260,7 +260,7 @@ namespace asp.net
             //Response.BinaryWrite(ms.ToArray());
             //Response.End();
 
-            getcon(); 
+            getcon();
             da = new SqlDataAdapter("select a.ApplicationId as [Application Id], s.FullName as [Student Name], s.Email as [Email], i.InternshipTitle as [Internship], c.c_company as [Company], a.AppliedDate as [Applied Date], ISNULL(a.Status, 'Applied') as [Status] from StudentApplications a inner join internship i on a.InternshipId = i.Id inner join c_registration c on i.CompanyId = c.CompanyId inner join Students s on a.StudentId = s.StudentId order by a.ApplicationId desc", con);
             ds = new DataSet();
             da.Fill(ds);

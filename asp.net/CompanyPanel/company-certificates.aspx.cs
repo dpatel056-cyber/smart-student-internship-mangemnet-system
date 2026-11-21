@@ -2,8 +2,13 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using ListItem = System.Web.UI.WebControls.ListItem;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using CrystalDecisions.Web.Design;
@@ -220,6 +225,61 @@ namespace asp.net
 
         protected void btnGenerateReport_Click(object sender, EventArgs e)
         {
+            //getcon();
+
+            //string q = "select cc.CertificateNo as [Certificate No], ISNULL(a.FullName, s.FullName) as [Student Name], " +
+            //           "c.c_company as [Company], ISNULL(i.InternshipTitle, cc.CertificateTitle) as [Internship], " +
+            //           "cc.IssueDate as [Issue Date], ISNULL(cc.Performance, 'Completed') as [Performance] " +
+            //           "from CompanyCertificates cc " +
+            //           "left join StudentApplications a on cc.ApplicationId = a.ApplicationId " +
+            //           "left join Students s on (cc.StudentId = s.StudentId or a.StudentId = s.StudentId) " +
+            //           "inner join c_registration c on cc.CompanyId = c.CompanyId " +
+            //           "left join internship i on cc.InternshipId = i.Id " +
+            //           "where c.c_email='" + Session["company"] + "' and (cc.IsDeleted=0 or cc.IsDeleted is null) " +
+            //           "order by cc.CertificateId desc";
+
+            //da = new SqlDataAdapter(q, con);
+            //DataTable dt = new DataTable();
+            //da.Fill(dt);
+
+            ////create pdf document
+            //Document pdfdoc = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
+            //MemoryStream ms = new MemoryStream();
+            //PdfWriter.GetInstance(pdfdoc, ms);
+            //pdfdoc.Open();
+
+            ////add title
+            //pdfdoc.Add(new Paragraph("Company Certificates Report"));
+            //pdfdoc.Add(new Paragraph(""));
+
+            ////create pdf table
+            //PdfPTable pdfPTable = new PdfPTable(dt.Columns.Count);
+            //pdfPTable.WidthPercentage = 100;
+
+            ////add headers
+            //foreach (DataColumn column in dt.Columns)
+            //{
+            //    pdfPTable.AddCell(new Phrase(column.ColumnName));
+            //}
+
+            ////add data rows
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    foreach (object cell in row.ItemArray)
+            //    {
+            //        pdfPTable.AddCell(new Phrase(cell.ToString()));
+            //    }
+            //}
+            //pdfdoc.Add(pdfPTable);
+            //pdfdoc.Close();
+
+            ////send pdf to browser
+            //Response.ContentType = "application/pdf";
+            //Response.AddHeader("Content-Disposition", "attachment; filename=CompanyCertificatesReport.pdf");
+            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //Response.BinaryWrite(ms.ToArray());
+            //Response.End();
+
             getcon();
             da = new SqlDataAdapter("select cc.CertificateNo as [Certificate No], ISNULL(a.FullName, s.FullName) as [Student Name], c.c_company as [Company], ISNULL(i.InternshipTitle, cc.CertificateTitle) as [Internship], cc.IssueDate as [Issue Date], ISNULL(cc.Performance, 'Completed') as [Performance] from CompanyCertificates cc left join StudentApplications a on cc.ApplicationId = a.ApplicationId left join Students s on (cc.StudentId = s.StudentId or a.StudentId = s.StudentId) inner join c_registration c on cc.CompanyId = c.CompanyId left join internship i on cc.InternshipId = i.Id where c.c_email='" + Session["company"] + "' and (cc.IsDeleted=0 or cc.IsDeleted is null) order by cc.CertificateId desc", con);
             ds = new DataSet();

@@ -3,11 +3,11 @@
     <link rel="stylesheet" href="../css/student-tasks.css" />
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div  class="stask-u1">
+    <div class="stask-u1">
         <!-- Header -->
         <div class="page-header-box">
             <div class="page-title">
-                <h1><i class="fa-solid fa-list-check stask-u2" ></i> My Internship Tasks &amp; Quizzes</h1>
+                <h1><i class="fa-solid fa-list-check stask-u2"></i> My Internship Tasks &amp; Quizzes</h1>
                 <p>Complete your assigned technical quizzes and internship assessments to test your skills and unlock your verified certificate!</p>
             </div>
         </div>
@@ -15,38 +15,38 @@
         <!-- Stats Grid -->
         <div class="task-stats-grid">
             <div class="stat-card-task">
-                <div class="stat-icon-task stask-u3" ><i class="fa-solid fa-clipboard-question"></i></div>
+                <div class="stat-icon-task stask-u3"><i class="fa-solid fa-clipboard-question"></i></div>
                 <div>
-                    <div  class="stask-u4"><asp:Label ID="lblTotalQuizzes" runat="server">0</asp:Label></div>
-                    <div  class="stask-u5">Total Assigned</div>
+                    <div class="stask-u4"><asp:Label ID="lblTotalQuizzes" runat="server">0</asp:Label></div>
+                    <div class="stask-u5">Total Assigned</div>
                 </div>
             </div>
             <div class="stat-card-task">
-                <div class="stat-icon-task stask-u6" ><i class="fa-solid fa-circle-check"></i></div>
+                <div class="stat-icon-task stask-u6"><i class="fa-solid fa-circle-check"></i></div>
                 <div>
-                    <div  class="stask-u4"><asp:Label ID="lblPassedQuizzes" runat="server">0</asp:Label></div>
-                    <div  class="stask-u5">Passed &amp; Completed</div>
+                    <div class="stask-u4"><asp:Label ID="lblPassedQuizzes" runat="server">0</asp:Label></div>
+                    <div class="stask-u5">Passed &amp; Completed</div>
                 </div>
             </div>
             <div class="stat-card-task">
-                <div class="stat-icon-task stask-u7" ><i class="fa-solid fa-clock"></i></div>
+                <div class="stat-icon-task stask-u7"><i class="fa-solid fa-clock"></i></div>
                 <div>
-                    <div  class="stask-u4"><asp:Label ID="lblTotalTasks" runat="server">0</asp:Label></div>
-                    <div  class="stask-u5">Pending / In Progress</div>
+                    <div class="stask-u4"><asp:Label ID="lblTotalTasks" runat="server">0</asp:Label></div>
+                    <div class="stask-u5">Pending / In Progress</div>
                 </div>
             </div>
             <div class="stat-card-task">
-                <div class="stat-icon-task stask-u3" ><i class="fa-solid fa-award"></i></div>
+                <div class="stat-icon-task stask-u3"><i class="fa-solid fa-award"></i></div>
                 <div>
-                    <div  class="stask-u4"><asp:Label ID="lblCompletedTasks" runat="server">0</asp:Label></div>
-                    <div  class="stask-u5">Certificate Eligible</div>
+                    <div class="stask-u4"><asp:Label ID="lblCompletedTasks" runat="server">0</asp:Label></div>
+                    <div class="stask-u5">Certificate Eligible</div>
                 </div>
             </div>
         </div>
         <!-- SECTION 1: QUIZ ASSESSMENTS -->
         <div class="section-header-wrap">
-            <h2><i class="fa-solid fa-clipboard-question stask-u2" ></i> Assigned Quiz Assessments</h2>
-            <span  class="stask-u8"><i class="fa-solid fa-laptop-code"></i> Interactive Assessment Arena</span>
+            <h2><i class="fa-solid fa-clipboard-question stask-u2"></i> Assigned Quiz Assessments</h2>
+            <span class="stask-u8"><i class="fa-solid fa-laptop-code"></i> Interactive Assessment Arena</span>
         </div>
         <div class="quiz-cards-grid">
             <asp:DataList ID="rptStudentQuizzes" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal">
@@ -57,14 +57,14 @@
                                 <span class="quiz-topic-tag"><asp:Label ID="lblTopic" runat="server" Text='<%# Eval("Topic") %>'></asp:Label></span>
                                 <asp:Label ID="litStatusBadge" runat="server" Text='<%# GetQuizStatusBadge(Eval("Status"), Eval("Score")) %>'></asp:Label>
                             </div>
-                            <h3  class="stask-u9"><asp:Label ID="lblQuizTitle" runat="server" Text='<%# Eval("QuizTitle") %>'></asp:Label></h3>
-                            <div  class="stask-u10">
-                                <i class="fa-solid fa-building stask-u2" ></i> <strong><asp:Label ID="lblCompanyName" runat="server" Text='<%# Eval("CompanyName") %>'></asp:Label></strong> (<asp:Label ID="lblInternshipTitle" runat="server" Text='<%# Eval("InternshipTitle") %>'></asp:Label>)
+                            <h3 class="stask-u9"><asp:Label ID="lblQuizTitle" runat="server" Text='<%# Eval("QuizTitle") %>'></asp:Label></h3>
+                            <div class="stask-u10">
+                                <i class="fa-solid fa-building stask-u2"></i> <strong><asp:Label ID="lblCompanyName" runat="server" Text='<%# Eval("CompanyName") %>'></asp:Label></strong> (<asp:Label ID="lblInternshipTitle" runat="server" Text='<%# Eval("InternshipTitle") %>'></asp:Label>)
                             </div>
-                            <div  class="stask-u11">
-                                <span><i class="fa-regular fa-clock stask-u2" ></i> <strong><asp:Label ID="lblDuration" runat="server" Text='<%# Eval("DurationMinutes") %>'></asp:Label> mins</strong></span>
-                                <span><i class="fa-solid fa-bullseye stask-u12" ></i> Pass: <strong><asp:Label ID="lblPassScore" runat="server" Text='<%# Eval("PassingScore") %>'></asp:Label>%</strong></span>
-                                <span><i class="fa-solid fa-circle-question stask-u13" ></i> <strong><asp:Label ID="lblTotalQ" runat="server" Text='<%# Eval("TotalQuestions") %>'></asp:Label> Qs</strong></span>
+                            <div class="stask-u11">
+                                <span><i class="fa-regular fa-clock stask-u2"></i> <strong><asp:Label ID="lblDuration" runat="server" Text='<%# Eval("DurationMinutes") %>'></asp:Label> mins</strong></span>
+                                <span><i class="fa-solid fa-bullseye stask-u12"></i> Pass: <strong><asp:Label ID="lblPassScore" runat="server" Text='<%# Eval("PassingScore") %>'></asp:Label>%</strong></span>
+                                <span><i class="fa-solid fa-circle-question stask-u13"></i> <strong><asp:Label ID="lblTotalQ" runat="server" Text='<%# Eval("TotalQuestions") %>'></asp:Label> Qs</strong></span>
                             </div>
                         </div>
                         <div>
@@ -74,12 +74,12 @@
                 </ItemTemplate>
             </asp:DataList>
             <asp:PlaceHolder ID="pnlNoQuizzes" runat="server" Visible="false">
-                <div  class="stask-u14">
-                    <div  class="stask-u15">
+                <div class="stask-u14">
+                    <div class="stask-u15">
                         <i class="fa-solid fa-clipboard-question"></i>
                     </div>
-                    <h3  class="stask-u16">No Quizzes Assigned Yet</h3>
-                    <p  class="stask-u17">When your internship company assigns an assessment quiz challenge, it will appear here!</p>
+                    <h3 class="stask-u16">No Quizzes Assigned Yet</h3>
+                    <p class="stask-u17">When your internship company assigns an assessment quiz challenge, it will appear here!</p>
                 </div>
             </asp:PlaceHolder>
         </div>
@@ -96,14 +96,14 @@
             <canvas id="confettiCanvas"></canvas>
             <!-- Header -->
             <div class="arena-header">
-                <div  class="stask-u19">
+                <div class="stask-u19">
                     <div class="arena-mascot" id="arenaAvatar"><i class="fa-solid fa-graduation-cap"></i></div>
                     <div>
                         <h3 id="modalQuizTitle"  class="stask-u20">Quiz Assessment</h3>
                         <div id="modalQuizSubtitle"  class="stask-u21">Technical Skills Assessment</div>
                     </div>
                 </div>
-                <div  class="stask-u22">
+                <div class="stask-u22">
                     <div class="arena-timer-pill">
                         <i class="fa-solid fa-stopwatch"></i>
                         <span id="arenaTimer">10:00</span>
@@ -117,22 +117,22 @@
             <div id="arenaPlayScreen" class="arena-body">
                 <!-- Lifelines Bar -->
                 <div class="lifelines-bar">
-                    <div  class="stask-u24">
-                        <button type="button" id="btn5050" class="btn-lifeline" onclick="use5050Lifeline();" >
-                            <i class="fa-solid fa-bolt stask-u25" ></i> 50:50
+                    <div class="stask-u24">
+                        <button type="button" id="btn5050" class="btn-lifeline" onclick="use5050Lifeline();">
+                            <i class="fa-solid fa-bolt stask-u25"></i> 50:50
                         </button>
-                        <button type="button" id="btnHint" class="btn-lifeline" onclick="useHintLifeline();" >
-                            <i class="fa-solid fa-lightbulb stask-u26" ></i> Hint
+                        <button type="button" id="btnHint" class="btn-lifeline" onclick="useHintLifeline();">
+                            <i class="fa-solid fa-lightbulb stask-u26"></i> Hint
                         </button>
                     </div>
-                    <div  class="stask-u27">
-                        <button type="button" id="btnSoundToggle" class="btn-lifeline" onclick="toggleSound();" >
+                    <div class="stask-u27">
+                        <button type="button" id="btnSoundToggle" class="btn-lifeline" onclick="toggleSound();">
                             <i class="fa-solid fa-volume-high"></i> Sound: ON
                         </button>
                     </div>
                 </div>
                 <!-- Live Score & Tracker -->
-                <div  class="stask-u28">
+                <div class="stask-u28">
                     <span id="arenaQTracker">Question 1 of 5</span>
                     <span id="arenaScoreLive"  class="stask-u29">0 Points</span>
                 </div>
@@ -143,7 +143,7 @@
                 <div id="praiseBubble">Correct Answer!</div>
                 <div id="arenaQuestionText" class="arena-question-text">Loading question...</div>
                 <div id="arenaHintBox"  class="stask-u30">
-                    <i class="fa-solid fa-lightbulb stask-u26" ></i> <strong>Hint:</strong> <span id="arenaHintText">Here is a hint</span>
+                    <i class="fa-solid fa-lightbulb stask-u26"></i> <strong>Hint:</strong> <span id="arenaHintText">Here is a hint</span>
                 </div>
                 <div class="arena-options-grid">
                     <button type="button" id="btnOptA" class="arena-opt-btn" onclick="selectAnswer('A');">
@@ -165,9 +165,9 @@
                 </div>
                 <div class="arena-footer">
                     <div id="arenaStreak" class="arena-streak-badge">
-                        <i class="fa-solid fa-fire stask-u31" ></i> <span>Streak: 0</span>
+                        <i class="fa-solid fa-fire stask-u31"></i> <span>Streak: 0</span>
                     </div>
-                    <button type="button" id="btnNextQuestion" class="btn-next-q stask-u32" onclick="nextQuestion();" >
+                    <button type="button" id="btnNextQuestion" class="btn-next-q stask-u32" onclick="nextQuestion();">
                         Next Question <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
@@ -183,12 +183,12 @@
                 <p id="resDesc"  class="stask-u34">
                     Your quiz assessment results are ready to be submitted to the company.
                 </p>
-                <div  class="stask-u35">
-                    <div><span  class="stask-u36">Correct:</span> <strong id="resCorrectCount"  class="stask-u37">5 / 5</strong></div>
-                    <div><span  class="stask-u36">Status:</span> <strong id="resStatusBadge"  class="stask-u25">PASSED</strong></div>
+                <div class="stask-u35">
+                    <div><span class="stask-u36">Correct:</span> <strong id="resCorrectCount"  class="stask-u37">5 / 5</strong></div>
+                    <div><span class="stask-u36">Status:</span> <strong id="resStatusBadge"  class="stask-u25">PASSED</strong></div>
                 </div>
                 <div>
-                    <button type="button" class="btn-play-arena stask-u38" onclick="finalizeQuizSubmission();" >
+                    <button type="button" class="btn-play-arena stask-u38" onclick="finalizeQuizSubmission();">
                         <i class="fa-solid fa-cloud-arrow-up"></i> Submit Score to Company
                     </button>
                 </div>

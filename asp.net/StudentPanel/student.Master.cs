@@ -69,11 +69,10 @@ namespace asp.net
                 {
                     imgHeaderAvatar.Visible = false;
                     lblHeaderAvatarInitials.Visible = true;
-                   
 
                     imgSidebarAvatar.Visible = false;
                     lblSidebarAvatarInitials.Visible = true;
-                   
+
                 }
             }
             else

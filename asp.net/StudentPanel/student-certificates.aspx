@@ -39,7 +39,7 @@
                     <div class="scert-u5">Partner Companies</div>
                 </div>
             </div>
-           
+
         </div>
         <asp:DataList ID="dlCertificates" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" CssClass="doc-cards-grid" OnItemCommand="dlCertificates_ItemCommand">
             <ItemTemplate>

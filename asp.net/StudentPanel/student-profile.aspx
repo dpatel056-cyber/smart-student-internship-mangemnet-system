@@ -315,15 +315,17 @@
                                             </div>
                                         </div>
                                         <div class="project-actions">
-                                            <button type="button" class="project-action-btn edit-btn" onclick="openEditProjectForm(this)"
-                                                data-id='<%# Eval("ProjectId") %>'
-                                                data-name='<%# HttpUtility.HtmlAttributeEncode(Eval("ProjectName") as string ?? "") %>'
-                                                data-type='<%# HttpUtility.HtmlAttributeEncode(Eval("ProjectType") as string ?? "") %>'
-                                                data-desc='<%# HttpUtility.HtmlAttributeEncode(Eval("Description") as string ?? "") %>'
-                                                data-tech='<%# HttpUtility.HtmlAttributeEncode(Eval("TechnologiesUsed") as string ?? "") %>'
-                                                data-link='<%# HttpUtility.HtmlAttributeEncode(Eval("ProjectLink") as string ?? "") %>'>
-                                                <i class="fa-solid fa-pen"></i>
-                                            </button>
+
+<button type="button" class="project-action-btn edit-btn" onclick="openEditProjectForm(this)"
+    data-id='<%# Eval("ProjectId") %>'
+    data-name='<%# Eval("ProjectName") %>'
+    data-type='<%# Eval("ProjectType") %>'
+    data-desc='<%# Eval("Description") %>'
+    data-tech='<%# Eval("TechnologiesUsed") %>'
+    data-link='<%# Eval("ProjectLink") %>'>
+    <i class="fa-solid fa-pen"></i>
+</button>
+
                                             <asp:LinkButton ID="btnDeleteProject" runat="server" CommandName="DeleteProject" CommandArgument='<%# Eval("ProjectId") %>' CssClass="project-action-btn delete-btn" CausesValidation="false">
                                                 <i class="fa-solid fa-trash"></i>
                                             </asp:LinkButton>
@@ -342,13 +344,7 @@
                                             <%# Eval("TechnologiesUsed") %>
                                         </div>
                                     </div>
-                                    <asp:PlaceHolder ID="phProjectLink" runat="server" Visible='<%# !string.IsNullOrWhiteSpace(Eval("ProjectLink") as string) %>'>
-                                        <div class="project-links">
-                                            <a href='<%# Eval("ProjectLink") %>' target="_blank" class="project-link-btn" rel="noopener noreferrer">
-                                                <i class="fa-solid fa-arrow-up-right-from-square"></i>View Project Link
-                                            </a>
-                                        </div>
-                                    </asp:PlaceHolder>
+
                                 </div>
                             </ItemTemplate>
                         </asp:TemplateField>

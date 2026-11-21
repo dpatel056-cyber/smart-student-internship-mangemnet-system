@@ -43,7 +43,7 @@ namespace asp.net
         {
             getcon();
 
-            da = new SqlDataAdapter("select i.Id, c.CompanyId, i.InternshipTitle, c.c_company from internship i inner join c_registration c on i.CompanyId=c.CompanyId", con);
+            da = new SqlDataAdapter("SELECT i.Id, c.CompanyId, i.InternshipTitle, c.c_company FROM internship i INNER JOIN c_registration c ON i.CompanyId = c.CompanyId", con);
 
             ds = new DataSet();
             da.Fill(ds);
@@ -54,8 +54,8 @@ namespace asp.net
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 ddlCompanyInternship.Items.Add(new ListItem(
-                    ds.Tables[0].Rows[i]["c_company"] + " - " + ds.Tables[0].Rows[i]["InternshipTitle"],
-                    ds.Tables[0].Rows[i]["CompanyId"] + "|" + ds.Tables[0].Rows[i]["Id"]
+                    ds.Tables[0].Rows[i]["c_company"].ToString() + " - " + ds.Tables[0].Rows[i]["InternshipTitle"].ToString(),
+                    ds.Tables[0].Rows[i]["CompanyId"].ToString() + "|" + ds.Tables[0].Rows[i]["Id"].ToString()
                 ));
             }
         }
@@ -110,50 +110,49 @@ namespace asp.net
             {
                 lblMsg.Text = "Please enter subject and comments.";
                 lblMsg.Visible = true;
-                return;
             }
-
-            string companyId = "NULL";
-            string internshipId = "NULL";
-
-            if (ddlFeedbackType.SelectedValue == "Company")
+            else
             {
-                if (ddlCompanyInternship.SelectedValue == "")
+                string companyId = "NULL";
+                string internshipId = "NULL";
+
+                if (ddlFeedbackType.SelectedValue == "Company")
                 {
-                    lblMsg.Text = "Please select company and internship.";
-                    lblMsg.Visible = true;
-                    return;
+                    if (ddlCompanyInternship.SelectedValue == "")
+                    {
+                        lblMsg.Text = "Please select company and internship.";
+                        lblMsg.Visible = true;
+                        return;
+                    }
+
+                    companyId = ddlCompanyInternship.SelectedValue.Split('|')[0];
+                    internshipId = ddlCompanyInternship.SelectedValue.Split('|')[1];
                 }
 
-                string[] parts = ddlCompanyInternship.SelectedValue.Split('|');
+                getcon();
 
-                companyId = parts[0];
-                internshipId = parts[1];
+                da = new SqlDataAdapter("SELECT FullName FROM Students WHERE Email='" + Session["student"] + "' OR EnrollmentNo='" + Session["student"] + "'", con);
+
+                ds = new DataSet();
+                da.Fill(ds);
+
+                string studentName = Session["student"].ToString();
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    studentName = ds.Tables[0].Rows[0]["FullName"].ToString();
+                }
+
+                cmd = new SqlCommand("INSERT INTO PlatformFeedback VALUES('Student', '" + studentName + "', '" + Session["student"] + "', '" + ddlFeedbackType.SelectedValue + "', " + companyId + ", " + internshipId + ", '" + ddlCategory.SelectedValue + "', " + ddlRating.SelectedValue + ", '" + txtSubject.Text + "', '" + txtComments.Text + "', GETDATE())", con);
+
+                cmd.ExecuteNonQuery();
+
+                lblMsg.Text = "Thank you! Your feedback has been submitted successfully.";
+                lblMsg.Visible = true;
+
+                clearForm();
+                fillGrid();
             }
-
-            getcon();
-
-            da = new SqlDataAdapter("select FullName from Students where Email='" + Session["student"] + "' or EnrollmentNo='" + Session["student"] + "'", con);
-
-            ds = new DataSet();
-            da.Fill(ds);
-
-            string studentName = Session["student"].ToString();
-
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                studentName = ds.Tables[0].Rows[0]["FullName"].ToString();
-            }
-
-            cmd = new SqlCommand("insert into PlatformFeedback (SenderType,SenderName,SenderEmail,FeedbackType,CompanyId,InternshipId,FeedbackCategory,Rating,Subject,Message,CreatedDate) values('Student','" + studentName + "','" + Session["student"] + "','" + ddlFeedbackType.SelectedValue + "'," + companyId + "," + internshipId + ",'" + ddlCategory.SelectedValue + "'," + ddlRating.SelectedValue + ",'" + txtSubject.Text + "','" + txtComments.Text + "',GETDATE())", con);
-
-            cmd.ExecuteNonQuery();
-
-            lblMsg.Text = "Thank you! Your feedback has been submitted successfully.";
-            lblMsg.Visible = true;
-
-            clearForm();
-            fillGrid();
         }
 
         protected void gvFeedback_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -161,13 +160,10 @@ namespace asp.net
             if (e.CommandName == "cmd_dlt")
             {
                 getcon();
-
                 cmd = new SqlCommand("delete from PlatformFeedback where FeedbackId=" + e.CommandArgument + " and SenderEmail='" + Session["student"] + "'", con);
                 cmd.ExecuteNonQuery();
-
                 lblMsg.Visible = true;
                 lblMsg.Text = "Feedback deleted successfully.";
-
                 fillGrid();
             }
         }

@@ -57,13 +57,13 @@ namespace asp.net
                 dlCertificates.DataBind();
                 dlCertificates.Visible = true;
                 pnlNoCerts.Visible = false;
-               
+
             }
             else
             {
                 dlCertificates.Visible = false;
                 pnlNoCerts.Visible = true;
-               
+
             }
         }
 

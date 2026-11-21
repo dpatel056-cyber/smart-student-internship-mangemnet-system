@@ -3,13 +3,13 @@
     <link rel="stylesheet" href="../css/student-saved-internships.css" />
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div  class="ssave-u1">
+    <div class="ssave-u1">
         <div class="page-header-box">
             <div class="page-title">
                 <h1>Saved Internships</h1>
                 <p>Quick access to all the internships you have bookmarked for later review.</p>
             </div>
-            <asp:HyperLink ID="hlBrowse" runat="server" NavigateUrl="~/StudentPanel/student-internships.aspx" CssClass="btn-view-details ssave-u2" >
+            <asp:HyperLink ID="hlBrowse" runat="server" NavigateUrl="~/StudentPanel/student-internships.aspx" CssClass="btn-view-details ssave-u2">
                 <i class="fa-solid fa-plus"></i> Explore More
             </asp:HyperLink>
         </div>
@@ -58,11 +58,11 @@
             </ItemTemplate>
         </asp:DataList>
         <asp:PlaceHolder ID="pnlNoSaved" runat="server" Visible="false">
-            <div  class="ssave-u3">
-                <i class="fa-regular fa-bookmark ssave-u4" ></i>
-                <h3  class="ssave-u5">No Saved Internships Yet</h3>
-                <p  class="ssave-u6">Bookmark internships while browsing to keep track of interesting opportunities.</p>
-                <asp:HyperLink ID="hlBrowseNow" runat="server" NavigateUrl="~/StudentPanel/student-internships.aspx" CssClass="btn-view-details ssave-u7" >
+            <div class="ssave-u3">
+                <i class="fa-regular fa-bookmark ssave-u4"></i>
+                <h3 class="ssave-u5">No Saved Internships Yet</h3>
+                <p class="ssave-u6">Bookmark internships while browsing to keep track of interesting opportunities.</p>
+                <asp:HyperLink ID="hlBrowseNow" runat="server" NavigateUrl="~/StudentPanel/student-internships.aspx" CssClass="btn-view-details ssave-u7">
                     <i class="fa-solid fa-briefcase"></i> Browse Internships
                 </asp:HyperLink>
             </div>

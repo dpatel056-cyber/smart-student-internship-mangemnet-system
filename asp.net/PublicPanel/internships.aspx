@@ -191,9 +191,7 @@
 
                                         <!-- Stipend Row -->
                                         <div class="card-stipend-row">
-                                            <span class="badge-paid">
-                                                <asp:Label ID="lblPaymentStatus" runat="server" Text='<%# Eval("PaymentStatus") %>'></asp:Label>
-                                            </span>
+                                            <%# GetPaymentStatusBadge(Eval("PaymentStatus")) %>
                                             <span class="stipend-amount">
                                                 <i class="fa-solid fa-indian-rupee-sign"></i>
                                                 <asp:Label ID="lblStipendAmount" runat="server" Text='<%# Eval("StipendAmount") %>'></asp:Label>

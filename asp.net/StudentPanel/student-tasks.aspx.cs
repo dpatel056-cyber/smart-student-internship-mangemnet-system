@@ -145,7 +145,6 @@ namespace asp.net
 
         }
 
-
         [System.Web.Services.WebMethod]
         public static object GetQuizQuestions(int quizId)
         {
@@ -177,7 +176,6 @@ namespace asp.net
             }
         }
 
-
         public string GetQuizStatusBadge(object statusObj, object scoreObj)
         {
             string status = Convert.ToString(statusObj);
@@ -197,7 +195,6 @@ namespace asp.net
             }
             return "<span class='quiz-badge badge-ready'><i class='fa-solid fa-gamepad'></i> Ready to Play</span>";
         }
-
 
         public string GetQuizPlayBtn(object assignmentId, object quizId, object quizTitle, object duration, object passingScore, object status)
         {

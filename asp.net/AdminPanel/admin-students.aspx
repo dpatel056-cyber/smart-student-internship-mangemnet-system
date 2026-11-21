@@ -102,7 +102,6 @@
                                         ImageUrl="~/image_button/btn_admin_view.png" CssClass="admin-img-btn admin-img-btn-view"
                                         CausesValidation="false" Height="30" />
 
-
                                     <asp:ImageButton ID="btnDeleteStudent" runat="server" CommandName="cmd_del" CommandArgument='<%# Eval("StudentId") %>'
                                         ImageUrl="~/image_button/btn_admin_delete.png" CssClass="admin-img-btn admin-img-btn-delete"
                                         CausesValidation="false" Height="30" />

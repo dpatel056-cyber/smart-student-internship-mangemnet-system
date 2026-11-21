@@ -236,5 +236,33 @@ namespace asp.net
             CrystalReportViewer7.ReportSource = cr;
             cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Admin Offer Letters Report");
         }
+
+        public string GetStatusTop(object statusObj)
+        {
+            string status = statusObj.ToString();
+
+            if (status == "Accepted")
+                return "<span class='offer-status-top offer-status-top-accepted'>Accepted</span>";
+
+            else if (status == "Rejected" || status == "Declined" || status == "Withdrawn")
+                return "<span class='offer-status-top offer-status-top-rejected'>Rejected</span>";
+
+            else
+                return "<span class='offer-status-top offer-status-top-pending'>Offered / Pending</span>";
+        }
+
+        public string GetStatusBadge(object statusObj)
+        {
+            string status = statusObj.ToString();
+
+            if (status == "Accepted")
+                return "<div class='offer-status-badge-bottom status-bottom-accepted'><i class='fa-solid fa-circle-check'></i> Accepted</div>";
+
+            else if (status == "Rejected" || status == "Declined" || status == "Withdrawn")
+                return "<div class='offer-status-badge-bottom status-bottom-rejected'><i class='fa-solid fa-circle-xmark'></i> Rejected</div>";
+
+            else
+                return "<div class='offer-status-badge-bottom status-bottom-pending'><i class='fa-solid fa-clock'></i> Offered / Pending</div>";
+        }
     }
 }

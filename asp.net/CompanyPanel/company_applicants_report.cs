@@ -14,12 +14,12 @@ namespace asp.net.CompanyPanel {
     using CrystalDecisions.Shared;
     using CrystalDecisions.ReportSource;
     using CrystalDecisions.CrystalReports.Engine;
-    
+
     public class company_applicants_report : ReportClass {
-        
+
         public company_applicants_report() {
         }
-        
+
         public override string ResourceName {
             get {
                 return "company_applicants_report.rpt";
@@ -28,7 +28,7 @@ namespace asp.net.CompanyPanel {
                 // Do nothing
             }
         }
-        
+
         public override bool NewGenerator {
             get {
                 return true;
@@ -37,7 +37,7 @@ namespace asp.net.CompanyPanel {
                 // Do nothing
             }
         }
-        
+
         public override string FullResourceName {
             get {
                 return "asp.net.CompanyPanel.company_applicants_report.rpt";
@@ -46,7 +46,7 @@ namespace asp.net.CompanyPanel {
                 // Do nothing
             }
         }
-        
+
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section1 {
@@ -54,7 +54,7 @@ namespace asp.net.CompanyPanel {
                 return this.ReportDefinition.Sections[0];
             }
         }
-        
+
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section2 {
@@ -62,7 +62,7 @@ namespace asp.net.CompanyPanel {
                 return this.ReportDefinition.Sections[1];
             }
         }
-        
+
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section3 {
@@ -70,7 +70,7 @@ namespace asp.net.CompanyPanel {
                 return this.ReportDefinition.Sections[2];
             }
         }
-        
+
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section4 {
@@ -78,7 +78,7 @@ namespace asp.net.CompanyPanel {
                 return this.ReportDefinition.Sections[3];
             }
         }
-        
+
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section5 {
@@ -87,13 +87,13 @@ namespace asp.net.CompanyPanel {
             }
         }
     }
-    
+
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
     public class Cachedcompany_applicants_report : Component, ICachedReport {
-        
+
         public Cachedcompany_applicants_report() {
         }
-        
+
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public virtual bool IsCacheable {
@@ -101,10 +101,10 @@ namespace asp.net.CompanyPanel {
                 return true;
             }
             set {
-                // 
+                //
             }
         }
-        
+
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public virtual bool ShareDBLogonInfo {
@@ -112,10 +112,10 @@ namespace asp.net.CompanyPanel {
                 return false;
             }
             set {
-                // 
+                //
             }
         }
-        
+
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public virtual System.TimeSpan CacheTimeOut {
@@ -123,16 +123,16 @@ namespace asp.net.CompanyPanel {
                 return CachedReportConstants.DEFAULT_TIMEOUT;
             }
             set {
-                // 
+                //
             }
         }
-        
+
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
             company_applicants_report rpt = new company_applicants_report();
             rpt.Site = this.Site;
             return rpt;
         }
-        
+
         public virtual string GetCustomizedCacheKey(RequestContext request) {
             String key = null;
             return key;

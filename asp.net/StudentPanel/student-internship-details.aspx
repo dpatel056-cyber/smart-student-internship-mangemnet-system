@@ -156,7 +156,7 @@
                             <div class="imd-side-card">
                                 <h3 class="imd-side-title">Quick Actions</h3>
                                 <div class="imd-actions">
-                                    <asp:ImageButton ID="btnApplyNow" runat="server" ImageUrl="~/assets/btn_apply_internship.png" Height="45px" CssClass="imd-action-btn" OnClientClick="openApplyModal(); return false;" />
+                                    <asp:ImageButton ID="btnApplyNow" runat="server" ImageUrl="~/assets/btn_apply_internship.png" Height="45px" CssClass="imd-action-btn" PostBackUrl='<%# "student-apply-internship.aspx?id=" + Eval("Id") %>' />
                                     <asp:ImageButton ID="btnSave" runat="server" ImageUrl="~/assets/btn_save_internship.png" Height="45px" CssClass="imd-action-btn" OnClick="btnSave_Click" />
                                 </div>
                             </div>
@@ -233,99 +233,6 @@
             </asp:DataList>
         </div>
     </main>
-
-    <!-- Apply Internship Modal -->
-    <div id="applyModalOverlay" class="app-modal-overlay">
-        <div class="app-modal-box">
-            <!-- Modal Header -->
-            <div class="app-modal-header">
-                <h3><i class="fa-solid fa-briefcase sintd-u15"></i> Apply for Internship</h3>
-                <button type="button" class="app-modal-close" onclick="closeApplyModal()">&times;</button>
-            </div>
-            <!-- Modal Body Form -->
-            <div class="app-modal-body">
-                <div class="sintd-u16">
-                    <div class="sintd-u17">
-                        <i class="fa-solid fa-building"></i>
-                    </div>
-                    <div>
-                        <div class="sintd-u18">
-                            <asp:Label ID="lblModalRoleTitle" runat="server"></asp:Label>
-                        </div>
-                        <div class="sintd-u19">
-                            <asp:Label ID="lblModalCompanyName" runat="server"></asp:Label>
-                        </div>
-                    </div>
-                </div>
-                <asp:Label ID="lblModalError" runat="server" Visible="false" CssClass="alert-error sintd-u20"></asp:Label>
-                <div class="app-form-grid">
-                    <div class="app-form-group">
-                        <label class="app-form-label">Full Name <span class="req">*</span></label>
-                        <asp:TextBox ID="txtApplicantName" runat="server" CssClass="app-form-control" placeholder="Your Full Name"></asp:TextBox>
-                    </div>
-                    <div class="app-form-group">
-                        <label class="app-form-label">Email Address <span class="req">*</span></label>
-                        <asp:TextBox ID="txtApplicantEmail" runat="server" CssClass="app-form-control" ReadOnly="true"></asp:TextBox>
-                    </div>
-                    <div class="app-form-group">
-                        <label class="app-form-label">Contact Number <span class="req">*</span></label>
-                        <asp:TextBox ID="txtApplicantMobile" runat="server" CssClass="app-form-control" placeholder="10-digit mobile number"></asp:TextBox>
-                    </div>
-                    <div class="app-form-group">
-                        <label class="app-form-label">College / Institute <span class="req">*</span></label>
-                        <asp:TextBox ID="txtApplicantCollege" runat="server" CssClass="app-form-control" placeholder="Your College Name"></asp:TextBox>
-                    </div>
-                    <div class="app-form-group">
-                        <label class="app-form-label">Course / Degree <span class="req">*</span></label>
-                        <asp:TextBox ID="txtApplicantCourse" runat="server" CssClass="app-form-control" placeholder="e.g. BCA, B.Tech, MCA"></asp:TextBox>
-                    </div>
-                    <div class="app-form-group">
-                        <label class="app-form-label">Current Semester / Year <span class="req">*</span></label>
-                        <asp:TextBox ID="txtApplicantSemester" runat="server" CssClass="app-form-control" placeholder="e.g. Sem 5, 3rd Year"></asp:TextBox>
-                    </div>
-                    <div class="app-form-group">
-                        <label class="app-form-label">Current CGPA / Percentage <span class="req">*</span></label>
-                        <asp:TextBox ID="txtApplicantCGPA" runat="server" CssClass="app-form-control" placeholder="e.g. 8.5 CGPA"></asp:TextBox>
-                    </div>
-                    <div class="app-form-group">
-                        <label class="app-form-label">Joining Availability <span class="req">*</span></label>
-                        <asp:DropDownList ID="ddlApplicantAvailability" runat="server" CssClass="app-form-control">
-                            <asp:ListItem Text="Immediate (Within 3 days)" Value="Immediate"></asp:ListItem>
-                            <asp:ListItem Text="Within 1 Week" Value="Within 1 Week"></asp:ListItem>
-                            <asp:ListItem Text="Within 15 Days" Value="Within 15 Days"></asp:ListItem>
-                            <asp:ListItem Text="Within 1 Month" Value="Within 1 Month"></asp:ListItem>
-                        </asp:DropDownList>
-                    </div>
-                </div>
-                <!-- Resume Upload Section -->
-                <div class="app-form-group">
-                    <label class="app-form-label">Resume / CV (PDF or DOC) <span class="req">*</span></label>
-                    <div class="app-file-box">
-                        <asp:HiddenField ID="hfProfileResume" runat="server" />
-                        <div id="divCurrentResume" runat="server" visible="false" class="sintd-u21">
-                            <i class="fa-solid fa-file-pdf"></i>
-                            <span>Attached Profile Resume: <asp:Label ID="lblCurrentResumeName" runat="server"></asp:Label></span>
-                        </div>
-                        <div class="sintd-u22">
-                            <asp:Label ID="lblUploadResumePrompt" runat="server" Text="Upload a new resume if you want to replace it for this application:"></asp:Label>
-                        </div>
-                        <asp:FileUpload ID="fuApplicantResume" runat="server" CssClass="app-form-control" accept=".pdf,.doc,.docx" />
-                    </div>
-                </div>
-                <!-- Cover Letter / Notes -->
-                <div class="app-form-group">
-                    <label class="app-form-label">Why should you be hired for this role? (Cover Note)</label>
-                    <asp:TextBox ID="txtApplicantCoverLetter" runat="server" TextMode="MultiLine" Rows="3" CssClass="app-form-control" placeholder="Briefly highlight your relevant skills, projects, and why you are interested in this position..."></asp:TextBox>
-                </div>
-            </div>
-            <!-- Modal Footer -->
-            <div class="app-modal-footer">
-                <button type="button" class="btn-cancel-modal" onclick="closeApplyModal()">Cancel</button>
-                <asp:ImageButton ID="btnSubmitApplication" runat="server" ImageUrl="~/assets/btn_submit_application.png" Height="44" CssClass="student-img-btn" OnClick="btnSubmitApplication_Click" />
-            </div>
-        </div>
-    </div>
-
 </asp:Content>
 
 <asp:Content ID="ScriptContent_sintd" ContentPlaceHolderID="ScriptContent" runat="server">

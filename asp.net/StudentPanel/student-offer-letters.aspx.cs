@@ -18,7 +18,6 @@ namespace asp.net
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (Session["student"] != null)
             {
                 getcon();
@@ -29,6 +28,10 @@ namespace asp.net
                 if (!IsPostBack)
                 {
                     LoadOffers();
+                    TotalOfferLetters();
+                    ActionPending();
+                    OffersAccepted();
+                    PartnerCompanies();
                 }
             }
             else
@@ -59,68 +62,44 @@ namespace asp.net
 
                 dlOffers.Visible = true;
                 pnlNoOffers.Visible = false;
-
-                LoadStats();
             }
             else
             {
                 dlOffers.Visible = false;
                 pnlNoOffers.Visible = true;
-
-                lblTotalOffers.Text = "0";
-                lblPendingOffers.Text = "0";
-                lblAcceptedOffers.Text = "0";
-                lblCompaniesCount.Text = "0";
             }
         }
 
-        void LoadStats()
+        void TotalOfferLetters()
         {
-            int total = ds.Tables[0].Rows.Count;
-            int pending = 0;
-            int accepted = 0;
-            int companies = 0;
+            getcon();
+            cmd = new SqlCommand("SELECT COUNT(*) FROM CompanyOfferLetters WHERE ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"] + "' OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"] + "' OR EnrollmentNo='" + Session["student"] + "')) OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"] + "' OR EnrollmentNo='" + Session["student"] + "')", con);
+            int i = Convert.ToInt32(cmd.ExecuteScalar());
+            lblTotalOffers.Text = i.ToString();
+        }
 
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-            {
-                string status = ds.Tables[0].Rows[i]["Status"].ToString();
+        void ActionPending()
+        {
+            getcon();
+            cmd = new SqlCommand("SELECT COUNT(*) FROM CompanyOfferLetters WHERE (Status IS NULL OR Status='' OR Status='Pending' OR Status='Sent' OR Status='Offered') AND (ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"] + "' OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"] + "' OR EnrollmentNo='" + Session["student"] + "')) OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"] + "' OR EnrollmentNo='" + Session["student"] + "'))", con);
+            int i = Convert.ToInt32(cmd.ExecuteScalar());
+            lblPendingOffers.Text = i.ToString();
+        }
 
-                if (status == "Accepted")
-                {
-                    accepted++;
-                }
+        void OffersAccepted()
+        {
+            getcon();
+            cmd = new SqlCommand("SELECT COUNT(*) FROM CompanyOfferLetters WHERE Status='Accepted' AND (ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"] + "' OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"] + "' OR EnrollmentNo='" + Session["student"] + "')) OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"] + "' OR EnrollmentNo='" + Session["student"] + "'))", con);
+            int i = Convert.ToInt32(cmd.ExecuteScalar());
+            lblAcceptedOffers.Text = i.ToString();
+        }
 
-                if (status == "Sent" || status == "Pending" || status == "")
-                {
-                    pending++;
-                }
-            }
-
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-            {
-                string company = ds.Tables[0].Rows[i]["c_company"].ToString();
-
-                bool found = false;
-
-                for (int j = 0; j < i; j++)
-                {
-                    if (company == ds.Tables[0].Rows[j]["c_company"].ToString())
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (company != "" && !found)
-                {
-                    companies++;
-                }
-            }
-
-            lblTotalOffers.Text = total.ToString();
-            lblPendingOffers.Text = pending.ToString();
-            lblAcceptedOffers.Text = accepted.ToString();
-            lblCompaniesCount.Text = companies.ToString();
+        void PartnerCompanies()
+        {
+            getcon();
+            cmd = new SqlCommand("SELECT COUNT(DISTINCT CompanyId) FROM CompanyOfferLetters WHERE ApplicationId IN (SELECT ApplicationId FROM StudentApplications WHERE StudentEmail='" + Session["student"] + "' OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"] + "' OR EnrollmentNo='" + Session["student"] + "')) OR StudentId IN (SELECT StudentId FROM Students WHERE Email='" + Session["student"] + "' OR EnrollmentNo='" + Session["student"] + "')", con);
+            int i = Convert.ToInt32(cmd.ExecuteScalar());
+            lblCompaniesCount.Text = i.ToString();
         }
 
         protected void dlOffers_ItemCommand(object source, DataListCommandEventArgs e)
@@ -129,12 +108,10 @@ namespace asp.net
             {
                 getcon();
 
-                cmd = new SqlCommand("update CompanyOfferLetters set Status='Accepted' where OfferId=" +  e.CommandArgument, con);
-
+                cmd = new SqlCommand("update CompanyOfferLetters set Status='Accepted' where OfferId=" + e.CommandArgument, con);
                 cmd.ExecuteNonQuery();
 
-                cmd = new SqlCommand("update StudentApplications set Status='Offer Accepted' " + "where ApplicationId=(select ApplicationId from CompanyOfferLetters " +"where OfferId=" + e.CommandArgument + ")", con);
-
+                cmd = new SqlCommand("update StudentApplications set Status='Offer Accepted' where ApplicationId=(select ApplicationId from CompanyOfferLetters where OfferId=" + e.CommandArgument + ")", con);
                 cmd.ExecuteNonQuery();
 
                 lblMsg.Text = "Congratulations! You have successfully accepted the internship offer.";
@@ -145,14 +122,10 @@ namespace asp.net
             {
                 getcon();
 
-                cmd = new SqlCommand(
-                    "update CompanyOfferLetters set Status='Declined' where OfferId=" +
-                    e.CommandArgument, con);
-
+                cmd = new SqlCommand("update CompanyOfferLetters set Status='Declined' where OfferId=" + e.CommandArgument, con);
                 cmd.ExecuteNonQuery();
 
-                cmd = new SqlCommand("update StudentApplications set Status='Offer Declined' " + "where ApplicationId=(select ApplicationId from CompanyOfferLetters " + "where OfferId=" + e.CommandArgument + ")", con);
-
+                cmd = new SqlCommand("update StudentApplications set Status='Offer Declined' where ApplicationId=(select ApplicationId from CompanyOfferLetters where OfferId=" + e.CommandArgument + ")", con);
                 cmd.ExecuteNonQuery();
 
                 lblMsg.Text = "You have declined this internship offer.";
@@ -160,164 +133,42 @@ namespace asp.net
             }
 
             LoadOffers();
-        }
-
-        public string FormatDay(object dateObj)
-        {
-            if (dateObj != null && dateObj != DBNull.Value)
-            {
-                DateTime dt;
-
-                if (DateTime.TryParse(dateObj.ToString(), out dt))
-                    return dt.ToString("dd");
-            }
-
-            return DateTime.Now.ToString("dd");
-        }
-
-        public string FormatMonth(object dateObj)
-        {
-            if (dateObj != null && dateObj != DBNull.Value)
-            {
-                DateTime dt;
-
-                if (DateTime.TryParse(dateObj.ToString(), out dt))
-                    return dt.ToString("MMM").ToUpper();
-            }
-
-            return DateTime.Now.ToString("MMM").ToUpper();
-        }
-
-        public string GetResolvedLogoUrl(object logoObj)
-        {
-            if (logoObj == null || logoObj == DBNull.Value)
-                return ResolveUrl("~/CompanyUploads/default-company.png");
-
-            string logo = logoObj.ToString().Trim();
-            if (string.IsNullOrEmpty(logo))
-                return ResolveUrl("~/CompanyUploads/default-company.png");
-
-            if (logo.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || logo.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-                return logo;
-
-            if (logo.StartsWith("~"))
-                return ResolveUrl(logo);
-
-            if (logo.StartsWith("/"))
-                return ResolveUrl("~" + logo);
-
-            if (System.IO.File.Exists(Server.MapPath("~/company_images/" + logo)))
-                return ResolveUrl("~/company_images/" + logo);
-            if (System.IO.File.Exists(Server.MapPath("~/compnay_images/" + logo)))
-                return ResolveUrl("~/compnay_images/" + logo);
-            return ResolveUrl("~/CompanyUploads/" + logo);
-        }
-
-        public string FormatCompanyLogo(object logoObj, object nameObj)
-        {
-            string name = "Company";
-
-            if (nameObj != null && !string.IsNullOrEmpty(nameObj.ToString()))
-                name = nameObj.ToString();
-
-            string resolvedUrl = GetResolvedLogoUrl(logoObj);
-            if (!string.IsNullOrEmpty(resolvedUrl))
-            {
-                return "<img src='" + resolvedUrl + "' alt='" + Server.HtmlEncode(name) + "' onerror=\"this.style.display='none'; this.parentElement.innerHTML='<i class=\\\'fa-solid fa-building\\\'></i>';\" />";
-            }
-
-            return "<i class='fa-solid fa-building'></i>";
+            TotalOfferLetters();
+            ActionPending();
+            OffersAccepted();
+            PartnerCompanies();
         }
 
         public bool IsPending(object statusObj)
         {
-            if (statusObj == null || statusObj == DBNull.Value)
-                return true;
-
-            string status = statusObj.ToString();
-
-            if (status == "Sent" || status == "Pending" || status == "")
-                return true;
-
-            return false;
+            return statusObj == null || statusObj == DBNull.Value ||
+                   statusObj.ToString() == "Sent" ||
+                   statusObj.ToString() == "Pending" ||
+                   statusObj.ToString() == "Offered" ||
+                   statusObj.ToString() == "";
         }
 
         public bool IsAccepted(object statusObj)
         {
-            if (statusObj == null || statusObj == DBNull.Value)
-                return false;
-
-            return statusObj.ToString() == "Accepted";
+            return statusObj != null && statusObj.ToString() == "Accepted";
         }
 
         public bool IsDeclined(object statusObj)
         {
-            if (statusObj == null || statusObj == DBNull.Value)
-                return false;
-
-            return statusObj.ToString() == "Declined";
-        }
-
-        public string FormatDate(object dateObj)
-        {
-            if (dateObj == null || dateObj == DBNull.Value)
-                return "N/A";
-
-            DateTime dt;
-
-            if (DateTime.TryParse(dateObj.ToString(), out dt))
-                return dt.ToString("dd MMM yyyy");
-
-            return dateObj.ToString();
-        }
-
-        public string FormatJoining(object joiningObj)
-        {
-            if (joiningObj == null || joiningObj == DBNull.Value)
-                return "Immediate";
-
-            DateTime dt;
-
-            if (DateTime.TryParse(joiningObj.ToString(), out dt))
-                return dt.ToString("dd MMM yyyy");
-
-            return joiningObj.ToString();
-        }
-
-        public string FormatStipend(object stipendObj)
-        {
-            if (stipendObj == null || stipendObj == DBNull.Value)
-                return "Unpaid";
-
-            string stipend = stipendObj.ToString();
-
-            if (stipend == "")
-                return "Unpaid";
-
-            if (!stipend.ToLower().Contains("month") &&
-                !stipend.ToLower().Contains("unpaid") &&
-                !stipend.ToLower().Contains("fixed"))
-            {
-                stipend = stipend + " / month";
-            }
-
-            return "<i class='fa-solid fa-indian-rupee-sign'></i> " + stipend;
+            return statusObj != null &&
+                   (statusObj.ToString() == "Declined" || statusObj.ToString() == "Rejected");
         }
 
         public string GetOfferStatusBadge(object statusObj)
         {
-            string status = "Sent";
-
-            if (statusObj != null && statusObj != DBNull.Value)
-                status = statusObj.ToString();
-
-            if (status == "Accepted")
+            if (IsAccepted(statusObj))
                 return "<span class='offer-accepted'>Offer Accepted</span>";
 
-            if (status == "Declined")
+            if (IsDeclined(statusObj))
                 return "<span class='offer-declined'>Offer Declined</span>";
 
             return "<span class='offer-pending'>Action Pending</span>";
         }
+
     }
 }

@@ -177,9 +177,9 @@ namespace asp.net
             //getcon();
 
             //string q = "select i.Id as [Internship Id], i.InternshipTitle as [Title], c.c_company as [Company], " +
-            //           "i.InternshipDomain as [Domain], i.InternshipDuration as [Duration], " +
-            //           "i.InternshipStipend as [Stipend], i.WorkMode as [Mode], " +
-            //           "ISNULL(i.InternshipStatus, 'Active') as [Status] " +
+            //           "i.InternshipDomain as [Domain], i.Duration as [Duration], " +
+            //           "i.StipendAmount as [Stipend], i.WorkMode as [Mode], " +
+            //           "ISNULL(i.Status, 'Active') as [Status] " +
             //           "from internship i " +
             //           "inner join c_registration c on i.CompanyId = c.CompanyId " +
             //           "order by i.Id desc";

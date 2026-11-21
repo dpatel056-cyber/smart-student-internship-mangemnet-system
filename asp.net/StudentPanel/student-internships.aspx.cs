@@ -117,51 +117,30 @@ namespace asp.net
         }
 
         // Bookmark Action
+
         protected void DataListPublicInternships_ItemCommand(object source, DataListCommandEventArgs e)
         {
-            if (e.CommandName == "Bookmark")
-            {
-                string internshipId = e.CommandArgument != null ? e.CommandArgument.ToString() : "";
-                string sessionStudent = Session["student"] != null ? Session["student"].ToString() : "";
-                if (!string.IsNullOrEmpty(sessionStudent) && !string.IsNullOrEmpty(internshipId))
-                {
-                    stu = new StudentClass();
-                    stu.toggle_bookmark(sessionStudent, internshipId);
-                    fillgrid();
-                }
-            }
+            stu = new StudentClass();
+            stu.toggle_bookmark(Session["student"].ToString(), e.CommandArgument.ToString());
+            fillgrid();
         }
 
         public bool IsInternshipSaved(object idObj)
         {
-            if (idObj == null || Session["student"] == null) return false;
             stu = new StudentClass();
             return stu.is_internship_saved(Session["student"].ToString(), idObj.ToString());
         }
 
-        public string GetCompanyLogo(object logoObj)
+        public string GetPaymentStatusBadge(object paymentStatusObj)
         {
-            if (logoObj == null || logoObj == DBNull.Value)
-                return ResolveUrl("~/CompanyUploads/default-company.png");
-
-            string logo = logoObj.ToString().Trim();
-            if (string.IsNullOrEmpty(logo))
-                return ResolveUrl("~/CompanyUploads/default-company.png");
-
-            if (logo.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || logo.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-                return logo;
-
-            if (logo.StartsWith("~"))
-                return ResolveUrl(logo);
-
-            if (logo.StartsWith("/"))
-                return ResolveUrl("~" + logo);
-
-            if (System.IO.File.Exists(Server.MapPath("~/company_images/" + logo)))
-                return ResolveUrl("~/company_images/" + logo);
-            if (System.IO.File.Exists(Server.MapPath("~/compnay_images/" + logo)))
-                return ResolveUrl("~/compnay_images/" + logo);
-            return ResolveUrl("~/CompanyUploads/" + logo);
+            if (paymentStatusObj != null && paymentStatusObj.ToString().ToLower() == "unpaid")
+            {
+                return "<span class='badge-unpaid'>Unpaid</span>";
+            }
+            else
+            {
+                return "<span class='badge-paid'>" + paymentStatusObj.ToString() + "</span>";
+            }
         }
     }
 }

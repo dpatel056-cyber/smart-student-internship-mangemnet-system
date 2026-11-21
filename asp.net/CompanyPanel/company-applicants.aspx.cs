@@ -187,6 +187,60 @@ namespace asp.net
         // Generate Report Button Click (Crystal Report PDF Export)
         protected void btnGenerateReport_Click(object sender, EventArgs e)
         {
+            //getcon();
+
+            //string q = "select a.ApplicationId as [Application Id], ISNULL(a.FullName, s.FullName) as [Student Name], " +
+            //           "ISNULL(a.StudentEmail, s.Email) as [Email], i.InternshipTitle as [Internship], " +
+            //           "c.c_company as [Company], a.AppliedDate as [Applied Date], ISNULL(a.Status, 'Applied') as [Status] " +
+            //           "from StudentApplications a " +
+            //           "inner join internship i on a.InternshipId = i.Id " +
+            //           "inner join c_registration c on i.CompanyId = c.CompanyId " +
+            //           "left join Students s on a.StudentId = s.StudentId " +
+            //           "where c.c_email='" + Session["company"] + "' " +
+            //           "order by a.ApplicationId desc";
+
+            //da = new SqlDataAdapter(q, con);
+            //DataTable dt = new DataTable();
+            //da.Fill(dt);
+
+            ////create pdf document
+            //Document pdfdoc = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
+            //MemoryStream ms = new MemoryStream();
+            //PdfWriter.GetInstance(pdfdoc, ms);
+            //pdfdoc.Open();
+
+            ////add title
+            //pdfdoc.Add(new Paragraph("Company Applicants Report"));
+            //pdfdoc.Add(new Paragraph(""));
+
+            ////create pdf table
+            //PdfPTable pdfPTable = new PdfPTable(dt.Columns.Count);
+            //pdfPTable.WidthPercentage = 100;
+
+            ////add headers
+            //foreach (DataColumn column in dt.Columns)
+            //{
+            //    pdfPTable.AddCell(new Phrase(column.ColumnName));
+            //}
+
+            ////add data rows
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    foreach (object cell in row.ItemArray)
+            //    {
+            //        pdfPTable.AddCell(new Phrase(cell.ToString()));
+            //    }
+            //}
+            //pdfdoc.Add(pdfPTable);
+            //pdfdoc.Close();
+
+            ////send pdf to browser
+            //Response.ContentType = "application/pdf";
+            //Response.AddHeader("Content-Disposition", "attachment; filename=CompanyApplicantsReport.pdf");
+            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //Response.BinaryWrite(ms.ToArray());
+            //Response.End();
+
             getcon();
             da = new SqlDataAdapter("select a.ApplicationId as [Application Id], ISNULL(a.FullName, s.FullName) as [Student Name], ISNULL(a.StudentEmail, s.Email) as [Email], i.InternshipTitle as [Internship], c.c_company as [Company], a.AppliedDate as [Applied Date], ISNULL(a.Status, 'Applied') as [Status] from StudentApplications a inner join internship i on a.InternshipId = i.Id inner join c_registration c on i.CompanyId = c.CompanyId left join Students s on a.StudentId = s.StudentId where c.c_email='" + Session["company"] + "' order by a.ApplicationId desc", con);
             ds = new DataSet();

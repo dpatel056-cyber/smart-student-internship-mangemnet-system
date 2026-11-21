@@ -281,6 +281,7 @@
     <Content Include="css\student-saved-internships.css" />
     <Content Include="css\student-tasks.css" />
     <Content Include="js\student-certificates.js" />
+    <Content Include="js\student-certificate-view.js" />
     <Content Include="js\student-change-password.js" />
     <Content Include="js\student-company-details.js" />
     <Content Include="js\student-dashboard.js" />
@@ -346,6 +347,7 @@
     <Content Include="assets\search companies.png" />
     <Content Include="PublicPanel\stories.aspx" />
     <Content Include="StudentPanel\student-certificates.aspx" />
+    <Content Include="StudentPanel\student-apply-internship.aspx" />
     <Content Include="StudentPanel\student-certificate-view.aspx" />
     <Content Include="StudentPanel\student-change-password.aspx" />
     <Content Include="StudentPanel\student-company-details.aspx" />
@@ -815,6 +817,13 @@
     </Compile>
     <Compile Include="StudentPanel\student-certificates.aspx.designer.cs">
       <DependentUpon>student-certificates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StudentPanel\student-apply-internship.aspx.cs">
+      <DependentUpon>student-apply-internship.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentPanel\student-apply-internship.aspx.designer.cs">
+      <DependentUpon>student-apply-internship.aspx</DependentUpon>
     </Compile>
     <Compile Include="StudentPanel\student-certificate-view.aspx.cs">
       <DependentUpon>student-certificate-view.aspx</DependentUpon>

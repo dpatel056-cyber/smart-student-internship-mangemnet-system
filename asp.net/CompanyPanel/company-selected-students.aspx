@@ -59,18 +59,15 @@
                         <ItemTemplate>
                             <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: nowrap; white-space: nowrap;">
                                 <a href='company-offer-letters.aspx?appId=<%# Eval("ApplicationId") %>'
-                                   class="btn-table-action btn-action-offer"
->
+                                   class="btn-table-action btn-action-offer">
                                     <i class="fa-solid fa-file-signature"></i> Offer Letter
                                 </a>
                                 <a href='company-certificates.aspx?appId=<%# Eval("ApplicationId") %>'
-                                   class="btn-table-action btn-action-cert"
->
+                                   class="btn-table-action btn-action-cert">
                                     <i class="fa-solid fa-certificate"></i> Certificate
                                 </a>
                                 <a href='company-student-details.aspx?id=<%# Eval("StudentId") %>&appId=<%# Eval("ApplicationId") %>'
-                                   class="btn-table-action btn-action-view"
->
+                                   class="btn-table-action btn-action-view">
                                     <i class="fa-regular fa-eye"></i> View
                                 </a>
                             </div>

@@ -41,8 +41,6 @@ namespace asp.net
             }
         }
 
-
-
         void bindShortlisted()
         {
             getcon();
@@ -63,8 +61,6 @@ namespace asp.net
                 pnlNoShortlisted.Visible = true;
             }
         }
-
-
 
         protected void gvShortlisted_RowCommand(object sender, GridViewCommandEventArgs e)
         {

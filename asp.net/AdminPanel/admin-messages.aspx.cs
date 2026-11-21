@@ -11,7 +11,6 @@ namespace asp.net.css
     {
         SqlConnection con;
         SqlDataAdapter da;
-        DataSet ds;
         SqlCommand cmd;
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
@@ -53,6 +52,10 @@ namespace asp.net.css
         // =========================================================================
         void fillContacts()
         {
+            string search = ViewState["ContactSearch"].ToString();
+            string filter = ViewState["ContactFilter"].ToString();
+            string adminEmail = Session["admin"].ToString();
+
             DataTable dt = new DataTable();
 
             dt.Columns.Add("Id");
@@ -65,130 +68,90 @@ namespace asp.net.css
             dt.Columns.Add("LastMessage");
             dt.Columns.Add("UnreadCount", typeof(int));
 
-            string search = ViewState["ContactSearch"].ToString();
-            string filter = ViewState["ContactFilter"].ToString();
-            string adminEmail = Session["admin"].ToString();
-
             getcon();
 
-            // STUDENTS
-
+            // Load Students
             if (filter == "all" || filter == "Student")
             {
-                string q = "SELECT StudentId, FullName, Email, College, Course, CASE WHEN ProfilePhoto LIKE '~/%' THEN ProfilePhoto WHEN ProfilePhoto LIKE 'student_images/%' THEN '~/' + ProfilePhoto WHEN ProfilePhoto IS NOT NULL AND ProfilePhoto <> '' THEN '~/student_images/' + ProfilePhoto ELSE '~/student_images/default-avatar.png' END AS AvatarUrl FROM Students WHERE FullName LIKE '%" + search + "%' OR Email LIKE '%" + search + "%' OR College LIKE '%" + search + "%' OR Course LIKE '%" + search + "%' ORDER BY FullName ASC";
-
                 if (search == "")
                 {
-                    q = "SELECT StudentId, FullName, Email, College, Course, CASE WHEN ProfilePhoto LIKE '~/%' THEN ProfilePhoto WHEN ProfilePhoto LIKE 'student_images/%' THEN '~/' + ProfilePhoto WHEN ProfilePhoto IS NOT NULL AND ProfilePhoto <> '' THEN '~/student_images/' + ProfilePhoto ELSE '~/student_images/default-avatar.png' END AS AvatarUrl FROM Students ORDER BY FullName ASC";
+                    da = new SqlDataAdapter("SELECT StudentId, FullName, Email, College, Course, ProfilePhoto FROM Students ORDER BY FullName", con);
+                }
+                else
+                {
+                    da = new SqlDataAdapter("SELECT StudentId, FullName, Email, College, Course, ProfilePhoto FROM Students WHERE FullName LIKE '%" + search + "%' OR Email LIKE '%" + search + "%' OR College LIKE '%" + search + "%' OR Course LIKE '%" + search + "%' ORDER BY FullName", con);
                 }
 
-                da = new SqlDataAdapter(q, con);
-                ds = new DataSet();
-                da.Fill(ds);
+                DataTable dtStudents = new DataTable();
+                da.Fill(dtStudents);
 
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow r in dtStudents.Rows)
                 {
-                    dt.Rows.Add(
-                        ds.Tables[0].Rows[i]["StudentId"].ToString(),
-                        ds.Tables[0].Rows[i]["FullName"].ToString(),
-                        "Student",
-                        ds.Tables[0].Rows[i]["College"].ToString() + " · " + ds.Tables[0].Rows[i]["Course"].ToString(),
-                        ds.Tables[0].Rows[i]["Email"].ToString(),
-                        ds.Tables[0].Rows[i]["AvatarUrl"].ToString(),
-                        "",
-                        "Start a conversation",
-                        0
-                    );
+                    dt.Rows.Add(r["StudentId"], r["FullName"], "Student", r["College"] + " · " + r["Course"], r["Email"], r["ProfilePhoto"], "", "Start a conversation", 0);
                 }
             }
 
-            // COMPANIES
-
+            // Load Companies
             if (filter == "all" || filter == "Company")
             {
-                string q = "SELECT CompanyId, c_company, c_email, c_industry, c_city, CASE WHEN c_logo LIKE '~/%' THEN c_logo WHEN c_logo IS NOT NULL AND c_logo <> '' THEN '~/compnay_images/' + c_logo ELSE '~/compnay_images/default-company.png' END AS AvatarUrl FROM c_registration WHERE c_company LIKE '%" + search + "%' OR c_email LIKE '%" + search + "%' OR c_industry LIKE '%" + search + "%' OR c_city LIKE '%" + search + "%' ORDER BY c_company ASC";
-
                 if (search == "")
                 {
-                    q = "SELECT CompanyId, c_company, c_email, c_industry, c_city, CASE WHEN c_logo LIKE '~/%' THEN c_logo WHEN c_logo IS NOT NULL AND c_logo <> '' THEN '~/compnay_images/' + c_logo ELSE '~/compnay_images/default-company.png' END AS AvatarUrl FROM c_registration ORDER BY c_company ASC";
+                    da = new SqlDataAdapter("SELECT CompanyId, c_company, c_email, c_industry, c_city, c_logo FROM c_registration ORDER BY c_company", con);
+                }
+                else
+                {
+                    da = new SqlDataAdapter("SELECT CompanyId, c_company, c_email, c_industry, c_city, c_logo FROM c_registration WHERE c_company LIKE '%" + search + "%' OR c_email LIKE '%" + search + "%' OR c_industry LIKE '%" + search + "%' OR c_city LIKE '%" + search + "%' ORDER BY c_company", con);
                 }
 
-                da = new SqlDataAdapter(q, con);
-                ds = new DataSet();
-                da.Fill(ds);
+                DataTable dtCompanies = new DataTable();
+                da.Fill(dtCompanies);
 
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow r in dtCompanies.Rows)
                 {
-                    dt.Rows.Add(
-                        ds.Tables[0].Rows[i]["CompanyId"].ToString(),
-                        ds.Tables[0].Rows[i]["c_company"].ToString(),
-                        "Company",
-                        ds.Tables[0].Rows[i]["c_industry"].ToString() + " · " + ds.Tables[0].Rows[i]["c_city"].ToString(),
-                        ds.Tables[0].Rows[i]["c_email"].ToString(),
-                        ds.Tables[0].Rows[i]["AvatarUrl"].ToString(),
-                        "",
-                        "Start a conversation",
-                        0
-                    );
+                    dt.Rows.Add(r["CompanyId"], r["c_company"], "Company", r["c_industry"] + " · " + r["c_city"], r["c_email"], r["c_logo"], "", "Start a conversation", 0);
                 }
             }
 
-            // LAST MESSAGE AND UNREAD COUNT
-
-            for (int i = 0; i < dt.Rows.Count; i++)
+            // 3. Update Last Message & Unread Count for each contact
+            foreach (DataRow r in dt.Rows)
             {
-                string email = dt.Rows[i]["Email"].ToString();
+                string email = r["Email"].ToString();
 
-                if (email != "")
+                // Last Message
+                da = new SqlDataAdapter("SELECT TOP 1 MessageText, SentAt FROM ChatMessages WHERE (SenderEmail='" + email + "' AND ReceiverEmail='" + adminEmail + "') OR (SenderEmail='" + adminEmail + "' AND ReceiverEmail='" + email + "') ORDER BY MessageId DESC", con);
+
+                DataTable dtLast = new DataTable();
+                da.Fill(dtLast);
+
+                if (dtLast.Rows.Count > 0)
                 {
-                    da = new SqlDataAdapter("SELECT TOP 1 MessageText, SentAt FROM ChatMessages WHERE ((SenderEmail = '" + email + "' AND (ReceiverEmail = '" + adminEmail + "' OR ReceiverRole = 'Admin')) OR ((SenderEmail = '" + adminEmail + "' OR SenderRole = 'Admin') AND ReceiverEmail = '" + email + "')) ORDER BY MessageId DESC", con);
-                    ds = new DataSet();
-                    da.Fill(ds);
+                    r["LastMessage"] = dtLast.Rows[0]["MessageText"];
 
-                    if (ds.Tables[0].Rows.Count > 0)
-                    {
-                        dt.Rows[i]["LastMessage"] = ds.Tables[0].Rows[0]["MessageText"].ToString();
+                    DateTime time = Convert.ToDateTime(dtLast.Rows[0]["SentAt"]);
 
-                        DateTime time = Convert.ToDateTime(ds.Tables[0].Rows[0]["SentAt"]);
-
-                        if (time.Date == DateTime.Today)
-                        {
-                            dt.Rows[i]["LastTime"] = time.ToString("hh:mm tt");
-                        }
-                        else
-                        {
-                            dt.Rows[i]["LastTime"] = time.ToString("dd MMM");
-                        }
-                    }
-
-                    // UNREAD COUNT
-
-                    da = new SqlDataAdapter("SELECT COUNT(*) FROM ChatMessages WHERE SenderEmail = '" + email + "' AND (ReceiverEmail = '" + adminEmail + "' OR ReceiverRole = 'Admin') AND IsRead = 0", con);
-                    ds = new DataSet();
-                    da.Fill(ds);
-
-                    dt.Rows[i]["UnreadCount"] = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
+                    if (time.Date == DateTime.Today)
+                        r["LastTime"] = time.ToString("hh:mm tt");
+                    else
+                        r["LastTime"] = time.ToString("dd MMM");
                 }
+
+                // Unread Count
+                da = new SqlDataAdapter("SELECT COUNT(*) FROM ChatMessages WHERE SenderEmail='" + email + "' AND ReceiverEmail='" + adminEmail + "' AND IsRead=0", con);
+
+                DataTable dtCount = new DataTable();
+                da.Fill(dtCount);
+
+                r["UnreadCount"] = dtCount.Rows[0][0];
             }
 
-            // TOTAL STUDENTS
+            // 4. Update Header Badge & Dropdown Counts
+            da = new SqlDataAdapter("SELECT (SELECT COUNT(*) FROM Students), (SELECT COUNT(*) FROM c_registration)", con);
 
-            da = new SqlDataAdapter("SELECT COUNT(*) FROM Students", con);
-            ds = new DataSet();
-            da.Fill(ds);
+            DataTable dtTotals = new DataTable();
+            da.Fill(dtTotals);
 
-            int totalStudents = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
-
-            // TOTAL COMPANIES
-
-            da = new SqlDataAdapter("SELECT COUNT(*) FROM c_registration", con);
-            ds = new DataSet();
-            da.Fill(ds);
-
-            int totalCompanies = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
-
-            // TOTAL CONTACTS
-
+            int totalStudents = (int)dtTotals.Rows[0][0];
+            int totalCompanies = (int)dtTotals.Rows[0][1];
             int totalContacts = totalStudents + totalCompanies;
 
             lblTotalContacts.Text = totalContacts + " Contacts";
@@ -197,49 +160,43 @@ namespace asp.net.css
             ddlRole.Items[1].Text = "Students (" + totalStudents + ")";
             ddlRole.Items[2].Text = "Companies (" + totalCompanies + ")";
 
-            // BIND CONTACTS
-
             dlContacts.DataSource = dt;
             dlContacts.DataBind();
 
-            pnlNoContacts.Visible = dt.Rows.Count == 0;
-
+            if (dt.Rows.Count == 0)
+                pnlNoContacts.Visible = true;
+            else
+                pnlNoContacts.Visible = false;
         }
 
         // =========================================================================
-        // 2. SELECT CONTACT (STUDENT OR COMPANY)
+        // 2. SELECT CONTACT
         // =========================================================================
-        // SELECT CONTACT (STUDENT OR COMPANY)
-
         protected void dlContacts_ItemCommand(object source, DataListCommandEventArgs e)
         {
             if (e.CommandName == "SelectContact")
             {
                 string[] parts = e.CommandArgument.ToString().Split('|');
 
-                if (parts.Length >= 6)
-                {
-                    Session["SelectedContactId"] = parts[0];
-                    Session["SelectedContactName"] = parts[1];
-                    Session["SelectedContactRole"] = parts[2];
-                    Session["SelectedContactSubtitle"] = parts[3];
-                    Session["SelectedContactEmail"] = parts[4];
-                    Session["SelectedContactAvatar"] = parts[5];
+                Session["SelectedContactId"] = parts[0];
+                Session["SelectedContactName"] = parts[1];
+                Session["SelectedContactRole"] = parts[2];
+                Session["SelectedContactSubtitle"] = parts[3];
+                Session["SelectedContactEmail"] = parts[4];
+                Session["SelectedContactAvatar"] = parts[5];
 
-                    txtMessage.Text = "";
-                    lblSendError.Visible = false;
+                txtMessage.Text = "";
+                lblSendError.Visible = false;
 
-                    loadConversation();
-                    fillContacts();
-                    ScrollToBottom();
-                }
+                loadConversation();
+                fillContacts();
+                ScrollToBottom();
             }
         }
-        // =========================================================================
-        // 3. LOAD CHAT CONVERSATION FOR SELECTED CONTACT
-        // =========================================================================
-        // LOAD CHAT CONVERSATION
 
+        // =========================================================================
+        // 3. LOAD CHAT CONVERSATION
+        // =========================================================================
         void loadConversation()
         {
             if (Session["SelectedContactEmail"] == null)
@@ -260,54 +217,26 @@ namespace asp.net.css
                 string adminEmail = Session["admin"].ToString();
 
                 lblActiveName.Text = contactName;
-                lblActiveRole.Text = contactRole.ToUpper();
+                lblActiveRole.Text = contactRole;
+                lblActiveRole.CssClass = contactRole == "Student" ? "role-pill-mini role-st" : "role-pill-mini role-co";
+                lblActiveSubtitle.Text = contactSub;
 
-                if (contactRole == "Student")
-                {
-                    lblActiveRole.CssClass = "role-pill-mini role-st";
-                }
-                else
-                {
-                    lblActiveRole.CssClass = "role-pill-mini role-co";
-                }
+                DataTable dtAvatar = new DataTable();
+                dtAvatar.Columns.Add("AvatarUrl");
+                dtAvatar.Rows.Add(contactAvatar);
 
-                if (contactSub != "")
-                {
-                    lblActiveSubtitle.Text = contactSub;
-                }
-                else
-                {
-                    lblActiveSubtitle.Text = contactEmail;
-                }
+                DataListActiveAvatar.DataSource = dtAvatar;
+                DataListActiveAvatar.DataBind();
 
                 getcon();
 
-                // Active Contact Avatar DataList
-                if (contactRole == "Student")
-                {
-                    da = new SqlDataAdapter("SELECT CASE WHEN ProfilePhoto LIKE '~/%' THEN ProfilePhoto WHEN ProfilePhoto LIKE 'student_images/%' THEN '~/' + ProfilePhoto WHEN ProfilePhoto IS NOT NULL AND ProfilePhoto <> '' THEN '~/student_images/' + ProfilePhoto ELSE '~/student_images/default-avatar.png' END AS AvatarUrl FROM Students WHERE Email='" + contactEmail + "'", con);
-                }
-                else
-                {
-                    da = new SqlDataAdapter("SELECT CASE WHEN c_logo LIKE '~/%' THEN c_logo WHEN c_logo IS NOT NULL AND c_logo <> '' THEN '~/compnay_images/' + c_logo ELSE '~/compnay_images/default-company.png' END AS AvatarUrl FROM c_registration WHERE c_email='" + contactEmail + "'", con);
-                }
-                DataSet dsAvatar = new DataSet();
-                da.Fill(dsAvatar);
-                DataListActiveAvatar.DataSource = dsAvatar;
-                DataListActiveAvatar.DataBind();
-
-                // MARK MESSAGES AS READ
-
-                cmd = new SqlCommand("UPDATE ChatMessages SET IsRead = 1 WHERE SenderEmail = '" + contactEmail + "' AND (ReceiverEmail = '" + adminEmail + "' OR ReceiverRole = 'Admin') AND IsRead = 0", con);
+                cmd = new SqlCommand("UPDATE ChatMessages SET IsRead=1 WHERE SenderEmail='" + contactEmail + "' AND ReceiverEmail='" + adminEmail + "' AND IsRead=0", con);
                 cmd.ExecuteNonQuery();
 
-                // LOAD MESSAGES
+                da = new SqlDataAdapter("SELECT MessageId, SenderRole, SenderName, SenderEmail, MessageText, SentAt FROM ChatMessages WHERE (SenderEmail='" + contactEmail + "' AND ReceiverEmail='" + adminEmail + "') OR (SenderEmail='" + adminEmail + "' AND ReceiverEmail='" + contactEmail + "') ORDER BY MessageId", con);
 
-                string q = "SELECT MessageId, SenderRole, SenderName, SenderEmail, MessageText, SentAt FROM ChatMessages WHERE ((SenderEmail = '" + contactEmail + "' AND (ReceiverEmail = '" + adminEmail + "' OR ReceiverRole = 'Admin')) OR ((SenderEmail = '" + adminEmail + "' OR SenderRole = 'Admin') AND ReceiverEmail = '" + contactEmail + "')) ORDER BY MessageId ASC";
-
-                da = new SqlDataAdapter(q, con);
-                ds = new DataSet();
-                da.Fill(ds);
+                DataTable dtRaw = new DataTable();
+                da.Fill(dtRaw);
 
                 DataTable dtMsg = new DataTable();
 
@@ -318,74 +247,39 @@ namespace asp.net.css
                 dtMsg.Columns.Add("SentTime");
                 dtMsg.Columns.Add("IsOutgoing", typeof(bool));
 
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow r in dtRaw.Rows)
                 {
-                    string role = ds.Tables[0].Rows[i]["SenderRole"].ToString();
-                    string senderEmail = ds.Tables[0].Rows[i]["SenderEmail"].ToString();
+                    bool isOut = r["SenderEmail"].ToString() == adminEmail;
 
-                    bool isOut = false;
-
-                    if (role == "Admin" || senderEmail == adminEmail)
-                    {
-                        isOut = true;
-                    }
-
-                    string senderName = ds.Tables[0].Rows[i]["SenderName"].ToString();
+                    string senderName = r["SenderName"].ToString();
 
                     if (isOut)
-                    {
                         senderName = "You";
-                    }
 
-                    string sentTime = "Just now";
+                    DateTime time = Convert.ToDateTime(r["SentAt"]);
+                    string sentTime = time.ToString("dd MMM, hh:mm tt");
 
-                    if (ds.Tables[0].Rows[i]["SentAt"] != DBNull.Value)
-                    {
-                        DateTime time = Convert.ToDateTime(ds.Tables[0].Rows[i]["SentAt"]);
+                    if (time.Date == DateTime.Today)
+                        sentTime = time.ToString("hh:mm tt");
 
-                        if (time.Date == DateTime.Today)
-                        {
-                            sentTime = time.ToString("hh:mm tt");
-                        }
-                        else
-                        {
-                            sentTime = time.ToString("dd MMM, hh:mm tt");
-                        }
-                    }
-
-                    dtMsg.Rows.Add(
-                        ds.Tables[0].Rows[i]["MessageId"].ToString(),
-                        senderName,
-                        role,
-                        ds.Tables[0].Rows[i]["MessageText"].ToString(),
-                        sentTime,
-                        isOut
-                    );
+                    dtMsg.Rows.Add(r["MessageId"], senderName, r["SenderRole"], r["MessageText"], sentTime, isOut);
                 }
 
                 dlMessages.DataSource = dtMsg;
                 dlMessages.DataBind();
 
                 if (dtMsg.Rows.Count == 0)
-                {
                     pnlNoMessages.Visible = true;
-                }
                 else
-                {
                     pnlNoMessages.Visible = false;
-                }
-
-                con.Close();
 
                 ScrollToBottom();
             }
         }
 
         // =========================================================================
-        // 4. SEND MESSAGE (DIRECT INSERT INTO ChatMessages)
+        // 4. SEND MESSAGE
         // =========================================================================
-        // SEND MESSAGE
-
         protected void btnSend_Click(object sender, EventArgs e)
         {
             if (Session["SelectedContactEmail"] == null)
@@ -400,8 +294,7 @@ namespace asp.net.css
             }
             else
             {
-                lblSendError.Visible = false;
-
+                string msg = txtMessage.Text;
                 string contactEmail = Session["SelectedContactEmail"].ToString();
                 string contactName = Session["SelectedContactName"].ToString();
                 string contactRole = Session["SelectedContactRole"].ToString();
@@ -409,13 +302,12 @@ namespace asp.net.css
 
                 getcon();
 
-                cmd = new SqlCommand("INSERT INTO ChatMessages(SenderRole, SenderEmail, SenderName, ReceiverRole, ReceiverEmail, ReceiverName, MessageText, IsRead, SentAt) VALUES('Admin', '" + adminEmail + "', 'Platform Admin', '" + contactRole + "', '" + contactEmail + "', '" + contactName + "', '" + txtMessage.Text + "', 0, GETDATE())", con);
+                cmd = new SqlCommand("INSERT INTO ChatMessages(SenderRole, SenderEmail, SenderName, ReceiverRole, ReceiverEmail, ReceiverName, MessageText, IsRead, SentAt) VALUES('Admin', '" + adminEmail + "', 'Platform Admin', '" + contactRole + "', '" + contactEmail + "', '" + contactName + "', '" + msg + "', 0, GETDATE())", con);
 
                 cmd.ExecuteNonQuery();
 
-                con.Close();
-
                 txtMessage.Text = "";
+                lblSendError.Visible = false;
 
                 loadConversation();
                 fillContacts();
@@ -424,73 +316,42 @@ namespace asp.net.css
         }
 
         // =========================================================================
-        // 5. SEARCH & FILTER
+        // 5. SEARCH & FILTERS
         // =========================================================================
-        // SEARCH CONTACT
-
         protected void btnSearch_Click(object sender, ImageClickEventArgs e)
         {
             ViewState["ContactSearch"] = txtSearch.Text;
             ViewState["ContactFilter"] = ddlRole.SelectedValue;
-
             fillContacts();
         }
-
-
-        // FILTER CONTACT
 
         protected void ddlRole_SelectedIndexChanged(object sender, EventArgs e)
         {
             ViewState["ContactFilter"] = ddlRole.SelectedValue;
             ViewState["ContactSearch"] = txtSearch.Text;
-
             fillContacts();
         }
-
-
-        // CLEAR FILTERS
 
         protected void btnClearFilters_Click(object sender, ImageClickEventArgs e)
         {
             txtSearch.Text = "";
             ddlRole.SelectedIndex = 0;
-
             ViewState["ContactSearch"] = "";
             ViewState["ContactFilter"] = "all";
-
             fillContacts();
         }
 
         // =========================================================================
         // 6. HELPERS
         // =========================================================================
-        // CHECK SELECTED CONTACT
-
         public bool IsSelectedContact(string contactEmail)
         {
-            if (Session["SelectedContactEmail"] != null)
-            {
-                if (Session["SelectedContactEmail"].ToString() == contactEmail)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return Session["SelectedContactEmail"] != null && Session["SelectedContactEmail"].ToString() == contactEmail;
         }
-
-
-        // SCROLL CHAT TO BOTTOM
 
         void ScrollToBottom()
         {
-            ScriptManager.RegisterStartupScript(
-                this,
-                GetType(),
-                "ScrollChatBottom",
-                "var el = document.getElementById('chatMessagesScroll'); if(el){el.scrollTop = el.scrollHeight;}",
-                true
-            );
+            ScriptManager.RegisterStartupScript(this, GetType(), "ScrollChatBottom", "var el = document.getElementById('chatMessagesScroll'); if(el){el.scrollTop = el.scrollHeight;}", true);
         }
     }
 }

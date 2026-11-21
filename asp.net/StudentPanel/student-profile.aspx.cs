@@ -15,12 +15,25 @@ namespace asp.net.js
         DataSet ds;
         SqlCommand cmd;
 
+        string nm, path;
+
         string s = ConfigurationManager.ConnectionStrings["SimsConnectionString"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Page.Form != null)
+            {
+                Page.Form.Enctype = "multipart/form-data";
+            }
+
             if (Session["student"] != null)
             {
+                if (Request.QueryString["download"] == "1")
+                {
+                    DownloadStudentResume();
+                    return;
+                }
+
                 getcon();
                 cmd = new SqlCommand("select * from Students where Email='" + Session["student"] + "' or EnrollmentNo='" + Session["student"] + "'", con);
                 da = new SqlDataAdapter(cmd);
@@ -109,6 +122,7 @@ namespace asp.net.js
                 lblEduCgpa.Text = ds.Tables[0].Rows[0]["CGPA"].ToString() + " CGPA";
                 lblEduGraduationYear.Text = ds.Tables[0].Rows[0]["GraduationYear"].ToString();
 
+                // Resume
                 string resume = ds.Tables[0].Rows[0]["Resume"].ToString();
 
                 if (resume != "")
@@ -116,31 +130,10 @@ namespace asp.net.js
                     pnlResumeData.Visible = true;
                     pnlResumeUploadArea.Visible = false;
 
-                    string fileName = Path.GetFileName(resume);
-                    lblResumeFileName.Text = fileName;
+                    lblResumeFileName.Text = Path.GetFileName(resume);
+                    lblResumeDate.Text = "Verified PDF";
 
-                    string path1 = Server.MapPath("~/StudentUploads/" + fileName);
-                    string path2 = Server.MapPath("~/resume_upload/" + fileName);
-                    string resumeDateStr = "";
-
-                    if (File.Exists(path1))
-                    {
-                        resumeDateStr = File.GetLastWriteTime(path1).ToString("dd-MM-yyyy");
-                        hlViewResume.NavigateUrl = "~/StudentUploads/" + fileName;
-                    }
-                    else if (File.Exists(path2))
-                    {
-                        resumeDateStr = File.GetLastWriteTime(path2).ToString("dd-MM-yyyy");
-                        hlViewResume.NavigateUrl = "~/resume_upload/" + fileName;
-                    }
-                    else
-                    {
-                        resumeDateStr = DateTime.Now.ToString("dd-MM-yyyy");
-                        hlViewResume.NavigateUrl = "~/StudentUploads/" + fileName;
-                    }
-
-                    lblResumeDate.Text = resumeDateStr;
-                    hlViewResume.Visible = true;
+                    hlViewResume.NavigateUrl = "~/resume_upload/" + Path.GetFileName(resume);
                 }
                 else
                 {
@@ -410,103 +403,67 @@ namespace asp.net.js
                 showProjects();
             }
         }
+        void upload()
+        {
+            path = Path.GetExtension(FileUpload1.FileName);
+            if (path == ".pdf" || path == ".PDF")
+            {
+                nm = "resume_upload/" + FileUpload1.FileName;
+
+                FileUpload1.SaveAs(Server.MapPath(nm));
+            }
+            else if (path != "")
+            {
+                Response.Write("<script>alert('Only upload pdf file.');</script>");
+            }
+        }
+
         protected void btnUploadResume_Click(object sender, EventArgs e)
         {
-            if (FileUpload1.HasFile)
+            upload();
+            getcon();
+
+            if (nm != null)
             {
-                string ext = Path.GetExtension(FileUpload1.FileName).ToLower();
-
-                if (ext != ".pdf")
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "error", "alert('Please select PDF file only');", true);
-                    return;
-                }
-
-                string folder = Server.MapPath("~/StudentUploads/");
-
-                if (!Directory.Exists(folder))
-                    Directory.CreateDirectory(folder);
-
-                string studentId = GetStudentId();
-
-                string fileName = "resume_student_" + studentId + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".pdf";
-
-                FileUpload1.SaveAs(Path.Combine(folder, fileName));
-
-                getcon();
-
-                cmd = new SqlCommand("update Students set Resume='" + fileName + "' where Email='" + Session["student"] + "' or EnrollmentNo='" + Session["student"] + "'", con);
-
+                cmd = new SqlCommand("update Students set Resume='" + nm + "' where Email='" + Session["student"] + "' or EnrollmentNo='" + Session["student"] + "'", con);
                 cmd.ExecuteNonQuery();
-
                 loadStudentProfile();
             }
         }
-        protected void btnDownloadResume_Click(object sender, EventArgs e)
+        void DownloadStudentResume()
         {
             getcon();
 
-            cmd = new SqlCommand("select Resume from Students where Email='" + Session["student"] + "' or EnrollmentNo='" + Session["student"] + "'", con);
-
-            da = new SqlDataAdapter(cmd);
+            da = new SqlDataAdapter("SELECT Resume FROM Students WHERE Email='" + Session["student"] + "' or EnrollmentNo='" + Session["student"] + "'", con);
             ds = new DataSet();
             da.Fill(ds);
 
             if (ds.Tables[0].Rows.Count > 0)
             {
-                string fileName = ds.Tables[0].Rows[0]["Resume"].ToString();
+                string resume = ds.Tables[0].Rows[0]["Resume"].ToString();
+                string fileName = Path.GetFileName(resume);
+                string path = Server.MapPath("~/resume_upload/" + fileName);
 
-                if (fileName.StartsWith("~"))
+                if (resume != "")
                 {
-                    fileName = Path.GetFileName(fileName);
-                }
-
-                string path = Server.MapPath("~/StudentUploads/" + fileName);
-
-                if (File.Exists(path))
-                {
-                    Response.Clear();
                     Response.ContentType = "application/pdf";
                     Response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName);
-
                     Response.TransmitFile(path);
                     Response.End();
                 }
             }
         }
+
+        protected void btnDownloadResume_Click(object sender, EventArgs e)
+        {
+            DownloadStudentResume();
+        }
         protected void btnDeleteResume_Click(object sender, EventArgs e)
         {
             getcon();
-
-            cmd = new SqlCommand("select Resume from Students where Email='" + Session["student"] + "' or EnrollmentNo='" + Session["student"] + "'", con);
-
-            da = new SqlDataAdapter(cmd);
-            ds = new DataSet();
-            da.Fill(ds);
-
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                string fileName = ds.Tables[0].Rows[0]["Resume"].ToString();
-
-                if (fileName != "")
-                {
-                    if (fileName.StartsWith("~"))
-                    {
-                        fileName = Path.GetFileName(fileName);
-                    }
-
-                    string path = Server.MapPath("~/StudentUploads/" + fileName);
-
-                    if (File.Exists(path))
-                        File.Delete(path);
-                }
-            }
-
             cmd = new SqlCommand("update Students set Resume=NULL where Email='" + Session["student"] + "' or EnrollmentNo='" + Session["student"] + "'", con);
-
             cmd.ExecuteNonQuery();
-
-            loadStudentProfile();
+            Response.Redirect("student-profile.aspx");
         }
     }
 }
